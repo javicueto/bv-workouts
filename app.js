@@ -281,8 +281,36 @@
   document.getElementById('foot-meta').textContent =
     'exported ' + fmtDate((DATA.exported_at || '').slice(0, 10));
 
+  /* Are the local video files here? One probe answers it for the whole session.
+     Without this, the published site (where videos/ and thumbs/ are absent by
+     design) would fire a 404 for all 161 posters before falling back one by one,
+     which flickers and wastes requests. The per-image fallback above stays as a
+     safety net for the odd missing file. */
+  function detectLocalMedia(done) {
+    var first = null;
+    for (var k in DATA.exercises) {
+      if (DATA.exercises[k].has_local_thumb) { first = DATA.exercises[k]; break; }
+    }
+    if (!first) { useLocalMedia = false; return done(); }
+
+    var settled = false;
+    function finish(ok) {
+      if (settled) return;
+      settled = true;
+      useLocalMedia = ok;
+      done();
+    }
+    var img = new Image();
+    img.onload = function () { finish(true); };
+    img.onerror = function () { finish(false); };
+    // If the probe hangs, assume remote — YouTube plays either way.
+    setTimeout(function () { finish(false); }, 3000);
+    img.src = 'thumbs/' + first.id + '.jpg';
+  }
+
   // On the published site nothing renders until the password gate is cleared.
   // Locally (file://) TCAuth reports unlocked straight away.
-  if (window.TCAuth) window.TCAuth.onUnlock(route);
-  else route();
+  function start() { detectLocalMedia(route); }
+  if (window.TCAuth) window.TCAuth.onUnlock(start);
+  else start();
 })();
