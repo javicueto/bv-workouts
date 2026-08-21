@@ -1,0 +1,11 @@
+# The coach's exercise videos and the poster frames pulled from them stay OFF
+# GitHub: the repo is public, they are not ours to redistribute, and they are
+# already on YouTube — which is what the published site embeds. The local copy
+# in Google Drive keeps them for offline use in the gym.
+videos/
+thumbs/
+
+# Local run logs
+logs/
+
+.DS_Store

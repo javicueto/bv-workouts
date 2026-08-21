@@ -1,0 +1,28 @@
+{
+  "_note": "Blocks with no linked exercise in TrueCoach: the coach only links exercises on circuit blocks, so a single-movement block carries the movement in its NAME. These map that block name to the exercise in the coach's library (exact match on a normalised name, verified against /proxy/api/exercises on 2026-08-21). scripts/export_truecoach.js regenerates this resolution in the browser on every refresh; scripts/build_site.py applies this file so the mapping also survives without one.",
+  "_source": "app.truecoach.co /proxy/api/exercises (1754 entries), matched 2026-08-21",
+  "_ambiguous": {
+    "heels elevated back squat": "3 library entries (14602062, 15545314, 14318982) — took the newest, 15545314. Check this one if the video looks wrong."
+  },
+  "map": {
+    "BB Back squat with miniband": { "id": "20100237", "name": "BB Back squat with miniband", "url": "https://youtu.be/W9WFQpUyB-k" },
+    "BB Bench press":              { "id": "11611402", "name": "BB Bench press",              "url": "https://youtu.be/fECDepX8PBg" },
+    "BB shoulder press":           { "id": "11250706", "name": "BB shoulder press",           "url": "https://youtu.be/5yWaNOvgFCM" },
+    "Chin up":                     { "id": "12777905", "name": "Chin up",                     "url": "https://youtu.be/nMngQ4nxUU0" },
+    "DB Bulgarian squat":          { "id": "11250969", "name": "DB Bulgarian squat",          "url": "https://youtu.be/nrJBgcFPfwU" },
+    "DB Incline Bench Press":      { "id": "11355605", "name": "DB Incline Bench Press",      "url": "https://youtu.be/ARh8hD2mwFI" },
+    "DB bench lower row":          { "id": "11292312", "name": "DB bench lower row",          "url": "https://youtu.be/HyRL2hnixKs" },
+    "Pull up":                     { "id": "12720641", "name": "Pull up",                     "url": "https://youtu.be/gfRjCi4JSM8" },
+    "bb reverse lunge":            { "id": "11373004", "name": "bb reverse lunge",            "url": "https://youtu.be/gELwiofKM5Y" },
+    "cable rope pull down":        { "id": "11292370", "name": "cable rope pull down",        "url": "https://youtu.be/9E4igjdp1co" },
+    "db knee banded split squat":  { "id": "14595477", "name": "db knee banded split squat",  "url": "https://youtu.be/hsOnxW_rm8s" },
+    "half kneeling db shoulder press": { "id": "11291184", "name": "half kneeling db shoulder press", "url": "https://youtu.be/4DSPCknhUP4" },
+    "heels elevated back squat":   { "id": "15545314", "name": "heels elevated back squat",   "url": "https://youtu.be/o5WxCJfT6WM" },
+    "multipower hip trust":        { "id": "14695037", "name": "multipower hip trust",        "url": "https://youtu.be/AQH-q9AquAQ" },
+    "row machine":                 { "id": "11379991", "name": "row machine",                 "url": "https://youtu.be/sK9zqQGIwkY" },
+    "single arm floor press":      { "id": "11307805", "name": "single arm floor press",      "url": "https://youtu.be/ZeHDXjQfpW0" },
+    "supinated grip shoulder blade depression": { "id": "11372777", "name": "supinated grip shoulder blade depression", "url": "https://youtu.be/nE7dKMK6nOY" },
+    "trx shoulder depression and row": { "id": "11494918", "name": "trx shoulder depression and row", "url": "https://youtu.be/XT6O63xPYy4" },
+    "trx single arm row":          { "id": "11473108", "name": "trx single arm row",          "url": "https://youtu.be/2lFpz7UpjHc" }
+  }
+}

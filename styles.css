@@ -1,0 +1,499 @@
+/* Workouts — personal training site.
+   Dark by design: it is read on a phone, in a gym, one-handed.
+   No web fonts, no CDN: the whole point is that it works with no signal. */
+
+:root {
+  /* 4pt scale */
+  --space-1: 4px;  --space-2: 8px;  --space-3: 12px; --space-4: 16px;
+  --space-5: 20px; --space-6: 24px; --space-8: 32px; --space-10: 40px;
+  --space-12: 48px; --space-16: 64px; --space-20: 80px;
+
+  --bg:        #0e1116;
+  --bg-raised: #161b23;
+  --bg-sunken: #0a0d11;
+  --line:      #232b36;
+  --line-soft: #1b222b;
+
+  --text:      #e8edf4;
+  --text-dim:  #9aa7b8;
+  --text-faint:#66738a;
+
+  --accent:      #ff6b3d;
+  --accent-soft: #ff6b3d1f;
+  --cool:        #4dd4c4;
+
+  --radius:    14px;
+  --radius-sm: 9px;
+
+  --font: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  --max: 1180px;
+}
+
+* { box-sizing: border-box; }
+
+html { -webkit-text-size-adjust: 100%; }
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font);
+  font-size: 17px;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  padding-bottom: env(safe-area-inset-bottom);
+}
+
+a { color: inherit; }
+
+/* ---------------------------------------------------------------- topbar */
+
+.topbar {
+  position: sticky; top: 0; z-index: 50;
+  display: flex; align-items: center; justify-content: space-between;
+  gap: var(--space-4);
+  padding: var(--space-3) var(--space-4);
+  padding-top: calc(var(--space-3) + env(safe-area-inset-top));
+  background: #0e1116e6;
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--line-soft);
+}
+
+.topbar__home {
+  display: flex; align-items: center; gap: var(--space-3);
+  text-decoration: none; min-width: 0;
+}
+
+.topbar__mark {
+  width: 12px; height: 12px; flex: none;
+  border-radius: 3px;
+  background: var(--accent);
+  box-shadow: 0 0 0 4px var(--accent-soft);
+}
+
+.topbar__title {
+  font-size: 16px; font-weight: 650; letter-spacing: -0.01em;
+  /* Never wrap to a second line and grow the bar; if the nav leaves too little
+     room on a very narrow phone, truncate rather than push the page wider. */
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Beside the nav pills there is no room for the whole wordmark on a phone, so
+   below 600px it abbreviates: "B-V Workouts". The <h1> on the page carries the
+   full title, so nothing is lost. */
+.topbar__title-rest { display: none; }
+
+@media (min-width: 600px) {
+  .topbar__title-short { display: none; }
+  .topbar__title-rest { display: inline; }
+}
+
+.topbar__nav { display: flex; gap: var(--space-1); }
+
+.topbar__nav a {
+  padding: var(--space-2) var(--space-3);
+  border-radius: 99px;
+  font-size: 14px; font-weight: 550;
+  color: var(--text-dim);
+  text-decoration: none;
+}
+
+.topbar__nav a[aria-current="page"] {
+  background: var(--bg-raised);
+  color: var(--text);
+}
+
+/* On a phone the nav pills would squeeze the wordmark into an ellipsis, so they
+   get smaller and the wordmark drops a point. Measured at 320 and 375: both fit
+   "Beach Volleyball" with room to spare. */
+@media (max-width: 599px) {
+  .topbar { padding-left: var(--space-3); padding-right: var(--space-3); }
+  .topbar__home { gap: var(--space-2); }
+  .topbar__title { font-size: 15px; }
+  .topbar__nav a { font-size: 13px; padding: var(--space-2) var(--space-3); }
+}
+
+@media (max-width: 359px) {
+  .topbar__title { font-size: 14px; }
+  .topbar__nav a { padding: var(--space-2); }
+}
+
+/* ------------------------------------------------------------------ page */
+
+main {
+  max-width: var(--max);
+  margin: 0 auto;
+  padding: var(--space-6) var(--space-4) var(--space-16);
+  outline: none;
+}
+
+@media (min-width: 768px) {
+  main { padding: var(--space-10) var(--space-6) var(--space-20); }
+}
+
+.page-head { margin-bottom: var(--space-8); }
+
+.page-head h1 {
+  margin: 0 0 var(--space-2);
+  font-size: clamp(28px, 7vw, 40px);
+  font-weight: 700; letter-spacing: -0.025em;
+  line-height: 1.1;
+}
+
+.page-head p { margin: 0; color: var(--text-dim); font-size: 15px; }
+
+.eyebrow {
+  display: block;
+  font-size: 12px; font-weight: 700;
+  letter-spacing: 0.09em; text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: var(--space-3);
+}
+
+/* --------------------------------------------------------- block listing */
+
+.block {
+  display: grid;
+  gap: var(--space-4);
+  padding: var(--space-6) 0;
+  border-top: 1px solid var(--line-soft);
+}
+
+@media (min-width: 700px) {
+  /* Deliberately asymmetric: the block label is a narrow rail, the two
+     workouts take the rest. Never three equal columns. */
+  .block {
+    grid-template-columns: 148px 1fr;
+    gap: var(--space-6);
+    padding: var(--space-8) 0;
+  }
+}
+
+.block__label { display: flex; align-items: baseline; gap: var(--space-3); }
+
+@media (min-width: 700px) {
+  .block__label { flex-direction: column; gap: var(--space-1); position: sticky; top: 84px; align-self: start; }
+}
+
+.block__num {
+  font-size: clamp(34px, 9vw, 52px);
+  font-weight: 700; letter-spacing: -0.04em;
+  line-height: 1;
+  color: var(--text-faint);
+}
+
+.block--current .block__num { color: var(--accent); }
+
+.block__meta { font-size: 13px; color: var(--text-faint); }
+
+.block__cards { display: grid; gap: var(--space-4); }
+
+@media (min-width: 520px) {
+  .block__cards { grid-template-columns: 1fr 1fr; }
+}
+
+/* ------------------------------------------------------------------ card */
+
+.card {
+  display: block;
+  background: var(--bg-raised);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: var(--space-5);
+  text-decoration: none;
+  transition: border-color .15s, transform .15s;
+}
+
+.card:hover { border-color: #3a4655; transform: translateY(-2px); }
+.card:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+.card__key {
+  font-size: 22px; font-weight: 700; letter-spacing: -0.02em;
+  margin-bottom: var(--space-3);
+}
+
+.card__list {
+  margin: 0; padding: 0; list-style: none;
+  display: grid; gap: var(--space-2);
+}
+
+.card__list li {
+  display: grid; grid-template-columns: 18px 1fr; gap: var(--space-2);
+  font-size: 14px; line-height: 1.35;
+  color: var(--text-dim);
+}
+
+.card__letter { color: var(--accent); font-weight: 700; font-size: 12px; padding-top: 2px; }
+
+.card__foot {
+  margin-top: var(--space-4);
+  padding-top: var(--space-3);
+  border-top: 1px solid var(--line-soft);
+  font-size: 12px; color: var(--text-faint);
+  display: flex; justify-content: space-between; gap: var(--space-2);
+}
+
+/* --------------------------------------------------------------- workout */
+
+.wk-head {
+  display: flex; flex-wrap: wrap; align-items: flex-end;
+  justify-content: space-between; gap: var(--space-4);
+  margin-bottom: var(--space-8);
+}
+
+.pager { display: flex; gap: var(--space-2); }
+
+.pager a, .pager span {
+  display: inline-flex; align-items: center;
+  padding: var(--space-2) var(--space-4);
+  border: 1px solid var(--line);
+  border-radius: 99px;
+  font-size: 14px; font-weight: 550;
+  text-decoration: none;
+  background: var(--bg-raised);
+}
+
+.pager span { opacity: .35; }
+.pager a:hover { border-color: #3a4655; }
+
+.section {
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--bg-raised);
+  margin-bottom: var(--space-4);
+  overflow: hidden;
+}
+
+.section--warmup { background: var(--bg-sunken); }
+
+.section__head {
+  display: grid;
+  grid-template-columns: 40px 1fr auto;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-4) var(--space-5);
+  width: 100%;
+  background: none; border: 0; color: inherit;
+  font: inherit; text-align: left; cursor: pointer;
+}
+
+.letter {
+  display: grid; place-items: center;
+  width: 34px; height: 34px;
+  border-radius: 10px;
+  background: var(--accent-soft);
+  color: var(--accent);
+  font-size: 15px; font-weight: 700;
+}
+
+.section--warmup .letter { background: #4dd4c41f; color: var(--cool); }
+
+/* Both are spans inside one grid cell, so they must be made block-level or the
+   name and its sub-label run together on one line. */
+.section__name { display: block; font-size: 17px; font-weight: 620; letter-spacing: -0.01em; }
+
+.section__sub { display: block; font-size: 13px; color: var(--text-faint); margin-top: 2px; }
+
+.chev {
+  width: 20px; height: 20px; flex: none;
+  border-right: 2px solid var(--text-faint);
+  border-bottom: 2px solid var(--text-faint);
+  transform: rotate(45deg) translate(-3px, -3px);
+  transition: transform .2s;
+}
+
+.section[open] .chev { transform: rotate(225deg) translate(-3px, -3px); }
+
+.section__body { padding: 0 var(--space-5) var(--space-5); }
+
+.info {
+  margin: 0 0 var(--space-5);
+  padding: var(--space-4);
+  background: var(--bg-sunken);
+  border-left: 3px solid var(--accent);
+  border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+  white-space: pre-wrap;      /* the coach's line breaks carry the reps */
+  font-size: 15px; line-height: 1.6;
+  color: var(--text);
+}
+
+.section--warmup .info { border-left-color: var(--cool); }
+
+/* ----------------------------------------------------------------- video */
+
+.vids {
+  display: grid;
+  gap: var(--space-4);
+  grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
+}
+
+.vid { min-width: 0; }
+
+.vid__frame {
+  position: relative;
+  display: block; width: 100%;
+  aspect-ratio: 16 / 9;
+  border: 0; padding: 0;
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+  background: #000 center/cover no-repeat;
+  cursor: pointer;
+}
+
+.vid__frame img, .vid__frame video, .vid__frame iframe {
+  position: absolute; inset: 0;
+  width: 100%; height: 100%;
+  object-fit: cover; border: 0;
+  display: block;
+}
+
+.vid__frame::after {
+  content: "";
+  position: absolute; inset: 0;
+  background: radial-gradient(circle at center, #0009, #0000 60%);
+  opacity: 0; transition: opacity .15s;
+}
+
+.vid__frame:hover::after { opacity: 1; }
+
+.vid__play {
+  position: absolute; left: 50%; top: 50%;
+  transform: translate(-50%, -50%);
+  width: 46px; height: 46px;
+  display: grid; place-items: center;
+  border-radius: 50%;
+  background: #0e1116cc;
+  border: 1.5px solid #ffffff59;
+  z-index: 2;
+}
+
+.vid__play::before {
+  content: "";
+  width: 0; height: 0;
+  margin-left: 3px;
+  border-left: 13px solid #fff;
+  border-top: 8px solid transparent;
+  border-bottom: 8px solid transparent;
+}
+
+.vid__frame--empty { display: grid; place-items: center; background: var(--bg-sunken); cursor: default; }
+.vid__frame--empty span { color: var(--text-faint); font-size: 13px; }
+
+.vid__name {
+  margin-top: var(--space-2);
+  font-size: 14px; line-height: 1.35;
+  color: var(--text-dim);
+}
+
+.vid__badge {
+  display: inline-block; margin-left: var(--space-2);
+  font-size: 11px; color: var(--text-faint);
+}
+
+/* --------------------------------------------------------- exercise index */
+
+.search {
+  width: 100%;
+  padding: var(--space-4) var(--space-5);
+  margin-bottom: var(--space-6);
+  font: inherit; font-size: 16px;
+  color: var(--text);
+  background: var(--bg-raised);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+}
+
+.search::placeholder { color: var(--text-faint); }
+.search:focus { outline: none; border-color: var(--accent); }
+
+.ex-grid {
+  display: grid; gap: var(--space-5);
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+}
+
+.ex-used {
+  margin-top: var(--space-1);
+  font-size: 12px; color: var(--text-faint);
+}
+
+.empty { color: var(--text-faint); padding: var(--space-10) 0; text-align: center; }
+
+/* ------------------------------------------------------------------ lock */
+
+/* Shown by auth.js on the published site until the password is entered.
+   Never appears on the local file:// copy. */
+
+body.is-locked { overflow: hidden; }
+body.is-locked .topbar,
+body.is-locked main,
+body.is-locked .foot { display: none; }
+
+.lock {
+  position: fixed; inset: 0; z-index: 100;
+  display: grid; place-items: center;
+  padding: var(--space-6);
+  background: var(--bg);
+}
+
+.lock__box {
+  width: 100%; max-width: 340px;
+  display: grid; gap: var(--space-4);
+  text-align: center;
+}
+
+.lock__mark {
+  width: 20px; height: 20px;
+  margin: 0 auto var(--space-2);
+  border-radius: 5px;
+  background: var(--accent);
+  box-shadow: 0 0 0 6px var(--accent-soft);
+}
+
+.lock__title {
+  margin: 0;
+  font-size: 22px; font-weight: 700; letter-spacing: -0.02em;
+  line-height: 1.2;
+}
+
+.lock__hint { margin: 0; font-size: 14px; color: var(--text-dim); }
+
+.lock__input {
+  width: 100%;
+  padding: var(--space-4);
+  font: inherit; font-size: 16px;   /* 16px stops iOS zooming on focus */
+  text-align: center;
+  color: var(--text);
+  background: var(--bg-raised);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+}
+
+.lock__input:focus { outline: none; border-color: var(--accent); }
+
+.lock__btn {
+  padding: var(--space-4);
+  font: inherit; font-size: 16px; font-weight: 650;
+  color: #fff;
+  background: var(--accent);
+  border: 0; border-radius: var(--radius);
+  cursor: pointer;
+}
+
+.lock__btn:hover { filter: brightness(1.08); }
+
+.lock__error { margin: 0; font-size: 14px; color: var(--accent); }
+
+/* ------------------------------------------------------------------ foot */
+
+.foot {
+  max-width: var(--max);
+  margin: 0 auto;
+  padding: var(--space-6) var(--space-4) var(--space-10);
+  border-top: 1px solid var(--line-soft);
+  color: var(--text-faint);
+  font-size: 12px;
+}
+
+.foot p { margin: 0; }
