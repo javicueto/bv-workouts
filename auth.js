@@ -46,7 +46,7 @@ window.TCAuth = (function () {
     wrap.innerHTML =
       '<form class="lock__box" autocomplete="off">' +
         '<span class="lock__mark"></span>' +
-        '<h1 class="lock__title">Francesco’s Beach Volleyball Workouts</h1>' +
+        '<h1 class="lock__title">Beach Volleyball Workouts</h1>' +
         '<p class="lock__hint">Enter the password to continue.</p>' +
         '<input class="lock__input" type="password" name="pw" aria-label="Password" ' +
           'autocomplete="current-password" autofocus>' +
