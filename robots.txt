@@ -1,3 +1,12 @@
-# Keep this site out of search engines entirely.
+# Deliberately NOT "Disallow: /". Do not "fix" this back.
+#
+# Every page carries <meta name="robots" content="noindex">. For a search engine
+# to OBEY that tag it has to be able to FETCH the page. A Disallow blocks the
+# crawl, the crawler never sees the noindex, and a URL discovered some other way
+# — the public repo links to this site — can still be listed URL-only.
+#
+# So: allow the crawl, and let the noindex tag do the actual work of keeping this
+# out of search results.
+
 User-agent: *
-Disallow: /
+Allow: /
