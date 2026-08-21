@@ -48,6 +48,41 @@ for w in export["workouts"]:
         resolved += 1
 export["exercise_count"] = len(export["exercises"])
 
+# --- corrections to the coach's source data ----------------------------------
+# TrueCoach occasionally has a mistake (a missing rep count, a typo). Fixing it in
+# data/workouts.js would be undone by the next build, and fixing it in the export
+# would be undone by the next refresh — so corrections live in their own file and
+# are re-applied here every time.
+#
+# A correction that no longer matches is an ERROR, not a shrug: it means the text
+# moved and the fix is silently doing nothing. See CLAUDE.md, "verify the edit
+# landed".
+corr_path = ROOT / "data" / "corrections.json"
+corrections = json.loads(corr_path.read_text())["lines"] if corr_path.exists() else []
+
+applied, redundant, failed = 0, [], []
+for c in corrections:
+    workout = next((w for w in export["workouts"] if w["key"] == c["workout"]), None)
+    item = next((i for i in workout["items"] if i["letter"] == c["block"]), None) if workout else None
+    if item is None:
+        failed.append(f"{c['workout']} {c['block']}: no such workout/block")
+        continue
+    lines = item["info"].split("\n")
+    hit = False
+    for n, line in enumerate(lines):
+        if line.strip() == c["line"].strip():
+            lines[n] = line.replace(c["line"].strip(), c["to"])
+            hit = True
+            break
+    if hit:
+        item["info"] = "\n".join(lines)
+        item["corrected"] = True
+        applied += 1
+    elif any(l.strip() == c["to"].strip() for l in lines):
+        redundant.append(f"{c['workout']} {c['block']}: \"{c['to']}\" — TrueCoach now matches; delete this correction")
+    else:
+        failed.append(f"{c['workout']} {c['block']}: no line matching \"{c['line']}\"")
+
 videos = ROOT / "videos"
 thumbs = ROOT / "thumbs"
 
@@ -86,6 +121,15 @@ out.write_text(
 )
 
 print(f"wrote {out.relative_to(ROOT)}")
+if applied:
+    print(f"  corrections applied to the coach's data: {applied}")
+for r in redundant:
+    print(f"  correction no longer needed — {r}")
+if failed:
+    print("  !! CORRECTIONS THAT DID NOT APPLY:")
+    for f in failed:
+        print(f"       {f}")
+    raise SystemExit("a correction in data/corrections.json no longer matches — fix or remove it")
 if resolved:
     print(f"  unlinked blocks matched to a library exercise by name: {resolved}")
 if unresolved:

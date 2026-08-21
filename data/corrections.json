@@ -1,0 +1,13 @@
+{
+  "_note": "Fixes for mistakes in the TrueCoach source data. Applied by scripts/build_site.py on every build, so they survive a re-export — editing data/workouts.js by hand would not, and neither would editing the export, which gets replaced wholesale on refresh.",
+  "_howto": "Each entry targets one line of one block's instructions. 'line' must match an existing line exactly (ignoring surrounding spaces). The build FAILS LOUDLY if it does not match, so a correction can never silently do nothing. If the coach fixes it in TrueCoach, the build says the correction is redundant — delete it then.",
+  "lines": [
+    {
+      "workout": "8.2",
+      "block": "B",
+      "line": "Plyometric depth jump",
+      "to": "8 Plyometric depth jump",
+      "why": "TrueCoach omits the rep count on this line; the prescription is 8 reps. Confirmed by Javier, 21 Aug 2026. Still wrong upstream as of that date."
+    }
+  ]
+}

@@ -3375,12 +3375,13 @@ window.WORKOUTS = {
     {
      "letter": "B",
      "name": "BB Back squat + Plyometric depth jump",
-     "info": "4 rounds:\n5 BB Back squat *control\nPlyometric depth jump\nrest 1,5 minutes",
+     "info": "4 rounds:\n5 BB Back squat *control\n8 Plyometric depth jump\nrest 1,5 minutes",
      "is_circuit": true,
      "exercises": [
       "11249249",
       "11373085"
-     ]
+     ],
+     "corrected": true
     },
     {
      "letter": "C",

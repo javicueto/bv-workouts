@@ -38,6 +38,26 @@ If `refresh.sh` reports **blocks with no video**, the coach used a movement name
 that is not in the exercise library under that spelling. Add it to
 `data/name_resolution.json` and run the refresh again.
 
+## Fixing a mistake in the coach's data
+
+TrueCoach sometimes has an error — a missing rep count, a typo. Do not edit
+`data/workouts.js`: it is regenerated on every build and your change would vanish.
+Add the fix to `data/corrections.json` instead, and it is re-applied every time:
+
+```json
+{ "workout": "8.2", "block": "B",
+  "line": "Plyometric depth jump",
+  "to": "8 Plyometric depth jump",
+  "why": "TrueCoach omits the rep count; it is 8 reps." }
+```
+
+`line` must match an existing line exactly. If it stops matching — because the
+coach edited that block — **the build fails** rather than quietly doing nothing.
+If the coach fixes the mistake upstream, the build tells you the correction is
+redundant so you can delete it.
+
+Currently one correction is in place: the plyometric depth jump reps in 8.2.
+
 Nothing is stored between runs and no TrueCoach password or token is ever written to
 disk: the export script borrows the logged-in tab's own session.
 
