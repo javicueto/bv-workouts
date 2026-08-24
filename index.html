@@ -11,7 +11,13 @@
 <meta name="googlebot" content="noindex, nofollow, noarchive, nosnippet, noimageindex">
 <meta name="googlebot-news" content="noindex">
 <meta name="bingbot" content="noindex, nofollow">
-<meta name="referrer" content="no-referrer">
+<!-- MUST stay "strict-origin-when-cross-origin" (the browser default).
+     "no-referrer" breaks EVERY video: YouTube needs to see which site is
+     embedding it, and with no Referer header the embed returns
+     status:ERROR "Error de configuración del reproductor de vídeo".
+     This policy sends only the origin (https://javicueto.github.io) and never
+     the path, so it leaks nothing useful while keeping playback working. -->
+<meta name="referrer" content="strict-origin-when-cross-origin">
 <link rel="stylesheet" href="styles.css">
 </head>
 <body>
