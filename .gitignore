@@ -1,9 +1,14 @@
-# The coach's exercise videos and the poster frames pulled from them stay OFF
-# GitHub: the repo is public, they are not ours to redistribute, and they are
-# already on YouTube — which is what the published site embeds. The local copy
-# in Google Drive keeps them for offline use in the gym.
+# The coach's exercise videos stay OFF GitHub: the repo is public, they are not
+# ours to redistribute, and they are already on YouTube — which is what the site
+# links to when you tap a preview. They live in Google Drive as the backup.
 videos/
+
+# Poster frames pulled from those videos. Superseded by previews/ and only used
+# by the offline local copy.
 thumbs/
+
+# previews/ is NOT ignored on purpose. Those short looping WebPs are what the
+# site shows on every card, so they must be published.
 
 # Local run logs
 logs/

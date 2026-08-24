@@ -358,16 +358,23 @@ main {
 
 .vid__frame:hover::after { opacity: 1; }
 
+/* The preview underneath is already moving, so the play badge is smaller and
+   quieter than it was over a still frame — it must not sit on top of the
+   movement it is advertising. It firms up on hover. */
 .vid__play {
   position: absolute; left: 50%; top: 50%;
   transform: translate(-50%, -50%);
-  width: 46px; height: 46px;
+  width: 40px; height: 40px;
   display: grid; place-items: center;
   border-radius: 50%;
-  background: #0e1116cc;
-  border: 1.5px solid #ffffff59;
+  background: #0e1116a6;
+  border: 1.5px solid #ffffff40;
+  opacity: .82;
+  transition: opacity .15s, background .15s;
   z-index: 2;
 }
+
+.vid__frame:hover .vid__play { opacity: 1; background: #0e1116d9; }
 
 .vid__play::before {
   content: "";
@@ -377,6 +384,26 @@ main {
   border-top: 8px solid transparent;
   border-bottom: 8px solid transparent;
 }
+
+/* Once the real player is in, the frame is no longer a button: no pointer, no
+   hover wash, and a close control so the preview can be brought back. */
+.vid__frame--playing { cursor: default; }
+.vid__frame--playing::after { content: none; }
+
+.vid__close {
+  position: absolute; top: 6px; right: 6px;
+  width: 30px; height: 30px;
+  display: grid; place-items: center;
+  font-size: 20px; line-height: 1;
+  color: #fff;
+  background: #0e1116cc;
+  border: 1px solid #ffffff40;
+  border-radius: 50%;
+  cursor: pointer;
+  z-index: 3;
+}
+
+.vid__close:hover { background: #0e1116; }
 
 .vid__frame--empty { display: grid; place-items: center; background: var(--bg-sunken); cursor: default; }
 .vid__frame--empty span { color: var(--text-faint); font-size: 13px; }

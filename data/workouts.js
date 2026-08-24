@@ -13,6 +13,7 @@ window.WORKOUTS = {
    "youtube_id": "iBdF89xBAxA",
    "has_local_video": true,
    "has_local_thumb": true,
+   "has_preview": true,
    "used_in": [
     "7.1"
    ]
@@ -24,6 +25,7 @@ window.WORKOUTS = {
    "youtube_id": "TYjI-zzOVzc",
    "has_local_video": true,
    "has_local_thumb": true,
+   "has_preview": true,
    "used_in": [
     "3.1",
     "6.2"
@@ -36,6 +38,7 @@ window.WORKOUTS = {
    "youtube_id": "6x403tfAPZs",
    "has_local_video": true,
    "has_local_thumb": true,
+   "has_preview": true,
    "used_in": [
     "1.1"
    ]
@@ -47,6 +50,7 @@ window.WORKOUTS = {
    "youtube_id": "_EJ48P7fauM",
    "has_local_video": true,
    "has_local_thumb": true,
+   "has_preview": true,
    "used_in": [
     "2.1"
    ]
@@ -58,6 +62,7 @@ window.WORKOUTS = {
    "youtube_id": "-9XYzh-IUEA",
    "has_local_video": true,
    "has_local_thumb": true,
+   "has_preview": true,
    "used_in": [
     "7.1"
    ]
@@ -69,6 +74,7 @@ window.WORKOUTS = {
    "youtube_id": "8gzTAqH_JVE",
    "has_local_video": true,
    "has_local_thumb": true,
+   "has_preview": true,
    "used_in": [
     "7.1"
    ]
@@ -80,6 +86,7 @@ window.WORKOUTS = {
    "youtube_id": "yLnVyQQCXTU",
    "has_local_video": true,
    "has_local_thumb": true,
+   "has_preview": true,
    "used_in": [
     "3.2"
    ]
@@ -91,6 +98,7 @@ window.WORKOUTS = {
    "youtube_id": "YS8LFxWXJ8A",
    "has_local_video": true,
    "has_local_thumb": true,
+   "has_preview": true,
    "used_in": [
     "2.2",
     "8.2"
@@ -103,6 +111,7 @@ window.WORKOUTS = {
    "youtube_id": "ovr_OX8NmSM",
    "has_local_video": true,
    "has_local_thumb": true,
+   "has_preview": true,
    "used_in": [
     "7.1"
    ]
@@ -114,6 +123,7 @@ window.WORKOUTS = {
    "youtube_id": "-sv7Z0op0V0",
    "has_local_video": true,
    "has_local_thumb": true,
+   "has_preview": true,
    "used_in": [
     "7.1"
    ]
@@ -125,6 +135,7 @@ window.WORKOUTS = {
    "youtube_id": "LvTMbTgw4M4",
    "has_local_video": true,
    "has_local_thumb": true,
+   "has_preview": true,
    "used_in": [
     "7.1"
    ]
@@ -136,6 +147,7 @@ window.WORKOUTS = {
    "youtube_id": "f10O6GWwmys",
    "has_local_video": true,
    "has_local_thumb": true,
+   "has_preview": true,
    "used_in": [
     "1.1",
     "1.2",
@@ -162,6 +174,7 @@ window.WORKOUTS = {
    "youtube_id": "YQdw9EfQa8Q",
    "has_local_video": true,
    "has_local_thumb": true,
+   "has_preview": true,
    "used_in": [
     "5.2"
    ]
@@ -173,6 +186,7 @@ window.WORKOUTS = {
    "youtube_id": "4RBc77kXeQo",
    "has_local_video": true,
    "has_local_thumb": true,
+   "has_preview": true,
    "used_in": [
     "7.1"
    ]
@@ -184,6 +198,7 @@ window.WORKOUTS = {
    "youtube_id": "y7TZbxzIz6w",
    "has_local_video": true,
    "has_local_thumb": true,
+   "has_preview": true,
    "used_in": [
     "3.1"
    ]
@@ -195,6 +210,7 @@ window.WORKOUTS = {
    "youtube_id": "5yWaNOvgFCM",
    "has_local_video": true,
    "has_local_thumb": true,
+   "has_preview": true,
    "used_in": [
     "6.2",
     "8.2"
@@ -207,6 +223,7 @@ window.WORKOUTS = {
    "youtube_id": "qkyC1Bhl9lE",
    "has_local_video": true,
    "has_local_thumb": true,
+   "has_preview": true,
    "used_in": [
     "3.1"
    ]
@@ -218,6 +235,7 @@ window.WORKOUTS = {
    "youtube_id": "GXSe4Lt-Cm0",
    "has_local_video": true,
    "has_local_thumb": true,
+   "has_preview": true,
    "used_in": [
     "1.1"
    ]
@@ -229,6 +247,7 @@ window.WORKOUTS = {
    "youtube_id": "AbFliqGhx4M",
    "has_local_video": true,
    "has_local_thumb": true,
+   "has_preview": true,
    "used_in": [
     "8.2"
    ]
@@ -240,6 +259,7 @@ window.WORKOUTS = {
    "youtube_id": "TIITweZRcfA",
    "has_local_video": true,
    "has_local_thumb": true,
+   "has_preview": true,
    "used_in": [
     "7.2"
    ]
@@ -251,6 +271,7 @@ window.WORKOUTS = {
    "youtube_id": "OozLkbgXFMw",
    "has_local_video": true,
    "has_local_thumb": true,
+   "has_preview": true,
    "used_in": [
     "8.1"
    ]
@@ -262,6 +283,7 @@ window.WORKOUTS = {
    "youtube_id": "oYvcpYQAsnw",
    "has_local_video": true,
    "has_local_thumb": true,
+   "has_preview": true,
    "used_in": [
     "6.2"
    ]
@@ -273,6 +295,7 @@ window.WORKOUTS = {
    "youtube_id": "6p4awUFphhw",
    "has_local_video": true,
    "has_local_thumb": true,
+   "has_preview": true,
    "used_in": [
     "6.2",
     "8.2"
@@ -285,6 +308,7 @@ window.WORKOUTS = {
    "youtube_id": "EWlW6TPgV_I",
    "has_local_video": true,
    "has_local_thumb": true,
+   "has_preview": true,
    "used_in": [
     "6.2"
    ]
@@ -296,6 +320,7 @@ window.WORKOUTS = {
    "youtube_id": "Rg0D3lTjOwQ",
    "has_local_video": true,
    "has_local_thumb": true,
+   "has_preview": true,
    "used_in": [
     "6.1"
    ]
@@ -307,6 +332,7 @@ window.WORKOUTS = {
    "youtube_id": "DgzZEJ6ebWc",
    "has_local_video": true,
    "has_local_thumb": true,
+   "has_preview": true,
    "used_in": [
     "6.1"
    ]
@@ -318,6 +344,7 @@ window.WORKOUTS = {
    "youtube_id": "CNtRXSK0wIQ",
    "has_local_video": true,
    "has_local_thumb": true,
+   "has_preview": true,
    "used_in": [
     "2.2"
    ]
@@ -329,6 +356,7 @@ window.WORKOUTS = {
    "youtube_id": "vmgUYLeJb1g",
    "has_local_video": true,
    "has_local_thumb": true,
+   "has_preview": true,
    "used_in": [
     "2.2",
     "7.2"
@@ -341,6 +369,7 @@ window.WORKOUTS = {
    "youtube_id": "d0d0TWaiukA",
    "has_local_video": true,
    "has_local_thumb": true,
+   "has_preview": true,
    "used_in": [
     "7.2"
    ]
@@ -352,6 +381,7 @@ window.WORKOUTS = {
    "youtube_id": "XyoQf9Sarfg",
    "has_local_video": true,
    "has_local_thumb": true,
+   "has_preview": true,
    "used_in": [
     "7.2"
    ]
@@ -363,6 +393,7 @@ window.WORKOUTS = {
    "youtube_id": "eZwpUPhv9KU",
    "has_local_video": true,
    "has_local_thumb": true,
+   "has_preview": true,
    "used_in": [
     "8.1"
    ]
@@ -374,6 +405,7 @@ window.WORKOUTS = {
    "youtube_id": "4lotc9HdHrs",
    "has_local_video": true,
    "has_local_thumb": true,
+   "has_preview": true,
    "used_in": [
     "4.1"
    ]
@@ -385,6 +417,7 @@ window.WORKOUTS = {
    "youtube_id": "3IdtQ1mi-ks",
    "has_local_video": true,
    "has_local_thumb": true,
+   "has_preview": true,
    "used_in": [
     "5.1"
    ]
@@ -396,6 +429,7 @@ window.WORKOUTS = {
    "youtube_id": "3rc_lBOp4CM",
    "has_local_video": true,
    "has_local_thumb": true,
+   "has_preview": true,
    "used_in": [
     "7.1"
    ]
@@ -407,6 +441,7 @@ window.WORKOUTS = {
    "youtube_id": "t7DBjlOTwAk",
    "has_local_video": true,
    "has_local_thumb": true,
+   "has_preview": true,
    "used_in": [
     "7.1"
    ]
@@ -418,6 +453,7 @@ window.WORKOUTS = {
    "youtube_id": "hLl6zMNtTBQ",
    "has_local_video": true,
    "has_local_thumb": true,
+   "has_preview": true,
    "used_in": [
     "1.1",
     "7.1"
@@ -430,6 +466,7 @@ window.WORKOUTS = {
    "youtube_id": "56Q87MgptgY",
    "has_local_video": true,
    "has_local_thumb": true,
+   "has_preview": true,
    "used_in": [
     "2.2",
     "7.2"
@@ -442,6 +479,7 @@ window.WORKOUTS = {
    "youtube_id": "QUntC0WmNeI",
    "has_local_video": true,
    "has_local_thumb": true,
+   "has_preview": true,
    "used_in": [
     "7.2"
    ]
@@ -453,6 +491,7 @@ window.WORKOUTS = {
    "youtube_id": "79x5n12wWkA",
    "has_local_video": true,
    "has_local_thumb": true,
+   "has_preview": true,
    "used_in": [
     "7.2"
    ]
@@ -464,6 +503,7 @@ window.WORKOUTS = {
    "youtube_id": "4DSPCknhUP4",
    "has_local_video": true,
    "has_local_thumb": true,
+   "has_preview": true,
    "used_in": [
     "1.2",
     "5.2",
@@ -478,6 +518,7 @@ window.WORKOUTS = {
    "youtube_id": "EpYCmA4huKY",
    "has_local_video": true,
    "has_local_thumb": true,
+   "has_preview": true,
    "used_in": [
     "2.1"
    ]
@@ -489,6 +530,7 @@ window.WORKOUTS = {
    "youtube_id": "Y6i0IhzklZ4",
    "has_local_video": true,
    "has_local_thumb": true,
+   "has_preview": true,
    "used_in": [
     "2.1"
    ]
@@ -500,6 +542,7 @@ window.WORKOUTS = {
    "youtube_id": "wXZX7CApku8",
    "has_local_video": true,
    "has_local_thumb": true,
+   "has_preview": true,
    "used_in": [
     "2.1"
    ]
@@ -511,6 +554,7 @@ window.WORKOUTS = {
    "youtube_id": "Zn8pf_y1PRM",
    "has_local_video": true,
    "has_local_thumb": true,
+   "has_preview": true,
    "used_in": [
     "2.1"
    ]
@@ -522,6 +566,7 @@ window.WORKOUTS = {
    "youtube_id": "HyRL2hnixKs",
    "has_local_video": true,
    "has_local_thumb": true,
+   "has_preview": true,
    "used_in": [
     "2.1",
     "5.1",
@@ -535,6 +580,7 @@ window.WORKOUTS = {
    "youtube_id": "s-DxL0hy-v4",
    "has_local_video": true,
    "has_local_thumb": true,
+   "has_preview": true,
    "used_in": [
     "2.2"
    ]
@@ -546,6 +592,7 @@ window.WORKOUTS = {
    "youtube_id": "c0leGbP-bfA",
    "has_local_video": true,
    "has_local_thumb": true,
+   "has_preview": true,
    "used_in": [
     "1.2"
    ]
@@ -557,6 +604,7 @@ window.WORKOUTS = {
    "youtube_id": "2DPzuklKffk",
    "has_local_video": true,
    "has_local_thumb": true,
+   "has_preview": true,
    "used_in": [
     "2.2"
    ]
@@ -568,6 +616,7 @@ window.WORKOUTS = {
    "youtube_id": "acIWrL52r4k",
    "has_local_video": true,
    "has_local_thumb": true,
+   "has_preview": true,
    "used_in": [
     "1.2",
     "2.2"
@@ -580,6 +629,7 @@ window.WORKOUTS = {
    "youtube_id": "9E4igjdp1co",
    "has_local_video": true,
    "has_local_thumb": true,
+   "has_preview": true,
    "used_in": [
     "2.2",
     "4.1"
@@ -592,6 +642,7 @@ window.WORKOUTS = {
    "youtube_id": "iDT6mOuBjTY",
    "has_local_video": true,
    "has_local_thumb": true,
+   "has_preview": true,
    "used_in": [
     "1.1",
     "1.2",
@@ -606,6 +657,7 @@ window.WORKOUTS = {
    "youtube_id": "Ogwx6y96rHI",
    "has_local_video": true,
    "has_local_thumb": true,
+   "has_preview": true,
    "used_in": [
     "1.1",
     "1.2",
@@ -620,6 +672,7 @@ window.WORKOUTS = {
    "youtube_id": "1yDIOmzqco0",
    "has_local_video": true,
    "has_local_thumb": true,
+   "has_preview": true,
    "used_in": [
     "3.1"
    ]
@@ -631,6 +684,7 @@ window.WORKOUTS = {
    "youtube_id": "ISD-dNCGkvM",
    "has_local_video": true,
    "has_local_thumb": true,
+   "has_preview": true,
    "used_in": [
     "2.2"
    ]
@@ -642,6 +696,7 @@ window.WORKOUTS = {
    "youtube_id": "ytEf8IZW1tk",
    "has_local_video": true,
    "has_local_thumb": true,
+   "has_preview": true,
    "used_in": [
     "1.1",
     "8.1"
@@ -654,6 +709,7 @@ window.WORKOUTS = {
    "youtube_id": "t8Zzh7CyWuE",
    "has_local_video": true,
    "has_local_thumb": true,
+   "has_preview": true,
    "used_in": [
     "1.2"
    ]
@@ -665,6 +721,7 @@ window.WORKOUTS = {
    "youtube_id": "6VMeYPqVq4k",
    "has_local_video": true,
    "has_local_thumb": true,
+   "has_preview": true,
    "used_in": [
     "2.1",
     "2.2",
@@ -689,6 +746,7 @@ window.WORKOUTS = {
    "youtube_id": "BGMsqVeTMb0",
    "has_local_video": true,
    "has_local_thumb": true,
+   "has_preview": true,
    "used_in": [
     "1.1",
     "1.2",
@@ -715,6 +773,7 @@ window.WORKOUTS = {
    "youtube_id": "4qEFjdMs1os",
    "has_local_video": true,
    "has_local_thumb": true,
+   "has_preview": true,
    "used_in": [
     "1.1",
     "1.2",
@@ -741,6 +800,7 @@ window.WORKOUTS = {
    "youtube_id": "pm3Ge7deNCc",
    "has_local_video": true,
    "has_local_thumb": true,
+   "has_preview": true,
    "used_in": [
     "1.1"
    ]
@@ -752,6 +812,7 @@ window.WORKOUTS = {
    "youtube_id": "ZeHDXjQfpW0",
    "has_local_video": true,
    "has_local_thumb": true,
+   "has_preview": true,
    "used_in": [
     "1.1",
     "5.1",
@@ -765,6 +826,7 @@ window.WORKOUTS = {
    "youtube_id": "I7ijDnXU0H8",
    "has_local_video": true,
    "has_local_thumb": true,
+   "has_preview": true,
    "used_in": [
     "1.2"
    ]
@@ -776,6 +838,7 @@ window.WORKOUTS = {
    "youtube_id": "Rv51wbddtqg",
    "has_local_video": true,
    "has_local_thumb": true,
+   "has_preview": true,
    "used_in": [
     "6.1"
    ]
@@ -787,6 +850,7 @@ window.WORKOUTS = {
    "youtube_id": "QnEnZB03QwI",
    "has_local_video": true,
    "has_local_thumb": true,
+   "has_preview": true,
    "used_in": [
     "3.2"
    ]
@@ -798,6 +862,7 @@ window.WORKOUTS = {
    "youtube_id": "Gtu1ihjZgds",
    "has_local_video": true,
    "has_local_thumb": true,
+   "has_preview": true,
    "used_in": [
     "1.2"
    ]
@@ -809,6 +874,7 @@ window.WORKOUTS = {
    "youtube_id": "3NQ2oN6J6hc",
    "has_local_video": true,
    "has_local_thumb": true,
+   "has_preview": true,
    "used_in": [
     "1.1",
     "2.1"
@@ -821,6 +887,7 @@ window.WORKOUTS = {
    "youtube_id": "kx434sFuAXE",
    "has_local_video": true,
    "has_local_thumb": true,
+   "has_preview": true,
    "used_in": [
     "1.2",
     "2.2"
@@ -833,6 +900,7 @@ window.WORKOUTS = {
    "youtube_id": "u5rJWjYKNXc",
    "has_local_video": true,
    "has_local_thumb": true,
+   "has_preview": true,
    "used_in": [
     "3.1"
    ]
@@ -844,6 +912,7 @@ window.WORKOUTS = {
    "youtube_id": "A7DmwfteykY",
    "has_local_video": true,
    "has_local_thumb": true,
+   "has_preview": true,
    "used_in": [
     "3.2"
    ]
@@ -855,6 +924,7 @@ window.WORKOUTS = {
    "youtube_id": "AXNM3JlBQQU",
    "has_local_video": true,
    "has_local_thumb": true,
+   "has_preview": true,
    "used_in": [
     "3.2"
    ]
@@ -866,6 +936,7 @@ window.WORKOUTS = {
    "youtube_id": "luQFXB4oGiM",
    "has_local_video": true,
    "has_local_thumb": true,
+   "has_preview": true,
    "used_in": [
     "5.2",
     "8.2"
@@ -878,6 +949,7 @@ window.WORKOUTS = {
    "youtube_id": "Af7PAxkoq1A",
    "has_local_video": true,
    "has_local_thumb": true,
+   "has_preview": true,
    "used_in": [
     "5.1",
     "5.2"
@@ -890,6 +962,7 @@ window.WORKOUTS = {
    "youtube_id": "ivowFa_F6go",
    "has_local_video": true,
    "has_local_thumb": true,
+   "has_preview": true,
    "used_in": [
     "5.1"
    ]
@@ -901,6 +974,7 @@ window.WORKOUTS = {
    "youtube_id": "ARh8hD2mwFI",
    "has_local_video": true,
    "has_local_thumb": true,
+   "has_preview": true,
    "used_in": [
     "4.1",
     "8.1"
@@ -913,6 +987,7 @@ window.WORKOUTS = {
    "youtube_id": "nE7dKMK6nOY",
    "has_local_video": true,
    "has_local_thumb": true,
+   "has_preview": true,
    "used_in": [
     "3.2",
     "5.2"
@@ -925,6 +1000,7 @@ window.WORKOUTS = {
    "youtube_id": "-_VSPjyWpTE",
    "has_local_video": true,
    "has_local_thumb": true,
+   "has_preview": true,
    "used_in": [
     "3.1"
    ]
@@ -936,6 +1012,7 @@ window.WORKOUTS = {
    "youtube_id": "fDfiChcxW14",
    "has_local_video": true,
    "has_local_thumb": true,
+   "has_preview": true,
    "used_in": [
     "3.2"
    ]
@@ -947,6 +1024,7 @@ window.WORKOUTS = {
    "youtube_id": "0YfjGonqIKE",
    "has_local_video": true,
    "has_local_thumb": true,
+   "has_preview": true,
    "used_in": [
     "8.1"
    ]
@@ -958,6 +1036,7 @@ window.WORKOUTS = {
    "youtube_id": "HYNvTKeFfTk",
    "has_local_video": true,
    "has_local_thumb": true,
+   "has_preview": true,
    "used_in": [
     "8.1"
    ]
@@ -969,6 +1048,7 @@ window.WORKOUTS = {
    "youtube_id": "Df7zMGgK9iQ",
    "has_local_video": true,
    "has_local_thumb": true,
+   "has_preview": true,
    "used_in": [
     "8.2"
    ]
@@ -980,6 +1060,7 @@ window.WORKOUTS = {
    "youtube_id": "xOhJb5F3SPQ",
    "has_local_video": true,
    "has_local_thumb": true,
+   "has_preview": true,
    "used_in": [
     "8.2"
    ]
@@ -991,6 +1072,7 @@ window.WORKOUTS = {
    "youtube_id": "-uA4lWEY6IU",
    "has_local_video": true,
    "has_local_thumb": true,
+   "has_preview": true,
    "used_in": [
     "8.2"
    ]
@@ -1002,6 +1084,7 @@ window.WORKOUTS = {
    "youtube_id": "gELwiofKM5Y",
    "has_local_video": true,
    "has_local_thumb": true,
+   "has_preview": true,
    "used_in": [
     "5.2",
     "8.1"
@@ -1014,6 +1097,7 @@ window.WORKOUTS = {
    "youtube_id": "6XLqr8cjhOw",
    "has_local_video": true,
    "has_local_thumb": true,
+   "has_preview": true,
    "used_in": [
     "8.1"
    ]
@@ -1025,6 +1109,7 @@ window.WORKOUTS = {
    "youtube_id": "AzPJZHOmGEg",
    "has_local_video": true,
    "has_local_thumb": true,
+   "has_preview": true,
    "used_in": [
     "8.2"
    ]
@@ -1036,6 +1121,7 @@ window.WORKOUTS = {
    "youtube_id": "EXmJQC2gl2M",
    "has_local_video": true,
    "has_local_thumb": true,
+   "has_preview": true,
    "used_in": [
     "8.2"
    ]
@@ -1047,6 +1133,7 @@ window.WORKOUTS = {
    "youtube_id": "isStslEGqvU",
    "has_local_video": true,
    "has_local_thumb": true,
+   "has_preview": true,
    "used_in": [
     "8.2"
    ]
@@ -1058,6 +1145,7 @@ window.WORKOUTS = {
    "youtube_id": "NqquZu3cr-k",
    "has_local_video": true,
    "has_local_thumb": true,
+   "has_preview": true,
    "used_in": [
     "2.1",
     "2.2"
@@ -1070,6 +1158,7 @@ window.WORKOUTS = {
    "youtube_id": "bHO0A4ZF_Zg",
    "has_local_video": true,
    "has_local_thumb": true,
+   "has_preview": true,
    "used_in": [
     "6.1"
    ]
@@ -1081,6 +1170,7 @@ window.WORKOUTS = {
    "youtube_id": "VNx73hYcR5k",
    "has_local_video": true,
    "has_local_thumb": true,
+   "has_preview": true,
    "used_in": [
     "1.1"
    ]
@@ -1092,6 +1182,7 @@ window.WORKOUTS = {
    "youtube_id": "TgDNW7_q03A",
    "has_local_video": true,
    "has_local_thumb": true,
+   "has_preview": true,
    "used_in": [
     "1.1"
    ]
@@ -1103,6 +1194,7 @@ window.WORKOUTS = {
    "youtube_id": "QoTbBkg07tM",
    "has_local_video": true,
    "has_local_thumb": true,
+   "has_preview": true,
    "used_in": [
     "1.2"
    ]
@@ -1114,6 +1206,7 @@ window.WORKOUTS = {
    "youtube_id": "zQePlMKO7cg",
    "has_local_video": true,
    "has_local_thumb": true,
+   "has_preview": true,
    "used_in": [
     "1.2",
     "5.1"
@@ -1126,6 +1219,7 @@ window.WORKOUTS = {
    "youtube_id": "DxFZz8mVLrA",
    "has_local_video": true,
    "has_local_thumb": true,
+   "has_preview": true,
    "used_in": [
     "4.2"
    ]
@@ -1137,6 +1231,7 @@ window.WORKOUTS = {
    "youtube_id": "Co7KYZl806I",
    "has_local_video": true,
    "has_local_thumb": true,
+   "has_preview": true,
    "used_in": [
     "1.2"
    ]
@@ -1148,6 +1243,7 @@ window.WORKOUTS = {
    "youtube_id": "JjdtrtD5e0g",
    "has_local_video": true,
    "has_local_thumb": true,
+   "has_preview": true,
    "used_in": [
     "1.1"
    ]
@@ -1159,6 +1255,7 @@ window.WORKOUTS = {
    "youtube_id": "HCcJ7yNfAAk",
    "has_local_video": true,
    "has_local_thumb": true,
+   "has_preview": true,
    "used_in": [
     "1.2"
    ]
@@ -1170,6 +1267,7 @@ window.WORKOUTS = {
    "youtube_id": "fposjY4kmqA",
    "has_local_video": true,
    "has_local_thumb": true,
+   "has_preview": true,
    "used_in": [
     "7.1"
    ]
@@ -1181,6 +1279,7 @@ window.WORKOUTS = {
    "youtube_id": "juqMyHuYcz8",
    "has_local_video": true,
    "has_local_thumb": true,
+   "has_preview": true,
    "used_in": [
     "1.1"
    ]
@@ -1192,6 +1291,7 @@ window.WORKOUTS = {
    "youtube_id": "DunDV91iB2A",
    "has_local_video": true,
    "has_local_thumb": true,
+   "has_preview": true,
    "used_in": [
     "4.2",
     "6.2"
@@ -1204,6 +1304,7 @@ window.WORKOUTS = {
    "youtube_id": "q-z5KR5gxFo",
    "has_local_video": true,
    "has_local_thumb": true,
+   "has_preview": true,
    "used_in": [
     "5.2"
    ]
@@ -1215,6 +1316,7 @@ window.WORKOUTS = {
    "youtube_id": "QZcbQ2FDZ8I",
    "has_local_video": true,
    "has_local_thumb": true,
+   "has_preview": true,
    "used_in": [
     "5.2"
    ]
@@ -1226,6 +1328,7 @@ window.WORKOUTS = {
    "youtube_id": "gdRkJ9ndGQM",
    "has_local_video": true,
    "has_local_thumb": true,
+   "has_preview": true,
    "used_in": [
     "7.2"
    ]
@@ -1237,6 +1340,7 @@ window.WORKOUTS = {
    "youtube_id": "qMJshDkgOg8",
    "has_local_video": true,
    "has_local_thumb": true,
+   "has_preview": true,
    "used_in": [
     "7.2"
    ]
@@ -1248,6 +1352,7 @@ window.WORKOUTS = {
    "youtube_id": "fECDepX8PBg",
    "has_local_video": true,
    "has_local_thumb": true,
+   "has_preview": true,
    "used_in": [
     "2.1",
     "4.1",
@@ -1263,6 +1368,7 @@ window.WORKOUTS = {
    "youtube_id": "I59jOsDWgqw",
    "has_local_video": true,
    "has_local_thumb": true,
+   "has_preview": true,
    "used_in": [
     "2.1"
    ]
@@ -1274,6 +1380,7 @@ window.WORKOUTS = {
    "youtube_id": "5jiZ4zc2yaU",
    "has_local_video": true,
    "has_local_thumb": true,
+   "has_preview": true,
    "used_in": [
     "4.1"
    ]
@@ -1285,6 +1392,7 @@ window.WORKOUTS = {
    "youtube_id": "GTlzRwL2WHw",
    "has_local_video": true,
    "has_local_thumb": true,
+   "has_preview": true,
    "used_in": [
     "4.2"
    ]
@@ -1296,6 +1404,7 @@ window.WORKOUTS = {
    "youtube_id": "f_D0GByfZh0",
    "has_local_video": true,
    "has_local_thumb": true,
+   "has_preview": true,
    "used_in": [
     "3.2"
    ]
@@ -1307,6 +1416,7 @@ window.WORKOUTS = {
    "youtube_id": "8rmzW7qn84I",
    "has_local_video": true,
    "has_local_thumb": true,
+   "has_preview": true,
    "used_in": [
     "2.1",
     "2.2",
@@ -1331,6 +1441,7 @@ window.WORKOUTS = {
    "youtube_id": "8yDSBVZA4FE",
    "has_local_video": true,
    "has_local_thumb": true,
+   "has_preview": true,
    "used_in": [
     "3.1"
    ]
@@ -1342,6 +1453,7 @@ window.WORKOUTS = {
    "youtube_id": "9Yw2uZxRilw",
    "has_local_video": true,
    "has_local_thumb": true,
+   "has_preview": true,
    "used_in": [
     "3.1"
    ]
@@ -1353,6 +1465,7 @@ window.WORKOUTS = {
    "youtube_id": "cv42v77Gkuo",
    "has_local_video": true,
    "has_local_thumb": true,
+   "has_preview": true,
    "used_in": [
     "2.1",
     "2.2",
@@ -1366,6 +1479,7 @@ window.WORKOUTS = {
    "youtube_id": "UGqB2NGvkok",
    "has_local_video": true,
    "has_local_thumb": true,
+   "has_preview": true,
    "used_in": [
     "2.1",
     "2.2",
@@ -1379,6 +1493,7 @@ window.WORKOUTS = {
    "youtube_id": "VgmW8pKwR-w",
    "has_local_video": true,
    "has_local_thumb": true,
+   "has_preview": true,
    "used_in": [
     "3.2"
    ]
@@ -1390,6 +1505,7 @@ window.WORKOUTS = {
    "youtube_id": "VpiKQACd8Nk",
    "has_local_video": true,
    "has_local_thumb": true,
+   "has_preview": true,
    "used_in": [
     "1.1",
     "1.2",
@@ -1416,6 +1532,7 @@ window.WORKOUTS = {
    "youtube_id": "sKNux4DQD-Q",
    "has_local_video": true,
    "has_local_thumb": true,
+   "has_preview": true,
    "used_in": [
     "3.1",
     "3.2",
@@ -1429,6 +1546,7 @@ window.WORKOUTS = {
    "youtube_id": "BABJXLzPq74",
    "has_local_video": true,
    "has_local_thumb": true,
+   "has_preview": true,
    "used_in": [
     "3.1",
     "3.2",
@@ -1442,6 +1560,7 @@ window.WORKOUTS = {
    "youtube_id": "BNOsiKXyBQ4",
    "has_local_video": true,
    "has_local_thumb": true,
+   "has_preview": true,
    "used_in": [
     "1.1",
     "1.2",
@@ -1468,6 +1587,7 @@ window.WORKOUTS = {
    "youtube_id": "x5nH_idvqN4",
    "has_local_video": true,
    "has_local_thumb": true,
+   "has_preview": true,
    "used_in": [
     "1.1",
     "1.2",
@@ -1494,6 +1614,7 @@ window.WORKOUTS = {
    "youtube_id": "V_Pa5y5cJYg",
    "has_local_video": true,
    "has_local_thumb": true,
+   "has_preview": true,
    "used_in": [
     "4.1"
    ]
@@ -1505,6 +1626,7 @@ window.WORKOUTS = {
    "youtube_id": "bDGrBQZ3w7g",
    "has_local_video": true,
    "has_local_thumb": true,
+   "has_preview": true,
    "used_in": [
     "5.1",
     "5.2"
@@ -1517,6 +1639,7 @@ window.WORKOUTS = {
    "youtube_id": "gecOK43Dsu8",
    "has_local_video": true,
    "has_local_thumb": true,
+   "has_preview": true,
    "used_in": [
     "3.1"
    ]
@@ -1528,6 +1651,7 @@ window.WORKOUTS = {
    "youtube_id": "OXp8MqDVEak",
    "has_local_video": true,
    "has_local_thumb": true,
+   "has_preview": true,
    "used_in": [
     "3.2"
    ]
@@ -1539,6 +1663,7 @@ window.WORKOUTS = {
    "youtube_id": "sRMKxukPW64",
    "has_local_video": true,
    "has_local_thumb": true,
+   "has_preview": true,
    "used_in": [
     "5.1",
     "5.2"
@@ -1551,6 +1676,7 @@ window.WORKOUTS = {
    "youtube_id": "91-e4OVXfBg",
    "has_local_video": true,
    "has_local_thumb": true,
+   "has_preview": true,
    "used_in": [
     "8.1"
    ]
@@ -1562,6 +1688,7 @@ window.WORKOUTS = {
    "youtube_id": "6-gjBpJBPcM",
    "has_local_video": true,
    "has_local_thumb": true,
+   "has_preview": true,
    "used_in": [
     "3.2"
    ]
@@ -1573,6 +1700,7 @@ window.WORKOUTS = {
    "youtube_id": "l83R5PblSMA",
    "has_local_video": true,
    "has_local_thumb": true,
+   "has_preview": true,
    "used_in": [
     "4.1",
     "4.2",
@@ -1589,6 +1717,7 @@ window.WORKOUTS = {
    "youtube_id": "AptNVKCebkU",
    "has_local_video": true,
    "has_local_thumb": true,
+   "has_preview": true,
    "used_in": [
     "6.1",
     "6.2",
@@ -1602,6 +1731,7 @@ window.WORKOUTS = {
    "youtube_id": "jR-Dl_yb3t4",
    "has_local_video": true,
    "has_local_thumb": true,
+   "has_preview": true,
    "used_in": [
     "6.1"
    ]
@@ -1613,6 +1743,7 @@ window.WORKOUTS = {
    "youtube_id": "gp-M9I6PGEo",
    "has_local_video": true,
    "has_local_thumb": true,
+   "has_preview": true,
    "used_in": [
     "1.1",
     "1.2"
@@ -1625,6 +1756,7 @@ window.WORKOUTS = {
    "youtube_id": "sWaIbtvf7pI",
    "has_local_video": true,
    "has_local_thumb": true,
+   "has_preview": true,
    "used_in": [
     "3.1",
     "3.2"
@@ -1637,6 +1769,7 @@ window.WORKOUTS = {
    "youtube_id": "AGPXayvcMUw",
    "has_local_video": true,
    "has_local_thumb": true,
+   "has_preview": true,
    "used_in": [
     "1.1",
     "1.2"
@@ -1649,6 +1782,7 @@ window.WORKOUTS = {
    "youtube_id": "MXNrEcShm0w",
    "has_local_video": true,
    "has_local_thumb": true,
+   "has_preview": true,
    "used_in": [
     "3.2"
    ]
@@ -1660,6 +1794,7 @@ window.WORKOUTS = {
    "youtube_id": "r6-27MiUIfY",
    "has_local_video": true,
    "has_local_thumb": true,
+   "has_preview": true,
    "used_in": [
     "5.1"
    ]
@@ -1671,6 +1806,7 @@ window.WORKOUTS = {
    "youtube_id": "TxAj4UOinSk",
    "has_local_video": true,
    "has_local_thumb": true,
+   "has_preview": true,
    "used_in": [
     "3.1",
     "3.2"
@@ -1683,6 +1819,7 @@ window.WORKOUTS = {
    "youtube_id": "5lU5Vqdlus8",
    "has_local_video": true,
    "has_local_thumb": true,
+   "has_preview": true,
    "used_in": [
     "1.1",
     "1.2",
@@ -1709,6 +1846,7 @@ window.WORKOUTS = {
    "youtube_id": "uP9o5e3Q_MA",
    "has_local_video": true,
    "has_local_thumb": true,
+   "has_preview": true,
    "used_in": [
     "7.1"
    ]
@@ -1720,6 +1858,7 @@ window.WORKOUTS = {
    "youtube_id": "Z5Moa78y_gI",
    "has_local_video": true,
    "has_local_thumb": true,
+   "has_preview": true,
    "used_in": [
     "8.1"
    ]
@@ -1731,6 +1870,7 @@ window.WORKOUTS = {
    "youtube_id": "VxJQT4MMXc8",
    "has_local_video": true,
    "has_local_thumb": true,
+   "has_preview": true,
    "used_in": [
     "1.1",
     "1.2"
@@ -1743,6 +1883,7 @@ window.WORKOUTS = {
    "youtube_id": "SgOpoQqsI30",
    "has_local_video": true,
    "has_local_thumb": true,
+   "has_preview": true,
    "used_in": [
     "1.1",
     "1.2"
@@ -1755,6 +1896,7 @@ window.WORKOUTS = {
    "youtube_id": "MtQLdMhXy4U",
    "has_local_video": true,
    "has_local_thumb": true,
+   "has_preview": true,
    "used_in": [
     "2.1"
    ]
@@ -1766,6 +1908,7 @@ window.WORKOUTS = {
    "youtube_id": "J2-OimVdba4",
    "has_local_video": true,
    "has_local_thumb": true,
+   "has_preview": true,
    "used_in": [
     "2.2"
    ]
@@ -1777,6 +1920,7 @@ window.WORKOUTS = {
    "youtube_id": "8rgurWd-PB8",
    "has_local_video": true,
    "has_local_thumb": true,
+   "has_preview": true,
    "used_in": [
     "3.1",
     "4.1",
@@ -1790,6 +1934,7 @@ window.WORKOUTS = {
    "youtube_id": "kadXqIGPDW4",
    "has_local_video": true,
    "has_local_thumb": true,
+   "has_preview": true,
    "used_in": [
     "2.1"
    ]
@@ -1801,6 +1946,7 @@ window.WORKOUTS = {
    "youtube_id": "E_kfYBcMX6c",
    "has_local_video": true,
    "has_local_thumb": true,
+   "has_preview": true,
    "used_in": [
     "4.1"
    ]
@@ -1812,6 +1958,7 @@ window.WORKOUTS = {
    "youtube_id": "ILSbK8RnGdI",
    "has_local_video": true,
    "has_local_thumb": true,
+   "has_preview": true,
    "used_in": [
     "1.1",
     "1.2",
@@ -1825,6 +1972,7 @@ window.WORKOUTS = {
    "youtube_id": "PSCa07-YmyM",
    "has_local_video": true,
    "has_local_thumb": true,
+   "has_preview": true,
    "used_in": [
     "4.2",
     "7.2"
@@ -1837,6 +1985,7 @@ window.WORKOUTS = {
    "youtube_id": "3YVhzgDzA4g",
    "has_local_video": true,
    "has_local_thumb": true,
+   "has_preview": true,
    "used_in": [
     "3.1"
    ]
@@ -1848,6 +1997,7 @@ window.WORKOUTS = {
    "youtube_id": "iEA_KlzRoyQ",
    "has_local_video": true,
    "has_local_thumb": true,
+   "has_preview": true,
    "used_in": [
     "6.1",
     "6.2"
@@ -1860,6 +2010,7 @@ window.WORKOUTS = {
    "youtube_id": "5yySze8P2DM",
    "has_local_video": true,
    "has_local_thumb": true,
+   "has_preview": true,
    "used_in": [
     "8.1"
    ]
@@ -1871,6 +2022,7 @@ window.WORKOUTS = {
    "youtube_id": "sK9zqQGIwkY",
    "has_local_video": true,
    "has_local_thumb": true,
+   "has_preview": true,
    "used_in": [
     "4.1"
    ]
@@ -1882,6 +2034,7 @@ window.WORKOUTS = {
    "youtube_id": "hsOnxW_rm8s",
    "has_local_video": true,
    "has_local_thumb": true,
+   "has_preview": true,
    "used_in": [
     "4.2"
    ]
@@ -1893,6 +2046,7 @@ window.WORKOUTS = {
    "youtube_id": "AQH-q9AquAQ",
    "has_local_video": true,
    "has_local_thumb": true,
+   "has_preview": true,
    "used_in": [
     "4.2"
    ]
@@ -1904,6 +2058,7 @@ window.WORKOUTS = {
    "youtube_id": "XT6O63xPYy4",
    "has_local_video": true,
    "has_local_thumb": true,
+   "has_preview": true,
    "used_in": [
     "4.2"
    ]
@@ -1915,6 +2070,7 @@ window.WORKOUTS = {
    "youtube_id": "2lFpz7UpjHc",
    "has_local_video": true,
    "has_local_thumb": true,
+   "has_preview": true,
    "used_in": [
     "4.2"
    ]
@@ -1926,6 +2082,7 @@ window.WORKOUTS = {
    "youtube_id": "nMngQ4nxUU0",
    "has_local_video": true,
    "has_local_thumb": true,
+   "has_preview": true,
    "used_in": [
     "5.1"
    ]
@@ -1937,6 +2094,7 @@ window.WORKOUTS = {
    "youtube_id": "W9WFQpUyB-k",
    "has_local_video": true,
    "has_local_thumb": true,
+   "has_preview": true,
    "used_in": [
     "5.2"
    ]
@@ -1948,6 +2106,7 @@ window.WORKOUTS = {
    "youtube_id": "gfRjCi4JSM8",
    "has_local_video": true,
    "has_local_thumb": true,
+   "has_preview": true,
    "used_in": [
     "6.1"
    ]
@@ -1959,6 +2118,7 @@ window.WORKOUTS = {
    "youtube_id": "nrJBgcFPfwU",
    "has_local_video": true,
    "has_local_thumb": true,
+   "has_preview": true,
    "used_in": [
     "6.2"
    ]
@@ -1970,6 +2130,7 @@ window.WORKOUTS = {
    "youtube_id": "o5WxCJfT6WM",
    "has_local_video": true,
    "has_local_thumb": true,
+   "has_preview": true,
    "used_in": [
     "6.2"
    ]

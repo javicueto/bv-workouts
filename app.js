@@ -35,33 +35,36 @@
 
   /* ------------------------------------------------------------- videos */
 
-  // The same page runs in two places: the local copy in Google Drive, which has
-  // videos/ and thumbs/ on disk, and the published site, which does not (the
-  // videos are the coach's and stay on YouTube). So every local path degrades to
-  // YouTube if the file is not there — nothing needs to be rebuilt per target.
-  var useLocalMedia = true;
+  /* Every card shows a small looping WebP built from the coach's video by
+     scripts/make_previews.py. It animates on its own — no <video> element, no
+     JavaScript — so one glance tells you what the movement is. Tapping it swaps
+     in the YouTube player.
+
+     The source .mp4 files are NOT published; they stay in Google Drive as a
+     backup. The local copy opened from Finder still has them, so it can play
+     offline; anything served over http(s) goes to YouTube. */
+  var HAS_LOCAL_VIDEOS = location.protocol === 'file:';
 
   function ytPoster(e) {
     return e.youtube_id ? 'https://i.ytimg.com/vi/' + e.youtube_id + '/hqdefault.jpg' : '';
   }
 
-  // A video card is a poster + play button; clicking swaps in the real player.
   function videoCard(id) {
     var e = ex(id);
     if (!e) return '';
     var name = esc(e.name);
-    if (!e.has_local_video && !e.youtube_id) {
+    if (!e.has_preview && !e.youtube_id && !e.has_local_video) {
       return '<div class="vid"><div class="vid__frame vid__frame--empty">' +
         '<span>No video</span></div><p class="vid__name">' + name + '</p></div>';
     }
-    var local = (useLocalMedia && e.has_local_thumb) ? 'thumbs/' + e.id + '.jpg' : '';
+    var preview = e.has_preview ? 'previews/' + e.id + '.webp' : '';
     var remote = ytPoster(e);
-    var src = local || remote;
-    // data-fallback lets the delegated error handler below swap a missing local
-    // poster for the YouTube one without re-rendering anything.
+    var src = preview || remote;
+    // data-fallback swaps in the still YouTube thumbnail if a preview is missing,
+    // without re-rendering anything.
     var img = src
-      ? '<img alt="" loading="lazy" src="' + esc(src) + '"' +
-        (local && remote ? ' data-fallback="' + esc(remote) + '"' : '') + '>'
+      ? '<img class="vid__anim" alt="" loading="lazy" src="' + esc(src) + '"' +
+        (preview && remote ? ' data-fallback="' + esc(remote) + '"' : '') + '>'
       : '';
     return '<div class="vid">' +
       '<button class="vid__frame" data-ex="' + esc(e.id) + '" ' +
@@ -77,7 +80,6 @@
     if (el && el.tagName === 'IMG' && el.dataset && el.dataset.fallback) {
       var next = el.dataset.fallback;
       delete el.dataset.fallback;   // only ever fall back once
-      useLocalMedia = false;        // local media is absent: stop trying for the rest
       el.src = next;
     }
   }, true);
@@ -97,18 +99,16 @@
     var e = ex(button.getAttribute('data-ex'));
     if (!e) return;
     var frame = document.createElement('div');
-    frame.className = 'vid__frame';
+    frame.className = 'vid__frame vid__frame--playing';
 
-    if (useLocalMedia && e.has_local_video) {
+    if (HAS_LOCAL_VIDEOS && e.has_local_video) {
       var v = document.createElement('video');
       v.controls = true; v.autoplay = true; v.playsInline = true; v.preload = 'metadata';
-      if (e.has_local_thumb) v.poster = 'thumbs/' + e.id + '.jpg';
       v.src = 'videos/' + e.id + '.mp4';
-      // On the published site videos/ does not exist: swap in YouTube instead of
+      // If the file is not actually there, fall through to YouTube rather than
       // leaving a dead player.
       v.addEventListener('error', function () {
-        useLocalMedia = false;
-        if (e.youtube_id) { frame.textContent = ''; frame.appendChild(ytFrame(e)); }
+        if (e.youtube_id) { v.remove(); frame.insertBefore(ytFrame(e), frame.firstChild); }
       }, { once: true });
       frame.appendChild(v);
     } else if (e.youtube_id) {
@@ -116,6 +116,20 @@
     } else {
       return;
     }
+
+    // A way back to the preview. Without this the player replaces the card for
+    // good and tapping it again does nothing.
+    var close = document.createElement('button');
+    close.type = 'button';
+    close.className = 'vid__close';
+    close.setAttribute('aria-label', 'Close ' + e.name);
+    close.textContent = '\u00d7';
+    close.addEventListener('click', function (evt) {
+      evt.stopPropagation();
+      frame.replaceWith(button);
+    });
+    frame.appendChild(close);
+
     button.replaceWith(frame);
   }
 
@@ -284,36 +298,8 @@
   document.getElementById('foot-meta').textContent =
     'exported ' + fmtDate((DATA.exported_at || '').slice(0, 10));
 
-  /* Are the local video files here? One probe answers it for the whole session.
-     Without this, the published site (where videos/ and thumbs/ are absent by
-     design) would fire a 404 for all 161 posters before falling back one by one,
-     which flickers and wastes requests. The per-image fallback above stays as a
-     safety net for the odd missing file. */
-  function detectLocalMedia(done) {
-    var first = null;
-    for (var k in DATA.exercises) {
-      if (DATA.exercises[k].has_local_thumb) { first = DATA.exercises[k]; break; }
-    }
-    if (!first) { useLocalMedia = false; return done(); }
-
-    var settled = false;
-    function finish(ok) {
-      if (settled) return;
-      settled = true;
-      useLocalMedia = ok;
-      done();
-    }
-    var img = new Image();
-    img.onload = function () { finish(true); };
-    img.onerror = function () { finish(false); };
-    // If the probe hangs, assume remote — YouTube plays either way.
-    setTimeout(function () { finish(false); }, 3000);
-    img.src = 'thumbs/' + first.id + '.jpg';
-  }
-
   // On the published site nothing renders until the password gate is cleared.
   // Locally (file://) TCAuth reports unlocked straight away.
-  function start() { detectLocalMedia(route); }
-  if (window.TCAuth) window.TCAuth.onUnlock(start);
-  else start();
+  if (window.TCAuth) window.TCAuth.onUnlock(route);
+  else route();
 })();

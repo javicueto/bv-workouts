@@ -19,8 +19,14 @@ echo "== fetching any missing videos"
 ./scripts/download_videos.sh
 
 echo
-echo "== rebuilding with the new videos"
+echo "== building looping previews for any new videos"
+python3 scripts/make_previews.py
+
+echo
+echo "== rebuilding with the new videos and previews"
 python3 scripts/build_site.py
 
 echo
 echo "Done — open index.html"
+echo "New previews? Commit and push so the phone gets them:"
+echo "  git add -A && git commit -m 'Refresh workouts' && git push"

@@ -85,11 +85,18 @@ for c in corrections:
 
 videos = ROOT / "videos"
 thumbs = ROOT / "thumbs"
+previews = ROOT / "previews"
 
-missing_video, missing_thumb = [], []
+# The looping WebP previews are what the site actually shows on every card, and
+# unlike videos/ they ARE published — so a missing one is a real gap, not a
+# local-only detail.
+missing_video, missing_thumb, missing_preview = [], [], []
 for ex in export["exercises"].values():
     ex["has_local_video"] = (videos / f"{ex['id']}.mp4").exists()
     ex["has_local_thumb"] = (thumbs / f"{ex['id']}.jpg").exists()
+    ex["has_preview"] = (previews / f"{ex['id']}.webp").exists()
+    if not ex["has_preview"]:
+        missing_preview.append(ex["name"])
     if not ex["has_local_video"]:
         missing_video.append(ex["name"])
     elif not ex["has_local_thumb"]:
@@ -139,6 +146,11 @@ if unresolved:
     print("     → add them to data/name_resolution.json")
 print(f"  {export['workout_count']} workouts, {export['exercise_count']} exercises")
 print(f"  local videos: {export['exercise_count'] - len(missing_video)}/{export['exercise_count']}")
+print(f"  published previews: {export['exercise_count'] - len(missing_preview)}/{export['exercise_count']}")
+if missing_preview:
+    print(f"  !! {len(missing_preview)} exercises have no preview — run scripts/make_previews.py")
+    for n in missing_preview[:5]:
+        print(f"       {n}")
 if missing_video:
     print(f"  NO LOCAL VIDEO ({len(missing_video)}): " + ", ".join(missing_video[:12]))
     print("  → these fall back to YouTube in the site. Re-run scripts/download_videos.sh")
