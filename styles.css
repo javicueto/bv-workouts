@@ -358,32 +358,9 @@ main {
 
 .vid__frame:hover::after { opacity: 1; }
 
-/* The preview underneath is already moving, so the play badge is smaller and
-   quieter than it was over a still frame — it must not sit on top of the
-   movement it is advertising. It firms up on hover. */
-.vid__play {
-  position: absolute; left: 50%; top: 50%;
-  transform: translate(-50%, -50%);
-  width: 40px; height: 40px;
-  display: grid; place-items: center;
-  border-radius: 50%;
-  background: #0e1116a6;
-  border: 1.5px solid #ffffff40;
-  opacity: .82;
-  transition: opacity .15s, background .15s;
-  z-index: 2;
-}
-
-.vid__frame:hover .vid__play { opacity: 1; background: #0e1116d9; }
-
-.vid__play::before {
-  content: "";
-  width: 0; height: 0;
-  margin-left: 3px;
-  border-left: 13px solid #fff;
-  border-top: 8px solid transparent;
-  border-bottom: 8px solid transparent;
-}
+/* No play badge: the preview is already moving, which reads as "this is a video"
+   better than an icon sitting on top of the movement. The hover wash above and
+   the pointer cursor carry the affordance on desktop. */
 
 /* Once the real player is in, the frame is no longer a button: no pointer, no
    hover wash, and a close control so the preview can be brought back. */

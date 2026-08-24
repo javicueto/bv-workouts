@@ -69,7 +69,6 @@
     return '<div class="vid">' +
       '<button class="vid__frame" data-ex="' + esc(e.id) + '" ' +
         'aria-label="Play ' + name + '">' + img +
-        '<span class="vid__play"></span>' +
       '</button>' +
       '<p class="vid__name">' + name + '</p></div>';
   }
