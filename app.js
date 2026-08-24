@@ -85,8 +85,11 @@
   function ytFrame(e) {
     var f = document.createElement('iframe');
     f.allowFullscreen = true;
-    f.setAttribute('allow', 'autoplay; encrypted-media');
-    f.src = 'https://www.youtube-nocookie.com/embed/' + e.youtube_id + '?autoplay=1&rel=0';
+    f.setAttribute('allow', 'autoplay; encrypted-media; picture-in-picture; fullscreen');
+    // playsinline=1 keeps playback inside the card on iPhone; without it iOS
+    // takes the video fullscreen the moment it starts.
+    f.src = 'https://www.youtube-nocookie.com/embed/' + e.youtube_id +
+      '?autoplay=1&rel=0&playsinline=1';
     return f;
   }
 
