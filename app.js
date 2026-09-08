@@ -236,10 +236,10 @@
             }).join('') +
           '</ul>' +
           '<div class="card__foot"><span>' + w.items.length + ' ' + T.blocks_count + '</span>' +
-            // "done 6x" is only true once the last session has been and gone.
-            // Anything still ahead reads "do 6x" instead.
-            '<span>' + (w.last_date < today ? T.done : T.to_do) +
-              ' ' + w.assigned_count + '×</span></div>' +
+            // Just the count. This is a reference, not a tracker — it says how
+            // many times the session is on the calendar, and any "done"/"to do"
+            // wording claims something the page cannot actually know.
+            '<span>' + w.assigned_count + '×</span></div>' +
         '</a>';
       });
       html += '</div></section>';
