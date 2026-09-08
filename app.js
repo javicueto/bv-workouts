@@ -5,6 +5,35 @@
   'use strict';
 
   var DATA = window.WORKOUTS;
+
+  /* Two sites run this same file: Javier's at the root and Nacho's at /nacho/.
+     Everything that differs between them comes from the data, never from a
+     branch in here — the copy, the language and where the media lives.
+     Javier's data carries no `site`/`strings`, so these defaults are his. */
+  var SITE = DATA.site || {};
+  var BASE = window.MEDIA_BASE || '';   // '../' on /nacho/, so previews/ resolve to the shared folder
+  var T = Object.assign({
+    warmup: 'Warm-up',
+    current_block: 'current block',
+    block: 'Block',
+    session: 'session',
+    blocks_count: 'blocks',
+    circuit: 'circuit',
+    mobility_exercises: 'mobility exercises',
+    prev: 'prev',
+    next: 'next',
+    no_video: 'No video',
+    assigned: 'assigned',
+    done: 'done',
+    workouts: 'workouts',
+    exercises: 'exercises',
+    all_exercises: 'Exercise index',
+    exercises_intro: 'Every movement in the programme, with the workouts it appears in.',
+    search_placeholder: 'Search exercises…',
+    warmup_only: 'warm-up only',
+  }, DATA.strings || {});
+  var MONTHS = (DATA.strings && DATA.strings.months) ||
+    ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
   var view = document.getElementById('view');
 
   if (!DATA) {
@@ -29,7 +58,7 @@
   function fmtDate(iso) {
     if (!iso) return '';
     var p = iso.split('-');
-    var m = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+    var m = MONTHS;
     return Number(p[2]) + ' ' + m[Number(p[1]) - 1] + ' ' + p[0];
   }
 
@@ -55,9 +84,9 @@
     var name = esc(e.name);
     if (!e.has_preview && !e.youtube_id && !e.has_local_video) {
       return '<div class="vid"><div class="vid__frame vid__frame--empty">' +
-        '<span>No video</span></div><p class="vid__name">' + name + '</p></div>';
+        '<span>' + T.no_video + '</span></div><p class="vid__name">' + name + '</p></div>';
     }
-    var preview = e.has_preview ? 'previews/' + e.id + '.webp' : '';
+    var preview = e.has_preview ? BASE + 'previews/' + e.id + '.webp' : '';
     var remote = ytPoster(e);
     var src = preview || remote;
     // data-fallback swaps in the still YouTube thumbnail if a preview is missing,
@@ -103,7 +132,7 @@
     if (HAS_LOCAL_VIDEOS && e.has_local_video) {
       var v = document.createElement('video');
       v.controls = true; v.autoplay = true; v.playsInline = true; v.preload = 'metadata';
-      v.src = 'videos/' + e.id + '.mp4';
+      v.src = BASE + 'videos/' + e.id + '.mp4';
       // If the file is not actually there, fall through to YouTube rather than
       // leaving a dead player.
       v.addEventListener('error', function () {
@@ -142,14 +171,41 @@
   function renderHome() {
     var blocks = {};
     DATA.workouts.forEach(function (w) { (blocks[w.block] = blocks[w.block] || []).push(w); });
-    var nums = Object.keys(blocks).map(Number).sort(function (a, b) { return b - a; });
-    var current = nums[0];
+    /* "Current" is the block whose dates contain today — NOT simply the highest
+       number. Javier's blocks arrive one at a time so the two used to coincide,
+       but Nacho's whole programme is published up front: newest-first would put
+       him on block 4 on day one. Falls back to the next block due, then to the
+       last one, so a finished programme still marks something. */
+    var today = new Date().toISOString().slice(0, 10);
+    var asc = (SITE.order || 'desc') === 'asc';
+    var nums = Object.keys(blocks).map(Number).sort(function (a, b) { return asc ? a - b : b - a; });
+
+    function span(n) {
+      var ws = blocks[n];
+      return {
+        from: ws.reduce(function (m, w) { return w.first_date < m ? w.first_date : m; }, ws[0].first_date),
+        to: ws.reduce(function (m, w) { return w.last_date > m ? w.last_date : m; }, ws[0].last_date),
+      };
+    }
+    var ordered = Object.keys(blocks).map(Number).sort(function (a, b) { return a - b; });
+    var current = null;
+    ordered.forEach(function (n) {
+      var s = span(n);
+      if (current === null && today >= s.from && today <= s.to) current = n;
+    });
+    if (current === null) {
+      ordered.forEach(function (n) {
+        if (current === null && span(n).from > today) current = n;   // next one due
+      });
+    }
+    if (current === null) current = ordered[ordered.length - 1];
 
     var html = '<div class="page-head">' +
-      '<span class="eyebrow">' + DATA.workout_count + ' workouts · ' +
-        DATA.exercise_count + ' exercises</span>' +
-      '<h1>Francesco\u2019s Beach Volleyball Workouts</h1>' +
-      '<p>Every workout from block 1 onwards, newest first. Two sessions per block.</p>' +
+      '<span class="eyebrow">' + DATA.workout_count + ' ' + T.workouts + ' · ' +
+        DATA.exercise_count + ' ' + T.exercises + '</span>' +
+      '<h1>' + esc(SITE.title || 'Francesco\u2019s Beach Volleyball Workouts') + '</h1>' +
+      '<p>' + esc(SITE.intro || 'Every workout from block 1 onwards, newest first. Two sessions per block.') + '</p>' +
+      (SITE.note ? '<p class="page-note">' + esc(SITE.note) + '</p>' : '') +
       '</div>';
 
     nums.forEach(function (n) {
@@ -160,7 +216,7 @@
         '<div class="block__label">' +
           '<span class="block__num">' + n + '</span>' +
           '<span class="block__meta">' + fmtDate(from) + ' – ' + fmtDate(to) +
-            (n === current ? '<br>current block' : '') + '</span>' +
+            (n === current ? '<br>' + T.current_block : '') + '</span>' +
         '</div><div class="block__cards">';
       ws.forEach(function (w) {
         html += '<a class="card" href="#/w/' + esc(w.key) + '">' +
@@ -171,8 +227,8 @@
                 '<span>' + esc(it.name) + '</span></li>';
             }).join('') +
           '</ul>' +
-          '<div class="card__foot"><span>' + w.items.length + ' blocks</span>' +
-            '<span>done ' + w.assigned_count + '×</span></div>' +
+          '<div class="card__foot"><span>' + w.items.length + ' ' + T.blocks_count + '</span>' +
+            '<span>' + T.done + ' ' + w.assigned_count + '×</span></div>' +
         '</a>';
       });
       html += '</div></section>';
@@ -189,24 +245,24 @@
     var next = i < order.length - 1 ? order[i + 1] : null;
 
     var html = '<div class="wk-head"><div class="page-head" style="margin:0">' +
-      '<span class="eyebrow">Block ' + w.block + ' · session ' + w.variant + '</span>' +
+      '<span class="eyebrow">' + T.block + ' ' + w.block + ' · ' + T.session + ' ' + w.variant + '</span>' +
       '<h1>' + esc(w.title) + '</h1>' +
       '<p>' + fmtDate(w.first_date) + ' – ' + fmtDate(w.last_date) +
-        ' · assigned ' + w.assigned_count + '×</p></div>' +
+        ' · ' + T.assigned + ' ' + w.assigned_count + '×</p></div>' +
       '<div class="pager">' +
         (prev ? '<a href="#/w/' + esc(prev) + '">← ' + esc(prev) + '</a>'
-              : '<span>← prev</span>') +
+              : '<span>← ' + T.prev + '</span>') +
         (next ? '<a href="#/w/' + esc(next) + '">' + esc(next) + ' →</a>'
-              : '<span>next →</span>') +
+              : '<span>' + T.next + ' →</span>') +
       '</div></div>';
 
     if (w.warmup || w.warmup_exercises.length) {
       html += '<details class="section section--warmup">' +
         '<summary class="section__head">' +
           '<span class="letter">W</span>' +
-          '<span><span class="section__name">Warm-up</span>' +
+          '<span><span class="section__name">' + T.warmup + '</span>' +
             '<span class="section__sub">' + w.warmup_exercises.length +
-            ' mobility exercises</span></span>' +
+            ' ' + T.mobility_exercises + '</span></span>' +
           '<span class="chev"></span>' +
         '</summary><div class="section__body">' +
           (w.warmup ? '<p class="info">' + esc(w.warmup) + '</p>' : '') +
@@ -219,7 +275,7 @@
         '<summary class="section__head">' +
           '<span class="letter">' + esc(it.letter) + '</span>' +
           '<span><span class="section__name">' + esc(it.name) + '</span>' +
-            (it.is_circuit ? '<span class="section__sub">circuit</span>' : '') +
+            (it.is_circuit ? '<span class="section__sub">' + T.circuit + '</span>' : '') +
           '</span><span class="chev"></span>' +
         '</summary><div class="section__body">' +
           (it.info ? '<p class="info">' + esc(it.info) + '</p>' : '') +
@@ -246,10 +302,10 @@
       .sort(function (a, b) { return a.name.toLowerCase() < b.name.toLowerCase() ? -1 : 1; });
 
     view.innerHTML = '<div class="page-head">' +
-      '<span class="eyebrow">' + all.length + ' exercises</span>' +
-      '<h1>Exercise index</h1>' +
-      '<p>Every movement in the programme, with the workouts it appears in.</p></div>' +
-      '<input class="search" type="search" placeholder="Search exercises…" ' +
+      '<span class="eyebrow">' + all.length + ' ' + T.exercises + '</span>' +
+      '<h1>' + T.all_exercises + '</h1>' +
+      '<p>' + T.exercises_intro + '</p></div>' +
+      '<input class="search" type="search" placeholder="' + T.search_placeholder + '" ' +
         'autocomplete="off" aria-label="Search exercises">' +
       '<div class="ex-grid" id="ex-grid"></div>';
 
@@ -263,7 +319,7 @@
         ? hits.map(function (e) {
             return videoCard(e.id).replace('</div>',
               '<p class="ex-used">' +
-              (e.used_in.length ? e.used_in.join(' · ') : 'warm-up only') +
+              (e.used_in.length ? e.used_in.join(' · ') : T.warmup_only) +
               '</p></div>');
           }).join('')
         : '<p class="empty">Nothing matches “' + esc(q) + '”.</p>';

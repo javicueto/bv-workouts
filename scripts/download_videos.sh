@@ -20,12 +20,26 @@ mkdir -p videos thumbs logs
 # Falls back to the raw export if the site has not been built yet.
 python3 - > /tmp/tc_dl_list.tsv <<'PY'
 import json, pathlib
-built = pathlib.Path('data/workouts.js')
-if built.exists():
-    d = json.loads(built.read_text().split('window.WORKOUTS = ', 1)[1].rsplit(';', 1)[0])
-else:
-    d = json.loads(pathlib.Path('data/truecoach_export.json').read_text())
-for e in d['exercises'].values():
+
+def load(path):
+    p = pathlib.Path(path)
+    if not p.exists():
+        return {}
+    text = p.read_text()
+    if 'window.WORKOUTS = ' in text:
+        text = text.split('window.WORKOUTS = ', 1)[1].rsplit(';', 1)[0]
+    return json.loads(text).get('exercises', {})
+
+# Both sites draw from the same videos/ folder, so collect from each built data
+# file. Falls back to the raw export if Javier's site has not been built yet.
+wanted = {}
+sources = ['data/workouts.js', 'data/nacho.js']
+if not pathlib.Path('data/workouts.js').exists():
+    sources[0] = 'data/truecoach_export.json'
+for src in sources:
+    wanted.update(load(src))
+
+for e in wanted.values():
     if e['youtube_id']:
         print(f"{e['id']}\t{e['youtube_id']}\t{e['name']}")
 PY

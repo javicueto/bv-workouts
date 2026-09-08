@@ -38,7 +38,19 @@ window.TCAuth = (function () {
     waiting.splice(0).forEach(function (cb) { cb(); });
   }
 
+  /* Both sites share this file, so the lock screen takes its wording from the
+     page itself: the <title> and <html lang>. No per-site config to keep in sync. */
+  function copy() {
+    var es = (document.documentElement.lang || '').slice(0, 2) === 'es';
+    return es
+      ? { hint: 'Introduce la contraseña para continuar.', open: 'Entrar',
+          wrong: 'Contraseña incorrecta.', label: 'Contraseña' }
+      : { hint: 'Enter the password to continue.', open: 'Open',
+          wrong: 'Wrong password.', label: 'Password' };
+  }
+
   function showLock() {
+    var t = copy();
     document.body.classList.add('is-locked');
     var wrap = document.createElement('div');
     wrap.id = 'lock';
@@ -46,12 +58,12 @@ window.TCAuth = (function () {
     wrap.innerHTML =
       '<form class="lock__box" autocomplete="off">' +
         '<span class="lock__mark"></span>' +
-        '<h1 class="lock__title">Beach Volleyball Workouts</h1>' +
-        '<p class="lock__hint">Enter the password to continue.</p>' +
-        '<input class="lock__input" type="password" name="pw" aria-label="Password" ' +
+        '<h1 class="lock__title">' + (document.title || '') + '</h1>' +
+        '<p class="lock__hint">' + t.hint + '</p>' +
+        '<input class="lock__input" type="password" name="pw" aria-label="' + t.label + '" ' +
           'autocomplete="current-password" autofocus>' +
-        '<button class="lock__btn" type="submit">Open</button>' +
-        '<p class="lock__error" role="alert" hidden>Wrong password.</p>' +
+        '<button class="lock__btn" type="submit">' + t.open + '</button>' +
+        '<p class="lock__error" role="alert" hidden>' + t.wrong + '</p>' +
       '</form>';
     document.body.appendChild(wrap);
 

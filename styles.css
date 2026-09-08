@@ -144,6 +144,19 @@ main {
 
 .page-head p { margin: 0; color: var(--text-dim); font-size: 15px; }
 
+/* Optional standing note under the intro (a per-site standing note). Deliberately
+   quiet — it should be readable, not a warning banner. */
+.page-note {
+  margin: var(--space-4) 0 0;
+  padding: var(--space-4);
+  max-width: 62ch;
+  font-size: 14px; line-height: 1.55;
+  color: var(--text-dim);
+  background: var(--bg-raised);
+  border-left: 2px solid var(--accent);
+  border-radius: 0 var(--radius) var(--radius) 0;
+}
+
 .eyebrow {
   display: block;
   font-size: 12px; font-weight: 700;

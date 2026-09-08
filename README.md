@@ -100,6 +100,32 @@ One name, *heels elevated back squat*, exists three times in the library; the ne
 was used. If that video ever looks like the wrong variation, change the id in
 `data/name_resolution.json`.
 
+## Nacho's programme (/nacho)
+
+A second programme for a friend — a runner working toward
+running the odd 10k. Same site, same password:
+<https://javicueto.github.io/bv-workouts/nacho/>
+
+It is **hand-authored**, not exported: `data/nacho_programme.json` is the source,
+and `scripts/build_nacho.py` turns it into `data/nacho.js`. Exercises are picked
+from `data/exercise_library.json` (Francesco's full library, 1,759 movements), so
+both programmes share `videos/` and `previews/` and the same download pipeline.
+
+- **Dates are derived, never typed.** Change `start_date` in the programme file
+  and every block shifts. Sessions land on `session_days` (Wed/Sat) for
+  `weeks_per_block` weeks.
+- **The page is in Spanish**, driven by `site` and `strings` in the programme
+  file. `app.js` and `auth.js` are shared with the main site and carry English
+  defaults, so Javier's site is unaffected by anything added there.
+- **Media paths** come from `window.MEDIA_BASE` (`'../'` in `nacho/index.html`),
+  because the videos and previews live one level up.
+
+To change his programme, edit `data/nacho_programme.json`, then:
+
+```bash
+python3 scripts/build_nacho.py && ./scripts/download_videos.sh && python3 scripts/make_previews.py && python3 scripts/build_nacho.py
+```
+
 ## The published site
 
 The same page is on GitHub Pages so it can be opened on a phone. Two differences
