@@ -10,10 +10,11 @@
  *
  * HOW TO RUN (refresh procedure)
  *   1. Open https://app.truecoach.co/client/workouts and make sure you're logged in.
- *   2. Paste this whole file into DevTools console (or have Claude run it in the tab).
- *   3. It downloads `truecoach_export.json` — move it to data/truecoach_export.json.
- *   4. Run ./scripts/download_videos.sh  (fetches only the new videos).
- *   5. Run ./scripts/build_site.py       (regenerates data/workouts.js).
+ *   2. Start the receiver:  python3 scripts/receive_export.py
+ *   3. Paste this whole file into DevTools console (or have Claude run it in the tab).
+ *      It POSTs straight into data/truecoach_export.json. With no receiver running
+ *      it falls back to a browser download you move there yourself.
+ *   4. Run ./scripts/refresh.sh  (videos, previews, rebuild).
  *
  * NOTE ON CLIENT ID: 3373893 is Javier's client record. It is read from the
  * logged-in user below rather than hardcoded, so this keeps working if it changes.
@@ -170,6 +171,29 @@
     'SHA-256', new TextEncoder().encode(s)))].map(b => b.toString(16).padStart(2, '0')).join('');
   console.log(`export: ${workouts.length} workouts, ${Object.keys(exercises).length} exercises`);
   console.log('sha256 (compare with `shasum -a 256` on the saved file):', hash);
+
+  /* Preferred path: hand the payload straight to scripts/receive_export.py, which
+   * writes it into data/, saving a trip through ~/Downloads.
+   *
+   * THE TIMEOUT IS LOAD-BEARING. Chrome's Private Network Access blocks this
+   * https page from reaching localhost, and the request HANGS rather than
+   * failing — without the abort below the whole export stalls instead of
+   * falling through to the download. Keep it. (As of Sep 2026 the receiver
+   * never actually wins on this Mac; the download path is what runs.)
+   */
+  try {
+    const res = await fetch('http://127.0.0.1:8787/', {
+      method: 'POST',
+      headers: { 'content-type': 'application/json' },
+      body: s,
+      signal: AbortSignal.timeout(1500),
+    });
+    if (!res.ok) throw new Error('receiver replied ' + res.status);
+    console.log('sent to scripts/receive_export.py — written to data/truecoach_export.json');
+    return payload;
+  } catch (err) {
+    console.log('receiver not running (' + err.message + ') — falling back to a download');
+  }
 
   const url = URL.createObjectURL(new Blob([s], { type: 'application/json' }));
   const a = document.createElement('a');
