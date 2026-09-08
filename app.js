@@ -15,6 +15,7 @@
   var T = Object.assign({
     warmup: 'Warm-up',
     current_block: 'current block',
+    next_block: 'starts soon',
     block: 'Block',
     session: 'session',
     blocks_count: 'blocks',
@@ -189,16 +190,20 @@
     }
     var ordered = Object.keys(blocks).map(Number).sort(function (a, b) { return a - b; });
     var current = null;
+    var currentState = null;      // 'now' | 'next' — drives which label is shown
     ordered.forEach(function (n) {
       var s = span(n);
-      if (current === null && today >= s.from && today <= s.to) current = n;
+      if (current === null && today >= s.from && today <= s.to) {
+        current = n; currentState = 'now';
+      }
     });
     if (current === null) {
       ordered.forEach(function (n) {
-        if (current === null && span(n).from > today) current = n;   // next one due
+        if (current === null && span(n).from > today) { current = n; currentState = 'next'; }
       });
     }
-    if (current === null) current = ordered[ordered.length - 1];
+    // Past the end of the programme nothing is highlighted: calling the last
+    // block "current" months after it finished would be a lie.
 
     var html = '<div class="page-head">' +
       '<span class="eyebrow">' + DATA.workout_count + ' ' + T.workouts + ' · ' +
@@ -216,7 +221,9 @@
         '<div class="block__label">' +
           '<span class="block__num">' + n + '</span>' +
           '<span class="block__meta">' + fmtDate(from) + ' – ' + fmtDate(to) +
-            (n === current ? '<br>' + T.current_block : '') + '</span>' +
+            (n === current && currentState
+              ? '<br>' + (currentState === 'now' ? T.current_block : T.next_block)
+              : '') + '</span>' +
         '</div><div class="block__cards">';
       ws.forEach(function (w) {
         html += '<a class="card" href="#/w/' + esc(w.key) + '">' +
