@@ -38,6 +38,10 @@ If `refresh.sh` reports **blocks with no video**, the coach used a movement name
 that is not in the exercise library under that spelling. Add it to
 `data/name_resolution.json` and run the refresh again.
 
+If it reports a **FAILED download with `HTTP Error 403`**, that is YouTube
+throttling, not a broken video — just run `./scripts/refresh.sh` again and it
+usually succeeds on the second try. It only retries what is missing.
+
 ## Fixing a mistake in the coach's data
 
 TrueCoach sometimes has an error — a missing rep count, a typo. Do not edit
@@ -66,16 +70,21 @@ disk: the export script borrows the logged-in tab's own session.
 ```
 index.html            the site
 app.js  styles.css    viewer and design
+auth.js               password gate for the published site only
 data/
   truecoach_export.json   raw export from TrueCoach (the source of truth)
   name_resolution.json    block name → exercise, for blocks the coach left unlinked
+  corrections.json        fixes for mistakes in the coach's own data
   workouts.js             generated — what the page actually reads
-videos/  <id>.mp4     downloaded exercise videos
-thumbs/  <id>.jpg     poster frames
+previews/ <id>.webp   looping previews shown on every card — THESE are published
+videos/  <id>.mp4     downloaded exercise videos — backup only, never published
+thumbs/  <id>.jpg     poster frames — local only
 scripts/
   export_truecoach.js  run in the browser tab to refresh the data
-  refresh.sh           build → download → build, in one command
+  receive_export.py    optional: catches the export instead of using Downloads
+  refresh.sh           export → download → previews → rebuild, in one command
   download_videos.sh   fetch missing videos + poster frames
+  make_previews.py     turn new videos into looping previews
   build_site.py        export → data/workouts.js
 logs/                 download logs
 ```
