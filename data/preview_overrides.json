@@ -1,0 +1,6 @@
+{
+  "_note": "Per-exercise overrides for the looping previews. The default is to start a third of the way into the clip and take 4s, which usually lands on the reps — but some clips put the good part somewhere else. Set 'start' (seconds) and optionally 'length' to fix one. scripts/make_previews.py re-cuts any exercise listed here on every run, so editing a number is enough.",
+  "overrides": {
+    "11280029": { "start": 1, "why": "KB goblet squat — the default cut landed on setup; the reps start right away." }
+  }
+}

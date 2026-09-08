@@ -15,6 +15,7 @@ the encoding, which is the reference implementation anyway.
 Usage:  python3 scripts/make_previews.py [--force]
 """
 import concurrent.futures
+import json
 import os
 import pathlib
 import subprocess
@@ -42,6 +43,12 @@ START_FRACTION = 0.35
 
 force = "--force" in sys.argv
 
+# Per-exercise start/length overrides, for clips where the default cut lands on
+# the wrong moment. See data/preview_overrides.json.
+OVERRIDES_PATH = ROOT / "data" / "preview_overrides.json"
+OVERRIDES = (json.loads(OVERRIDES_PATH.read_text()).get("overrides", {})
+             if OVERRIDES_PATH.exists() else {})
+
 
 def duration(path):
     out = subprocess.run(
@@ -50,18 +57,23 @@ def duration(path):
     return float(out) if out else 0.0
 
 
-def build(src, dest):
+def build(src, dest, override=None):
     dur = duration(src)
     if dur <= 0:
         return False, "unreadable"
-    # Short clips: take them whole rather than starting past the end.
-    start = 0.0 if dur < SECONDS + 0.5 else min(dur * START_FRACTION, dur - SECONDS)
+    length = float(override["length"]) if override and override.get("length") else SECONDS
+    if override and override.get("start") is not None:
+        # Trust the override, but never start so late that the clip runs out.
+        start = max(0.0, min(float(override["start"]), max(0.0, dur - length)))
+    else:
+        # Short clips: take them whole rather than starting past the end.
+        start = 0.0 if dur < length + 0.5 else min(dur * START_FRACTION, dur - length)
 
     # Frames are transient and numerous — keep them out of the synced Drive folder.
     with tempfile.TemporaryDirectory(prefix="preview-frames-") as tmp:
         tmp = pathlib.Path(tmp)
         subprocess.run(
-            [FFMPEG, "-v", "error", "-ss", f"{start:.2f}", "-t", str(SECONDS), "-i", str(src),
+            [FFMPEG, "-v", "error", "-ss", f"{start:.2f}", "-t", str(length), "-i", str(src),
              "-vf", f"fps={FPS},scale=w={WIDTH}:h={WIDTH}"
                     ":force_original_aspect_ratio=decrease:flags=lanczos",
              "-an", str(tmp / "f_%04d.png")],
@@ -91,10 +103,14 @@ def main():
     skipped = 0
     for src in sources:
         dest = PREVIEWS / (src.stem + ".webp")
-        if dest.exists() and not force and dest.stat().st_mtime >= src.stat().st_mtime:
+        override = OVERRIDES.get(src.stem)
+        # An overridden clip is always re-cut, so editing a start time in
+        # preview_overrides.json is enough — no need to remember --force.
+        if (dest.exists() and not force and not override
+                and dest.stat().st_mtime >= src.stat().st_mtime):
             skipped += 1
         else:
-            todo.append((src, dest))
+            todo.append((src, dest, override))
 
     # Each clip is an independent ffmpeg + img2webp run, and img2webp at -m 6 is
     # CPU-bound, so this scales almost linearly with cores. Serially it was ~20s
@@ -106,9 +122,9 @@ def main():
     lock = threading.Lock()
 
     def work(job):
-        src, dest = job
+        src, dest, override = job
         try:
-            return src, build(src, dest)
+            return src, build(src, dest, override)
         except subprocess.CalledProcessError as exc:
             return src, (False, f"{exc.cmd[0].rsplit('/', 1)[-1]} failed")
 

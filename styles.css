@@ -146,8 +146,12 @@ main {
 
 /* Optional standing note under the intro (a per-site standing note). Deliberately
    quiet — it should be readable, not a warning banner. */
-.page-note {
-  margin: var(--space-4) 0 0;
+/* Selector must stay at least as specific as `.page-head p` above, which sets
+   margin:0 — a plain `.page-note` loses to it and the box ends up flush against
+   the intro line. */
+.page-head .page-note {
+  /* A boxed element with its own background needs more air than body text. */
+  margin: var(--space-6) 0 0;
   padding: var(--space-4);
   max-width: 62ch;
   font-size: 14px; line-height: 1.55;
