@@ -26,6 +26,7 @@
     no_video: 'No video',
     assigned: 'assigned',
     done: 'done',
+    to_do: 'do',
     workouts: 'workouts',
     exercises: 'exercises',
     all_exercises: 'Exercise index',
@@ -235,7 +236,10 @@
             }).join('') +
           '</ul>' +
           '<div class="card__foot"><span>' + w.items.length + ' ' + T.blocks_count + '</span>' +
-            '<span>' + T.done + ' ' + w.assigned_count + '×</span></div>' +
+            // "done 6x" is only true once the last session has been and gone.
+            // Anything still ahead reads "do 6x" instead.
+            '<span>' + (w.last_date < today ? T.done : T.to_do) +
+              ' ' + w.assigned_count + '×</span></div>' +
         '</a>';
       });
       html += '</div></section>';
