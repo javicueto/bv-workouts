@@ -30,10 +30,11 @@ def load(path):
         text = text.split('window.WORKOUTS = ', 1)[1].rsplit(';', 1)[0]
     return json.loads(text).get('exercises', {})
 
-# Both sites draw from the same videos/ folder, so collect from each built data
-# file. Falls back to the raw export if Javier's site has not been built yet.
+# Collect from the built data. Falls back to the raw export if the site has
+# not been built yet. (Nacho's programme was archived on 12 Sep 2026 — see
+# _archive/nacho/ — so only Javier's programme is fetched now.)
 wanted = {}
-sources = ['data/workouts.js', 'data/nacho.js']
+sources = ['data/workouts.js']
 if not pathlib.Path('data/workouts.js').exists():
     sources[0] = 'data/truecoach_export.json'
 for src in sources:
