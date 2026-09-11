@@ -1,6 +1,6 @@
 {
-  "name": "Freecokiletics",
-  "short_name": "Freecokiletics",
+  "name": "Cokiletics",
+  "short_name": "Cokiletics",
   "description": "Training plan — sessions, rest timer, weights log.",
   "start_url": "./index.html",
   "scope": "./",

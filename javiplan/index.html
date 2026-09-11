@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Moved — Freecokiletics</title>
+<title>Moved — Cokiletics</title>
 <meta name="robots" content="noindex, nofollow">
 <link rel="stylesheet" href="../freecokiletics/styles.css">
 </head>
@@ -11,9 +11,9 @@
 <main id="app">
   <div class="stack" style="margin-top:var(--space-10);text-align:center">
     <div class="eyebrow">Moved</div>
-    <h1>Freecokiletics</h1>
+    <h1>Cokiletics</h1>
     <p class="dim">The app used to live here. Taking you there now…</p>
-    <a class="btn btn--primary btn--big btn--block" href="../freecokiletics/">Open Freecokiletics</a>
+    <a class="btn btn--primary btn--big btn--block" href="../freecokiletics/">Open Cokiletics</a>
   </div>
 </main>
 <script>
@@ -32,7 +32,12 @@
       await Promise.all(keys.filter(function (k) { return k.indexOf("javiplan-") === 0; }).map(function (k) { return caches.delete(k); }));
     }
   } catch (e) { /* nothing to clean up */ }
-  location.replace("../freecokiletics/");
+  /* Carry the query AND the hash across. A password-reset link comes back as
+     #access_token=…&type=recovery, and Supabase still has this old address in
+     its redirect list — forwarding without the hash would silently throw the
+     reset token away and land on the sign-in screen instead of "Choose a new
+     password". Do not simplify this to a bare path. */
+  location.replace("../freecokiletics/" + location.search + location.hash);
 })();
 </script>
 </body>

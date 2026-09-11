@@ -1,4 +1,4 @@
-/* Freecokiletics — views and routing. The runner (runner.js) owns a session once it
+/* Cokiletics — views and routing. The runner (runner.js) owns a session once it
  * starts; this file owns everything around it: sign-in, this week's two days,
  * the plan, history, and syncing state.
  */
@@ -81,7 +81,7 @@
   // ---------------------------------------------------------------- views
   function topbar(title, back) {
     return '<div class="topbar">' +
-      (back ? '<a class="btn btn--quiet" href="' + back + '">‹ Back</a>' : '<div class="row"><span class="mark"></span><b>Freecokiletics</b></div>') +
+      (back ? '<a class="btn btn--quiet" href="' + back + '">‹ Back</a>' : '<div class="row"><span class="mark"></span><b>Cokiletics</b></div>') +
       '<span class="faint" id="sync" style="font-size:12px"></span></div>' +
       (title ? "<h1>" + esc(title) + "</h1>" : "");
   }
@@ -109,7 +109,7 @@
     if (isInstalled() || installHidden()) return "";
     return '<div class="card install-card">' +
       '<div class="install-card__icon">' + ICONS.phone + "</div>" +
-      '<div class="grow"><b>Put Freecokiletics on your home screen</b>' +
+      '<div class="grow"><b>Put Cokiletics on your home screen</b>' +
       '<p class="dim">Opens full-screen, like an app, and works with no signal.</p></div>' +
       '<div class="install-card__actions"><button class="btn btn--primary" id="inst">Add to home screen</button>' +
       '<button class="btn btn--quiet" id="inst-x">Not now</button></div></div>';
@@ -134,10 +134,10 @@
       ? step(1, "Tap <b>Share</b> " + '<span class="inline-icon">' + ICONS.share + "</span> " +
           (chromeIOS ? "— top right, inside the address bar." : "— at the bottom of the screen.")) +
         step(2, "Scroll down and tap <b>Add to Home Screen</b> " + '<span class="inline-icon">' + ICONS.addSquare + "</span>") +
-        step(3, "Tap <b>Add</b>. From now on, open Freecokiletics from that icon.")
+        step(3, "Tap <b>Add</b>. From now on, open Cokiletics from that icon.")
       : step(1, "Open your browser’s menu.") +
         step(2, "Choose <b>Install app</b> or <b>Add to Home screen</b>.") +
-        step(3, "Open Freecokiletics from the new icon.");
+        step(3, "Open Cokiletics from the new icon.");
     UI.info({ title: "Add to your home screen", ok: "Got it",
       html: '<ol class="steps">' + steps + "</ol>" +
         '<p class="faint" style="font-size:13px">Your browser has to do this part — a website can’t add itself on iPhone.</p>' });
@@ -253,7 +253,7 @@
   function renderLogin(msg, email) {
     ticket();
     app.innerHTML = topbar() + '<div class="stack" style="margin-top:var(--space-8)">' +
-      '<div class="eyebrow">Sign in</div><h1>Freecokiletics</h1>' +
+      '<div class="eyebrow">Sign in</div><h1>Cokiletics</h1>' +
       '<form id="f" class="stack" autocomplete="on">' +
         '<div class="field"><label for="e">Email</label><input class="input" id="e" type="email" autocomplete="username" required value="' + esc(email || "") + '"></div>' +
         pwField("p", "Password", "current-password") +
@@ -342,7 +342,7 @@
         ticket();
         app.innerHTML = topbar() + '<div class="stack" style="margin-top:var(--space-8)">' +
           '<div class="eyebrow">Done</div><h1>Password saved</h1>' +
-          '<p class="dim">You’re signed in here. If you use Freecokiletics from your home screen, open it there and sign in with the new password.</p>' +
+          '<p class="dim">You’re signed in here. If you use Cokiletics from your home screen, open it there and sign in with the new password.</p>' +
           '<a class="btn btn--primary btn--big btn--block" href="#/">Continue</a></div>';
       } catch (err) { renderSetPassword(friendly(err, "Could not save the password"), o); }
     });

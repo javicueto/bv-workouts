@@ -1,4 +1,4 @@
-/* Freecokiletics service worker: the app must open in a gym with no signal.
+/* Cokiletics service worker: the app must open in a gym with no signal.
  *
  * - App shell + plan data: NETWORK-FIRST, falling back to the cache when the
  *   network fails or takes more than 3s. It used to be stale-while-revalidate,
@@ -9,7 +9,7 @@
  * - Supabase: never cached — always network. The app keeps its own offline
  *   queue for writes.
  */
-const CACHE = "freeco-v1";
+const CACHE = "freeco-v2";
 const SHELL = [
   "./", "./index.html", "./styles.css", "./config.js",
   "./icons.js", "./ui.js", "./store.js", "./timer.js", "./runner.js", "./app.js",

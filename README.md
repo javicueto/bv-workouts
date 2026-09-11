@@ -100,9 +100,13 @@ One name, *heels elevated back squat*, exists three times in the library; the ne
 was used. If that video ever looks like the wrong variation, change the id in
 `data/name_resolution.json`.
 
-## Freecokiletics — the training app (/freecokiletics)
+## Cokiletics — the training app (/freecokiletics)
 
 A phone app for actually doing the sessions: <https://javicueto.github.io/bv-workouts/freecokiletics/>
+
+On screen it is **Cokiletics**; the folder, the URL and the database tables are
+all still `freecokiletics` / `freeco_`, on purpose — renaming those would strand
+home-screen icons and buy nothing.
 
 It was called Javi Plan and lived at `/javiplan/` until 12 Sep 2026. That address
 still works: it unregisters the old service worker, clears its caches and forwards
