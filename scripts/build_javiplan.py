@@ -68,7 +68,10 @@ REPS_LINE = re.compile(
     (?:
       (?P<pyr>\d+-\d+-\d+)                 # 10-8-6 across rounds
      |(?P<holds>\d+)\s*x\s*(?P<holdsec>\d+)\s*["”]  # 4 x 5" isometric
-     |(?P<secs>\d+)\s*(?:["”]|sec|seg)\b   # 30"  / 30 sec
+     # 30" / 30 sec. The \b applies to the WORD units only: after a quote sign
+     # it never matches before a space, which silently turned every 30" plank
+     # into "30 reps" (found 11 Sep 2026).
+     |(?P<secs>\d+)\s*(?:["”″]|(?:secs?|seg)\b)
      |(?P<n>\d+)                           # plain count
      |(?P<max>max(?:\s+reps)?)             # MAX
     )
@@ -229,6 +232,23 @@ def main():
                 sys.exit(f"override targets a block that does not exist: {fix}")
             b.update({k: v for k, v in fix.items() if k not in ("session", "letter")})
             b["overridden"] = True
+        # Name-based rules apply to every matching block, including future ones
+        # from a refresh — used for decisions Javier makes about a KIND of block
+        # (e.g. "core never gets a rest timer") rather than one specific block.
+        for rule in ov.get("rules", []):
+            pat = re.compile(rule["match_name"], re.I)
+            for s in sessions:
+                for b in s["blocks"]:
+                    if b.get("kind") != "rounds" or not pat.search(b["name"]):
+                        continue
+                    had_timer = bool(b.get("rest_seconds"))
+                    if "rest_seconds" in rule:
+                        b["rest_seconds"] = rule["rest_seconds"]
+                    # Only replace the badge where a timer was removed; keep the
+                    # coach's own cue ("Rest as little as possible") elsewhere.
+                    if had_timer and "rest_note" in rule:
+                        b["rest_note"] = rule["rest_note"]
+                    b["overridden"] = True
         # An override can also silence a specific warning it has dealt with.
         silenced = set(ov.get("silence", []))
         problems[:] = [p for p in problems if not any(p.startswith(s) for s in silenced)]

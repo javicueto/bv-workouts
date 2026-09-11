@@ -14,16 +14,22 @@ window.Sound = (function () {
   var ctx = null;
   var unlocked = false;
 
+  /* MUST run inside a user gesture (a tap) — iPhone refuses to start or resume
+     audio at any other moment. It used to run once when a session opened, but
+     that happened after the plan data loaded, i.e. after the tap had "ended",
+     so iOS kept the audio off and every cue was silent. It now runs on every
+     tap anywhere in the app (listeners at the bottom of this file), which also
+     recovers audio after iOS suspends it (phone call, another app, lock). */
   function unlock() {
-    // iPhone: web audio is silenced by the ring/silent switch by default, which
-    // would kill the rest-timer cues in a gym. "playback" makes it behave like a
-    // music app and sound regardless (Safari 17+; ignored where unsupported).
-    try { if (navigator.audioSession) navigator.audioSession.type = "playback"; } catch (e) {}
+    // iPhone: web audio is silenced by the ring/silent switch by default.
+    // "playback" makes it sound like a music app would (Safari 17+).
+    try { if (navigator.audioSession && navigator.audioSession.type !== "playback") navigator.audioSession.type = "playback"; } catch (e) {}
     if (!ctx) ctx = new (window.AudioContext || window.webkitAudioContext)();
-    if (ctx.state === "suspended") ctx.resume();
+    if (ctx.state !== "running") { try { ctx.resume(); } catch (e) {} }
     if (!unlocked) {
-      // A near-silent tick from inside the gesture is what grants audio on iOS.
-      tone(440, 0.01, 0.0001);
+      // Playing a silent buffer inside the gesture is what grants audio on iOS.
+      var b = ctx.createBuffer(1, 1, 22050), src = ctx.createBufferSource();
+      src.buffer = b; src.connect(ctx.destination); src.start(0);
       unlocked = true;
     }
   }
@@ -49,6 +55,7 @@ window.Sound = (function () {
 
   return {
     unlock: unlock,
+    state: function () { return ctx ? ctx.state : "not started"; },
     halfway: function () { tone(330, 0.9, 0.5, "sine"); vibrate(80); },
     tenLeft: function () {
       if (!ctx) return;
@@ -128,3 +135,9 @@ window.WakeLock = (function () {
     off: function () { wanted = false; if (lock) { lock.release().catch(function () {}); lock = null; } },
   };
 })();
+
+/* Every tap keeps audio alive — see Sound.unlock. Capture phase, so it runs
+   before any handler that might navigate away. */
+["touchend", "click", "keydown"].forEach(function (type) {
+  document.addEventListener(type, function () { Sound.unlock(); }, { capture: true, passive: true });
+});

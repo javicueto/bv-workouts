@@ -59,8 +59,9 @@ window.Runner = (function () {
       var rounds = b.rounds || 1;
       for (var r = 1; r <= rounds; r++) {
         steps.push({ kind: "round", seg: seg, block: b.letter, blockName: b.name, round: r, rounds: rounds,
-          after: r === rounds ? (rounds > 1 ? "Last round" : null)
-               : b.rest_seconds > 0 ? restLabel(b.rest_seconds) : (b.rest_note || "No rest"),
+          // The block's rest, shown on every round as a reference so you
+          // always know what follows the swipe. Same on the last round.
+          restRef: b.rest_seconds > 0 ? restLabel(b.rest_seconds) : (b.rest_note || "No rest"),
           items: b.exercises.map(function (e, ix) {
             return { exercise: e, label: b.exercises.length > 1 ? b.letter + (ix + 1) : b.letter,
                      target: targetFor(e, r), note: e.note || null, setId: Store.uuid() };
@@ -129,7 +130,7 @@ window.Runner = (function () {
   }
   function header(step, sub) {
     return '<div class="row">' +
-      '<button class="btn btn--quiet" data-act="quit" aria-label="Leave session">✕</button>' +
+      '<button class="btn btn--quiet btn--icon" data-act="quit" aria-label="Leave session">' + ICONS.xmark + "</button>" +
       '<div class="grow" style="text-align:center"><div class="eyebrow">' + esc(state.title) + '</div>' +
       '<div class="dim" style="font-size:13px">' + esc(sub || "") + "</div></div>" +
       '<span style="width:44px"></span></div>' + progressBar(step);
@@ -183,7 +184,7 @@ window.Runner = (function () {
     container.innerHTML = header(step, sub) +
       '<section class="screen" id="scr">' +
         '<div class="round-head"><h2>' + esc(step.blockName) + "</h2>" +
-          (step.after ? '<span class="badge badge--cool">' + esc(step.after) + "</span>" : "") + "</div>" +
+          (step.restRef ? '<span class="badge badge--cool">' + esc(step.restRef) + "</span>" : "") + "</div>" +
         // Three or more movements (the core circuits) get a denser card so the
         // whole round — and the Done button — still fits one phone screen.
         '<div class="ex-list' + (step.items.length >= 3 ? " ex-list--dense" : "") + '">' +
@@ -200,6 +201,16 @@ window.Runner = (function () {
     var timed = !!it.target.timed;
     var w = prev ? prev.weight : (last && last.weight != null ? last.weight : "");
     var r = prev ? prev.reps : (typeof it.target.n === "number" ? it.target.n : "");
+    if (r == null) r = "";
+    // Reps are fixed at the target and only become editable on a tap — most
+    // sets hit the target, and a live box on every movement is clutter. MAX
+    // sets (chin-ups, pull-ups) have no target, so they get an open box.
+    var needsBox = it.target.n === "MAX" || r === "";
+    var unitWord = timed ? "Seconds" : "Reps";
+    var repsField = needsBox
+      ? '<input class="input input--sm" data-r="' + ix + '" inputmode="numeric" placeholder="' + (it.target.n === "MAX" ? "how many?" : "—") + '" value="' + esc(r) + '">'
+      : '<span class="fixed"><input class="input input--sm input--fixed" data-r="' + ix + '" data-fixed="1" inputmode="numeric" readonly value="' + esc(r) + '" aria-label="' + unitWord + " " + esc(r) + ', tap to change">' +
+        '<span class="fixed__edit">' + ICONS.pen + "</span></span>";
     return '<article class="ex-card">' +
       '<button class="ex-card__thumb" data-zoom="' + esc(id) + '" aria-label="Show ' + esc(e.name) + ' larger">' +
         (img ? '<img src="' + img + '" alt="">' : "") + "</button>" +
@@ -211,8 +222,8 @@ window.Runner = (function () {
       "</div>" +
       '<div class="ex-card__log">' +
         '<label><span>kg</span><input class="input input--sm" data-w="' + ix + '" inputmode="decimal" placeholder="—" value="' + esc(w) + '"></label>' +
-        '<label><span>' + (timed ? "sec" : "reps") + '</span><input class="input input--sm" data-r="' + ix + '" inputmode="numeric" placeholder="—" value="' + esc(r) + '"></label>' +
-        (timed ? '<button class="btn btn--ghost btn--sm" data-hold="' + ix + '">▶ ' + esc(it.target.n) + "″</button>" : "") +
+        '<label><span>' + (timed ? "sec" : "reps") + "</span>" + repsField + "</label>" +
+        (timed ? '<button class="btn btn--ghost btn--sm" data-hold="' + ix + '" aria-label="Start ' + esc(it.target.n) + ' second timer">' + ICONS.play + " " + esc(it.target.n) + "″</button>" : "") +
       "</div>" +
       (last && last.weight != null ? '<div class="ex-card__last">last time ' + esc(last.weight) + " kg" + (last.reps ? " × " + esc(last.reps) : "") + "</div>" : "") +
       "</article>";
@@ -259,6 +270,14 @@ window.Runner = (function () {
     });
     container.querySelectorAll("[data-zoom]").forEach(function (b) {
       b.addEventListener("click", function (ev) { ev.stopPropagation(); zoom(b.getAttribute("data-zoom")); });
+    });
+    container.querySelectorAll("[data-fixed]").forEach(function (inp) {
+      inp.addEventListener("click", function () {
+        if (!inp.readOnly) return;
+        inp.readOnly = false; inp.classList.remove("input--fixed"); inp.removeAttribute("data-fixed");
+        var ed = inp.parentNode.querySelector(".fixed__edit"); if (ed) ed.remove();
+        inp.focus(); inp.select();
+      });
     });
     container.querySelectorAll("[data-hold]").forEach(function (b) {
       b.addEventListener("click", function () { startHold(step.items[+b.getAttribute("data-hold")], b); });
@@ -314,7 +333,9 @@ window.Runner = (function () {
 
   // ---------------------------------------------------------------- rest
   function renderRest(step) {
-    var R = 46, C = 2 * Math.PI * R;
+    // Radius + half the stroke (10/2) must stay inside the 100-unit viewBox:
+    // 46 + 5 = 51 cropped the ring at the edges. 44 + 5 = 49 fits.
+    var R = 44, C = 2 * Math.PI * R;
     container.innerHTML = header(step, "Block " + step.block + " · rest") +
       '<section class="rest">' +
         '<div class="rest__ring"><svg viewBox="0 0 100 100"><circle class="track" cx="50" cy="50" r="' + R + '"/>' +

@@ -6,5 +6,13 @@
   ],
   "_silence_reasons": {
     "7.1 [D]": "TrueCoach has the bench press linked twice (two library entries for the same lift). The two movement lines matched the right two videos; the third is a duplicate, not a missing movement."
-  }
+  },
+  "rules": [
+    {
+      "match_name": "core stabil",
+      "rest_seconds": 0,
+      "rest_note": "No rest",
+      "why": "Javier, 11 Sep 2026: no rest between core rounds. Overrides Francesco's written 'rest 1 min' in block 1 (1.1 B, 1.2 B) — Javier's call as the athlete. Pattern also catches the 'Core stabiliy' typo in 4.2 and 6.2."
+    }
+  ]
 }

@@ -1103,12 +1103,12 @@ window.PROGRAMME = {
      "kind": "rounds",
      "rounds": 2,
      "rounds_note": null,
-     "rest_seconds": 60,
-     "rest_note": null,
+     "rest_seconds": 0,
+     "rest_note": "No rest",
      "rest_assumed": false,
      "exercises": [
       {
-       "reps": 30,
+       "seconds": 30,
        "id": "11245580",
        "name": "Dynamic plank"
       },
@@ -1125,7 +1125,8 @@ window.PROGRAMME = {
        "name": "band glute bridge (3\" hold)"
       }
      ],
-     "raw": "2 rounds\n30\" Dynamic plank\n10/side Medball contralateral deadbug\n10 band bridge *3 SEC HOLD\nrest 1 min"
+     "raw": "2 rounds\n30\" Dynamic plank\n10/side Medball contralateral deadbug\n10 band bridge *3 SEC HOLD\nrest 1 min",
+     "overridden": true
     },
     {
      "letter": "C",
@@ -1311,8 +1312,8 @@ window.PROGRAMME = {
      "kind": "rounds",
      "rounds": 2,
      "rounds_note": null,
-     "rest_seconds": 60,
-     "rest_note": null,
+     "rest_seconds": 0,
+     "rest_note": "No rest",
      "rest_assumed": false,
      "exercises": [
       {
@@ -1334,7 +1335,8 @@ window.PROGRAMME = {
        "name": "side bridge"
       }
      ],
-     "raw": "2 rounds\n20 Shoulder tap bear crawl\n10/side ipsilateral deadbug\n8/side Side bridge (3\" hold)\nrest 1 min"
+     "raw": "2 rounds\n20 Shoulder tap bear crawl\n10/side ipsilateral deadbug\n8/side Side bridge (3\" hold)\nrest 1 min",
+     "overridden": true
     },
     {
      "letter": "C",
@@ -1515,7 +1517,7 @@ window.PROGRAMME = {
      "rest_assumed": false,
      "exercises": [
       {
-       "reps": 30,
+       "seconds": 30,
        "id": "11245585",
        "name": "Front to side plank"
       },
@@ -1531,7 +1533,8 @@ window.PROGRAMME = {
        "name": "single leg bridge"
       }
      ],
-     "raw": "3 rounds\n30\" Front to side plank\n20 core activation deadbug\n10/side single leg bridge \nno rest"
+     "raw": "3 rounds\n30\" Front to side plank\n20 core activation deadbug\n10/side single leg bridge \nno rest",
+     "overridden": true
     },
     {
      "letter": "C",
@@ -1731,7 +1734,8 @@ window.PROGRAMME = {
        "name": "fitball leg curl"
       }
      ],
-     "raw": "3 rounds\n20 Plank arm raise\n4 x 5\" isometric deadbug\n12 Fitball leg curl"
+     "raw": "3 rounds\n20 Plank arm raise\n4 x 5\" isometric deadbug\n12 Fitball leg curl",
+     "overridden": true
     },
     {
      "letter": "C",
@@ -1933,7 +1937,8 @@ window.PROGRAMME = {
        "name": "leg raise side plank"
       }
      ],
-     "raw": "3 rounds\n20 Plank leg raise\n10/side DB Single arm deadbug \n10/side Leg raise side plank\nno rest"
+     "raw": "3 rounds\n20 Plank leg raise\n10/side DB Single arm deadbug \n10/side Leg raise side plank\nno rest",
+     "overridden": true
     },
     {
      "letter": "C",
@@ -2136,7 +2141,8 @@ window.PROGRAMME = {
        "name": "Lateral climbers"
       }
      ],
-     "raw": "3 rounds\n10 sit up\n12 Leg/arm raise plank\n10/side lateral climbers"
+     "raw": "3 rounds\n10 sit up\n12 Leg/arm raise plank\n10/side lateral climbers",
+     "overridden": true
     },
     {
      "letter": "C",
@@ -2319,7 +2325,7 @@ window.PROGRAMME = {
      "rest_assumed": false,
      "exercises": [
       {
-       "reps": 30,
+       "seconds": 30,
        "id": "12626046",
        "name": "hollow body flutter kicks"
       },
@@ -2334,7 +2340,8 @@ window.PROGRAMME = {
        "name": "Plank shoulder tap"
       }
      ],
-     "raw": "3 rounds\n30\" Hollow body flutter kicks\n20 Elbows lateral climbers\n20 plank shoulder tap"
+     "raw": "3 rounds\n30\" Hollow body flutter kicks\n20 Elbows lateral climbers\n20 plank shoulder tap",
+     "overridden": true
     },
     {
      "letter": "C",
@@ -2536,7 +2543,7 @@ window.PROGRAMME = {
      "rest_assumed": false,
      "exercises": [
       {
-       "reps": 30,
+       "seconds": 30,
        "id": "11479416",
        "name": "bent hollow flutter kicks"
       },
@@ -2551,7 +2558,8 @@ window.PROGRAMME = {
        "name": "Plank shoulder tap"
       }
      ],
-     "raw": "3 rounds\n30\" Bent hollow flutter kicks\n20 Cross body mountain climbers\n20 plank shoulder tap\nno rest"
+     "raw": "3 rounds\n30\" Bent hollow flutter kicks\n20 Cross body mountain climbers\n20 plank shoulder tap\nno rest",
+     "overridden": true
     },
     {
      "letter": "C",
@@ -2747,7 +2755,7 @@ window.PROGRAMME = {
      "rest_assumed": false,
      "exercises": [
       {
-       "reps": 30,
+       "seconds": 30,
        "id": "11331922",
        "name": "fitball plank"
       },
@@ -2763,7 +2771,8 @@ window.PROGRAMME = {
        "name": "single arm kb swing"
       }
      ],
-     "raw": "3 rounds\n30\" Fitball plank \n20 Modified tuck up\n10/side single arm KB Swing"
+     "raw": "3 rounds\n30\" Fitball plank \n20 Modified tuck up\n10/side single arm KB Swing",
+     "overridden": true
     },
     {
      "letter": "C",
@@ -2965,7 +2974,7 @@ window.PROGRAMME = {
      "rest_assumed": false,
      "exercises": [
       {
-       "reps": 30,
+       "seconds": 30,
        "id": "11521897",
        "name": "fitball crunch"
       },
@@ -2981,7 +2990,8 @@ window.PROGRAMME = {
        "name": "single arm kb swing"
       }
      ],
-     "raw": "3 rounds\n30\" Fitball crunch\n20 Cross wallet\n10/side Single arm KB swing\nno rest"
+     "raw": "3 rounds\n30\" Fitball crunch\n20 Cross wallet\n10/side Single arm KB swing\nno rest",
+     "overridden": true
     },
     {
      "letter": "C",
@@ -3184,7 +3194,8 @@ window.PROGRAMME = {
        "name": "trx wallet crunch"
       }
      ],
-     "raw": "3 rounds\n10 Hands to elbows plank \n12 Band tall kneeling shoulder press\n12 trx wallet crunch"
+     "raw": "3 rounds\n10 Hands to elbows plank \n12 Band tall kneeling shoulder press\n12 trx wallet crunch",
+     "overridden": true
     },
     {
      "letter": "C",
@@ -3372,7 +3383,8 @@ window.PROGRAMME = {
      "rest_assumed": false,
      "exercises": [
       {
-       "reps": 30,
+       "seconds": 30,
+       "per_side": true,
        "id": "11279371",
        "name": "DB side plank"
       },
@@ -3388,7 +3400,8 @@ window.PROGRAMME = {
        "name": "Half kneeling DB Chop"
       }
      ],
-     "raw": "3 rounds\n30\"/side DB Side plank\n12 Band twist\n10/side Half kneeling DB Chop"
+     "raw": "3 rounds\n30\"/side DB Side plank\n12 Band twist\n10/side Half kneeling DB Chop",
+     "overridden": true
     },
     {
      "letter": "C",
@@ -3601,7 +3614,8 @@ window.PROGRAMME = {
        "name": "scissor crunch"
       }
      ],
-     "raw": "3 rounds:\n8/side TK windmill press\n12/side Split stance plate twist\n20 scissor crunch\nrest as little as possible"
+     "raw": "3 rounds:\n8/side TK windmill press\n12/side Split stance plate twist\n20 scissor crunch\nrest as little as possible",
+     "overridden": true
     },
     {
      "letter": "C",
@@ -3765,7 +3779,7 @@ window.PROGRAMME = {
      "rest_assumed": false,
      "exercises": [
       {
-       "reps": 30,
+       "seconds": 30,
        "id": "11288977",
        "name": "isometric deadbug"
       },
@@ -3782,7 +3796,8 @@ window.PROGRAMME = {
        "name": "standing plate twist"
       }
      ],
-     "raw": "3 rounds:\n30\" Isometric dead bug\n10/side Half kneeling KB chop (push pull)\n16 standing plate twist\nrest as ittle as possible"
+     "raw": "3 rounds:\n30\" Isometric dead bug\n10/side Half kneeling KB chop (push pull)\n16 standing plate twist\nrest as ittle as possible",
+     "overridden": true
     },
     {
      "letter": "B",
@@ -3986,7 +4001,8 @@ window.PROGRAMME = {
        "name": "plank twist"
       }
      ],
-     "raw": "3 rounds:\n12 tall kneeling plate half moon\n8/side L-sit shoulder press rotation\n20 Plank twist\nrest as little as possible"
+     "raw": "3 rounds:\n12 tall kneeling plate half moon\n8/side L-sit shoulder press rotation\n20 Plank twist\nrest as little as possible",
+     "overridden": true
     },
     {
      "letter": "C",
@@ -4163,7 +4179,8 @@ window.PROGRAMME = {
        "name": "hyper extension"
       }
      ],
-     "raw": "3 rounds:\n20 plank move the kb\n16 alternating single arm db plank row\n20 hyperextension\nrest as ittle as possible"
+     "raw": "3 rounds:\n20 plank move the kb\n16 alternating single arm db plank row\n20 hyperextension\nrest as ittle as possible",
+     "overridden": true
     },
     {
      "letter": "B",
