@@ -40,6 +40,13 @@ window.Runner = (function () {
     return { n: "", unit: "" };
   }
 
+  function restLabel(sec) {
+    if (sec === 90) return "Rest 1½ min";
+    if (sec % 60 === 0) return "Rest " + sec / 60 + " min";
+    if (sec < 60) return "Rest " + sec + " s";
+    return "Rest " + Math.floor(sec / 60) + ":" + String(sec % 60).padStart(2, "0") + " min";
+  }
+
   function buildSteps(session) {
     var steps = [], segments = [];
     if (session.warmup.exercises.length) {
@@ -52,7 +59,8 @@ window.Runner = (function () {
       var rounds = b.rounds || 1;
       for (var r = 1; r <= rounds; r++) {
         steps.push({ kind: "round", seg: seg, block: b.letter, blockName: b.name, round: r, rounds: rounds,
-          restNote: b.rest_seconds ? null : b.rest_note,
+          after: r === rounds ? (rounds > 1 ? "Last round" : null)
+               : b.rest_seconds > 0 ? restLabel(b.rest_seconds) : (b.rest_note || "No rest"),
           items: b.exercises.map(function (e, ix) {
             return { exercise: e, label: b.exercises.length > 1 ? b.letter + (ix + 1) : b.letter,
                      target: targetFor(e, r), note: e.note || null, setId: Store.uuid() };
@@ -175,7 +183,7 @@ window.Runner = (function () {
     container.innerHTML = header(step, sub) +
       '<section class="screen" id="scr">' +
         '<div class="round-head"><h2>' + esc(step.blockName) + "</h2>" +
-          (step.restNote ? '<span class="badge badge--cool">' + esc(step.restNote) + "</span>" : "") + "</div>" +
+          (step.after ? '<span class="badge badge--cool">' + esc(step.after) + "</span>" : "") + "</div>" +
         // Three or more movements (the core circuits) get a denser card so the
         // whole round — and the Done button — still fits one phone screen.
         '<div class="ex-list' + (step.items.length >= 3 ? " ex-list--dense" : "") + '">' +
