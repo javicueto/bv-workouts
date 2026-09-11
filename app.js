@@ -16,6 +16,8 @@
     warmup: 'Warm-up',
     current_block: 'current block',
     you_did_this: 'You did this',
+    you_do_this: 'You\u2019re on this',
+    you_will_do_this: 'Coming up',
     next_block: 'starts soon',
     block: 'Block',
     session: 'session',
@@ -60,7 +62,26 @@
   /* When each block was actually done, kept as a reference but out of the way:
      the dates are last year's TrueCoach history, not a schedule to follow.
      Font Awesome Pro 7.2.0 Classic Regular, inlined (see freecokiletics/icons.js). */
-  var INFO_ICON = '""" + icon + """';
+  var INFO_ICON = '<svg viewBox="0 0 640 640" aria-hidden="true" focusable="false">' +
+    '<path fill="currentColor" d="M320 112C434.9 112 528 205.1 528 320C528 434.9 434.9 528 320 ' +
+    '528C205.1 528 112 434.9 112 320C112 205.1 205.1 112 320 112zM320 576C461.4 576 576 461.4 ' +
+    '576 320C576 178.6 461.4 64 320 64C178.6 64 64 178.6 64 320C64 461.4 178.6 576 320 576zM280 ' +
+    '400C266.7 400 256 410.7 256 424C256 437.3 266.7 448 280 448L360 448C373.3 448 384 437.3 ' +
+    '384 424C384 410.7 373.3 400 360 400L352 400L352 312C352 298.7 341.3 288 328 288L280 ' +
+    '288C266.7 288 256 298.7 256 312C256 325.3 266.7 336 280 336L304 336L304 400L280 400zM320 ' +
+    '256C337.7 256 352 241.7 352 224C352 206.3 337.7 192 320 192C302.3 192 288 206.3 288 ' +
+    '224C288 241.7 302.3 256 320 256z"/></svg>';
+  /* "You did this" / "You're on this" / "Coming up", chosen from the dates —
+     the programme is a year of history with the newest block still ahead. */
+  function whenLabel(from, to) {
+    var today = new Date().toISOString().slice(0, 10);
+    if (to < today) return T.you_did_this;
+    if (from > today) return T.you_will_do_this;
+    return T.you_do_this;
+  }
+  function datesNote(from, to, times) {
+    return whenLabel(from, to) + ' ' + fmtDate(from) + ' – ' + fmtDate(to) + ' · ' + times + '\u00d7';
+  }
   function infoDot(text) {
     return '<span class="info"><button class="info__btn" type="button" aria-expanded="false" ' +
       'aria-label="When this was done">' + INFO_ICON + '</button>' +
@@ -247,7 +268,7 @@
         '<div class="block__label">' +
           '<span class="block__num">' + n + '</span>' +
           '<span class="block__meta">' +
-            infoDot(T.you_did_this + ' ' + fmtDate(from) + ' – ' + fmtDate(to) + ' · ' + ws[0].assigned_count + '×') +
+            infoDot(datesNote(from, to, ws[0].assigned_count)) +
             (n === current && currentState
               ? '<br>' + (currentState === 'now' ? T.current_block : T.next_block)
               : '') + '</span>' +
@@ -285,7 +306,7 @@
       '<span class="eyebrow">' + T.block + ' ' + w.block + ' · ' + T.session + ' ' + w.variant + '</span>' +
       '<h1>' + esc(w.title) + '</h1>' +
       '<p>' + esc(w.items.length + ' ' + T.blocks_count) +
-        infoDot(T.you_did_this + ' ' + fmtDate(w.first_date) + ' – ' + fmtDate(w.last_date) + ' · ' + w.assigned_count + '×') +
+        infoDot(datesNote(w.first_date, w.last_date, w.assigned_count)) +
         '</p></div>' +
       '<div class="pager">' +
         (prev ? '<a href="#/w/' + esc(prev) + '">← ' + esc(prev) + '</a>'
