@@ -79,12 +79,57 @@
   function sessionByKey(k) { return P.sessions.find(function (s) { return s.key === k; }); }
 
   // ---------------------------------------------------------------- views
-  function topbar(title, back) {
+  function topbar(title, back, menu) {
     return '<div class="topbar">' +
       (back ? '<a class="btn btn--quiet" href="' + back + '">‹ Back</a>' : '<div class="row"><span class="mark"></span><b>Cokiletics</b></div>') +
-      '<span class="faint" id="sync" style="font-size:12px"></span></div>' +
+      '<div class="row">' +
+        '<span class="faint" id="sync" style="font-size:12px"></span>' +
+        (menu ? '<button class="iconbtn" id="menu-btn" type="button" aria-label="Menu" ' +
+                'aria-expanded="false" aria-controls="menu">' + ICONS.bars + '</button>' : "") +
+      "</div>" +
+      // Inside .topbar, which is position:relative — so the panel anchors to
+      // the bar and cannot drift off the right edge on a narrow phone.
+      (menu ? menuPanel() : "") +
+      "</div>" +
       (title ? "<h1>" + esc(title) + "</h1>" : "");
   }
+
+  /* Everything that is not "do today's session" lives in here. It used to be
+     five full-width buttons under the day cards, which pushed the one thing
+     the screen is for off the top of a phone. */
+  function menuPanel() {
+    return '<div class="menu" id="menu" hidden>' +
+      '<a class="menu__item" href="#/plan">Plan · all weeks</a>' +
+      '<a class="menu__item" href="#/history">History</a>' +
+      '<a class="menu__item" href="../">Programme reference ↗</a>' +
+      '<div class="menu__sep"></div>' +
+      '<button class="menu__item" type="button" id="cp">Change password</button>' +
+      '<button class="menu__item" type="button" id="out">Sign out</button>' +
+      "</div>";
+  }
+  /* The document-level listeners are installed ONCE, not per render. Home is
+     re-rendered every time you come back to it, so binding them per render
+     piled up a new pair on every visit, each holding a panel that had already
+     been thrown away. Look the elements up at event time instead. */
+  function closeMenu() {
+    var btn = document.getElementById("menu-btn"), panel = document.getElementById("menu");
+    if (!panel || panel.hidden) return;
+    panel.hidden = true;
+    if (btn) btn.setAttribute("aria-expanded", "false");
+  }
+  document.addEventListener("click", function (e) {
+    var btn = document.getElementById("menu-btn"), panel = document.getElementById("menu");
+    if (!btn || !panel) return;
+    if (btn.contains(e.target)) { // the button itself toggles
+      var willOpen = panel.hidden;
+      panel.hidden = !willOpen;
+      btn.setAttribute("aria-expanded", String(willOpen));
+      return;
+    }
+    // Picking an item closes it too, and so does a tap anywhere outside.
+    closeMenu();
+  });
+  document.addEventListener("keydown", function (e) { if (e.key === "Escape") closeMenu(); });
 
   function renderSetup() {
     ticket();
@@ -361,7 +406,7 @@
       if (ix !== -1) wf = { week: WEEKS[ix], index: ix, status: ix === nowWf.index ? "now" : (ix < nowWf.index ? "past" : "later") };
     }
     var pendingRun = Runner.pending();
-    var html = topbar() + installCard();
+    var html = topbar(null, null, true) + installCard();
 
     if (pendingRun) {
       html += '<div class="card card--tap" id="resume"><div class="eyebrow">In progress</div>' +
@@ -415,14 +460,6 @@
         }).join("") + "</div></div>";
     }
 
-    html += '<div class="divider" style="margin:var(--space-6) 0"></div>' +
-      '<div class="list">' +
-        '<a class="btn btn--ghost btn--block" href="#/plan">Plan · all weeks</a>' +
-        '<a class="btn btn--ghost btn--block" href="#/history">History</a>' +
-        '<a class="btn btn--ghost btn--block" href="../">Programme reference ↗</a>' +
-        '<button class="btn btn--quiet btn--block" id="cp">Change password</button>' +
-        '<button class="btn btn--quiet btn--block" id="out">Sign out</button>' +
-      "</div>";
     app.innerHTML = html;
     syncBadge();
     bindInstall();
