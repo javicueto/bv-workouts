@@ -34,7 +34,7 @@ window.Runner = (function () {
   function targetFor(e, round) {
     if (e.reps_per_round) return { n: e.reps_per_round[round - 1], unit: "reps" };
     if (e.holds) return { n: e.holds, unit: "× " + e.seconds + "″ hold" };
-    if (e.seconds) return { n: e.seconds, unit: "sec", timed: true };
+    if (e.seconds) return { n: e.seconds, unit: e.per_side ? "sec / side" : "sec", timed: true };
     if (e.reps === "MAX") return { n: "MAX", unit: "reps" };
     if (e.reps != null) return { n: e.reps, unit: e.per_side ? "/ side" : "reps" };
     return { n: "", unit: "" };
@@ -93,15 +93,39 @@ window.Runner = (function () {
     var built = buildSteps(session);
     state = { v: STATE_VERSION, key: sessionKey, title: session.title, workoutId: Store.uuid(), userId: opts.userId,
       weekStart: opts.weekStart || null, startedAt: new Date().toISOString(), i: 0,
-      steps: built.steps, segments: built.segments, last: opts.last || {}, logs: {} };
-    Store.saveWorkout({ id: state.workoutId, user_id: state.userId, session_key: sessionKey,
-      block: session.block, week_start: state.weekStart, started_at: state.startedAt });
+      steps: built.steps, segments: built.segments, last: opts.last || {}, logs: {},
+      // Not written to the database yet. Opening a session just to look at it
+      // used to create an "unfinished" workout every time; now the row only
+      // appears once a round is actually logged (or the session is finished).
+      workoutSaved: false };
     save();
+  }
+  function ensureWorkout() {
+    if (state.workoutSaved !== false) return;       // undefined = older saved session, already written
+    var session = P.sessions.find(function (s) { return s.key === state.key; });
+    Store.saveWorkout({ id: state.workoutId, user_id: state.userId, session_key: state.key,
+      block: session.block, week_start: state.weekStart, started_at: state.startedAt });
+    state.workoutSaved = true; save();
   }
   function resume() { state = pending(); return !!state; }
   function mount(el, exit) { container = el; onExit = exit; Sound.unlock(); WakeLock.on(); render(); }
-  function unmount() { if (countdown) { countdown.stop(); countdown = null; } WakeLock.off(); }
-  function abandon() { unmount(); clear(); onExit && onExit(); }
+  function unmount() { if (countdown) { countdown.stop(); countdown = null; } setResting(false); WakeLock.off(); }
+  // Discard: the session and anything logged in it are removed, not left
+  // behind as an "unfinished" workout in History.
+  function abandon() {
+    var s = state || pending();
+    if (s && s.workoutSaved !== false) Store.deleteWorkout(s.workoutId);
+    unmount(); clear(); onExit && onExit();
+  }
+
+  /* Rest is a different mode, so it looks like one: the whole screen turns
+     blue, including the phone's status bar. Toggled by the rest timer and by
+     Tabata's rest phases; always switched off when leaving them. */
+  function setResting(on) {
+    document.body.classList.toggle("is-resting", !!on);
+    var meta = document.querySelector('meta[name="theme-color"]');
+    if (meta) meta.setAttribute("content", on ? "#1e5bd6" : "#0e1116");
+  }
 
   function go(delta) {
     if (countdown) { countdown.stop(); countdown = null; }
@@ -144,6 +168,7 @@ window.Runner = (function () {
 
   function render() {
     var step = state.steps[state.i];
+    setResting(step.kind === "rest");
     if (step.kind === "warmup") renderWarmup(step);
     else if (step.kind === "round") renderRound(step);
     else if (step.kind === "rest") renderRest(step);
@@ -223,13 +248,16 @@ window.Runner = (function () {
       '<div class="ex-card__log">' +
         '<label><span>kg</span><input class="input input--sm" data-w="' + ix + '" inputmode="decimal" placeholder="—" value="' + esc(w) + '"></label>' +
         '<label><span>' + (timed ? "sec" : "reps") + "</span>" + repsField + "</label>" +
-        (timed ? '<button class="btn btn--ghost btn--sm" data-hold="' + ix + '" aria-label="Start ' + esc(it.target.n) + ' second timer">' + ICONS.play + " " + esc(it.target.n) + "″</button>" : "") +
+        (timed ? '<button class="btn btn--hold" data-hold="' + ix + '" data-side="1">' + ICONS.play +
+          '<span class="hold__long">Start </span>' + esc(it.target.n) + ' s<span class="hold__long"> timer</span>' +
+          (e.per_side ? " · side 1" : "") + "</button>" : "") +
       "</div>" +
       (last && last.weight != null ? '<div class="ex-card__last">last time ' + esc(last.weight) + " kg" + (last.reps ? " × " + esc(last.reps) : "") + "</div>" : "") +
       "</article>";
   }
 
   function logRound(step) {
+    ensureWorkout();
     step.items.forEach(function (it, ix) {
       var wEl = container.querySelector('[data-w="' + ix + '"]'), rEl = container.querySelector('[data-r="' + ix + '"]');
       var weight = wEl && wEl.value.trim() !== "" ? parseFloat(wEl.value.replace(",", ".")) : null;
@@ -265,7 +293,11 @@ window.Runner = (function () {
         else if (a === "skip") go(1);
         else if (a === "extend") { if (countdown) countdown.extend(30); }
         else if (a === "finish") finish();
-        else if (a === "quit") { if (confirm("Leave this session? What you’ve logged so far is saved.")) { unmount(); onExit && onExit({ finished: false }); } }
+        else if (a === "quit") {
+          UI.confirm({ title: "Leave this session?", body: "What you’ve logged is kept. You can pick it up again from the home screen.",
+                       confirm: "Leave", cancel: "Keep going" })
+            .then(function (ok) { if (ok) { unmount(); onExit && onExit({ finished: false }); } });
+        }
       });
     });
     container.querySelectorAll("[data-zoom]").forEach(function (b) {
@@ -296,12 +328,21 @@ window.Runner = (function () {
     document.body.appendChild(ov);
   }
 
+  /* Timed hold (30″ plank…): the button becomes the countdown, with the same
+     cues as a rest, and a finishing chime. Per-side holds run twice. */
   function startHold(it, btn) {
-    Sound.unlock(); btn.disabled = true;
+    Sound.unlock();
     if (countdown) countdown.stop();
+    var sides = it.exercise.per_side ? 2 : 1, side = +btn.getAttribute("data-side");
+    btn.disabled = true; btn.classList.add("is-running");
     countdown = new Countdown(it.target.n, {
-      onTick: function (l) { btn.textContent = l + "″"; },
-      onDone: function () { btn.textContent = "✓"; countdown = null; },
+      endSound: Sound.done,
+      onTick: function (l) { btn.innerHTML = '<span class="hold__n">' + l + "</span> s" + (sides > 1 ? " · side " + side : ""); },
+      onDone: function () {
+        countdown = null; btn.disabled = false; btn.classList.remove("is-running");
+        if (side < sides) { btn.setAttribute("data-side", side + 1); btn.innerHTML = ICONS.play + '<span class="hold__long">Start </span>side ' + (side + 1); }
+        else { btn.classList.add("is-done"); btn.innerHTML = 'Done ✓<span class="hold__long"> — swipe when ready</span>'; }
+      },
     });
   }
 
@@ -360,38 +401,62 @@ window.Runner = (function () {
   // ---------------------------------------------------------------- tabata
   function renderTabata(step) {
     var tb = step.tabata, moves = tb.exercises, cycles = tb.cycles || 8, phase = "work", cycle = 1;
+    // Before starting: both movements as reference. Once running: only the one
+    // being done, big; rest phases are a plain blue screen with the countdown.
     container.innerHTML = header(step, "Block " + step.block + " · Tabata") +
-      '<section class="tabata">' +
+      '<section class="tabata" id="tab">' +
         '<div class="thumb-grid thumb-grid--2">' + moves.map(function (m) {
           var img = preview(m.id);
           return '<button class="thumb" data-zoom="' + esc(m.id) + '">' + (img ? '<img src="' + img + '" alt="">' : "") +
             '<span class="thumb__name">' + esc(m.name) + "</span></button>"; }).join("") + "</div>" +
-        '<div class="tabata__phase" id="ph">Ready</div>' +
-        '<div class="tabata__time" id="t">' + tb.work_seconds + "/" + tb.rest_seconds + "</div>" +
-        '<div class="tabata__move" id="mv"></div>' +
-        '<div class="tabata__cycle" id="cy">' + cycles + " cycles · 4 min</div>" +
+        '<div class="tabata__phase">Ready</div>' +
+        '<div class="tabata__time">' + tb.work_seconds + "/" + tb.rest_seconds + "</div>" +
+        '<div class="tabata__cycle">' + cycles + " cycles · 4 min · alternating</div>" +
         '<button class="btn btn--primary btn--big btn--block" id="tstart">Start Tabata</button>' +
         '<button class="btn btn--quiet" data-act="skip">Skip block</button>' +
       "</section>";
     bind(step);
-    var ph = document.getElementById("ph"), t = document.getElementById("t"), mv = document.getElementById("mv"), cy = document.getElementById("cy");
+
+    function startRun() {
+      var tab = document.getElementById("tab");
+      tab.innerHTML =
+        '<div class="tabata__phase" id="ph"></div>' +
+        '<div class="tabata__gif" id="gif"></div>' +
+        '<div class="tabata__time" id="t"></div>' +
+        '<div class="tabata__move" id="mv"></div>' +
+        '<div class="tabata__cycle" id="cy"></div>' +
+        '<button class="btn btn--quiet" data-act="skip">Skip block</button>';
+      bind(step);
+      run();
+    }
     function show() {
-      var m = moves[(cycle - 1) % moves.length] || {};
+      var m = moves[(cycle - 1) % moves.length] || {}, next = moves[cycle % moves.length] || {};
+      var ph = document.getElementById("ph"), gif = document.getElementById("gif");
+      var mv = document.getElementById("mv"), cy = document.getElementById("cy");
       ph.textContent = phase === "work" ? "Work" : "Rest"; ph.className = "tabata__phase " + phase;
-      mv.textContent = phase === "work" ? (m.name || "") : "next: " + ((moves[cycle % moves.length] || {}).name || "");
+      if (phase === "work") {
+        var img = preview(m.id);
+        gif.innerHTML = img ? '<img src="' + img + '" alt="">' : ""; gif.hidden = !img;
+        mv.textContent = m.name || "";
+      } else {
+        gif.hidden = true; gif.innerHTML = "";
+        mv.textContent = "next: " + (next.name || "");
+      }
       cy.textContent = "cycle " + cycle + " of " + cycles;
+      setResting(phase === "rest");
     }
     function run() {
       show();
+      var t = document.getElementById("t");
       countdown = new Countdown(phase === "work" ? tb.work_seconds : tb.rest_seconds, { cues: false,
         onTick: function (l) { t.textContent = String(l); if (l <= 3 && l > 0) Sound.count(); },
         onDone: function () {
           countdown = null;
           if (phase === "work") { phase = "rest"; Sound.halfway(); run(); }
-          else { cycle++; if (cycle > cycles) { Sound.done(); go(1); return; } phase = "work"; Sound.go(); run(); }
+          else { cycle++; if (cycle > cycles) { setResting(false); Sound.done(); go(1); return; } phase = "work"; Sound.go(); run(); }
         } });
     }
-    document.getElementById("tstart").addEventListener("click", function () { Sound.unlock(); this.remove(); Sound.go(); run(); });
+    document.getElementById("tstart").addEventListener("click", function () { Sound.unlock(); Sound.go(); startRun(); });
   }
 
   // ---------------------------------------------------------------- done

@@ -89,18 +89,29 @@ window.Store = (function () {
 
   function enqueue(op) { var q = readQ(); q.push(op); writeQ(q); flush(); }
 
-  var flushing = false;
-  async function flush() {
-    if (flushing || !navigator.onLine || !sb()) return;
+  /* flush() returns the upload already in progress if there is one, so a
+     caller can `await Store.flush()` and know its row has landed — the home
+     screen used to reload before a "Mark as done" save arrived and showed the
+     day as not done. */
+  var flushing = null;
+  function flush() {
+    if (flushing) return flushing;
+    flushing = doFlush().finally(function () { flushing = null; });
+    return flushing;
+  }
+  async function doFlush() {
+    if (!navigator.onLine || !sb()) return;
     var u = await user();
     if (!u) return;
-    flushing = true;
-    try {
+    {
       var q = readQ();
       while (q.length) {
         var op = q[0];
         var res;
-        if (op.table === "workouts") res = await sb().from(T_WORKOUTS).upsert(op.row, { onConflict: "id" });
+        if (op.op === "delete") {
+          // Deleting a workout removes its sets too (on delete cascade).
+          res = await sb().from(T_WORKOUTS).delete().eq("id", op.id);
+        } else if (op.table === "workouts") res = await sb().from(T_WORKOUTS).upsert(op.row, { onConflict: "id" });
         else res = await sb().from(T_SETS).upsert(op.row, { onConflict: "id" });
         if (res.error) {
           // A rejected row (bad data, RLS) would block the queue forever: drop it
@@ -113,7 +124,7 @@ window.Store = (function () {
         }
         q.shift(); writeQ(q);
       }
-    } finally { flushing = false; }
+    }
   }
   window.addEventListener("online", flush);
 
@@ -155,32 +166,60 @@ window.Store = (function () {
   }
 
   function saveWorkout(row) { enqueue({ table: "workouts", row: row }); }
+
+  /* Delete a workout and its sets. Anything for it still waiting in the queue
+     is dropped first — if it never reached the server there is nothing to
+     delete there, and uploading it just to delete it would be pointless. */
+  function deleteWorkout(id) {
+    var q = readQ().filter(function (op) {
+      return !(op.table === "workouts" && op.row && op.row.id === id) && !(op.table === "sets" && op.row && op.row.workout_id === id);
+    });
+    q.push({ table: "workouts", op: "delete", id: id });
+    writeQ(q);
+    return flush();
+  }
   function saveSet(row) { rememberWeight(row.exercise_id, row.weight, row.reps); enqueue({ table: "sets", row: row }); }
 
   async function history(userId, limit) {
     if (!sb() || !userId) return [];
-    var r = await sb().from(T_WORKOUTS).select("*").eq("user_id", userId)
+    // Embedded count of each workout's sets, so History can spot the empty
+    // unfinished ones (a session opened and left without logging anything).
+    var r = await sb().from(T_WORKOUTS).select("*, javiplan_sets(count)").eq("user_id", userId)
       .order("started_at", { ascending: false }).limit(limit || 60);
-    return r.error ? [] : r.data;
+    if (r.error) return [];
+    return r.data.map(function (w) {
+      w.set_count = (w.javiplan_sets && w.javiplan_sets[0] && w.javiplan_sets[0].count) || 0;
+      delete w.javiplan_sets;
+      return w;
+    });
   }
   async function setsFor(workoutId) {
     if (!sb()) return [];
     var r = await sb().from(T_SETS).select("*").eq("workout_id", workoutId).order("done_at");
     return r.error ? [] : r.data;
   }
+  /* Finished workouts this plan week, one per session — the latest, if a
+     session was done more than once (a re-do). Includes the id so a done
+     card can open that workout. */
   async function doneThisWeek(userId, weekStart) {
     if (!sb() || !userId) return {};
-    var r = await sb().from(T_WORKOUTS).select("session_key, finished_at")
-      .eq("user_id", userId).eq("week_start", weekStart).not("finished_at", "is", null);
-    var m = {}; (r.data || []).forEach(function (w) { m[w.session_key] = w.finished_at; });
+    var r = await sb().from(T_WORKOUTS).select("*")
+      .eq("user_id", userId).eq("week_start", weekStart).not("finished_at", "is", null)
+      .order("finished_at", { ascending: false });
+    var m = {}; (r.data || []).forEach(function (w) { if (!m[w.session_key]) m[w.session_key] = w; });
     return m;
+  }
+  async function workout(id) {
+    if (!sb()) return null;
+    var r = await sb().from(T_WORKOUTS).select("*").eq("id", id).maybeSingle();
+    return r.error ? null : r.data;
   }
 
   return {
     configured: configured, user: user, signIn: signIn, signUp: signUp, signOut: signOut,
     sendReset: sendReset, setPassword: setPassword, ready: ready, onAuth: onAuth,
     uuid: uuid, saveWorkout: saveWorkout, saveSet: saveSet, lastForExercises: lastForExercises,
-    history: history, setsFor: setsFor, doneThisWeek: doneThisWeek,
+    history: history, setsFor: setsFor, doneThisWeek: doneThisWeek, workout: workout, deleteWorkout: deleteWorkout,
     flush: flush, pending: function () { return readQ().length; },
     onQueue: function (fn) { listeners.push(fn); },
   };

@@ -105,7 +105,7 @@ window.Countdown = function (totalSeconds, opts) {
         if (l === 3 || l === 2 || l === 1) fire("c" + l, Sound.count);
       }
       o.onTick && o.onTick(l, totalSeconds);
-      if (l === 0) { self.stop(); if (o.cues !== false) Sound.go(); o.onDone && o.onDone(); return; }
+      if (l === 0) { self.stop(); if (o.cues !== false) (o.endSound || Sound.go)(); o.onDone && o.onDone(); return; }
     }
     handle = setTimeout(tick, 100);
   }

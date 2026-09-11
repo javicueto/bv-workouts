@@ -9,10 +9,10 @@
  * - Supabase: never cached — always network. The app keeps its own offline
  *   queue for writes.
  */
-const CACHE = "javiplan-v8";
+const CACHE = "javiplan-v9";
 const SHELL = [
   "./", "./index.html", "./styles.css", "./config.js",
-  "./icons.js", "./store.js", "./timer.js", "./runner.js", "./app.js",
+  "./icons.js", "./ui.js", "./store.js", "./timer.js", "./runner.js", "./app.js",
   "./data/programme.js", "./data/schedule.js",
   "./manifest.webmanifest", "./icon-192.png", "./icon-512.png",
   // The Supabase client MUST be precached. It is fetched on the very first page

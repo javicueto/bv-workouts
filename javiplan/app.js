@@ -29,6 +29,14 @@
     return a.getDate() + (a.getMonth() === b.getMonth() ? "–" + b.getDate() + " " + MONTHS[a.getMonth()]
       : " " + MONTHS[a.getMonth()] + " – " + b.getDate() + " " + MONTHS[b.getMonth()]);
   }
+  // <input type="date"> / <input type="time"> values <-> ISO timestamps, local time.
+  function pad2(n) { return String(n).padStart(2, "0"); }
+  function dateVal(d) { return d.getFullYear() + "-" + pad2(d.getMonth() + 1) + "-" + pad2(d.getDate()); }
+  function timeVal(d) { return pad2(d.getHours()) + ":" + pad2(d.getMinutes()); }
+  function toIso(dateStr, timeStr) { return new Date(dateStr + "T" + timeStr).toISOString(); }
+  function hhmm(iso) { return new Date(iso).toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" }); }
+  function longDate(iso) { return new Date(iso).toLocaleDateString([], { weekday: "long", day: "numeric", month: "long" }); }
+
   function today() { var d = new Date(); return new Date(d.getFullYear(), d.getMonth(), d.getDate()); }
   function isoDate(d) { return d.getFullYear() + "-" + String(d.getMonth() + 1).padStart(2, "0") + "-" + String(d.getDate()).padStart(2, "0"); }
 
@@ -214,11 +222,19 @@
         '<div class="list" style="margin-top:var(--space-4)">' +
         sessions.map(function (s, ix) {
           var d = done[s.key];
-          return '<a class="card card--tap' + (d ? " card--done" : "") + '" href="#/run/' + esc(s.key) + '">' +
+          // Done → opens that workout (view, edit times, do it again).
+          // Not done → starts the session, with "Mark as done" for a workout
+          // done without the phone.
+          return '<div class="card day-card' + (d ? " card--done" : "") + '">' +
+            '<a class="day-card__main" href="' + (d ? "#/h/" + esc(d.id) : "#/run/" + esc(s.key)) + '">' +
             '<div class="row"><div class="grow"><div class="eyebrow">Day ' + (ix + 1) + "</div>" +
             '<h2>' + esc(s.title) + "</h2>" +
-            '<p class="dim">' + s.blocks.length + " blocks · " + s.blocks.map(function (b) { return b.letter; }).join(" ") + "</p></div>" +
-            (d ? '<span class="badge badge--good">done ✓</span>' : '<span class="badge">start ›</span>') + "</div></a>";
+            '<p class="dim">' + (d
+              ? longDate(d.started_at) + " · " + hhmm(d.started_at) + "–" + hhmm(d.finished_at)
+              : s.blocks.length + " blocks · " + s.blocks.map(function (b) { return b.letter; }).join(" ")) + "</p></div>" +
+            (d ? '<span class="badge badge--good">done ✓</span>' : '<span class="badge">start ›</span>') + "</div></a>" +
+            (d ? "" : '<a class="day-card__alt" href="#/log/' + esc(s.key) + '">Did it without the phone? Mark as done</a>') +
+            "</div>";
         }).join("") + "</div></div>";
     }
 
@@ -235,7 +251,11 @@
     document.getElementById("cp").addEventListener("click", function () { renderSetPassword(null, { cancel: true }); });
     if (pendingRun) {
       document.getElementById("resume-go").addEventListener("click", function () { location.hash = "#/run/" + pendingRun.key + "?resume=1"; });
-      document.getElementById("resume-drop").addEventListener("click", function () { Runner.abandon(); route(); });
+      document.getElementById("resume-drop").addEventListener("click", function () {
+        UI.confirm({ title: "Discard this session?", body: "Anything you logged in it is deleted too.",
+                     confirm: "Discard", cancel: "Keep it", danger: true })
+          .then(function (ok) { if (ok) { Runner.abandon(); route(); } });
+      });
     }
   }
 
@@ -257,31 +277,150 @@
   async function renderHistory() {
     var t = ticket();
     app.innerHTML = topbar("History", "#/") + '<p class="dim">Loading…</p>';
-    var rows = await Store.history(me.id, 80);
+    var rows = await Store.history(me.id, 120);
     if (stale(t)) return;
-    app.innerHTML = topbar("History", "#/") + (rows.length ? '<div class="list">' + rows.map(function (w) {
-      var d = new Date(w.started_at);
-      return '<a class="card card--tap" href="#/h/' + esc(w.id) + '"><div class="row"><div class="grow"><h2>Workout ' + esc(w.session_key) + "</h2>" +
-        '<p class="dim">' + d.toLocaleDateString([], { weekday: "short", day: "numeric", month: "short" }) +
-        (w.duration_seconds ? " · " + Math.round(w.duration_seconds / 60) + " min" : " · not finished") + "</p></div>" +
-        (w.finished_at ? '<span class="badge badge--good">✓</span>' : "") + "</div></a>";
-    }).join("") + "</div>" : '<p class="dim">Nothing logged yet.</p>');
+    // Opened and left without logging anything: noise from before sessions
+    // were only saved on the first logged round. Offered for one-tap removal.
+    var empty = rows.filter(function (w) { return !w.finished_at && !w.set_count; });
+    var real = rows.filter(function (w) { return empty.indexOf(w) === -1; });
+    app.innerHTML = topbar("History", "#/") +
+      (empty.length
+        ? '<div class="card stack"><p><b>' + empty.length + " empty session" + (empty.length > 1 ? "s" : "") + "</b> — opened but nothing logged.</p>" +
+          '<button class="btn btn--ghost btn--block" id="clr">Remove ' + (empty.length > 1 ? "them" : "it") + "</button></div>"
+        : "") +
+      (real.length ? '<div class="list" style="margin-top:var(--space-4)">' + real.map(function (w) {
+        var d = new Date(w.started_at);
+        var detail = w.finished_at
+          ? (w.duration_seconds ? Math.round(w.duration_seconds / 60) + " min" : "") + (w.logged_manually ? " · logged by hand" : " · " + w.set_count + " sets")
+          : "stopped early · " + w.set_count + " sets";
+        return '<a class="card card--tap" href="#/h/' + esc(w.id) + '"><div class="row"><div class="grow"><h2>Workout ' + esc(w.session_key) + "</h2>" +
+          '<p class="dim">' + d.toLocaleDateString([], { weekday: "short", day: "numeric", month: "short" }) + " · " + detail + "</p></div>" +
+          (w.finished_at ? '<span class="badge badge--good">done</span>' : '<span class="badge">partial</span>') + "</div></a>";
+      }).join("") + "</div>" : (empty.length ? "" : '<p class="dim">Nothing logged yet.</p>'));
+
+    var clr = document.getElementById("clr");
+    if (clr) clr.addEventListener("click", function () {
+      UI.confirm({ title: "Remove " + empty.length + " empty session" + (empty.length > 1 ? "s" : "") + "?",
+                   body: "They have nothing logged in them. Finished and partial workouts are not touched.",
+                   confirm: "Remove", danger: true })
+        .then(async function (ok) {
+          if (!ok) return;
+          clr.disabled = true;
+          for (var i = 0; i < empty.length; i++) await Store.deleteWorkout(empty[i].id);
+          UI.toast("Removed " + empty.length);
+          renderHistory();
+        });
+    });
   }
 
+  /* One finished workout: read-only summary with its sets, plus the only two
+     things you can change — start and end time — and "Do it again". Used for
+     both the done cards on Home and History. */
   async function renderWorkout(id) {
     var t = ticket();
-    app.innerHTML = topbar("Workout", "#/history") + '<p class="dim">Loading…</p>';
+    var back = prevHash === "#/history" ? "#/history" : "#/";
+    app.innerHTML = topbar("Workout", back) + '<p class="dim">Loading…</p>';
+    var w = await Store.workout(id);
+    if (stale(t)) return;
+    if (!w) { app.innerHTML = topbar("Workout", back) + '<p class="dim">Couldn’t load this workout — it needs a connection.</p>'; return; }
     var sets = await Store.setsFor(id);
     if (stale(t)) return;
     var byBlock = {};
-    sets.forEach(function (s) { (byBlock[s.block_letter] = byBlock[s.block_letter] || []).push(s); });
-    app.innerHTML = topbar("Workout", "#/history") + Object.keys(byBlock).sort().map(function (L) {
-      return '<div class="card" style="margin-top:var(--space-3)"><div class="eyebrow">Block ' + esc(L) + "</div><ul class=\"done-list\" style=\"padding:0;margin:var(--space-2) 0 0\">" +
-        byBlock[L].map(function (s) {
-          var v = s.skipped ? "skipped" : [s.weight != null ? s.weight + " kg" : null, s.reps != null ? s.reps + " reps" : null, s.seconds != null ? s.seconds + "″" : null].filter(Boolean).join(" × ");
-          return "<li><span>R" + s.round + " · " + esc(s.exercise_name) + "</span><span>" + esc(v || "—") + "</span></li>";
-        }).join("") + "</ul></div>";
-    }).join("") || '<p class="dim">No sets recorded.</p>';
+    sets.forEach(function (x) { (byBlock[x.block_letter] = byBlock[x.block_letter] || []).push(x); });
+    var s = sessionByKey(w.session_key);
+    var start = new Date(w.started_at), end = w.finished_at ? new Date(w.finished_at) : null;
+
+    app.innerHTML = topbar(null, back) +
+      '<div class="stack">' +
+        '<div class="eyebrow">' + (w.logged_manually ? "Logged by hand" : "Done") + "</div>" +
+        "<h1>" + esc(s ? s.title : "Workout " + w.session_key) + "</h1>" +
+        '<p class="dim">' + longDate(w.started_at) + (w.duration_seconds ? " · " + Math.round(w.duration_seconds / 60) + " min" : "") + "</p>" +
+        '<form id="tf" class="card stack">' +
+          '<div class="field"><label for="d">Date</label><input class="input" id="d" type="date" value="' + dateVal(start) + '"></div>' +
+          '<div class="time-row">' +
+            '<div class="field"><label for="st">Start</label><input class="input" id="st" type="time" value="' + timeVal(start) + '"></div>' +
+            '<div class="field"><label for="en">End</label><input class="input" id="en" type="time" value="' + (end ? timeVal(end) : "") + '"></div>' +
+          "</div>" +
+          '<p class="error" id="terr" hidden></p>' +
+          '<button class="btn btn--ghost btn--block" type="submit" id="tsave" disabled>Save times</button>' +
+        "</form>" +
+        '<a class="btn btn--primary btn--big btn--block" href="#/run/' + esc(w.session_key) + '">Do it again</a>' +
+        '<button class="btn btn--quiet btn--block btn--danger-text" id="del">Delete this workout</button>' +
+        (Object.keys(byBlock).length ? Object.keys(byBlock).sort().map(function (L) {
+          return '<div class="card"><div class="eyebrow">Block ' + esc(L) + '</div><ul class="done-list" style="padding:0;margin:var(--space-2) 0 0">' +
+            byBlock[L].map(function (x) {
+              var v = x.skipped ? "skipped" : [x.weight != null ? x.weight + " kg" : null, x.reps != null ? x.reps + " reps" : null, x.seconds != null ? x.seconds + "″" : null].filter(Boolean).join(" × ");
+              return "<li><span>R" + x.round + " · " + esc(x.exercise_name) + "</span><span>" + esc(v || "—") + "</span></li>";
+            }).join("") + "</ul></div>";
+        }).join("") : '<p class="dim">' + (w.logged_manually ? "Logged by hand — no sets recorded." : "No sets recorded.") + "</p>") +
+      "</div>";
+
+    document.getElementById("del").addEventListener("click", function () {
+      UI.confirm({ title: "Delete this workout?", body: "It disappears from History" + (sets.length ? ", with its " + sets.length + " logged set" + (sets.length === 1 ? "" : "s") : "") + ". This can’t be undone.",
+                   confirm: "Delete", danger: true })
+        .then(async function (ok) {
+          if (!ok) return;
+          await Store.deleteWorkout(id);
+          UI.toast("Workout deleted");
+          location.hash = back;
+        });
+    });
+    var f = document.getElementById("tf"), btn = document.getElementById("tsave"), err = document.getElementById("terr");
+    f.addEventListener("input", function () { btn.disabled = false; });
+    f.addEventListener("submit", function (ev) {
+      ev.preventDefault();
+      var r = timesFrom(f.d.value, f.st.value, f.en.value);
+      if (r.error) { err.textContent = r.error; err.hidden = false; return; }
+      err.hidden = true;
+      var row = Object.assign({}, w, { started_at: r.start, finished_at: r.end, duration_seconds: r.seconds });
+      delete row.javiplan_sets; delete row.set_count;          // view-only fields, not columns
+      Store.saveWorkout(row);
+      btn.disabled = true; btn.textContent = "Saved ✓";
+    });
+  }
+
+  /* Shared by "Mark as done" and "Save times": date + two times → ISO, with
+     the checks a tired person at 10pm needs. */
+  function timesFrom(dateStr, startStr, endStr) {
+    if (!dateStr || !startStr || !endStr) return { error: "Fill in the date, start and end." };
+    var a = new Date(dateStr + "T" + startStr), b = new Date(dateStr + "T" + endStr);
+    if (b <= a) return { error: "End has to be after start." };
+    if (a > new Date()) return { error: "That start time is in the future." };
+    return { start: a.toISOString(), end: b.toISOString(), seconds: Math.round((b - a) / 1000) };
+  }
+
+  function renderLog(key) {
+    ticket();
+    var s = sessionByKey(key);
+    if (!s) { location.hash = "#/"; return; }
+    var now = new Date(), from = new Date(now.getTime() - 75 * 60000);
+    app.innerHTML = topbar(null, "#/") +
+      '<div class="stack">' +
+        '<div class="eyebrow">Mark as done</div><h1>' + esc(s.title) + "</h1>" +
+        '<p class="dim">For a session done without the phone. It’s saved with its times, no weights.</p>' +
+        '<form id="lf" class="card stack">' +
+          '<div class="field"><label for="d">Date</label><input class="input" id="d" type="date" value="' + dateVal(now) + '"></div>' +
+          '<div class="time-row">' +
+            '<div class="field"><label for="st">Start</label><input class="input" id="st" type="time" value="' + timeVal(from) + '"></div>' +
+            '<div class="field"><label for="en">End</label><input class="input" id="en" type="time" value="' + timeVal(now) + '"></div>' +
+          "</div>" +
+          '<p class="error" id="lerr" hidden></p>' +
+          '<button class="btn btn--primary btn--big btn--block" type="submit">Save as done</button>' +
+        "</form></div>";
+    var f = document.getElementById("lf"), err = document.getElementById("lerr");
+    f.addEventListener("submit", function (ev) {
+      ev.preventDefault();
+      var r = timesFrom(f.d.value, f.st.value, f.en.value);
+      if (r.error) { err.textContent = r.error; err.hidden = false; return; }
+      var wf = weekFor(new Date(f.d.value + "T12:00"));
+      Store.saveWorkout({ id: Store.uuid(), user_id: me.id, session_key: s.key, block: s.block,
+        week_start: wf.week ? wf.week.start : null, started_at: r.start, finished_at: r.end,
+        duration_seconds: r.seconds, logged_manually: true });
+      f.querySelector("button[type=submit]").disabled = true;
+      // Wait for the upload (if online) so Home shows the day as done at once.
+      Promise.race([Store.flush(), new Promise(function (ok) { setTimeout(ok, 4000); })])
+        .then(function () { location.hash = "#/"; });
+    });
   }
 
   async function renderRun(key, resume) {
@@ -301,7 +440,7 @@
     Runner.mount(document.getElementById("runner"), function (result) {
       location.hash = "#/";
       if (result && result.finished) {
-        setTimeout(function () { alert("Saved: " + Math.round(result.duration / 60) + " min, " + result.sets + " sets."); }, 50);
+        UI.toast("Saved · " + Math.round(result.duration / 60) + " min · " + result.sets + " sets");
       }
     });
   }
@@ -317,7 +456,9 @@
   window.addEventListener("offline", syncBadge);
 
   // ---------------------------------------------------------------- router
+  var prevHash = "#/", curHash = "#/";     // for "Back" on views reachable from two places
   async function route() {
+    prevHash = curHash; curHash = location.hash || "#/";
     if (!Store.configured()) { renderSetup(); return; }
     if (recoveryMode) { renderSetPassword(); return; }
     var t = ticket();
@@ -332,6 +473,7 @@
     if (h === "#/plan") renderPlan();
     else if (h === "#/history") renderHistory();
     else if ((m = h.match(/^#\/h\/([\w-]+)$/))) renderWorkout(m[1]);
+    else if ((m = h.match(/^#\/log\/([\d.]+)$/))) renderLog(m[1]);
     else renderHome();
   }
   /* Boot. A password-reset link comes back as #access_token=…&type=recovery

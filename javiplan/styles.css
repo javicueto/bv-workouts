@@ -19,6 +19,8 @@
   --accent-soft: #ff6b3d1f;
   --cool:        #4dd4c4;
   --good:        #4dd48a;
+  --rest:        #1e5bd6;     /* rest mode: whole screen, and the status bar via theme-color */
+  --danger:      #ff6b6b;
   --radius:    16px;
   --radius-sm: 10px;
   --font: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
@@ -256,3 +258,80 @@ p  { margin: 0; }
 .week-row.now .num { background: var(--accent); color: #fff; }
 .week-row.past { opacity: .55; }
 
+/* ------------------------------------------------------------ rest mode (blue) */
+/* The rest timer and Tabata's rest phases turn the whole screen blue, so a
+   glance across the gym tells you which mode you're in. */
+body { transition: background-color .25s ease; }
+body.is-resting { background: var(--rest); color: #fff; }
+body.is-resting .dim, body.is-resting .faint, body.is-resting .rest__next { color: #ffffffc0; }
+body.is-resting .rest__next b, body.is-resting .eyebrow { color: #fff; }
+body.is-resting .progress i { background: #ffffff38; }
+body.is-resting .progress i.done, body.is-resting .progress i.now { background: #fff; }
+body.is-resting .rest__ring .track { stroke: #ffffff38; }
+body.is-resting .rest__ring .arc { stroke: #fff; }
+body.is-resting .rest__ring .arc.final { stroke: var(--accent); }   /* last 10 s */
+body.is-resting .btn--ghost { border-color: #ffffff66; color: #fff; }
+body.is-resting .btn--primary { background: #fff; color: var(--rest); }
+body.is-resting .btn--quiet { color: #ffffffcc; }
+body.is-resting .tabata__phase.rest { color: #fff; }
+
+/* ------------------------------------------------------------ Tabata running */
+.tabata__gif { width: 100%; }
+.tabata__gif img { width: 100%; aspect-ratio: 16 / 9; object-fit: cover; border-radius: var(--radius); display: block; background: #000; }
+
+/* ------------------------------------------------------------ timed hold */
+.ex-card__log { flex-wrap: wrap; }
+.btn--hold {
+  flex: 1 1 100%; min-height: 52px;
+  background: var(--accent-soft); color: var(--accent); border: 1px solid #ff6b3d55;
+  font-size: 16px;
+}
+.btn--hold.is-running { background: var(--accent); color: #fff; border-color: var(--accent); }
+.btn--hold.is-done { background: #4dd48a1f; color: var(--good); border-color: #4dd48a55; }
+/* Dense (3-movement) rounds: the timer sits inline beside kg/sec, short label. */
+.ex-list--dense .btn--hold { flex: 0 0 auto; min-height: 38px; padding: 0 var(--space-3); font-size: 15px; }
+.ex-list--dense .hold__long { display: none; }
+.ex-list--dense .hold__n { font-size: 18px; }
+.hold__n { font-size: 26px; font-weight: 800; font-variant-numeric: tabular-nums; margin-right: 2px; }
+
+/* ------------------------------------------------------------ home day cards */
+.day-card { padding: 0; overflow: hidden; }
+.day-card__main { display: block; padding: var(--space-5); color: inherit; text-decoration: none; }
+.day-card__main:active { filter: brightness(1.08); }
+.day-card__alt {
+  display: block; padding: var(--space-3) var(--space-5);
+  border-top: 1px solid var(--line-soft);
+  font-size: 13px; color: var(--text-dim); text-decoration: none;
+}
+.time-row { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-3); }
+
+/* ------------------------------------------------------------ dialogs + toast */
+.btn--danger { background: var(--danger); color: #fff; }
+.btn--danger-text { color: var(--danger); }
+
+.sheet-back {
+  position: fixed; inset: 0; z-index: 60;
+  display: flex; align-items: flex-end; justify-content: center;
+  padding: var(--space-4) var(--space-4) calc(var(--safe-bottom) + var(--space-4));
+  background: #0008; opacity: 0; transition: opacity .16s ease;
+}
+.sheet-back.in { opacity: 1; }
+.sheet {
+  width: 100%; max-width: 480px;
+  display: grid; gap: var(--space-3);
+  padding: var(--space-6) var(--space-5) var(--space-5);
+  background: var(--bg-raised); color: var(--text);
+  border: 1px solid var(--line); border-radius: var(--radius);
+  transform: translateY(24px); transition: transform .16s ease;
+}
+.sheet-back.in .sheet { transform: none; }
+.sheet__actions { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-3); margin-top: var(--space-2); }
+
+.toast {
+  position: fixed; left: 50%; bottom: calc(var(--safe-bottom) + var(--space-6)); z-index: 70;
+  transform: translate(-50%, 20px); opacity: 0; pointer-events: none;
+  padding: var(--space-3) var(--space-5); border-radius: 999px;
+  background: var(--text); color: var(--bg); font-weight: 650; font-size: 15px;
+  transition: opacity .2s ease, transform .2s ease; white-space: nowrap;
+}
+.toast.in { opacity: 1; transform: translate(-50%, 0); }
