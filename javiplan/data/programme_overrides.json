@@ -1,0 +1,10 @@
+{
+  "_note": "Manual corrections applied on top of what scripts/build_javiplan.py parses from the coach's text. 'blocks' entries replace fields on one block; 'silence' drops parser warnings whose prefix matches, for cases that were checked by hand and are fine.",
+  "blocks": [],
+  "silence": [
+    "7.1 [D] 1 video(s) not used"
+  ],
+  "_silence_reasons": {
+    "7.1 [D]": "TrueCoach has the bench press linked twice (two library entries for the same lift). The two movement lines matched the right two videos; the third is a duplicate, not a missing movement."
+  }
+}

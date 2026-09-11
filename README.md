@@ -100,6 +100,44 @@ One name, *heels elevated back squat*, exists three times in the library; the ne
 was used. If that video ever looks like the wrong variation, change the id in
 `data/name_resolution.json`.
 
+## Javi Plan — the training app (/javiplan)
+
+A phone app for actually doing the sessions: <https://javicueto.github.io/bv-workouts/javiplan/>
+Add it to the home screen from Safari (Share → Add to Home Screen) and it opens
+full-screen like a native app, and keeps working with no signal once opened.
+
+**How a session runs.** This week’s Day 1 / Day 2 are on the home screen. Tap one:
+the warm-up is a grid of moving thumbnails; after that, each screen is one round
+with every movement of that round on it (A1 + A2 together). Type the weight,
+swipe left (or tap Done) and the rest timer starts — halfway “dong”, a double
+beep at 10 seconds, then 3-2-1-go. Skip or +30″ if needed. Blocks with no rest
+written (core, shoulder) go straight to the next round with no timer. Tabata runs
+itself: 8 × 20″ work / 10″ rest.
+
+**What is saved.** Every set’s weight and reps, per session. Next time, last
+time’s weight is pre-filled. If the gym has no signal, sets queue on the phone
+and upload the next time it is online.
+
+**The plan.** Cycle 1 runs 7 Sep 2026 → 7 Feb 2027, peaking on block 9 in the
+first week of February; block 1 starts again on 8 Feb to build for May. It lives
+in `javiplan/data/schedule.json` — weeks, block, phase — not in the app code.
+
+**Where the data lives.** Two tables, `javiplan_workouts` and `javiplan_sets`, in
+the **Maky** Supabase project (the free plan allows only two projects). Row-level
+security means each account only ever sees its own data; anonymous sessions are
+refused. Schema history is in `javiplan/db/`.
+
+**Rebuilding after the programme changes** (e.g. a new block from TrueCoach):
+
+```bash
+python3 scripts/build_javiplan.py
+```
+
+It turns the coach’s free-text blocks into rounds, reps and rest times, and
+**fails loudly** on anything it cannot read — fix those in
+`javiplan/data/programme_overrides.json`. Then bump `CACHE` in `javiplan/sw.js`
+and push, or phones keep the old version.
+
 ## Nacho's programme (/nacho)
 
 A second programme for a friend — a runner working toward
