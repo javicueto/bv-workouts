@@ -15,6 +15,10 @@ window.Sound = (function () {
   var unlocked = false;
 
   function unlock() {
+    // iPhone: web audio is silenced by the ring/silent switch by default, which
+    // would kill the rest-timer cues in a gym. "playback" makes it behave like a
+    // music app and sound regardless (Safari 17+; ignored where unsupported).
+    try { if (navigator.audioSession) navigator.audioSession.type = "playback"; } catch (e) {}
     if (!ctx) ctx = new (window.AudioContext || window.webkitAudioContext)();
     if (ctx.state === "suspended") ctx.resume();
     if (!unlocked) {

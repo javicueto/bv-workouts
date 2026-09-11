@@ -7,7 +7,7 @@
  * - Supabase: never cached — always network. The app keeps its own offline
  *   queue for writes.
  */
-const CACHE = "javiplan-v2";
+const CACHE = "javiplan-v3";
 const SHELL = [
   "./", "./index.html", "./styles.css", "./config.js",
   "./store.js", "./timer.js", "./runner.js", "./app.js",
