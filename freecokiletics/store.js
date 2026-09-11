@@ -9,13 +9,16 @@
  * (updated on every log) when not, so the default weight is always available.
  */
 window.Store = (function () {
-  var cfg = window.JAVIPLAN_CONFIG || {};
+  var cfg = window.FREECO_CONFIG || {};
   var client = null;
-  var Q_KEY = "javiplan.queue";
-  var LAST_KEY = "javiplan.lastWeights";
+  var Q_KEY = "freeco.queue";
+  var LAST_KEY = "freeco.lastWeights";
   // Tables live in the Maky project, prefixed so they never collide with it.
-  var T_WORKOUTS = "javiplan_workouts";
-  var T_SETS = "javiplan_sets";
+  // Renamed from javiplan_* on 12 Sep 2026 with the app.
+  var T_WORKOUTS = "freeco_workouts";
+  var T_SETS = "freeco_sets";
+  var T_PLANS = "freeco_plans";
+  var PLAN_KEY = "freeco.plan";
   var listeners = [];
 
   function configured() { return !!(cfg.supabaseUrl && cfg.supabaseKey && window.supabase); }
@@ -56,7 +59,10 @@ window.Store = (function () {
     if (r.error) throw r.error;
     return r.data;
   }
-  async function signOut() { if (sb()) await sb().auth.signOut(); }
+  async function signOut() {
+    try { localStorage.removeItem(PLAN_KEY); localStorage.removeItem(LAST_KEY); } catch (e) {}
+    if (sb()) await sb().auth.signOut();
+  }
 
   // ------------------------------------------------------------- password reset
   // The link in the email comes back to this app's own address. That address
@@ -184,6 +190,27 @@ window.Store = (function () {
     return out;
   }
 
+  /* The training plan: when you start and how long each block runs. One per
+     person, so Javier and Nacho each have their own. Cached locally, because
+     the app has to know which week it is with no signal. */
+  async function plan(userId) {
+    var cached = null;
+    try { cached = JSON.parse(localStorage.getItem(PLAN_KEY) || "null"); } catch (e) {}
+    if (cached && cached.user_id !== userId) cached = null;      // a different account on this phone
+    if (!navigator.onLine || !sb() || !userId) return cached;
+    var r = await sb().from(T_PLANS).select("*").eq("user_id", userId).maybeSingle();
+    if (r.error) return cached;
+    if (r.data) { try { localStorage.setItem(PLAN_KEY, JSON.stringify(r.data)); } catch (e) {} }
+    return r.data || cached;
+  }
+  async function savePlan(row) {
+    row.updated_at = new Date().toISOString();
+    var r = await sb().from(T_PLANS).upsert(row, { onConflict: "user_id" }).select().maybeSingle();
+    if (r.error) throw r.error;
+    try { localStorage.setItem(PLAN_KEY, JSON.stringify(r.data || row)); } catch (e) {}
+    return r.data || row;
+  }
+
   function saveWorkout(row) { enqueue({ table: "workouts", row: row }); }
 
   /* Delete a workout and its sets. Anything for it still waiting in the queue
@@ -203,12 +230,12 @@ window.Store = (function () {
     if (!sb() || !userId) return [];
     // Embedded count of each workout's sets, so History can spot the empty
     // unfinished ones (a session opened and left without logging anything).
-    var r = await sb().from(T_WORKOUTS).select("*, javiplan_sets(count)").eq("user_id", userId)
+    var r = await sb().from(T_WORKOUTS).select("*, freeco_sets(count)").eq("user_id", userId)
       .order("started_at", { ascending: false }).limit(limit || 60);
     if (r.error) return [];
     return r.data.map(function (w) {
-      w.set_count = (w.javiplan_sets && w.javiplan_sets[0] && w.javiplan_sets[0].count) || 0;
-      delete w.javiplan_sets;
+      w.set_count = (w.freeco_sets && w.freeco_sets[0] && w.freeco_sets[0].count) || 0;
+      delete w.freeco_sets;
       return w;
     });
   }
@@ -237,6 +264,7 @@ window.Store = (function () {
   return {
     configured: configured, user: user, signIn: signIn, signUp: signUp, signOut: signOut,
     sendReset: sendReset, setPassword: setPassword, ready: ready, onAuth: onAuth,
+    plan: plan, savePlan: savePlan,
     uuid: uuid, saveWorkout: saveWorkout, saveSet: saveSet, lastForExercises: lastForExercises,
     history: history, setsFor: setsFor, doneThisWeek: doneThisWeek, workout: workout, deleteWorkout: deleteWorkout,
     flush: flush, pending: function () { return readQ().length; },

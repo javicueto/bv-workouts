@@ -518,3 +518,31 @@ body.is-locked .foot { display: none; }
 }
 
 .foot p { margin: 0; }
+
+/* ------------------------------------------------------------ info dot */
+/* Last year's TrueCoach dates, kept as a reference but tucked away. Tap to
+   open; tapping anywhere else closes it (see app.js). */
+.info { position: relative; display: inline-flex; vertical-align: middle; }
+.info__btn {
+  width: 28px; height: 28px; display: grid; place-items: center;
+  border: 0; background: none; color: var(--text-faint); cursor: pointer; border-radius: 50%;
+}
+.info__btn svg { width: 15px; height: 15px; }
+.info__btn:hover, .info__btn[aria-expanded="true"] { color: var(--accent); background: var(--accent-soft); }
+.info__pop {
+  position: absolute; left: 0; top: calc(100% + 6px); z-index: 20;
+  min-width: 190px; padding: var(--space-3) var(--space-4);
+  background: var(--bg-raised); color: var(--text);
+  border: 1px solid var(--line); border-radius: var(--radius-sm);
+  font-size: 13px; line-height: 1.45; font-weight: 500; white-space: normal;
+  box-shadow: 0 10px 30px #0009;
+}
+.block__label .info__pop { left: -8px; }
+/* Link to the training app. The phone is where this actually gets used, so it
+   must survive 320px — the label shortens rather than disappearing. */
+.topbar__app { color: var(--accent) !important; white-space: nowrap; }
+.topbar__app-short { display: none; }
+@media (max-width: 599px) {
+  .topbar__app-short { display: inline; }
+  .topbar__app-full { display: none; }
+}

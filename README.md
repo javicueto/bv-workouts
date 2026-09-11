@@ -100,9 +100,14 @@ One name, *heels elevated back squat*, exists three times in the library; the ne
 was used. If that video ever looks like the wrong variation, change the id in
 `data/name_resolution.json`.
 
-## Javi Plan — the training app (/javiplan)
+## Freecokiletics — the training app (/freecokiletics)
 
-A phone app for actually doing the sessions: <https://javicueto.github.io/bv-workouts/javiplan/>
+A phone app for actually doing the sessions: <https://javicueto.github.io/bv-workouts/freecokiletics/>
+
+It was called Javi Plan and lived at `/javiplan/` until 12 Sep 2026. That address
+still works: it unregisters the old service worker, clears its caches and forwards
+here, so a phone that had the old app installed doesn't get stuck on a dead copy.
+Keep that page — deleting it strands any home-screen icon created before the rename.
 On iPhone, add it to the home screen — in Chrome: Share (top right of the address
 bar) → Add to Home Screen; in Safari: Share → Add to Home Screen. Open it from that
 icon: it runs full-screen and keeps working with no signal. A normal Chrome tab on
@@ -124,31 +129,40 @@ itself: 8 × 20″ work / 10″ rest.
 time’s weight is pre-filled. If the gym has no signal, sets queue on the phone
 and upload the next time it is online.
 
-**The plan.** Cycle 1 runs 7 Sep 2026 → 7 Feb 2027, peaking on block 9 in the
-first week of February; block 1 starts again on 8 Feb to build for May. It lives
-in `javiplan/data/schedule.json` — weeks, block, phase — not in the app code.
+**The plan is per person.** Everyone who signs in builds their own: a start date
+and a number of weeks for each of the nine blocks, edited in the app (Plan →
+Edit). Two sessions a week, and the app works out the calendar from there. Javier's
+is 7 Sep 2026 → 7 Feb 2027, peaking on block 9 in the first week of February;
+block 1 starts again on 8 Feb to build for May. Nacho has his own account and
+picks his own lengths. Nobody sees anybody else's plan or logs.
 
-**Where the data lives.** Two tables, `javiplan_workouts` and `javiplan_sets`, in
-the **Maky** Supabase project (the free plan allows only two projects). Row-level
-security means each account only ever sees its own data; anonymous sessions are
-refused. Schema history is in `javiplan/db/`.
+The fixed schedule that shipped first (`schedule.json`) is gone — the last copy
+is kept as `_archive/schedule_before_plans.json` for reference.
+
+**Where the data lives.** Three tables, `freeco_workouts`, `freeco_sets` and
+`freeco_plans`, in the **Maky** Supabase project (the free plan allows only two
+projects). Row-level security means each account only ever sees its own data;
+anonymous sessions are refused. Schema history is in `freecokiletics/db/` —
+migrations 001–003 still say `javiplan_` because that is what they did at the
+time; 004 renames the tables. Never rewrite an applied migration.
 
 **Rebuilding after the programme changes** (e.g. a new block from TrueCoach):
 
 ```bash
-python3 scripts/build_javiplan.py
+python3 scripts/build_freeco.py
 ```
 
 It turns the coach’s free-text blocks into rounds, reps and rest times, and
 **fails loudly** on anything it cannot read — fix those in
-`javiplan/data/programme_overrides.json`. Then bump `CACHE` in `javiplan/sw.js`
-and push, or phones keep the old version.
+`freecokiletics/data/programme_overrides.json`. Then bump `CACHE` in
+`freecokiletics/sw.js` and push, or phones keep the old version.
 
 ## Nacho's programme — archived
 
 A separate hand-authored programme for Nacho lived at `/nacho/` from 8 to
 12 Sep 2026. It didn't suit him and is archived in `_archive/nacho/` (not
-published — see its README). He will follow Javier's programme instead.
+published — see its README). He follows the same programme as Javier instead,
+through his own Freecokiletics account, with his own start date and block lengths.
 
 ## The published site
 

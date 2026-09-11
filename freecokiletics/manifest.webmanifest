@@ -1,7 +1,7 @@
 {
-  "name": "Javi Plan",
-  "short_name": "Javi Plan",
-  "description": "Beach volleyball training plan — sessions, rest timer, log.",
+  "name": "Freecokiletics",
+  "short_name": "Freecokiletics",
+  "description": "Training plan — sessions, rest timer, weights log.",
   "start_url": "./index.html",
   "scope": "./",
   "display": "standalone",

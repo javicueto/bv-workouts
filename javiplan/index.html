@@ -2,44 +2,38 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, user-scalable=no">
-<title>Javi Plan</title>
-<meta name="theme-color" content="#0e1116">
-<meta name="robots" content="noindex, nofollow, noarchive, nosnippet, noimageindex">
-<meta name="referrer" content="strict-origin-when-cross-origin">
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<meta name="apple-mobile-web-app-title" content="Javi Plan">
-<link rel="manifest" href="manifest.webmanifest">
-<link rel="apple-touch-icon" href="icon-192.png">
-<link rel="stylesheet" href="styles.css">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Moved — Freecokiletics</title>
+<meta name="robots" content="noindex, nofollow">
+<link rel="stylesheet" href="../freecokiletics/styles.css">
 </head>
 <body>
-<main id="app" aria-live="polite"></main>
-
-<!-- Order matters: config → library → store → timer → runner → app. -->
-<script src="config.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.116.0/dist/umd/supabase.min.js"></script>
-<script src="data/programme.js"></script>
-<script src="data/schedule.js"></script>
-<script src="icons.js"></script>
-<script src="ui.js"></script>
-<script src="store.js"></script>
-<script src="timer.js"></script>
-<script src="runner.js"></script>
-<script src="app.js"></script>
+<main id="app">
+  <div class="stack" style="margin-top:var(--space-10);text-align:center">
+    <div class="eyebrow">Moved</div>
+    <h1>Freecokiletics</h1>
+    <p class="dim">The app used to live here. Taking you there now…</p>
+    <a class="btn btn--primary btn--big btn--block" href="../freecokiletics/">Open Freecokiletics</a>
+  </div>
+</main>
 <script>
-  if ("serviceWorker" in navigator) {
-    // When a newer version takes over, reload once so it is used straight away —
-    // but only if an older version was already running (not on a first visit),
-    // and never in the middle of a session (#/run/…), which must not be cut off.
-    var hadController = !!navigator.serviceWorker.controller, reloading = false;
-    navigator.serviceWorker.addEventListener("controllerchange", function () {
-      if (!hadController || reloading || /^#\/run\//.test(location.hash)) return;
-      reloading = true; location.reload();
-    });
-    window.addEventListener("load", function () { navigator.serviceWorker.register("sw.js"); });
-  }
+/* The old address kept its own service worker and offline copy of the app.
+   Clear both, or this page could keep serving the old version, and then hand
+   over to the new address. */
+(async function () {
+  try {
+    if ("serviceWorker" in navigator) {
+      var regs = await navigator.serviceWorker.getRegistrations();
+      await Promise.all(regs.filter(function (r) { return r.scope.indexOf("/javiplan/") !== -1; })
+        .map(function (r) { return r.unregister(); }));
+    }
+    if (window.caches) {
+      var keys = await caches.keys();
+      await Promise.all(keys.filter(function (k) { return k.indexOf("javiplan-") === 0; }).map(function (k) { return caches.delete(k); }));
+    }
+  } catch (e) { /* nothing to clean up */ }
+  location.replace("../freecokiletics/");
+})();
 </script>
 </body>
 </html>

@@ -15,6 +15,7 @@
   var T = Object.assign({
     warmup: 'Warm-up',
     current_block: 'current block',
+    you_did_this: 'You did this',
     next_block: 'starts soon',
     block: 'Block',
     session: 'session',
@@ -55,6 +56,30 @@
   }
 
   function ex(id) { return DATA.exercises[id]; }
+
+  /* When each block was actually done, kept as a reference but out of the way:
+     the dates are last year's TrueCoach history, not a schedule to follow.
+     Font Awesome Pro 7.2.0 Classic Regular, inlined (see freecokiletics/icons.js). */
+  var INFO_ICON = '""" + icon + """';
+  function infoDot(text) {
+    return '<span class="info"><button class="info__btn" type="button" aria-expanded="false" ' +
+      'aria-label="When this was done">' + INFO_ICON + '</button>' +
+      '<span class="info__pop" role="note" hidden>' + esc(text) + '</span></span>';
+  }
+  // One open at a time, and a tap anywhere else closes it.
+  document.addEventListener('click', function (ev) {
+    var btn = ev.target.closest && ev.target.closest('.info__btn');
+    document.querySelectorAll('.info__btn[aria-expanded="true"]').forEach(function (b) {
+      if (b === btn) return;
+      b.setAttribute('aria-expanded', 'false');
+      b.parentNode.querySelector('.info__pop').hidden = true;
+    });
+    if (!btn) return;
+    ev.preventDefault();
+    var open = btn.getAttribute('aria-expanded') === 'true';
+    btn.setAttribute('aria-expanded', String(!open));
+    btn.parentNode.querySelector('.info__pop').hidden = open;
+  });
 
   // "2026-08-05" → "5 Aug 2026"
   function fmtDate(iso) {
@@ -221,7 +246,8 @@
       html += '<section class="block' + (n === current ? ' block--current' : '') + '">' +
         '<div class="block__label">' +
           '<span class="block__num">' + n + '</span>' +
-          '<span class="block__meta">' + fmtDate(from) + ' – ' + fmtDate(to) +
+          '<span class="block__meta">' +
+            infoDot(T.you_did_this + ' ' + fmtDate(from) + ' – ' + fmtDate(to) + ' · ' + ws[0].assigned_count + '×') +
             (n === current && currentState
               ? '<br>' + (currentState === 'now' ? T.current_block : T.next_block)
               : '') + '</span>' +
@@ -258,8 +284,9 @@
     var html = '<div class="wk-head"><div class="page-head" style="margin:0">' +
       '<span class="eyebrow">' + T.block + ' ' + w.block + ' · ' + T.session + ' ' + w.variant + '</span>' +
       '<h1>' + esc(w.title) + '</h1>' +
-      '<p>' + fmtDate(w.first_date) + ' – ' + fmtDate(w.last_date) +
-        ' · ' + T.assigned + ' ' + w.assigned_count + '×</p></div>' +
+      '<p>' + esc(w.items.length + ' ' + T.blocks_count) +
+        infoDot(T.you_did_this + ' ' + fmtDate(w.first_date) + ' – ' + fmtDate(w.last_date) + ' · ' + w.assigned_count + '×') +
+        '</p></div>' +
       '<div class="pager">' +
         (prev ? '<a href="#/w/' + esc(prev) + '">← ' + esc(prev) + '</a>'
               : '<span>← ' + T.prev + '</span>') +

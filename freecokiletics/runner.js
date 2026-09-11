@@ -18,7 +18,7 @@
  * newer step layout.
  */
 window.Runner = (function () {
-  var SAVE_KEY = "javiplan.session";
+  var SAVE_KEY = "freeco.session";
   var STATE_VERSION = 2;
   var P = window.PROGRAMME;
   var state = null;

@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """Convert the TrueCoach programme (data/workouts.js) into the structured form
-the /javiplan app runs on: javiplan/data/programme.js.
+the Freecokiletics app runs on: freecokiletics/data/programme.js.
 
 The site only needs to DISPLAY a block's instructions, so free text is fine
 there. The app has to DRIVE a session — it needs to know how many rounds, what
@@ -9,10 +9,10 @@ here, into numbers.
 
 Parsing is deliberately conservative. Anything it cannot read with confidence
 is listed at the end and the build FAILS, so a misread never silently becomes a
-wrong rest timer. Fix those in javiplan/data/programme_overrides.json, which is
+wrong rest timer. Fix those in freecokiletics/data/programme_overrides.json, which is
 applied last and wins.
 
-Usage:  python3 scripts/build_javiplan.py
+Usage:  python3 scripts/build_freeco.py
 """
 import difflib
 import json
@@ -22,8 +22,8 @@ import sys
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 SRC = ROOT / "data" / "workouts.js"
-OVERRIDES = ROOT / "javiplan" / "data" / "programme_overrides.json"
-OUT = ROOT / "javiplan" / "data" / "programme.js"
+OVERRIDES = ROOT / "freecokiletics" / "data" / "programme_overrides.json"
+OUT = ROOT / "freecokiletics" / "data" / "programme.js"
 
 # Blocks with no rest written are the prehab/core circuits. Javier's call
 # (11 Sep 2026): no rest written means no timer — he swipes straight into the
@@ -259,13 +259,6 @@ def main():
                "exercises": exercises, "sessions": sessions}
     OUT.parent.mkdir(parents=True, exist_ok=True)
     OUT.write_text("window.PROGRAMME = " + json.dumps(payload, indent=1, ensure_ascii=False) + ";\n")
-
-    # The schedule is authored as JSON; the app loads it as a script so it also
-    # works from file:// and inside the service-worker cache without a fetch.
-    sched = ROOT / "javiplan" / "data" / "schedule.json"
-    if sched.exists():
-        (ROOT / "javiplan" / "data" / "schedule.js").write_text(
-            "window.SCHEDULE = " + sched.read_text().strip() + ";\n")
 
     n_blocks = sum(len(s["blocks"]) for s in sessions)
     no_timer = sum(1 for s in sessions for b in s["blocks"] if b.get("kind") == "rounds" and not b.get("rest_seconds"))

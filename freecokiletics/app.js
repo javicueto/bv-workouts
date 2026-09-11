@@ -1,10 +1,34 @@
-/* Javi Plan — views and routing. The runner (runner.js) owns a session once it
+/* Freecokiletics — views and routing. The runner (runner.js) owns a session once it
  * starts; this file owns everything around it: sign-in, this week's two days,
  * the plan, history, and syncing state.
  */
 (function () {
   "use strict";
-  var P = window.PROGRAMME, S = window.SCHEDULE;
+  var P = window.PROGRAMME;
+
+  /* The schedule used to be a file shipped with the app. It is now one plan per
+     person, held in the database: a start date and how many weeks each block
+     runs. WEEKS is that expanded into one entry per week — what the rest of the
+     app reads. */
+  var PLAN = null, WEEKS = [];
+  var PHASE = { 1: "Base", 2: "Base", 3: "Base", 4: "Strength", 5: "Strength", 6: "Strength",
+                7: "Power", 8: "Power", 9: "Explosive" };
+  var DEFAULT_BLOCKS = [{ block: 1, weeks: 2 }, { block: 2, weeks: 2 }, { block: 3, weeks: 2 },
+    { block: 4, weeks: 3 }, { block: 5, weeks: 3 }, { block: 6, weeks: 3 },
+    { block: 7, weeks: 2 }, { block: 8, weeks: 3 }, { block: 9, weeks: 2 }];
+
+  function buildWeeks(plan) {
+    var out = [], d = new Date(plan.start_date + "T00:00:00");
+    (plan.blocks || []).forEach(function (b) {
+      for (var i = 0; i < b.weeks; i++) {
+        out.push({ start: isoDate(d), block: b.block, phase: PHASE[b.block] || "",
+                   week_of_block: i + 1, weeks_in_block: b.weeks });
+        d.setDate(d.getDate() + 7);
+      }
+    });
+    return out;
+  }
+  function planEnd() { var last = WEEKS[WEEKS.length - 1]; var d = new Date(last.start + "T00:00:00"); d.setDate(d.getDate() + 6); return d; }
   var app = document.getElementById("app");
   var me = null;
 
@@ -43,11 +67,12 @@
   // ---------------------------------------------------------------- schedule
   function weekFor(dateObj) {
     var t = isoDate(dateObj);
-    for (var i = 0; i < S.weeks.length; i++) {
-      var w = S.weeks[i], a = new Date(w.start + "T00:00:00"), b = new Date(a); b.setDate(a.getDate() + 7);
+    for (var i = 0; i < WEEKS.length; i++) {
+      var w = WEEKS[i], a = new Date(w.start + "T00:00:00"), b = new Date(a); b.setDate(a.getDate() + 7);
       if (dateObj >= a && dateObj < b) return { week: w, index: i, status: "now" };
     }
-    if (t < S.weeks[0].start) return { week: S.weeks[0], index: 0, status: "upcoming" };
+    if (!WEEKS.length) return { week: null, index: -1, status: "none" };
+    if (t < WEEKS[0].start) return { week: WEEKS[0], index: 0, status: "upcoming" };
     return { week: null, index: -1, status: "after" };
   }
   function sessionsFor(block) { return P.sessions.filter(function (s) { return s.block === block; }); }
@@ -56,7 +81,7 @@
   // ---------------------------------------------------------------- views
   function topbar(title, back) {
     return '<div class="topbar">' +
-      (back ? '<a class="btn btn--quiet" href="' + back + '">‹ Back</a>' : '<div class="row"><span class="mark"></span><b>Javi Plan</b></div>') +
+      (back ? '<a class="btn btn--quiet" href="' + back + '">‹ Back</a>' : '<div class="row"><span class="mark"></span><b>Freecokiletics</b></div>') +
       '<span class="faint" id="sync" style="font-size:12px"></span></div>' +
       (title ? "<h1>" + esc(title) + "</h1>" : "");
   }
@@ -77,14 +102,14 @@
   window.addEventListener("appinstalled", function () { installEvt = null; });
   function isInstalled() { return window.matchMedia("(display-mode: standalone)").matches || navigator.standalone === true; }
   function isIOS() { return /iphone|ipad|ipod/i.test(navigator.userAgent) || (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1); }
-  var INSTALL_HIDE = "javiplan.installHidden";
+  var INSTALL_HIDE = "freeco.installHidden";
   function installHidden() { try { return !!localStorage.getItem(INSTALL_HIDE); } catch (e) { return false; } }
 
   function installCard() {
     if (isInstalled() || installHidden()) return "";
     return '<div class="card install-card">' +
       '<div class="install-card__icon">' + ICONS.phone + "</div>" +
-      '<div class="grow"><b>Put Javi Plan on your home screen</b>' +
+      '<div class="grow"><b>Put Freecokiletics on your home screen</b>' +
       '<p class="dim">Opens full-screen, like an app, and works with no signal.</p></div>' +
       '<div class="install-card__actions"><button class="btn btn--primary" id="inst">Add to home screen</button>' +
       '<button class="btn btn--quiet" id="inst-x">Not now</button></div></div>';
@@ -109,13 +134,89 @@
       ? step(1, "Tap <b>Share</b> " + '<span class="inline-icon">' + ICONS.share + "</span> " +
           (chromeIOS ? "— top right, inside the address bar." : "— at the bottom of the screen.")) +
         step(2, "Scroll down and tap <b>Add to Home Screen</b> " + '<span class="inline-icon">' + ICONS.addSquare + "</span>") +
-        step(3, "Tap <b>Add</b>. From now on, open Javi Plan from that icon.")
+        step(3, "Tap <b>Add</b>. From now on, open Freecokiletics from that icon.")
       : step(1, "Open your browser’s menu.") +
         step(2, "Choose <b>Install app</b> or <b>Add to Home screen</b>.") +
-        step(3, "Open Javi Plan from the new icon.");
+        step(3, "Open Freecokiletics from the new icon.");
     UI.info({ title: "Add to your home screen", ok: "Got it",
       html: '<ol class="steps">' + steps + "</ol>" +
         '<p class="faint" style="font-size:13px">Your browser has to do this part — a website can’t add itself on iPhone.</p>' });
+  }
+
+  // ---------------------------------------------------------------- the plan
+  function mondayOf(d) { var x = new Date(d); x.setDate(x.getDate() - ((x.getDay() + 6) % 7)); return x; }
+  function nextMonday() { var x = mondayOf(today()); if (x < today()) x.setDate(x.getDate() + 7); return x; }
+
+  /* Set up or change a plan: when it starts, and how many weeks each block
+     runs. Two sessions a week, and the blocks stay in Francesco's order —
+     Javier's call (12 Sep 2026). */
+  function renderPlanEdit() {
+    ticket();
+    var first = !PLAN;
+    var blocks = (PLAN && PLAN.blocks ? PLAN.blocks : DEFAULT_BLOCKS).map(function (b) { return { block: b.block, weeks: b.weeks }; });
+    var startVal = PLAN ? PLAN.start_date : dateVal(nextMonday());
+
+    function draw() {
+      app.innerHTML = topbar(null, first ? null : "#/plan") +
+        '<div class="stack">' +
+          '<div class="eyebrow">' + (first ? "Welcome" : "Your plan") + "</div>" +
+          "<h1>" + (first ? "Set up your plan" : "Change your plan") + "</h1>" +
+          '<p class="dim">Two sessions a week. The nine blocks stay in the order Francesco wrote them — you choose when you start and how long you spend on each.</p>' +
+          '<div class="field"><label for="sd">First week starts</label><input class="input" id="sd" type="date" value="' + esc(startVal) + '"></div>' +
+          '<div class="card stack">' +
+            blocks.map(function (b, i) {
+              return '<div class="plan-row"><div class="grow"><b>Block ' + b.block + '</b> <span class="dim">· ' + esc(PHASE[b.block]) + "</span></div>" +
+                '<div class="stepper"><button class="btn btn--ghost" data-d="-1" data-i="' + i + '" aria-label="Fewer weeks">−</button>' +
+                '<span class="stepper__n">' + b.weeks + ' <small>wk</small></span>' +
+                '<button class="btn btn--ghost" data-d="1" data-i="' + i + '" aria-label="More weeks">+</button></div></div>';
+            }).join("") +
+          "</div>" +
+          '<div class="card"><div class="eyebrow">That gives you</div><p id="sum"></p></div>' +
+          '<p class="error" id="perr" hidden></p>' +
+          '<button class="btn btn--primary btn--big btn--block" id="psave">' + (first ? "Start my plan" : "Save plan") + "</button>" +
+        "</div>";
+      summary();
+      app.querySelectorAll("[data-d]").forEach(function (btn) {
+        btn.addEventListener("click", function () {
+          var i = +btn.getAttribute("data-i"), d = +btn.getAttribute("data-d");
+          blocks[i].weeks = Math.max(1, Math.min(8, blocks[i].weeks + d));
+          startVal = document.getElementById("sd").value || startVal;
+          draw();
+        });
+      });
+      document.getElementById("sd").addEventListener("change", function () { startVal = this.value; summary(); });
+      document.getElementById("psave").addEventListener("click", save);
+    }
+    function summary() {
+      var el = document.getElementById("sum"); if (!el) return;
+      var sd = document.getElementById("sd").value;
+      if (!sd) { el.textContent = "Pick a start date."; return; }
+      var weeks = buildWeeks({ start_date: dateVal(mondayOf(new Date(sd + "T00:00:00"))), blocks: blocks });
+      var last = weeks[weeks.length - 1], endD = new Date(last.start + "T00:00:00"); endD.setDate(endD.getDate() + 6);
+      var lastBlock = blocks[blocks.length - 1].block;
+      var peak = weeks.find(function (w) { return w.block === lastBlock; });
+      el.innerHTML = "<b>" + weeks.length + " weeks</b>, " + weeks.length * 2 + " sessions — " +
+        fmt(weeks[0].start) + " to " + fmt(isoDate(endD)) + ".<br>" +
+        "Block " + lastBlock + " (the last one) starts " + fmt(peak.start) + ".";
+    }
+    async function save() {
+      var sd = document.getElementById("sd").value, err = document.getElementById("perr"), btn = document.getElementById("psave");
+      if (!sd) { err.textContent = "Pick a start date."; err.hidden = false; return; }
+      // Weeks run Monday to Sunday, so a plan always starts on a Monday.
+      var start = dateVal(mondayOf(new Date(sd + "T00:00:00")));
+      btn.disabled = true; btn.textContent = "Saving…";
+      try {
+        PLAN = await Store.savePlan({ user_id: me.id, name: (PLAN && PLAN.name) || "My plan",
+          start_date: start, days_per_week: 2, blocks: blocks });
+        WEEKS = buildWeeks(PLAN);
+        UI.toast(first ? "Plan set — your first session is ready" : "Plan saved");
+        if ((location.hash || "#/") === "#/") route(); else location.hash = "#/";
+      } catch (e) {
+        err.textContent = (e && e.message) || "Could not save the plan"; err.hidden = false;
+        btn.disabled = false; btn.textContent = first ? "Start my plan" : "Save plan";
+      }
+    }
+    draw();
   }
 
   // ---------------------------------------------------------------- auth screens
@@ -152,14 +253,14 @@
   function renderLogin(msg, email) {
     ticket();
     app.innerHTML = topbar() + '<div class="stack" style="margin-top:var(--space-8)">' +
-      '<div class="eyebrow">Sign in</div><h1>Javi Plan</h1>' +
+      '<div class="eyebrow">Sign in</div><h1>Freecokiletics</h1>' +
       '<form id="f" class="stack" autocomplete="on">' +
         '<div class="field"><label for="e">Email</label><input class="input" id="e" type="email" autocomplete="username" required value="' + esc(email || "") + '"></div>' +
         pwField("p", "Password", "current-password") +
         (msg ? '<p class="error">' + esc(msg) + "</p>" : "") +
         '<button class="btn btn--primary btn--big btn--block" type="submit">Sign in</button>' +
         '<button class="btn btn--quiet btn--block" type="button" id="fp">Forgot password?</button>' +
-        ((window.JAVIPLAN_CONFIG || {}).allowSignup ? '<button class="btn btn--quiet btn--block" type="button" id="su">Create an account</button>' : "") +
+        ((window.FREECO_CONFIG || {}).allowSignup ? '<button class="btn btn--quiet btn--block" type="button" id="su">Create an account</button>' : "") +
       "</form>" +
       (isInstalled() ? "" : '<button class="btn btn--quiet btn--block" type="button" id="inst-help">' + ICONS.phone + " Add to your home screen</button>") +
       "</div>";
@@ -241,7 +342,7 @@
         ticket();
         app.innerHTML = topbar() + '<div class="stack" style="margin-top:var(--space-8)">' +
           '<div class="eyebrow">Done</div><h1>Password saved</h1>' +
-          '<p class="dim">You’re signed in here. If you use Javi Plan from your home screen, open it there and sign in with the new password.</p>' +
+          '<p class="dim">You’re signed in here. If you use Freecokiletics from your home screen, open it there and sign in with the new password.</p>' +
           '<a class="btn btn--primary btn--big btn--block" href="#/">Continue</a></div>';
       } catch (err) { renderSetPassword(friendly(err, "Could not save the password"), o); }
     });
@@ -256,8 +357,8 @@
     var nowWf = weekFor(today());
     var wf = nowWf;
     if (weekStart) {
-      var ix = S.weeks.findIndex(function (x) { return x.start === weekStart; });
-      if (ix !== -1) wf = { week: S.weeks[ix], index: ix, status: ix === nowWf.index ? "now" : (ix < nowWf.index ? "past" : "later") };
+      var ix = WEEKS.findIndex(function (x) { return x.start === weekStart; });
+      if (ix !== -1) wf = { week: WEEKS[ix], index: ix, status: ix === nowWf.index ? "now" : (ix < nowWf.index ? "past" : "later") };
     }
     var pendingRun = Runner.pending();
     var html = topbar() + installCard();
@@ -271,14 +372,15 @@
     }
 
     if (wf.status === "after") {
-      html += '<div class="stack"><div class="eyebrow">Cycle 1 complete</div><h1>Next cycle to plan</h1>' +
-        '<p class="dim">' + esc(S.next_cycle_note || "") + "</p></div>";
+      html += '<div class="stack"><div class="eyebrow">Plan finished</div><h1>' + esc(PLAN.name || "Your plan") + " is done</h1>" +
+        '<p class="dim">It ran to ' + fmt(isoDate(planEnd())) + ". Set the next one when you know what it looks like.</p>" +
+        '<a class="btn btn--primary btn--big btn--block" href="#/plan/edit">Set up the next plan</a></div>';
     } else {
       var w = wf.week;
       var done = await Store.doneThisWeek(me.id, w.start);
       if (stale(t)) return;
       var sessions = sessionsFor(w.block);
-      var prevW = S.weeks[wf.index - 1], nextW = S.weeks[wf.index + 1];
+      var prevW = WEEKS[wf.index - 1], nextW = WEEKS[wf.index + 1];
       var label = wf.index === nowWf.index && nowWf.status === "now" ? "This week"
         : wf.index === nowWf.index + 1 ? "Next week"
         : wf.index === nowWf.index - 1 ? "Last week"
@@ -317,13 +419,14 @@
       '<div class="list">' +
         '<a class="btn btn--ghost btn--block" href="#/plan">Plan · all weeks</a>' +
         '<a class="btn btn--ghost btn--block" href="#/history">History</a>' +
+        '<a class="btn btn--ghost btn--block" href="../">Programme reference ↗</a>' +
         '<button class="btn btn--quiet btn--block" id="cp">Change password</button>' +
         '<button class="btn btn--quiet btn--block" id="out">Sign out</button>' +
       "</div>";
     app.innerHTML = html;
     syncBadge();
     bindInstall();
-    document.getElementById("out").addEventListener("click", async function () { await Store.signOut(); me = null; route(); });
+    document.getElementById("out").addEventListener("click", async function () { await Store.signOut(); me = null; PLAN = null; WEEKS = []; route(); });
     document.getElementById("cp").addEventListener("click", function () { renderSetPassword(null, { cancel: true }); });
     if (pendingRun) {
       document.getElementById("resume-go").addEventListener("click", function () { location.hash = "#/run/" + pendingRun.key + "?resume=1"; });
@@ -339,15 +442,15 @@
     ticket();
     var wf = weekFor(today());
     app.innerHTML = topbar("Plan", "#/") + '<p class="dim">Two days a week. Day 1 is the block’s first session, Day 2 the second.</p>' +
-      '<div style="margin-top:var(--space-4)">' + S.weeks.map(function (w, ix) {
+      '<div style="margin-top:var(--space-4)">' + WEEKS.map(function (w, ix) {
         var cls = ix < wf.index ? "past" : ix === wf.index ? "now" : "";
-        var chip = ix === 0 || S.weeks[ix - 1].block !== w.block ? '<span class="badge badge--cool">' + esc(w.phase) + "</span>" : "";
+        var chip = ix === 0 || WEEKS[ix - 1].block !== w.block ? '<span class="badge badge--cool">' + esc(w.phase) + "</span>" : "";
         return '<a class="week-row ' + cls + '" href="#/week/' + w.start + '"><div class="num">' + w.block + '</div><div class="grow">' +
           "<b>" + fmtRange(w.start) + "</b> <span class=\"dim\">· week " + w.week_of_block + "/" + w.weeks_in_block + "</span>" +
           (w.note ? '<div class="faint" style="font-size:13px">' + esc(w.note) + "</div>" : "") + "</div>" + chip + "</a>";
       }).join("") +
-      '<div class="week-row"><div class="num">→</div><div class="grow"><b>' + fmt(S.next_cycle_starts) + "</b><div class=\"faint\" style=\"font-size:13px\">" + esc(S.next_cycle_note) + "</div></div></div>" +
-      "</div>";
+      "</div>" +
+      '<a class="btn btn--ghost btn--block" style="margin-top:var(--space-5)" href="#/plan/edit">Edit my plan</a>';
   }
 
   async function renderHistory() {
@@ -500,7 +603,7 @@
       if (r.error) { err.textContent = r.error; err.hidden = false; return; }
       err.hidden = true;
       var row = Object.assign({}, w, { started_at: r.start, finished_at: r.end, duration_seconds: r.seconds });
-      delete row.javiplan_sets; delete row.set_count;          // view-only fields, not columns
+      delete row.freeco_sets; delete row.set_count;          // view-only fields, not columns
       Store.saveWorkout(row);
       btn.disabled = true; btn.textContent = "Saved ✓";
     });
@@ -592,13 +695,21 @@
     if (!me) me = await Store.user();
     if (stale(t) || recoveryMode) return;
     if (!me) { renderLogin(); return; }
+    if (!PLAN) {
+      PLAN = await Store.plan(me.id);
+      if (stale(t)) return;
+      if (PLAN) WEEKS = buildWeeks(PLAN);
+    }
     Store.flush();
     var h = location.hash || "#/";
+    // A new account has no plan yet — nothing else makes sense until it does.
+    if (!PLAN && h !== "#/plan/edit") { renderPlanEdit(); return; }
     var m;
     var wParam = (h.match(/[?&]w=(\d{4}-\d{2}-\d{2})/) || [])[1] || null;
     if ((m = h.match(/^#\/run\/([\d.]+)/))) { renderRun(m[1], /[?&]resume=1/.test(h), wParam); return; }
     Runner.unmount();
-    if (h === "#/plan") renderPlan();
+    if (h === "#/plan/edit") renderPlanEdit();
+    else if (h === "#/plan") renderPlan();
     else if (h === "#/history") renderHistory();
     else if ((m = h.match(/^#\/h\/([\w-]+)$/))) renderWorkout(m[1]);
     else if ((m = h.match(/^#\/log\/([\d.]+)/))) renderLog(m[1], wParam);
