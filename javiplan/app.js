@@ -46,30 +46,119 @@
       '<p class="dim">config.js has no Supabase URL and key yet. Fill them in and reload.</p></div>';
   }
 
-  function renderLogin(msg) {
+  // ---------------------------------------------------------------- auth screens
+  /* Password input with a show/hide toggle. The toggle is a real button with a
+     label and aria-pressed, so it is usable by touch and by screen reader. */
+  function pwField(id, label, autocomplete) {
+    return '<div class="field"><label for="' + id + '">' + esc(label) + '</label>' +
+      '<div class="pw-field"><input class="input" id="' + id + '" type="password" autocomplete="' + autocomplete + '" required minlength="6">' +
+      '<button type="button" class="pw-toggle" data-pw="' + id + '" aria-label="Show password" aria-pressed="false">' + ICONS.eye + "</button></div></div>";
+  }
+  function bindPwToggles() {
+    app.querySelectorAll("[data-pw]").forEach(function (b) {
+      b.addEventListener("click", function () {
+        var input = document.getElementById(b.getAttribute("data-pw"));
+        var show = input.type === "password";
+        input.type = show ? "text" : "password";
+        b.innerHTML = show ? ICONS.eyeSlash : ICONS.eye;
+        b.setAttribute("aria-label", show ? "Hide password" : "Show password");
+        b.setAttribute("aria-pressed", String(show));
+        input.focus();
+      });
+    });
+  }
+  function friendly(err, fallback) {
+    var m = (err && err.message) || "";
+    if (/already registered/i.test(m)) return "You already have an account with this email — sign in instead, or use Forgot password.";
+    if (/invalid login credentials/i.test(m)) return "Wrong email or password.";
+    if (/for security purposes|rate limit|too many|seconds/i.test(m)) return "Too many emails just now — wait a minute and try again.";
+    if (/password should be at least/i.test(m)) return "Password needs at least 6 characters.";
+    if (/same.*password|different from the old/i.test(m)) return "That’s your current password — choose a new one.";
+    return m || fallback;
+  }
+
+  function renderLogin(msg, email) {
     app.innerHTML = topbar() + '<div class="stack" style="margin-top:var(--space-8)">' +
       '<div class="eyebrow">Sign in</div><h1>Javi Plan</h1>' +
       '<form id="f" class="stack" autocomplete="on">' +
-        '<div class="field"><label for="e">Email</label><input class="input" id="e" type="email" autocomplete="username" required></div>' +
-        '<div class="field"><label for="p">Password</label><input class="input" id="p" type="password" autocomplete="current-password" required minlength="6"></div>' +
+        '<div class="field"><label for="e">Email</label><input class="input" id="e" type="email" autocomplete="username" required value="' + esc(email || "") + '"></div>' +
+        pwField("p", "Password", "current-password") +
         (msg ? '<p class="error">' + esc(msg) + "</p>" : "") +
         '<button class="btn btn--primary btn--big btn--block" type="submit">Sign in</button>' +
+        '<button class="btn btn--quiet btn--block" type="button" id="fp">Forgot password?</button>' +
         ((window.JAVIPLAN_CONFIG || {}).allowSignup ? '<button class="btn btn--quiet btn--block" type="button" id="su">Create an account</button>' : "") +
       "</form></div>";
+    bindPwToggles();
     var f = document.getElementById("f");
     f.addEventListener("submit", async function (ev) {
       ev.preventDefault();
       try { me = await Store.signIn(f.e.value.trim(), f.p.value); route(); }
-      catch (err) { renderLogin(err.message || "Could not sign in"); }
+      catch (err) { renderLogin(friendly(err, "Could not sign in"), f.e.value.trim()); }
     });
+    document.getElementById("fp").addEventListener("click", function () { renderForgot(null, f.e.value.trim()); });
     var su = document.getElementById("su");
     if (su) su.addEventListener("click", async function () {
-      if (!f.e.value || !f.p.value) { renderLogin("Enter an email and a password (6+ characters) first."); return; }
+      if (!f.e.value || !f.p.value) { renderLogin("Enter an email and a password (6+ characters) first.", f.e.value.trim()); return; }
       try {
         var r = await Store.signUp(f.e.value.trim(), f.p.value);
         if (r.session) { me = r.user; route(); }
-        else renderLogin("Account created — check your email to confirm it, then sign in.");
-      } catch (err) { renderLogin(err.message || "Could not create the account"); }
+        else renderLogin("Account created — check your email to confirm it, then sign in.", f.e.value.trim());
+      } catch (err) { renderLogin(friendly(err, "Could not create the account"), f.e.value.trim()); }
+    });
+  }
+
+  function renderForgot(msg, email) {
+    app.innerHTML = topbar() + '<div class="stack" style="margin-top:var(--space-8)">' +
+      '<div class="eyebrow">Forgot password</div><h1>Reset it by email</h1>' +
+      '<p class="dim">We’ll email you a link. Tap it on your phone and you can choose a new password.</p>' +
+      '<form id="f" class="stack">' +
+        '<div class="field"><label for="e">Email</label><input class="input" id="e" type="email" autocomplete="username" required value="' + esc(email || "") + '"></div>' +
+        (msg ? '<p class="error">' + esc(msg) + "</p>" : "") +
+        '<button class="btn btn--primary btn--big btn--block" type="submit" id="send">Send reset link</button>' +
+        '<button class="btn btn--quiet btn--block" type="button" id="bk">‹ Back to sign in</button>' +
+      "</form></div>";
+    var f = document.getElementById("f");
+    document.getElementById("bk").addEventListener("click", function () { renderLogin(null, f.e.value.trim()); });
+    f.addEventListener("submit", async function (ev) {
+      ev.preventDefault();
+      var btn = document.getElementById("send"); btn.disabled = true; btn.textContent = "Sending…";
+      try { await Store.sendReset(f.e.value.trim()); renderForgotSent(f.e.value.trim()); }
+      catch (err) { renderForgot(friendly(err, "Could not send the email"), f.e.value.trim()); }
+    });
+  }
+
+  function renderForgotSent(email) {
+    app.innerHTML = topbar() + '<div class="stack" style="margin-top:var(--space-8)">' +
+      '<div class="eyebrow">Check your email</div><h1>Link sent</h1>' +
+      '<p class="dim">We sent a reset link to <b>' + esc(email) + '</b>. It can take a minute — check spam if it doesn’t show up.</p>' +
+      '<div class="note">Tapping the link opens your browser, not this app. Set the new password there, then come back here and sign in with it.</div>' +
+      '<button class="btn btn--ghost btn--block" id="bk">‹ Back to sign in</button></div>';
+    document.getElementById("bk").addEventListener("click", function () { renderLogin(null, email); });
+  }
+
+  function renderSetPassword(msg) {
+    app.innerHTML = topbar() + '<div class="stack" style="margin-top:var(--space-8)">' +
+      '<div class="eyebrow">New password</div><h1>Choose a new password</h1>' +
+      '<form id="f" class="stack">' +
+        pwField("p1", "New password", "new-password") +
+        pwField("p2", "Type it again", "new-password") +
+        (msg ? '<p class="error">' + esc(msg) + "</p>" : "") +
+        '<button class="btn btn--primary btn--big btn--block" type="submit" id="save">Save password</button>' +
+      "</form></div>";
+    bindPwToggles();
+    var f = document.getElementById("f");
+    f.addEventListener("submit", async function (ev) {
+      ev.preventDefault();
+      if (f.p1.value.length < 6) { renderSetPassword("Password needs at least 6 characters."); return; }
+      if (f.p1.value !== f.p2.value) { renderSetPassword("The two passwords don’t match."); return; }
+      var btn = document.getElementById("save"); btn.disabled = true; btn.textContent = "Saving…";
+      try {
+        me = await Store.setPassword(f.p1.value);
+        app.innerHTML = topbar() + '<div class="stack" style="margin-top:var(--space-8)">' +
+          '<div class="eyebrow">Done</div><h1>Password saved</h1>' +
+          '<p class="dim">You’re signed in here. If you use Javi Plan from your home screen, open it there and sign in with the new password.</p>' +
+          '<a class="btn btn--primary btn--big btn--block" href="#/">Continue</a></div>';
+      } catch (err) { renderSetPassword(friendly(err, "Could not save the password")); }
     });
   }
 
@@ -208,6 +297,29 @@
     else if ((m = h.match(/^#\/h\/([\w-]+)$/))) renderWorkout(m[1]);
     else renderHome();
   }
-  window.addEventListener("hashchange", route);
-  route();
+  /* Boot. A password-reset link comes back as #access_token=…&type=recovery
+     (or #error=… if the link expired). That has to be read BEFORE the router
+     sees the hash, or it would be mistaken for a route and the reset lost. */
+  async function boot() {
+    if (!Store.configured()) { renderSetup(); return; }
+    var h = location.hash || "";
+    var hadAuthParams = /access_token=|error_description=|type=recovery/.test(h);
+    var recovery = /type=recovery/.test(h);
+    var linkError = (h.match(/error_description=([^&]+)/) || [])[1];
+
+    Store.onAuth(function (event) {
+      if (event === "PASSWORD_RECOVERY") { recovery = true; renderSetPassword(); }
+    });
+    var session = await Store.ready();              // waits for the link to be read
+    if (hadAuthParams) history.replaceState(null, "", location.pathname + location.search + "#/");
+    window.addEventListener("hashchange", route);
+
+    if (recovery && session) { renderSetPassword(); return; }
+    if (linkError) {
+      renderForgot("That reset link has expired or was already used. Send a new one.");
+      return;
+    }
+    route();
+  }
+  boot();
 })();

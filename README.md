@@ -103,8 +103,14 @@ was used. If that video ever looks like the wrong variation, change the id in
 ## Javi Plan — the training app (/javiplan)
 
 A phone app for actually doing the sessions: <https://javicueto.github.io/bv-workouts/javiplan/>
-Add it to the home screen from Safari (Share → Add to Home Screen) and it opens
-full-screen like a native app, and keeps working with no signal once opened.
+On iPhone, add it to the home screen — in Chrome: Share (top right of the address
+bar) → Add to Home Screen; in Safari: Share → Add to Home Screen. Open it from that
+icon: it runs full-screen and keeps working with no signal. A normal Chrome tab on
+iPhone cannot work offline.
+
+**Forgot password** is on the sign-in screen. The email link opens in the phone’s
+browser, not the installed app: set the new password there, then sign in from the
+home-screen icon.
 
 **How a session runs.** This week’s Day 1 / Day 2 are on the home screen. Tap one:
 the warm-up is a grid of moving thumbnails; after that, each screen is one round

@@ -23,7 +23,18 @@ window.Store = (function () {
   function sb() {
     if (!client && configured()) {
       client = window.supabase.createClient(cfg.supabaseUrl, cfg.supabaseKey, {
-        auth: { persistSession: true, autoRefreshToken: true, detectSessionInUrl: false },
+        auth: {
+          persistSession: true, autoRefreshToken: true,
+          // Needed for "Forgot password": the reset email lands back here with
+          // the recovery session in the URL, and the client must read it.
+          detectSessionInUrl: true,
+          // MUST stay "implicit", not "pkce". On iPhone the home-screen app and
+          // Safari keep separate storage, and the reset link always opens in
+          // Safari. PKCE needs a secret saved by the browser that asked for the
+          // email, so a reset requested from the app would fail in Safari.
+          // Implicit carries everything in the link itself.
+          flowType: "implicit",
+        },
       });
     }
     return client;
@@ -46,6 +57,30 @@ window.Store = (function () {
     return r.data;
   }
   async function signOut() { if (sb()) await sb().auth.signOut(); }
+
+  // ------------------------------------------------------------- password reset
+  // The link in the email comes back to this app's own address. That address
+  // must be in the Supabase project's Redirect URLs list, or Supabase sends the
+  // user to the project's default Site URL (Maky's) instead.
+  function appUrl() { return new URL("./", location.href).href; }
+
+  async function sendReset(email) {
+    var r = await sb().auth.resetPasswordForEmail(email, { redirectTo: appUrl() });
+    if (r.error) throw r.error;
+  }
+  async function setPassword(password) {
+    var r = await sb().auth.updateUser({ password: password });
+    if (r.error) throw r.error;
+    return r.data.user;
+  }
+  /* Resolves once the client has finished reading any session out of the URL
+     (the reset link), so the app does not route before it knows. */
+  async function ready() {
+    if (!sb()) return null;
+    var r = await sb().auth.getSession();
+    return r.data && r.data.session ? r.data.session : null;
+  }
+  function onAuth(fn) { if (sb()) sb().auth.onAuthStateChange(function (event, session) { fn(event, session); }); }
 
   // ------------------------------------------------------------- queue
   function readQ() { try { return JSON.parse(localStorage.getItem(Q_KEY) || "[]"); } catch (e) { return []; } }
@@ -143,6 +178,7 @@ window.Store = (function () {
 
   return {
     configured: configured, user: user, signIn: signIn, signUp: signUp, signOut: signOut,
+    sendReset: sendReset, setPassword: setPassword, ready: ready, onAuth: onAuth,
     uuid: uuid, saveWorkout: saveWorkout, saveSet: saveSet, lastForExercises: lastForExercises,
     history: history, setsFor: setsFor, doneThisWeek: doneThisWeek,
     flush: flush, pending: function () { return readQ().length; },
