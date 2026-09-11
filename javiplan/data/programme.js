@@ -1074,7 +1074,7 @@ window.PROGRAMME = {
      "rounds": 2,
      "rounds_note": null,
      "rest_seconds": 0,
-     "rest_note": "no rest written",
+     "rest_note": "No rest",
      "rest_assumed": false,
      "exercises": [
       {
@@ -1282,7 +1282,7 @@ window.PROGRAMME = {
      "rounds": 2,
      "rounds_note": null,
      "rest_seconds": 0,
-     "rest_note": "no rest written",
+     "rest_note": "No rest",
      "rest_assumed": false,
      "exercises": [
       {
@@ -1481,7 +1481,7 @@ window.PROGRAMME = {
      "rounds": 2,
      "rounds_note": null,
      "rest_seconds": 0,
-     "rest_note": "no rest written",
+     "rest_note": "No rest",
      "rest_assumed": false,
      "exercises": [
       {
@@ -1511,7 +1511,7 @@ window.PROGRAMME = {
      "rounds": 3,
      "rounds_note": null,
      "rest_seconds": 0,
-     "rest_note": "no rest written",
+     "rest_note": "No rest",
      "rest_assumed": false,
      "exercises": [
       {
@@ -1681,7 +1681,7 @@ window.PROGRAMME = {
      "rounds": 2,
      "rounds_note": null,
      "rest_seconds": 0,
-     "rest_note": "no rest written",
+     "rest_note": "No rest",
      "rest_assumed": false,
      "exercises": [
       {
@@ -1711,7 +1711,7 @@ window.PROGRAMME = {
      "rounds": 3,
      "rounds_note": null,
      "rest_seconds": 0,
-     "rest_note": "no rest written",
+     "rest_note": "No rest",
      "rest_assumed": false,
      "exercises": [
       {
@@ -1882,7 +1882,7 @@ window.PROGRAMME = {
      "rounds": 2,
      "rounds_note": null,
      "rest_seconds": 0,
-     "rest_note": "no rest written",
+     "rest_note": "No rest",
      "rest_assumed": false,
      "exercises": [
       {
@@ -1912,7 +1912,7 @@ window.PROGRAMME = {
      "rounds": 3,
      "rounds_note": null,
      "rest_seconds": 0,
-     "rest_note": "no rest written",
+     "rest_note": "No rest",
      "rest_assumed": false,
      "exercises": [
       {
@@ -2086,7 +2086,7 @@ window.PROGRAMME = {
      "rounds": 2,
      "rounds_note": null,
      "rest_seconds": 0,
-     "rest_note": "no rest written",
+     "rest_note": "No rest",
      "rest_assumed": false,
      "exercises": [
       {
@@ -2116,7 +2116,7 @@ window.PROGRAMME = {
      "rounds": 3,
      "rounds_note": null,
      "rest_seconds": 0,
-     "rest_note": "no rest written",
+     "rest_note": "No rest",
      "rest_assumed": false,
      "exercises": [
       {
@@ -2290,7 +2290,7 @@ window.PROGRAMME = {
      "rounds": 2,
      "rounds_note": null,
      "rest_seconds": 0,
-     "rest_note": "no rest written",
+     "rest_note": "No rest",
      "rest_assumed": false,
      "exercises": [
       {
@@ -2315,7 +2315,7 @@ window.PROGRAMME = {
      "rounds": 3,
      "rounds_note": null,
      "rest_seconds": 0,
-     "rest_note": "no rest written",
+     "rest_note": "No rest",
      "rest_assumed": false,
      "exercises": [
       {
@@ -2507,7 +2507,7 @@ window.PROGRAMME = {
      "rounds": 2,
      "rounds_note": null,
      "rest_seconds": 0,
-     "rest_note": "no rest written",
+     "rest_note": "No rest",
      "rest_assumed": false,
      "exercises": [
       {
@@ -2532,7 +2532,7 @@ window.PROGRAMME = {
      "rounds": 3,
      "rounds_note": null,
      "rest_seconds": 0,
-     "rest_note": "no rest written",
+     "rest_note": "No rest",
      "rest_assumed": false,
      "exercises": [
       {
@@ -2718,7 +2718,7 @@ window.PROGRAMME = {
      "rounds": 2,
      "rounds_note": null,
      "rest_seconds": 0,
-     "rest_note": "no rest written",
+     "rest_note": "No rest",
      "rest_assumed": false,
      "exercises": [
       {
@@ -2743,7 +2743,7 @@ window.PROGRAMME = {
      "rounds": 3,
      "rounds_note": null,
      "rest_seconds": 0,
-     "rest_note": "no rest written",
+     "rest_note": "No rest",
      "rest_assumed": false,
      "exercises": [
       {
@@ -2936,7 +2936,7 @@ window.PROGRAMME = {
      "rounds": 2,
      "rounds_note": null,
      "rest_seconds": 0,
-     "rest_note": "no rest written",
+     "rest_note": "No rest",
      "rest_assumed": false,
      "exercises": [
       {
@@ -2961,7 +2961,7 @@ window.PROGRAMME = {
      "rounds": 3,
      "rounds_note": null,
      "rest_seconds": 0,
-     "rest_note": "no rest written",
+     "rest_note": "No rest",
      "rest_assumed": false,
      "exercises": [
       {
@@ -3141,7 +3141,7 @@ window.PROGRAMME = {
      "rounds": 2,
      "rounds_note": null,
      "rest_seconds": 0,
-     "rest_note": "no rest written",
+     "rest_note": "No rest",
      "rest_assumed": false,
      "exercises": [
       {
@@ -3165,7 +3165,7 @@ window.PROGRAMME = {
      "rounds": 3,
      "rounds_note": null,
      "rest_seconds": 0,
-     "rest_note": "no rest written",
+     "rest_note": "No rest",
      "rest_assumed": false,
      "exercises": [
       {
@@ -3344,7 +3344,7 @@ window.PROGRAMME = {
      "rounds": 2,
      "rounds_note": null,
      "rest_seconds": 0,
-     "rest_note": "no rest written",
+     "rest_note": "No rest",
      "rest_assumed": false,
      "exercises": [
       {
@@ -3368,7 +3368,7 @@ window.PROGRAMME = {
      "rounds": 3,
      "rounds_note": null,
      "rest_seconds": 0,
-     "rest_note": "no rest written",
+     "rest_note": "No rest",
      "rest_assumed": false,
      "exercises": [
       {
@@ -3555,7 +3555,7 @@ window.PROGRAMME = {
      "rounds": 2,
      "rounds_note": null,
      "rest_seconds": 0,
-     "rest_note": "no rest written",
+     "rest_note": "No rest",
      "rest_assumed": false,
      "exercises": [
       {
@@ -3580,7 +3580,7 @@ window.PROGRAMME = {
      "rounds": 3,
      "rounds_note": null,
      "rest_seconds": 0,
-     "rest_note": "rest as little as possible",
+     "rest_note": "Rest as little as possible",
      "rest_assumed": false,
      "exercises": [
       {
@@ -3761,7 +3761,7 @@ window.PROGRAMME = {
      "rounds": 3,
      "rounds_note": null,
      "rest_seconds": 0,
-     "rest_note": "rest as little as possible",
+     "rest_note": "Rest as little as possible",
      "rest_assumed": false,
      "exercises": [
       {
@@ -3941,7 +3941,7 @@ window.PROGRAMME = {
      "rounds": 2,
      "rounds_note": null,
      "rest_seconds": 0,
-     "rest_note": "no rest written",
+     "rest_note": "No rest",
      "rest_assumed": false,
      "exercises": [
       {
@@ -3966,7 +3966,7 @@ window.PROGRAMME = {
      "rounds": 3,
      "rounds_note": null,
      "rest_seconds": 0,
-     "rest_note": "rest as little as possible",
+     "rest_note": "Rest as little as possible",
      "rest_assumed": false,
      "exercises": [
       {
@@ -4144,7 +4144,7 @@ window.PROGRAMME = {
      "rounds": 3,
      "rounds_note": null,
      "rest_seconds": 0,
-     "rest_note": "rest as little as possible",
+     "rest_note": "Rest as little as possible",
      "rest_assumed": false,
      "exercises": [
       {
@@ -4397,7 +4397,7 @@ window.PROGRAMME = {
      "rounds": 3,
      "rounds_note": null,
      "rest_seconds": 0,
-     "rest_note": "rest as little as possible",
+     "rest_note": "Rest as little as possible",
      "rest_assumed": false,
      "exercises": [
       {
@@ -4563,7 +4563,7 @@ window.PROGRAMME = {
      "rounds": 3,
      "rounds_note": null,
      "rest_seconds": 0,
-     "rest_note": "no rest written",
+     "rest_note": "No rest",
      "rest_assumed": false,
      "exercises": [
       {

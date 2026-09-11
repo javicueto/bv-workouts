@@ -7,5 +7,5 @@ window.JAVIPLAN_CONFIG = {
   appVersion: "0.1.0",
   // Accounts live in Maky's auth. Leave sign-up on only while someone needs
   // an account; with it off, the "Create an account" button disappears.
-  allowSignup: true,
+  allowSignup: false,   // off 11 Sep 2026 — Javier's account works. Turn on for Nacho.
 };

@@ -41,12 +41,12 @@ def parse_rest(info):
     """-> (seconds or None, note or None, assumed: bool)"""
     m = re.search(r"^\s*rest\b(.*)$", info, re.I | re.M)
     if not m:
-        return DEFAULT_REST_SECONDS, "no rest written", False
+        return DEFAULT_REST_SECONDS, "No rest", False
     tail = m.group(1).strip().lower()
     if "little" in tail or "ittle" in tail:
-        return 0, "rest as little as possible", False
+        return 0, "Rest as little as possible", False
     if tail == "" or tail.startswith("no"):
-        return 0, "no rest", False
+        return 0, "No rest", False
     mm = re.match(r"(\d+)(?:[.,](\d))?\s*(min|minute|minutes|seg|sec|s)\b", tail)
     if not mm:
         return None, tail, False
