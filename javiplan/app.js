@@ -8,6 +8,18 @@
   var app = document.getElementById("app");
   var me = null;
 
+  /* Every screen takes a ticket when it starts drawing. A screen that waited on
+     the network checks its ticket before painting and gives up if a newer
+     screen started meanwhile. Without this, a slow Home painted over a newer
+     screen — which is how a password-reset link ended on the plan instead of
+     "Choose a new password" (11 Sep 2026). Any new async view must do the same. */
+  var screen = 0;
+  function ticket() { return ++screen; }
+  function stale(t) { return t !== screen; }
+  // True from a reset link until the new password is saved: every route shows
+  // "Choose a new password" and nothing else.
+  var recoveryMode = false;
+
   function esc(s) { return String(s == null ? "" : s).replace(/[&<>"']/g, function (c) {
     return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]; }); }
   var MONTHS = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
@@ -42,6 +54,7 @@
   }
 
   function renderSetup() {
+    ticket();
     app.innerHTML = topbar() + '<div class="stack"><h1>Not configured</h1>' +
       '<p class="dim">config.js has no Supabase URL and key yet. Fill them in and reload.</p></div>';
   }
@@ -78,6 +91,7 @@
   }
 
   function renderLogin(msg, email) {
+    ticket();
     app.innerHTML = topbar() + '<div class="stack" style="margin-top:var(--space-8)">' +
       '<div class="eyebrow">Sign in</div><h1>Javi Plan</h1>' +
       '<form id="f" class="stack" autocomplete="on">' +
@@ -108,6 +122,7 @@
   }
 
   function renderForgot(msg, email) {
+    ticket();
     app.innerHTML = topbar() + '<div class="stack" style="margin-top:var(--space-8)">' +
       '<div class="eyebrow">Forgot password</div><h1>Reset it by email</h1>' +
       '<p class="dim">We’ll email you a link. Tap it on your phone and you can choose a new password.</p>' +
@@ -128,6 +143,7 @@
   }
 
   function renderForgotSent(email) {
+    ticket();
     app.innerHTML = topbar() + '<div class="stack" style="margin-top:var(--space-8)">' +
       '<div class="eyebrow">Check your email</div><h1>Link sent</h1>' +
       '<p class="dim">We sent a reset link to <b>' + esc(email) + '</b>. It can take a minute — check spam if it doesn’t show up.</p>' +
@@ -136,33 +152,41 @@
     document.getElementById("bk").addEventListener("click", function () { renderLogin(null, email); });
   }
 
-  function renderSetPassword(msg) {
+  function renderSetPassword(msg, opts) {
+    var o = opts || {};
+    ticket();
     app.innerHTML = topbar() + '<div class="stack" style="margin-top:var(--space-8)">' +
-      '<div class="eyebrow">New password</div><h1>Choose a new password</h1>' +
+      '<div class="eyebrow">' + (o.cancel ? "Change password" : "New password") + '</div><h1>Choose a new password</h1>' +
       '<form id="f" class="stack">' +
         pwField("p1", "New password", "new-password") +
         pwField("p2", "Type it again", "new-password") +
         (msg ? '<p class="error">' + esc(msg) + "</p>" : "") +
         '<button class="btn btn--primary btn--big btn--block" type="submit" id="save">Save password</button>' +
+        (o.cancel ? '<button class="btn btn--quiet btn--block" type="button" id="cx">Cancel</button>' : "") +
       "</form></div>";
     bindPwToggles();
     var f = document.getElementById("f");
+    var cx = document.getElementById("cx");
+    if (cx) cx.addEventListener("click", function () { route(); });
     f.addEventListener("submit", async function (ev) {
       ev.preventDefault();
-      if (f.p1.value.length < 6) { renderSetPassword("Password needs at least 6 characters."); return; }
-      if (f.p1.value !== f.p2.value) { renderSetPassword("The two passwords don’t match."); return; }
+      if (f.p1.value.length < 6) { renderSetPassword("Password needs at least 6 characters.", o); return; }
+      if (f.p1.value !== f.p2.value) { renderSetPassword("The two passwords don’t match.", o); return; }
       var btn = document.getElementById("save"); btn.disabled = true; btn.textContent = "Saving…";
       try {
         me = await Store.setPassword(f.p1.value);
+        recoveryMode = false;
+        ticket();
         app.innerHTML = topbar() + '<div class="stack" style="margin-top:var(--space-8)">' +
           '<div class="eyebrow">Done</div><h1>Password saved</h1>' +
           '<p class="dim">You’re signed in here. If you use Javi Plan from your home screen, open it there and sign in with the new password.</p>' +
           '<a class="btn btn--primary btn--big btn--block" href="#/">Continue</a></div>';
-      } catch (err) { renderSetPassword(friendly(err, "Could not save the password")); }
+      } catch (err) { renderSetPassword(friendly(err, "Could not save the password"), o); }
     });
   }
 
   async function renderHome() {
+    var t = ticket();
     var wf = weekFor(today());
     var pendingRun = Runner.pending();
     var html = topbar();
@@ -181,6 +205,7 @@
     } else {
       var w = wf.week;
       var done = await Store.doneThisWeek(me.id, w.start);
+      if (stale(t)) return;
       var sessions = sessionsFor(w.block);
       html += '<div class="stack">' +
         '<div class="eyebrow">' + (wf.status === "upcoming" ? "Starts " + fmt(w.start) : "Week of " + fmtRange(w.start)) + "</div>" +
@@ -201,11 +226,13 @@
       '<div class="list">' +
         '<a class="btn btn--ghost btn--block" href="#/plan">Plan · all weeks</a>' +
         '<a class="btn btn--ghost btn--block" href="#/history">History</a>' +
+        '<button class="btn btn--quiet btn--block" id="cp">Change password</button>' +
         '<button class="btn btn--quiet btn--block" id="out">Sign out</button>' +
       "</div>";
     app.innerHTML = html;
     syncBadge();
     document.getElementById("out").addEventListener("click", async function () { await Store.signOut(); me = null; route(); });
+    document.getElementById("cp").addEventListener("click", function () { renderSetPassword(null, { cancel: true }); });
     if (pendingRun) {
       document.getElementById("resume-go").addEventListener("click", function () { location.hash = "#/run/" + pendingRun.key + "?resume=1"; });
       document.getElementById("resume-drop").addEventListener("click", function () { Runner.abandon(); route(); });
@@ -213,6 +240,7 @@
   }
 
   function renderPlan() {
+    ticket();
     var wf = weekFor(today());
     app.innerHTML = topbar("Plan", "#/") + '<p class="dim">Two days a week. Day 1 is the block’s first session, Day 2 the second.</p>' +
       '<div style="margin-top:var(--space-4)">' + S.weeks.map(function (w, ix) {
@@ -227,8 +255,10 @@
   }
 
   async function renderHistory() {
+    var t = ticket();
     app.innerHTML = topbar("History", "#/") + '<p class="dim">Loading…</p>';
     var rows = await Store.history(me.id, 80);
+    if (stale(t)) return;
     app.innerHTML = topbar("History", "#/") + (rows.length ? '<div class="list">' + rows.map(function (w) {
       var d = new Date(w.started_at);
       return '<a class="card card--tap" href="#/h/' + esc(w.id) + '"><div class="row"><div class="grow"><h2>Workout ' + esc(w.session_key) + "</h2>" +
@@ -239,8 +269,10 @@
   }
 
   async function renderWorkout(id) {
+    var t = ticket();
     app.innerHTML = topbar("Workout", "#/history") + '<p class="dim">Loading…</p>';
     var sets = await Store.setsFor(id);
+    if (stale(t)) return;
     var byBlock = {};
     sets.forEach(function (s) { (byBlock[s.block_letter] = byBlock[s.block_letter] || []).push(s); });
     app.innerHTML = topbar("Workout", "#/history") + Object.keys(byBlock).sort().map(function (L) {
@@ -253,6 +285,7 @@
   }
 
   async function renderRun(key, resume) {
+    var t = ticket();
     var s = sessionByKey(key);
     if (!s) { location.hash = "#/"; return; }
     if (resume && Runner.resume()) { /* state restored */ }
@@ -261,6 +294,7 @@
       var ids = []; s.warmup.exercises.forEach(function (e) { ids.push(e.id); });
       s.blocks.forEach(function (b) { b.exercises.forEach(function (e) { if (e.id) ids.push(e.id); }); });
       var last = await Store.lastForExercises(ids, me.id);
+      if (stale(t)) return;
       Runner.start(key, { userId: me.id, weekStart: wf.week ? wf.week.start : null, last: last });
     }
     app.innerHTML = '<div class="runner" id="runner"></div>';
@@ -285,7 +319,10 @@
   // ---------------------------------------------------------------- router
   async function route() {
     if (!Store.configured()) { renderSetup(); return; }
+    if (recoveryMode) { renderSetPassword(); return; }
+    var t = ticket();
     if (!me) me = await Store.user();
+    if (stale(t) || recoveryMode) return;
     if (!me) { renderLogin(); return; }
     Store.flush();
     var h = location.hash || "#/";
@@ -308,13 +345,14 @@
     var linkError = (h.match(/error_description=([^&]+)/) || [])[1];
 
     Store.onAuth(function (event) {
-      if (event === "PASSWORD_RECOVERY") { recovery = true; renderSetPassword(); }
+      if (event === "PASSWORD_RECOVERY") { recoveryMode = true; renderSetPassword(); }
     });
     var session = await Store.ready();              // waits for the link to be read
     if (hadAuthParams) history.replaceState(null, "", location.pathname + location.search + "#/");
     window.addEventListener("hashchange", route);
 
-    if (recovery && session) { renderSetPassword(); return; }
+    if (recovery && session) recoveryMode = true;
+    if (recoveryMode) { renderSetPassword(); return; }
     if (linkError) {
       renderForgot("That reset link has expired or was already used. Send a new one.");
       return;

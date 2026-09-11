@@ -29,6 +29,14 @@
 <script src="app.js"></script>
 <script>
   if ("serviceWorker" in navigator) {
+    // When a newer version takes over, reload once so it is used straight away —
+    // but only if an older version was already running (not on a first visit),
+    // and never in the middle of a session (#/run/…), which must not be cut off.
+    var hadController = !!navigator.serviceWorker.controller, reloading = false;
+    navigator.serviceWorker.addEventListener("controllerchange", function () {
+      if (!hadController || reloading || /^#\/run\//.test(location.hash)) return;
+      reloading = true; location.reload();
+    });
     window.addEventListener("load", function () { navigator.serviceWorker.register("sw.js"); });
   }
 </script>

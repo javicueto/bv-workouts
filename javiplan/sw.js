@@ -1,13 +1,15 @@
 /* Service worker: the app must open in a gym with no signal.
  *
- * - App shell + plan data: cached at install, served cache-first, refreshed in
- *   the background. Bump CACHE when the shell changes so old files are dropped.
+ * - App shell + plan data: NETWORK-FIRST, falling back to the cache when the
+ *   network fails or takes more than 3s. It used to be stale-while-revalidate,
+ *   which served the old copy first — so every fix only reached the phone on
+ *   the SECOND reload. Bump CACHE when the shell changes so old files go.
  * - Exercise previews (../previews/*.webp): cached the first time they are
  *   seen, so a session you have opened once works fully offline afterwards.
  * - Supabase: never cached — always network. The app keeps its own offline
  *   queue for writes.
  */
-const CACHE = "javiplan-v4";
+const CACHE = "javiplan-v5";
 const SHELL = [
   "./", "./index.html", "./styles.css", "./config.js",
   "./icons.js", "./store.js", "./timer.js", "./runner.js", "./app.js",
@@ -41,7 +43,7 @@ self.addEventListener("fetch", (e) => {
   }
   if (url.origin !== location.origin) return;
   if (url.pathname.includes("/previews/")) { e.respondWith(cacheFirst(e.request)); return; }
-  e.respondWith(staleWhileRevalidate(e.request));
+  e.respondWith(networkFirst(e.request));
 });
 
 async function cacheFirst(req) {
@@ -52,9 +54,21 @@ async function cacheFirst(req) {
   return res;
 }
 
-async function staleWhileRevalidate(req) {
+// A weak gym signal must not leave the app hanging: after 3s, use the cache.
+const NETWORK_TIMEOUT_MS = 3000;
+
+async function networkFirst(req) {
   const cache = await caches.open(CACHE);
-  const hit = await cache.match(req);
-  const refresh = fetch(req).then((res) => { if (res.ok) cache.put(req, res.clone()); return res; }).catch(() => hit);
-  return hit || refresh;
+  try {
+    const res = await Promise.race([
+      fetch(req),
+      new Promise((_, reject) => setTimeout(() => reject(new Error("timeout")), NETWORK_TIMEOUT_MS)),
+    ]);
+    if (res.ok) cache.put(req, res.clone());
+    return res;
+  } catch (err) {
+    const hit = await cache.match(req, { ignoreSearch: true });
+    if (hit) return hit;
+    throw err;
+  }
 }
