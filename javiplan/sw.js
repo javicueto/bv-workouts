@@ -7,12 +7,17 @@
  * - Supabase: never cached — always network. The app keeps its own offline
  *   queue for writes.
  */
-const CACHE = "javiplan-v1";
+const CACHE = "javiplan-v2";
 const SHELL = [
   "./", "./index.html", "./styles.css", "./config.js",
   "./store.js", "./timer.js", "./runner.js", "./app.js",
   "./data/programme.js", "./data/schedule.js",
   "./manifest.webmanifest", "./icon-192.png", "./icon-512.png",
+  // The Supabase client MUST be precached. It is fetched on the very first page
+  // load, before this worker controls the page, so the runtime cache below
+  // never sees it — without this line the first offline open cannot sign in.
+  // Keep the version in step with index.html.
+  "https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.116.0/dist/umd/supabase.min.js",
 ];
 
 self.addEventListener("install", (e) => {
