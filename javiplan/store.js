@@ -136,14 +136,27 @@ window.Store = (function () {
   }
 
   function lastWeights() { try { return JSON.parse(localStorage.getItem(LAST_KEY) || "{}"); } catch (e) { return {}; } }
-  function rememberWeight(exerciseId, weight, reps) {
+  /* Local copy of "last time", per exercise AND per round, for offline use.
+     Only moves forward in time, so editing an old workout's weights never
+     overwrites what you lifted more recently. */
+  function rememberWeight(exerciseId, round, weight, reps, when) {
     if (weight == null && reps == null) return;
-    var m = lastWeights(); m[exerciseId] = { weight: weight, reps: reps, at: Date.now() };
+    var at = when ? new Date(when).getTime() : Date.now();
+    var m = lastWeights(), cur = m[exerciseId];
+    if (cur && cur.at > at + 12 * 3600 * 1000) return;              // an older workout: leave newer data alone
+    if (!cur || Math.abs(cur.at - at) > 12 * 3600 * 1000) cur = { byRound: {} };   // a different session: start fresh
+    cur.byRound = cur.byRound || {};
+    cur.byRound[round] = { weight: weight, reps: reps };
+    cur.weight = weight; cur.reps = reps; cur.at = Math.max(cur.at || 0, at);
+    m[exerciseId] = cur;
     localStorage.setItem(LAST_KEY, JSON.stringify(m));
   }
 
-  /* Pull the most recent set for each exercise in a session, to prefill the
-     weight inputs. Online: one query. Offline or signed out: the local map. */
+  /* "Last time" for each exercise in a session, to prefill the kg boxes.
+     Round-aware: the last workout that had that exercise, round by round — in
+     a 10-8-6 pyramid the weight rises each round, and prefilling round 1 with
+     last session's round-3 weight was wrong. Online: one query. Offline or
+     signed out: the local copy. */
   async function lastForExercises(exerciseIds, userId) {
     var local = lastWeights();
     var out = {};
@@ -151,17 +164,23 @@ window.Store = (function () {
     if (!navigator.onLine || !sb() || !userId) return out;
     try {
       var r = await sb().from(T_SETS)
-        .select("exercise_id, weight, reps, done_at")
+        .select("exercise_id, workout_id, round, weight, reps, done_at")
         .eq("user_id", userId).in("exercise_id", exerciseIds).eq("skipped", false)
-        .order("done_at", { ascending: false }).limit(400);
+        .order("done_at", { ascending: false }).limit(600);
       if (!r.error) {
+        var fromServer = {};
         r.data.forEach(function (row) {
-          if (!out[row.exercise_id] || new Date(row.done_at).getTime() > (out[row.exercise_id].at || 0)) {
-            out[row.exercise_id] = { weight: row.weight, reps: row.reps, at: new Date(row.done_at).getTime() };
-          }
+          var e = fromServer[row.exercise_id];
+          if (!e) e = fromServer[row.exercise_id] = { workout: row.workout_id, at: new Date(row.done_at).getTime(), byRound: {} };
+          if (row.workout_id !== e.workout) return;                   // only the most recent workout
+          if (!e.byRound[row.round]) e.byRound[row.round] = { weight: row.weight, reps: row.reps };
+          if (e.weight == null && row.weight != null) { e.weight = row.weight; e.reps = row.reps; }
+        });
+        Object.keys(fromServer).forEach(function (id) {
+          if (!out[id] || fromServer[id].at >= (out[id].at || 0)) out[id] = fromServer[id];
         });
       }
-    } catch (e) { /* offline mid-request: local map is enough */ }
+    } catch (e) { /* offline mid-request: local copy is enough */ }
     return out;
   }
 
@@ -178,7 +197,7 @@ window.Store = (function () {
     writeQ(q);
     return flush();
   }
-  function saveSet(row) { rememberWeight(row.exercise_id, row.weight, row.reps); enqueue({ table: "sets", row: row }); }
+  function saveSet(row) { rememberWeight(row.exercise_id, row.round, row.weight, row.reps, row.done_at); enqueue({ table: "sets", row: row }); }
 
   async function history(userId, limit) {
     if (!sb() || !userId) return [];

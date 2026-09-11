@@ -3,6 +3,7 @@
    length in a gym: big targets, big numbers, no hover-only affordances. */
 
 :root {
+  color-scheme: dark;          /* native date/time pickers and their icons match the dark UI */
   --space-1: 4px;  --space-2: 8px;  --space-3: 12px; --space-4: 16px;
   --space-5: 20px; --space-6: 24px; --space-8: 32px; --space-10: 40px;
   --space-12: 48px; --space-16: 64px;
@@ -335,3 +336,68 @@ body.is-resting .tabata__phase.rest { color: #fff; }
   transition: opacity .2s ease, transform .2s ease; white-space: nowrap;
 }
 .toast.in { opacity: 1; transform: translate(-50%, 0); }
+
+/* ------------------------------------------------------------ date + time inputs */
+/* iPhone renders these as native controls that ignore normal sizing: they
+   spill out of a two-column row, sit at a different height from text inputs,
+   and centre their value. Reset them to behave like every other box. */
+input[type="date"].input, input[type="time"].input {
+  -webkit-appearance: none; appearance: none;
+  display: block; width: 100%; min-width: 0; max-width: 100%;
+  /* Pinned, not min: line-height 52 plus the 1px borders made them 56px tall,
+     4px taller than the text boxes beside them. 50 + 2 = 52. */
+  height: 52px; min-height: 52px; line-height: 50px; padding-top: 0; padding-bottom: 0;
+  text-align: left;
+}
+.input::-webkit-date-and-time-value { text-align: left; margin: 0; min-height: 1.4em; }
+.field, .time-row > .field { min-width: 0; }            /* let grid columns shrink below the control's own width */
+
+/* ------------------------------------------------------------ week navigation */
+.week-nav { display: grid; grid-template-columns: 44px 1fr 44px; align-items: center; gap: var(--space-3); margin-bottom: var(--space-2); }
+.week-nav .btn--icon { font-size: 24px; line-height: 1; min-height: 44px; }
+.week-nav__label { display: grid; text-align: center; }
+.week-nav__label b { font-size: 17px; }
+.week-nav__label span { font-size: 13px; color: var(--text-dim); }
+.week-nav__today { display: block; text-align: center; font-size: 13px; margin-bottom: var(--space-3); }
+a.week-row { color: inherit; text-decoration: none; }
+
+/* ------------------------------------------------------------ weights editor */
+.wt-block { display: grid; gap: var(--space-4); }
+.wt-ex__name { font-size: 15px; font-weight: 600; margin-bottom: var(--space-2); }
+.wt-ex__rounds { display: grid; gap: var(--space-2); }
+.wt-cell { display: grid; gap: 2px; font-size: 11px; font-weight: 700; color: var(--text-faint); text-align: center; min-width: 0; }
+.wt-cell small { font-weight: 500; }
+.wt-cell .input--sm { padding: 0 4px; }
+
+/* ------------------------------------------------------------ full-screen hold timer */
+/* Orange, not blue: blue means resting, this is working. */
+.hold-screen {
+  position: fixed; inset: 0; z-index: 55;
+  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: var(--space-5);
+  padding: calc(var(--safe-top) + var(--space-6)) var(--space-4) calc(var(--safe-bottom) + var(--space-6));
+  background: var(--bg); text-align: center;
+}
+.hold-screen__name { font-size: 24px; font-weight: 700; letter-spacing: -.01em; }
+.hold-screen__side { color: var(--text-dim); min-height: 1.2em; }
+.hold-screen .rest__ring .arc { stroke: var(--accent); }
+.hold-screen.is-done .rest__ring .arc { stroke: var(--good); }
+.hold-screen__phase { font-size: 14px; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; color: var(--text-dim); }
+.hold-screen.is-holding .hold-screen__phase { color: var(--accent); }
+.hold-screen.is-done .hold-screen__phase { color: var(--good); }
+.hold-screen__actions { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-3); width: 100%; max-width: 420px; }
+.hold-screen__actions > :only-child { grid-column: 1 / -1; }
+
+/* ------------------------------------------------------------ add to home screen */
+.install-card {
+  display: grid; grid-template-columns: auto 1fr; gap: var(--space-2) var(--space-3); align-items: start;
+  margin-bottom: var(--space-5); border-color: #ff6b3d40;
+}
+.install-card__icon { width: 36px; height: 36px; display: grid; place-items: center; border-radius: 10px; background: var(--accent-soft); color: var(--accent); }
+.install-card__icon svg { width: 18px; height: 18px; }
+.install-card p { font-size: 14px; margin-top: 2px; }
+.install-card__actions { grid-column: 1 / -1; display: grid; grid-template-columns: 2fr 1fr; gap: var(--space-2); margin-top: var(--space-2); }
+.steps { list-style: none; margin: var(--space-2) 0; padding: 0; display: grid; gap: var(--space-4); }
+.steps li { display: grid; grid-template-columns: 28px 1fr; gap: var(--space-3); align-items: start; font-size: 16px; line-height: 1.4; }
+.step__n { width: 28px; height: 28px; display: grid; place-items: center; border-radius: 50%; background: var(--accent); color: #fff; font-weight: 800; font-size: 14px; }
+.inline-icon { display: inline-grid; place-items: center; width: 26px; height: 26px; vertical-align: middle; border-radius: 7px; background: var(--bg-sunken); color: var(--text); }
+.inline-icon svg { width: 14px; height: 14px; }

@@ -63,7 +63,7 @@ window.Runner = (function () {
           // always know what follows the swipe. Same on the last round.
           restRef: b.rest_seconds > 0 ? restLabel(b.rest_seconds) : (b.rest_note || "No rest"),
           items: b.exercises.map(function (e, ix) {
-            return { exercise: e, label: b.exercises.length > 1 ? b.letter + (ix + 1) : b.letter,
+            return { exercise: e, round: r, label: b.exercises.length > 1 ? b.letter + (ix + 1) : b.letter,
                      target: targetFor(e, r), note: e.note || null, setId: Store.uuid() };
           }) });
         if (r < rounds && b.rest_seconds > 0) {
@@ -109,7 +109,11 @@ window.Runner = (function () {
   }
   function resume() { state = pending(); return !!state; }
   function mount(el, exit) { container = el; onExit = exit; Sound.unlock(); WakeLock.on(); render(); }
-  function unmount() { if (countdown) { countdown.stop(); countdown = null; } setResting(false); WakeLock.off(); }
+  function unmount() {
+    if (countdown) { countdown.stop(); countdown = null; }
+    var hs = document.querySelector(".hold-screen"); if (hs) hs.remove();   // leaving mid-hold
+    setResting(false); WakeLock.off();
+  }
   // Discard: the session and anything logged in it are removed, not left
   // behind as an "unfinished" workout in History.
   function abandon() {
@@ -222,7 +226,11 @@ window.Runner = (function () {
   function exerciseCard(it, ix) {
     var e = it.exercise, id = e.id, img = preview(id);
     var prev = state.logs[it.setId] || null;
-    var last = state.last[id] || null;
+    // Same round last time if there is one (pyramids climb each round), else
+    // whatever was lifted last for this exercise.
+    var lastAll = state.last[id] || null;
+    var last = lastAll && lastAll.byRound && lastAll.byRound[it.round] && lastAll.byRound[it.round].weight != null
+      ? lastAll.byRound[it.round] : lastAll;
     var timed = !!it.target.timed;
     var w = prev ? prev.weight : (last && last.weight != null ? last.weight : "");
     var r = prev ? prev.reps : (typeof it.target.n === "number" ? it.target.n : "");
@@ -328,22 +336,73 @@ window.Runner = (function () {
     document.body.appendChild(ov);
   }
 
-  /* Timed hold (30″ plank…): the button becomes the countdown, with the same
-     cues as a rest, and a finishing chime. Per-side holds run twice. */
+  /* Timed hold (30″ plank…): takes over the whole screen, like the rest timer
+     but orange — you can't read a small button face-down in a plank. A 3-2-1
+     "get ready" first, so there's time to get into position after the tap.
+     Per-side holds offer side 2 on the same screen. */
   function startHold(it, btn) {
     Sound.unlock();
-    if (countdown) countdown.stop();
-    var sides = it.exercise.per_side ? 2 : 1, side = +btn.getAttribute("data-side");
-    btn.disabled = true; btn.classList.add("is-running");
-    countdown = new Countdown(it.target.n, {
-      endSound: Sound.done,
-      onTick: function (l) { btn.innerHTML = '<span class="hold__n">' + l + "</span> s" + (sides > 1 ? " · side " + side : ""); },
-      onDone: function () {
-        countdown = null; btn.disabled = false; btn.classList.remove("is-running");
-        if (side < sides) { btn.setAttribute("data-side", side + 1); btn.innerHTML = ICONS.play + '<span class="hold__long">Start </span>side ' + (side + 1); }
-        else { btn.classList.add("is-done"); btn.innerHTML = 'Done ✓<span class="hold__long"> — swipe when ready</span>'; }
-      },
-    });
+    if (countdown) { countdown.stop(); countdown = null; }
+    var sides = it.exercise.per_side ? 2 : 1, side = +btn.getAttribute("data-side") || 1;
+    var R = 44, C = 2 * Math.PI * R, total = it.target.n;
+    var ov = document.createElement("div");
+    ov.className = "hold-screen";
+    ov.setAttribute("role", "dialog"); ov.setAttribute("aria-modal", "true"); ov.setAttribute("aria-label", "Hold timer");
+    ov.innerHTML =
+      '<div class="hold-screen__name">' + esc(it.exercise.name) + "</div>" +
+      '<div class="hold-screen__side" id="hsd"></div>' +
+      '<div class="rest__ring hold-screen__ring"><svg viewBox="0 0 100 100"><circle class="track" cx="50" cy="50" r="' + R + '"/>' +
+      '<circle class="arc" id="harc" cx="50" cy="50" r="' + R + '" stroke-dasharray="' + C + '" stroke-dashoffset="0"/></svg>' +
+      '<div class="rest__time" id="ht"></div></div>' +
+      '<div class="hold-screen__phase" id="hp"></div>' +
+      '<div class="hold-screen__actions" id="ha"></div>';
+    document.body.appendChild(ov);
+    var ht = ov.querySelector("#ht"), hp = ov.querySelector("#hp"), ha = ov.querySelector("#ha"), arc = ov.querySelector("#harc"), hsd = ov.querySelector("#hsd");
+
+    function actions(html) {
+      ha.innerHTML = html;
+      ha.querySelectorAll("[data-h]").forEach(function (b) {
+        b.addEventListener("click", function () {
+          var a = b.getAttribute("data-h");
+          if (a === "stop" || a === "close") close(a === "close");
+          else if (a === "next") { side++; btn.setAttribute("data-side", side); lead(); }
+        });
+      });
+    }
+    function close(finished) {
+      if (countdown) { countdown.stop(); countdown = null; }
+      ov.remove();
+      if (finished) { btn.classList.add("is-done"); btn.innerHTML = 'Done ✓<span class="hold__long"> — swipe when ready</span>'; }
+      else if (side > 1 && side <= sides) { btn.innerHTML = ICONS.play + '<span class="hold__long">Start </span>side ' + side; }
+    }
+    function lead() {
+      hsd.textContent = sides > 1 ? "side " + side + " of " + sides : "";
+      ov.classList.remove("is-holding", "is-done");
+      hp.textContent = "Get ready"; arc.style.strokeDashoffset = "0";
+      actions('<button class="btn btn--ghost" data-h="stop">Cancel</button>');
+      countdown = new Countdown(3, { cues: false,
+        onTick: function (l) { ht.textContent = l > 0 ? String(l) : ""; if (l > 0) Sound.count(); },
+        onDone: function () { countdown = null; Sound.go(); hold(); } });
+    }
+    function hold() {
+      ov.classList.add("is-holding");
+      hp.textContent = "Hold";
+      actions('<button class="btn btn--ghost" data-h="stop">Stop</button>');
+      countdown = new Countdown(total, { endSound: Sound.done,
+        onTick: function (l, t) { ht.textContent = String(l); arc.style.strokeDashoffset = String(C * (1 - l / t)); },
+        onDone: function () {
+          countdown = null; ov.classList.remove("is-holding"); ov.classList.add("is-done");
+          if (side < sides) {
+            hp.textContent = "Side " + side + " done ✓"; ht.textContent = "✓";
+            actions('<button class="btn btn--ghost" data-h="stop">Close</button><button class="btn btn--primary" data-h="next">Start side ' + (side + 1) + "</button>");
+          } else {
+            hp.textContent = "Done ✓"; ht.textContent = "✓";
+            actions('<button class="btn btn--primary btn--block" data-h="close">Back to the round</button>');
+            setTimeout(function () { if (document.body.contains(ov)) close(true); }, 1800);
+          }
+        } });
+    }
+    lead();
   }
 
   // Swipe left = done, right = back. Must be clearly horizontal, so scrolling

@@ -67,6 +67,57 @@
       '<p class="dim">config.js has no Supabase URL and key yet. Fill them in and reload.</p></div>';
   }
 
+  // ---------------------------------------------------------------- add to home screen
+  /* iPhone has no way for a site to install itself — only Android / desktop
+     Chrome fire `beforeinstallprompt`. So: the real prompt where it exists,
+     step-by-step help (with the icons you actually tap) everywhere else.
+     Hidden once the app is running from the home screen. */
+  var installEvt = null;
+  window.addEventListener("beforeinstallprompt", function (e) { e.preventDefault(); installEvt = e; });
+  window.addEventListener("appinstalled", function () { installEvt = null; });
+  function isInstalled() { return window.matchMedia("(display-mode: standalone)").matches || navigator.standalone === true; }
+  function isIOS() { return /iphone|ipad|ipod/i.test(navigator.userAgent) || (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1); }
+  var INSTALL_HIDE = "javiplan.installHidden";
+  function installHidden() { try { return !!localStorage.getItem(INSTALL_HIDE); } catch (e) { return false; } }
+
+  function installCard() {
+    if (isInstalled() || installHidden()) return "";
+    return '<div class="card install-card">' +
+      '<div class="install-card__icon">' + ICONS.phone + "</div>" +
+      '<div class="grow"><b>Put Javi Plan on your home screen</b>' +
+      '<p class="dim">Opens full-screen, like an app, and works with no signal.</p></div>' +
+      '<div class="install-card__actions"><button class="btn btn--primary" id="inst">Add to home screen</button>' +
+      '<button class="btn btn--quiet" id="inst-x">Not now</button></div></div>';
+  }
+  function bindInstall() {
+    var b = document.getElementById("inst");
+    if (b) b.addEventListener("click", installFlow);
+    var x = document.getElementById("inst-x");
+    if (x) x.addEventListener("click", function () { try { localStorage.setItem(INSTALL_HIDE, "1"); } catch (e) {} route(); });
+    var h = document.getElementById("inst-help");
+    if (h) h.addEventListener("click", installFlow);
+  }
+  function installFlow() {
+    if (installEvt) {                                     // Android / desktop Chrome: the real prompt
+      installEvt.prompt();
+      installEvt.userChoice.finally(function () { installEvt = null; route(); });
+      return;
+    }
+    var chromeIOS = /CriOS/i.test(navigator.userAgent);
+    var step = function (n, html) { return '<li><span class="step__n">' + n + "</span><span>" + html + "</span></li>"; };
+    var steps = isIOS()
+      ? step(1, "Tap <b>Share</b> " + '<span class="inline-icon">' + ICONS.share + "</span> " +
+          (chromeIOS ? "— top right, inside the address bar." : "— at the bottom of the screen.")) +
+        step(2, "Scroll down and tap <b>Add to Home Screen</b> " + '<span class="inline-icon">' + ICONS.addSquare + "</span>") +
+        step(3, "Tap <b>Add</b>. From now on, open Javi Plan from that icon.")
+      : step(1, "Open your browser’s menu.") +
+        step(2, "Choose <b>Install app</b> or <b>Add to Home screen</b>.") +
+        step(3, "Open Javi Plan from the new icon.");
+    UI.info({ title: "Add to your home screen", ok: "Got it",
+      html: '<ol class="steps">' + steps + "</ol>" +
+        '<p class="faint" style="font-size:13px">Your browser has to do this part — a website can’t add itself on iPhone.</p>' });
+  }
+
   // ---------------------------------------------------------------- auth screens
   /* Password input with a show/hide toggle. The toggle is a real button with a
      label and aria-pressed, so it is usable by touch and by screen reader. */
@@ -109,8 +160,11 @@
         '<button class="btn btn--primary btn--big btn--block" type="submit">Sign in</button>' +
         '<button class="btn btn--quiet btn--block" type="button" id="fp">Forgot password?</button>' +
         ((window.JAVIPLAN_CONFIG || {}).allowSignup ? '<button class="btn btn--quiet btn--block" type="button" id="su">Create an account</button>' : "") +
-      "</form></div>";
+      "</form>" +
+      (isInstalled() ? "" : '<button class="btn btn--quiet btn--block" type="button" id="inst-help">' + ICONS.phone + " Add to your home screen</button>") +
+      "</div>";
     bindPwToggles();
+    bindInstall();
     var f = document.getElementById("f");
     f.addEventListener("submit", async function (ev) {
       ev.preventDefault();
@@ -193,11 +247,20 @@
     });
   }
 
-  async function renderHome() {
+  /* Home shows one plan week — this week by default, or any other picked with
+     the arrows (to do next week's sessions early, or look back). Whatever is
+     started or logged from a week's card is filed under THAT week, so doing
+     next week's workout early shows as done on next week, not this one. */
+  async function renderHome(weekStart) {
     var t = ticket();
-    var wf = weekFor(today());
+    var nowWf = weekFor(today());
+    var wf = nowWf;
+    if (weekStart) {
+      var ix = S.weeks.findIndex(function (x) { return x.start === weekStart; });
+      if (ix !== -1) wf = { week: S.weeks[ix], index: ix, status: ix === nowWf.index ? "now" : (ix < nowWf.index ? "past" : "later") };
+    }
     var pendingRun = Runner.pending();
-    var html = topbar();
+    var html = topbar() + installCard();
 
     if (pendingRun) {
       html += '<div class="card card--tap" id="resume"><div class="eyebrow">In progress</div>' +
@@ -215,10 +278,22 @@
       var done = await Store.doneThisWeek(me.id, w.start);
       if (stale(t)) return;
       var sessions = sessionsFor(w.block);
-      html += '<div class="stack">' +
-        '<div class="eyebrow">' + (wf.status === "upcoming" ? "Starts " + fmt(w.start) : "Week of " + fmtRange(w.start)) + "</div>" +
-        '<h1>Block ' + w.block + ' <span class="dim" style="font-weight:500;font-size:.6em">· ' + esc(w.phase) + "</span></h1>" +
-        '<p class="dim">Week ' + w.week_of_block + " of " + w.weeks_in_block + (w.note ? " · " + esc(w.note) : "") + "</p>" +
+      var prevW = S.weeks[wf.index - 1], nextW = S.weeks[wf.index + 1];
+      var label = wf.index === nowWf.index && nowWf.status === "now" ? "This week"
+        : wf.index === nowWf.index + 1 ? "Next week"
+        : wf.index === nowWf.index - 1 ? "Last week"
+        : (wf.status === "upcoming" ? "Starts " + fmt(w.start) : "Week of " + fmtRange(w.start));
+      var wq = "?w=" + encodeURIComponent(w.start);        // carried into run / log links
+      html += '<div class="week-nav">' +
+          (prevW ? '<a class="btn btn--ghost btn--icon" href="#/week/' + prevW.start + '" aria-label="Previous week">‹</a>' : '<span class="btn--icon"></span>') +
+          '<div class="week-nav__label"><b>' + esc(label) + "</b><span>" + fmtRange(w.start) + "</span></div>" +
+          (nextW ? '<a class="btn btn--ghost btn--icon" href="#/week/' + nextW.start + '" aria-label="Next week">›</a>' : '<span class="btn--icon"></span>') +
+        "</div>" +
+        (wf.index !== nowWf.index && nowWf.week ? '<a class="week-nav__today" href="#/">Back to this week</a>' : "") +
+        '<div class="stack">' +
+        '<div class="eyebrow">' + esc(w.phase) + " · week " + w.week_of_block + " of " + w.weeks_in_block + "</div>" +
+        "<h1>Block " + w.block + "</h1>" +
+        (w.note ? '<p class="dim">' + esc(w.note) + "</p>" : "") +
         '<div class="list" style="margin-top:var(--space-4)">' +
         sessions.map(function (s, ix) {
           var d = done[s.key];
@@ -226,14 +301,14 @@
           // Not done → starts the session, with "Mark as done" for a workout
           // done without the phone.
           return '<div class="card day-card' + (d ? " card--done" : "") + '">' +
-            '<a class="day-card__main" href="' + (d ? "#/h/" + esc(d.id) : "#/run/" + esc(s.key)) + '">' +
+            '<a class="day-card__main" href="' + (d ? "#/h/" + esc(d.id) : "#/run/" + esc(s.key) + wq) + '">' +
             '<div class="row"><div class="grow"><div class="eyebrow">Day ' + (ix + 1) + "</div>" +
             '<h2>' + esc(s.title) + "</h2>" +
             '<p class="dim">' + (d
               ? longDate(d.started_at) + " · " + hhmm(d.started_at) + "–" + hhmm(d.finished_at)
               : s.blocks.length + " blocks · " + s.blocks.map(function (b) { return b.letter; }).join(" ")) + "</p></div>" +
             (d ? '<span class="badge badge--good">done ✓</span>' : '<span class="badge">start ›</span>') + "</div></a>" +
-            (d ? "" : '<a class="day-card__alt" href="#/log/' + esc(s.key) + '">Did it without the phone? Mark as done</a>') +
+            (d ? "" : '<a class="day-card__alt" href="#/log/' + esc(s.key) + wq + '">Did it without the phone? Mark as done</a>') +
             "</div>";
         }).join("") + "</div></div>";
     }
@@ -247,6 +322,7 @@
       "</div>";
     app.innerHTML = html;
     syncBadge();
+    bindInstall();
     document.getElementById("out").addEventListener("click", async function () { await Store.signOut(); me = null; route(); });
     document.getElementById("cp").addEventListener("click", function () { renderSetPassword(null, { cancel: true }); });
     if (pendingRun) {
@@ -266,9 +342,9 @@
       '<div style="margin-top:var(--space-4)">' + S.weeks.map(function (w, ix) {
         var cls = ix < wf.index ? "past" : ix === wf.index ? "now" : "";
         var chip = ix === 0 || S.weeks[ix - 1].block !== w.block ? '<span class="badge badge--cool">' + esc(w.phase) + "</span>" : "";
-        return '<div class="week-row ' + cls + '"><div class="num">' + w.block + '</div><div class="grow">' +
+        return '<a class="week-row ' + cls + '" href="#/week/' + w.start + '"><div class="num">' + w.block + '</div><div class="grow">' +
           "<b>" + fmtRange(w.start) + "</b> <span class=\"dim\">· week " + w.week_of_block + "/" + w.weeks_in_block + "</span>" +
-          (w.note ? '<div class="faint" style="font-size:13px">' + esc(w.note) + "</div>" : "") + "</div>" + chip + "</div>";
+          (w.note ? '<div class="faint" style="font-size:13px">' + esc(w.note) + "</div>" : "") + "</div>" + chip + "</a>";
       }).join("") +
       '<div class="week-row"><div class="num">→</div><div class="grow"><b>' + fmt(S.next_cycle_starts) + "</b><div class=\"faint\" style=\"font-size:13px\">" + esc(S.next_cycle_note) + "</div></div></div>" +
       "</div>";
@@ -318,16 +394,18 @@
      both the done cards on Home and History. */
   async function renderWorkout(id) {
     var t = ticket();
-    var back = prevHash === "#/history" ? "#/history" : "#/";
+    var back = /^#\/(history|week\/)/.test(prevHash) ? prevHash : "#/";
     app.innerHTML = topbar("Workout", back) + '<p class="dim">Loading…</p>';
     var w = await Store.workout(id);
     if (stale(t)) return;
     if (!w) { app.innerHTML = topbar("Workout", back) + '<p class="dim">Couldn’t load this workout — it needs a connection.</p>'; return; }
     var sets = await Store.setsFor(id);
     if (stale(t)) return;
-    var byBlock = {};
-    sets.forEach(function (x) { (byBlock[x.block_letter] = byBlock[x.block_letter] || []).push(x); });
     var s = sessionByKey(w.session_key);
+    var setKey = function (L, r, exId) { return L + "|" + r + "|" + exId; };
+    var byKey = {};
+    sets.forEach(function (x) { byKey[setKey(x.block_letter, x.round, x.exercise_id)] = x; });
+    var blocks = s ? s.blocks.filter(function (b) { return b.kind === "rounds"; }) : [];
     var start = new Date(w.started_at), end = w.finished_at ? new Date(w.finished_at) : null;
 
     app.innerHTML = topbar(null, back) +
@@ -346,13 +424,28 @@
         "</form>" +
         '<a class="btn btn--primary btn--big btn--block" href="#/run/' + esc(w.session_key) + '">Do it again</a>' +
         '<button class="btn btn--quiet btn--block btn--danger-text" id="del">Delete this workout</button>' +
-        (Object.keys(byBlock).length ? Object.keys(byBlock).sort().map(function (L) {
-          return '<div class="card"><div class="eyebrow">Block ' + esc(L) + '</div><ul class="done-list" style="padding:0;margin:var(--space-2) 0 0">' +
-            byBlock[L].map(function (x) {
-              var v = x.skipped ? "skipped" : [x.weight != null ? x.weight + " kg" : null, x.reps != null ? x.reps + " reps" : null, x.seconds != null ? x.seconds + "″" : null].filter(Boolean).join(" × ");
-              return "<li><span>R" + x.round + " · " + esc(x.exercise_name) + "</span><span>" + esc(v || "—") + "</span></li>";
-            }).join("") + "</ul></div>";
-        }).join("") : '<p class="dim">' + (w.logged_manually ? "Logged by hand — no sets recorded." : "No sets recorded.") + "</p>") +
+        (blocks.length
+          ? '<form id="wf" class="stack">' +
+              '<div class="row"><h2 class="grow">Weights</h2><span class="faint" style="font-size:13px">kg per round</span></div>' +
+              blocks.map(function (b) {
+                var rounds = b.rounds || 1;
+                return '<div class="card wt-block"><div class="eyebrow">' + esc(b.letter) + " · " + esc(b.name) + "</div>" +
+                  b.exercises.map(function (e) {
+                    return '<div class="wt-ex"><div class="wt-ex__name">' + esc(e.name) + "</div>" +
+                      '<div class="wt-ex__rounds" style="grid-template-columns:repeat(' + rounds + ',1fr)">' +
+                      Array.from({ length: rounds }, function (_, i) {
+                        var r = i + 1, x = byKey[setKey(b.letter, r, e.id)];
+                        var reps = x && x.reps != null ? "× " + x.reps : (x && x.seconds != null ? x.seconds + "″" : "");
+                        return '<label class="wt-cell"><span>R' + r + "</span>" +
+                          '<input class="input input--sm" inputmode="decimal" placeholder="—" data-k="' + esc(setKey(b.letter, r, e.id)) + '"' +
+                          ' data-b="' + esc(b.letter) + '" data-r="' + r + '" data-e="' + esc(e.id) + '" value="' + esc(x && x.weight != null ? x.weight : "") + '">' +
+                          (reps ? '<small>' + esc(reps) + "</small>" : "") + "</label>";
+                      }).join("") + "</div></div>";
+                  }).join("") + "</div>";
+              }).join("") +
+              '<button class="btn btn--primary btn--block" type="submit" id="wsave" disabled>Save weights</button>' +
+            "</form>"
+          : "") +
       "</div>";
 
     document.getElementById("del").addEventListener("click", function () {
@@ -365,6 +458,40 @@
           location.hash = back;
         });
     });
+    var wf = document.getElementById("wf");
+    if (wf) {
+      var wbtn = document.getElementById("wsave");
+      wf.addEventListener("input", function () { wbtn.disabled = false; wbtn.textContent = "Save weights"; });
+      wf.addEventListener("submit", function (ev) {
+        ev.preventDefault();
+        var changed = 0;
+        wf.querySelectorAll("[data-k]").forEach(function (inp) {
+          var k = inp.getAttribute("data-k"), x = byKey[k];
+          var v = inp.value.trim() === "" ? null : parseFloat(inp.value.replace(",", "."));
+          if (v != null && isNaN(v)) v = null;
+          if (x ? x.weight === v || (x.weight != null && v != null && +x.weight === v) : v == null) return;   // unchanged
+          var row;
+          if (x) row = Object.assign({}, x, { weight: v });
+          else {
+            // A round with no set yet (hand-logged workout, or not logged live):
+            // create one with the planned reps, dated to the workout.
+            var b = blocks.find(function (bb) { return bb.letter === inp.getAttribute("data-b"); });
+            var e = b.exercises.find(function (ee) { return ee.id === inp.getAttribute("data-e"); });
+            var r = +inp.getAttribute("data-r");
+            var planned = e.reps_per_round ? e.reps_per_round[r - 1] : (typeof e.reps === "number" ? e.reps : null);
+            row = { id: Store.uuid(), workout_id: w.id, user_id: w.user_id, block_letter: b.letter, round: r,
+                    exercise_id: e.id, exercise_name: e.name, weight: v, reps: e.seconds ? null : planned,
+                    seconds: e.seconds || null, skipped: false, done_at: w.finished_at || w.started_at };
+          }
+          delete row.created_at;
+          Store.saveSet(row);
+          byKey[k] = row;                      // a second save updates, never duplicates
+          changed++;
+        });
+        wbtn.disabled = true; wbtn.textContent = changed ? "Saved ✓" : "Nothing changed";
+        if (changed) UI.toast(changed + " weight" + (changed === 1 ? "" : "s") + " saved");
+      });
+    }
     var f = document.getElementById("tf"), btn = document.getElementById("tsave"), err = document.getElementById("terr");
     f.addEventListener("input", function () { btn.disabled = false; });
     f.addEventListener("submit", function (ev) {
@@ -389,7 +516,7 @@
     return { start: a.toISOString(), end: b.toISOString(), seconds: Math.round((b - a) / 1000) };
   }
 
-  function renderLog(key) {
+  function renderLog(key, weekStart) {
     ticket();
     var s = sessionByKey(key);
     if (!s) { location.hash = "#/"; return; }
@@ -414,16 +541,16 @@
       if (r.error) { err.textContent = r.error; err.hidden = false; return; }
       var wf = weekFor(new Date(f.d.value + "T12:00"));
       Store.saveWorkout({ id: Store.uuid(), user_id: me.id, session_key: s.key, block: s.block,
-        week_start: wf.week ? wf.week.start : null, started_at: r.start, finished_at: r.end,
+        week_start: weekStart || (wf.week ? wf.week.start : null), started_at: r.start, finished_at: r.end,
         duration_seconds: r.seconds, logged_manually: true });
       f.querySelector("button[type=submit]").disabled = true;
       // Wait for the upload (if online) so Home shows the day as done at once.
       Promise.race([Store.flush(), new Promise(function (ok) { setTimeout(ok, 4000); })])
-        .then(function () { location.hash = "#/"; });
+        .then(function () { location.hash = weekStart ? "#/week/" + weekStart : "#/"; });
     });
   }
 
-  async function renderRun(key, resume) {
+  async function renderRun(key, resume, weekStart) {
     var t = ticket();
     var s = sessionByKey(key);
     if (!s) { location.hash = "#/"; return; }
@@ -434,7 +561,7 @@
       s.blocks.forEach(function (b) { b.exercises.forEach(function (e) { if (e.id) ids.push(e.id); }); });
       var last = await Store.lastForExercises(ids, me.id);
       if (stale(t)) return;
-      Runner.start(key, { userId: me.id, weekStart: wf.week ? wf.week.start : null, last: last });
+      Runner.start(key, { userId: me.id, weekStart: weekStart || (wf.week ? wf.week.start : null), last: last });
     }
     app.innerHTML = '<div class="runner" id="runner"></div>';
     Runner.mount(document.getElementById("runner"), function (result) {
@@ -468,12 +595,14 @@
     Store.flush();
     var h = location.hash || "#/";
     var m;
-    if ((m = h.match(/^#\/run\/([\d.]+)(\?resume=1)?$/))) { renderRun(m[1], !!m[2]); return; }
+    var wParam = (h.match(/[?&]w=(\d{4}-\d{2}-\d{2})/) || [])[1] || null;
+    if ((m = h.match(/^#\/run\/([\d.]+)/))) { renderRun(m[1], /[?&]resume=1/.test(h), wParam); return; }
     Runner.unmount();
     if (h === "#/plan") renderPlan();
     else if (h === "#/history") renderHistory();
     else if ((m = h.match(/^#\/h\/([\w-]+)$/))) renderWorkout(m[1]);
-    else if ((m = h.match(/^#\/log\/([\d.]+)$/))) renderLog(m[1]);
+    else if ((m = h.match(/^#\/log\/([\d.]+)/))) renderLog(m[1], wParam);
+    else if ((m = h.match(/^#\/week\/(\d{4}-\d{2}-\d{2})$/))) renderHome(m[1]);
     else renderHome();
   }
   /* Boot. A password-reset link comes back as #access_token=…&type=recovery

@@ -45,6 +45,26 @@ window.UI = (function () {
     });
   }
 
+  /* A sheet with rich content and one button — for instructions. `html` is
+     trusted markup built by the app, never user text. */
+  function info(o) {
+    o = o || {};
+    return new Promise(function (resolve) {
+      var back = document.createElement("div");
+      back.className = "sheet-back";
+      back.innerHTML = '<div class="sheet" role="dialog" aria-modal="true" aria-labelledby="sheet-t">' +
+        '<h2 id="sheet-t">' + esc(o.title || "") + "</h2>" + (o.html || "") +
+        '<button class="btn btn--primary btn--block" data-v="1">' + esc(o.ok || "Got it") + "</button></div>";
+      function close() { back.classList.remove("in"); document.removeEventListener("keydown", onKey, true); setTimeout(function () { back.remove(); }, 160); resolve(); }
+      function onKey(e) { if (e.key === "Escape") close(); }
+      back.addEventListener("click", function (e) { if (e.target.closest("[data-v]") || e.target === back) close(); });
+      document.addEventListener("keydown", onKey, true);
+      document.body.appendChild(back);
+      requestAnimationFrame(function () { back.classList.add("in"); });
+      back.querySelector("[data-v]").focus();
+    });
+  }
+
   var toastEl = null, toastTimer = null;
   function toast(msg, ms) {
     if (!toastEl) {
@@ -58,5 +78,5 @@ window.UI = (function () {
     toastTimer = setTimeout(function () { toastEl.classList.remove("in"); }, ms || 3200);
   }
 
-  return { confirm: confirm, toast: toast };
+  return { confirm: confirm, info: info, toast: toast };
 })();
