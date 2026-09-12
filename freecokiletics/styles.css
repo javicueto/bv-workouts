@@ -292,13 +292,12 @@ p  { margin: 0; }
 /* Exercise card: moving thumbnail left, what to do right, log underneath. */
 .ex-list { display: grid; gap: var(--space-3); }
 .ex-card {
-  /* 38%, not half. The preview is SQUARE now, so its width sets the card's
-     height: at 50% a round of three grew to 882px and stopped fitting an
-     812px screen. 38% is the largest square where all 506 screens still fit,
-     and it is still 45% more image than the old 42% 16:9 tile (130x130 vs
-     144x81) because none of it is wasted on empty sides. Re-measure the whole
-     sweep before touching this number. */
-  display: grid; grid-template-columns: 38% 1fr; gap: var(--space-3);
+  /* 48%. The square preview's width sets the card height, so this was capped
+     at 38% until the icons moved onto the target's line — that freed ~44px a
+     card and height stopped being the limit. WIDTH is the limit now: 50%
+     overflows 29 screens sideways, 48% none. Re-run the full sweep at 320 /
+     375 / 390 / 414 before changing it. */
+  display: grid; grid-template-columns: 48% 1fr; gap: var(--space-3);
   padding: var(--space-3);
   background: var(--bg-sunken); border: 1px solid var(--line); border-radius: var(--radius);
 }
@@ -313,14 +312,19 @@ p  { margin: 0; }
 .ex-card__target { font-size: 28px; font-weight: 800; letter-spacing: -.02em; line-height: 1.05; margin-top: 2px; }
 .ex-card__target small { font-size: 14px; font-weight: 600; color: var(--text-dim); letter-spacing: 0; }
 .ex-card__cue { font-size: 13px; color: var(--accent); font-weight: 650; }
-.ex-card__log { grid-column: 2; display: flex; gap: var(--space-2); align-items: center; flex-wrap: wrap; }
-.ex-card__log .btn--hold { flex: 1; }
+/* The target number on the left of its line, the two icons on the right of
+   the same line — they used to take a row of their own, which cost ~44px of
+   card height for nothing. */
+.ex-card__row { display: flex; align-items: center; gap: var(--space-3); min-width: 0; }
+.ex-card__row .ex-card__target { flex: none; }
+.ex-card__log { flex: 1; min-width: 0; display: flex; gap: var(--space-2); align-items: center; }
+.ex-card__body > .btn--hold { width: 100%; margin-top: var(--space-2); }
 
 /* The two corner buttons: a dumbbell bottom-left for the weight, an
    arrows-repeat bottom-right for the reps. Icon alone when there is nothing to
    report; the number beside it when there is. Deliberately quiet — most sets
    use whatever weight is to hand and the reps are almost never changed. */
-.logbtns { flex: 1; display: flex; align-items: center; gap: var(--space-1); }
+.logbtns { flex: 1; min-width: 0; display: flex; align-items: center; gap: var(--space-1); }
 .logbtn--r { margin-left: auto; }
 .logbtn {
   display: inline-flex; align-items: center; gap: var(--space-2);
@@ -385,7 +389,7 @@ p  { margin: 0; }
 /* Dense variant for 3+ movement rounds: tighter padding, smaller numbers and
    inputs. Measured at 375×812 — the normal card overflowed by 55px. */
 .ex-list--dense { gap: var(--space-2); }
-.ex-list--dense .ex-card { grid-template-columns: 32% 1fr; padding: var(--space-2) var(--space-3); gap: var(--space-2) var(--space-3); }
+.ex-list--dense .ex-card { grid-template-columns: 42% 1fr; padding: var(--space-2) var(--space-3); gap: var(--space-2) var(--space-3); }
 .ex-list--dense .ex-card__name { font-size: 15px; }
 .ex-list--dense .ex-card__target { font-size: 22px; }
 .ex-list--dense .input--sm { min-height: 38px; font-size: 16px; }
@@ -415,8 +419,17 @@ p  { margin: 0; }
 .zoom__name { font-size: 20px; font-weight: 700; }
 
 @media (max-width: 359px) {
-  .ex-card { grid-template-columns: 1fr; }
+  /* Still two columns at 320, just a narrower preview. Stacking made the
+     square full-width and the tallest round 1461px; side by side it is 919px.
+     Both need scrolling on a 568px-tall screen, but half as much.
+     .ex-list--dense .ex-card out-specifies a bare .ex-card, so it has to be
+     named here too or the dense rounds keep the wide preview and overflow. */
+  .ex-card, .ex-list--dense .ex-card { grid-template-columns: 42% 1fr; }
   .thumb-grid { grid-template-columns: repeat(2, 1fr); }
+  /* The 44px touch target is worth more than 27px of overflow on a 375 phone,
+     but on a 320 one it is what pushes the icon row off the edge. Only here
+     does it give way. */
+  .logbtn { min-width: 0; }
 }
 
 /* ------------------------------------------------------------ rest timer */
