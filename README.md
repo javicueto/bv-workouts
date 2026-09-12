@@ -1,6 +1,6 @@
 # Francesco’s Beach Volleyball Workouts — local copy of the TrueCoach programme
 
-A single static page listing the training programme (workouts 1.1 → 8.2) with every
+A single static page listing the training programme (workouts 1.1 → 9.2) with every
 exercise video stored locally. Opens straight from Finder, works with no internet.
 
 **On this Mac:** double-click `index.html` — opens instantly, works offline, plays the
@@ -11,9 +11,9 @@ The published version streams the videos from YouTube instead of shipping them.
 
 ## What is in it
 
-- 16 workouts, two per block (1.1, 1.2 … 8.1, 8.2), newest block first
+- 18 workouts, two per block (1.1, 1.2 … 9.1, 9.2), newest block first
 - Each workout: warm-up, then blocks A–F with the coach's instructions as written
-- 161 exercise videos, downloaded to `videos/` — no signal needed in the gym
+- 168 exercises with a video each, downloaded to `videos/` — no signal needed in the gym
 - An exercise index with search, showing which workouts each movement appears in
 
 The prevention routine and the volley warm-up are deliberately excluded — the site
@@ -32,7 +32,13 @@ Roughly every five weeks a new block appears (9.1, 9.2 …). To pull it in:
    or ask Claude to run it. It saves `truecoach_export.json` to Downloads.
 3. Move that file to `data/truecoach_export.json`.
 4. `./scripts/refresh.sh` — resolves the workouts, downloads only the new videos,
-   and rebuilds the page.
+   rebuilds the page AND the app's programme, and bumps the app's cache version
+   when the programme changed so phones pick it up.
+5. Commit and push.
+
+A new block reaches the app on its own: the plan editor lists every block the
+programme has, and a plan saved before the block existed gets it added with a
+default length the next time it is opened.
 
 If `refresh.sh` reports **blocks with no video**, the coach used a movement name
 that is not in the exercise library under that spelling. Add it to
@@ -40,7 +46,8 @@ that is not in the exercise library under that spelling. Add it to
 
 If it reports a **FAILED download with `HTTP Error 403`**, that is YouTube
 throttling, not a broken video — just run `./scripts/refresh.sh` again and it
-usually succeeds on the second try. It only retries what is missing.
+usually succeeds on the second try. It only retries what is missing. A failed
+download stops the refresh (the site is never rebuilt around a missing video).
 
 ## Fixing a mistake in the coach's data
 
@@ -103,7 +110,8 @@ was used. If that video ever looks like the wrong variation, change the id in
 ## How it looks
 
 Both the reference site and the app use the same look, picked on 12 Sep 2026
-from two directions mocked up in `tests/`: dark warm ground, a condensed
+from two directions mocked up in `tests/` (kept on Javier's Mac only — not in
+the repo, not published): dark warm ground, a condensed
 industrial face for anything you glance at, one signal orange. The fonts live in
 `fonts/` rather than being loaded from Google — the app has to work in a gym
 with no signal, and a CDN font is the one thing that would still need the
@@ -143,7 +151,7 @@ time’s weight is pre-filled. If the gym has no signal, sets queue on the phone
 and upload the next time it is online.
 
 **The plan is per person.** Everyone who signs in builds their own: a start date
-and a number of weeks for each of the nine blocks, edited in the app (Plan →
+and a number of weeks for each block of the programme, edited in the app (Plan →
 Edit). Two sessions a week, and the app works out the calendar from there. Javier's
 is 7 Sep 2026 → 7 Feb 2027, peaking on block 9 in the first week of February;
 block 1 starts again on 8 Feb to build for May. Nacho has his own account and
@@ -167,8 +175,18 @@ python3 scripts/build_freeco.py
 
 It turns the coach’s free-text blocks into rounds, reps and rest times, and
 **fails loudly** on anything it cannot read — fix those in
-`freecokiletics/data/programme_overrides.json`. Then bump `CACHE` in
-`freecokiletics/sw.js` and push, or phones keep the old version.
+`freecokiletics/data/programme_overrides.json`. `refresh.sh` runs it for you and
+bumps `CACHE` in `freecokiletics/sw.js` when the programme changed; run by hand,
+bump it yourself or phones keep the old version.
+
+**If the gym has no signal**, the app opens from the stored session and every
+set goes to a queue on the phone that uploads when there is signal — on the
+next open, when the app comes back to the front, and every half minute
+meanwhile. Nothing is lost by finishing a session offline. Signing out warns
+if anything is still waiting.
+
+Migration `005` adds a shape check on `freeco_plans.blocks` and drops the
+unused `days_per_week` column.
 
 ## Nacho's programme — archived
 

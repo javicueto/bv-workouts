@@ -272,7 +272,22 @@ window.Store = (function () {
     if (row) { try { localStorage.setItem(PLAN_KEY, JSON.stringify(row)); } catch (e) {} }
     return row || cached;
   }
+  /* The shape the calendar is built from. Checked here AND by the table's
+     own constraint (db/005): a plan with a malformed `blocks` would make
+     buildWeeks produce nothing and the app open on an empty week forever. */
+  function validPlan(row) {
+    if (!/^\d{4}-\d{2}-\d{2}$/.test(row.start_date || "")) return "The start date is missing.";
+    if (!Array.isArray(row.blocks) || !row.blocks.length) return "The plan has no blocks.";
+    for (var i = 0; i < row.blocks.length; i++) {
+      var b = row.blocks[i];
+      if (!b || !Number.isInteger(b.block) || b.block < 1) return "Block " + (i + 1) + " has no number.";
+      if (!Number.isInteger(b.weeks) || b.weeks < 1 || b.weeks > 12) return "Block " + b.block + " needs 1–12 weeks.";
+    }
+    return null;
+  }
   async function savePlan(row) {
+    var bad = validPlan(row);
+    if (bad) throw new Error(bad);
     row.updated_at = new Date().toISOString();
     var saved = await q(sb().from(T_PLANS).upsert(row, { onConflict: "user_id" }).select().maybeSingle());
     try { localStorage.setItem(PLAN_KEY, JSON.stringify(saved || row)); } catch (e) {}

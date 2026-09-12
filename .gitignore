@@ -14,3 +14,8 @@ thumbs/
 logs/
 
 .DS_Store
+
+# Look-and-feel mockups (the two Court/Programme directions, the card-shade
+# picker). Kept on this Mac as the record of what was compared; NOT in the
+# public repo and NOT on the published site (Javier, 12 Sep 2026).
+tests/

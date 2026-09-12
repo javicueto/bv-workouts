@@ -3,7 +3,10 @@
 # and a poster frame into thumbs/<exercise_id>.jpg, so the site works fully offline.
 #
 # Safe to re-run: yt-dlp skips anything already downloaded, so after a refresh this
-# only fetches the new exercises. Failures are logged, never fatal.
+# only fetches the new exercises. Each failure is logged and the run continues,
+# but the script EXITS NON-ZERO at the end if anything failed or if there was
+# nothing to download at all — so refresh.sh (set -e) stops rather than building
+# a site with silently missing videos.
 #
 # Absolute paths: this must also work from a non-interactive shell (see CLAUDE.md).
 set -uo pipefail
@@ -12,13 +15,17 @@ cd "$(dirname "$0")/.."
 YTDLP=/opt/homebrew/bin/yt-dlp
 FFMPEG=/opt/homebrew/bin/ffmpeg
 LOG="logs/download_$(date +%Y-%m-%d_%H%M).log"
+LIST="logs/download_list.tsv"
 mkdir -p videos thumbs logs
+for tool in "$YTDLP" "$FFMPEG"; do
+  [ -x "$tool" ] || { echo "missing: $tool (brew install $(basename "$tool"))" >&2; exit 2; }
+done
 
 # id<TAB>youtube_id<TAB>name, one per line.
 # Read the BUILT data (data/workouts.js), not the raw export: the build resolves
 # blocks that have no linked exercise, and those movements need videos too.
 # Falls back to the raw export if the site has not been built yet.
-python3 - > /tmp/tc_dl_list.tsv <<'PY'
+python3 - > "$LIST" <<'PY'
 import json, pathlib
 
 def load(path):
@@ -45,7 +52,11 @@ for e in wanted.values():
         print(f"{e['id']}\t{e['youtube_id']}\t{e['name']}")
 PY
 
-total=$(wc -l < /tmp/tc_dl_list.tsv | tr -d ' ')
+total=$(wc -l < "$LIST" | tr -d ' ')
+if [ "$total" -eq 0 ]; then
+  echo "no exercises with a YouTube id found in data/workouts.js — has the site been built?" | tee -a "$LOG" >&2
+  exit 1
+fi
 echo "Downloading $total videos → videos/  (log: $LOG)" | tee -a "$LOG"
 i=0; ok=0; skip=0; fail=0
 while IFS=$'\t' read -r id yt name; do
@@ -64,7 +75,7 @@ while IFS=$'\t' read -r id yt name; do
   else
     fail=$((fail+1)); echo "  FAILED $id ($yt) $name" | tee -a "$LOG"
   fi
-done < /tmp/tc_dl_list.tsv
+done < "$LIST"
 
 # poster frames for anything that lacks one
 for f in videos/*.mp4; do
@@ -75,3 +86,7 @@ for f in videos/*.mp4; do
 done
 
 echo "done: $ok downloaded, $skip already present, $fail failed" | tee -a "$LOG"
+if [ "$fail" -gt 0 ]; then
+  echo "$fail download(s) failed — see $LOG. YouTube 403s usually pass on a re-run." | tee -a "$LOG" >&2
+  exit 1
+fi

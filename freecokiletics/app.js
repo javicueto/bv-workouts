@@ -11,11 +11,31 @@
      runs. WEEKS is that expanded into one entry per week — what the rest of the
      app reads. */
   var PLAN = null, WEEKS = [];
+  /* Francesco's names for the phases, by block. A block beyond these (10 and
+     on, when he writes it) simply has no phase label until he gives it one. */
   var PHASE = { 1: "Base", 2: "Base", 3: "Base", 4: "Strength", 5: "Strength", 6: "Strength",
                 7: "Power", 8: "Power", 9: "Explosive" };
-  var DEFAULT_BLOCKS = [{ block: 1, weeks: 2 }, { block: 2, weeks: 2 }, { block: 3, weeks: 2 },
-    { block: 4, weeks: 3 }, { block: 5, weeks: 3 }, { block: 6, weeks: 3 },
-    { block: 7, weeks: 2 }, { block: 8, weeks: 3 }, { block: 9, weeks: 2 }];
+  /* The blocks come from the PROGRAMME, never from a list typed here: block
+     10 arrives with the next TrueCoach export and has to reach the plan
+     editor with no code change. The default lengths are Javier's (12 Sep
+     2026): three weeks on the strength blocks and block 8, two elsewhere. */
+  var DEFAULT_WEEKS = { 4: 3, 5: 3, 6: 3, 8: 3 };
+  function programmeBlocks() {
+    var seen = {}, out = [];
+    P.sessions.forEach(function (s) { if (!seen[s.block]) { seen[s.block] = true; out.push(s.block); } });
+    return out.sort(function (a, b) { return a - b; });
+  }
+  function defaultWeeks(block) { return DEFAULT_WEEKS[block] || 2; }
+  /* A plan's blocks, completed with any block the programme has gained since
+     the plan was saved, so a new block can be given a length rather than
+     silently never appearing in the calendar. */
+  function planBlocks(plan) {
+    var blocks = (plan && plan.blocks ? plan.blocks : []).map(function (b) { return { block: b.block, weeks: b.weeks }; });
+    programmeBlocks().forEach(function (n) {
+      if (!blocks.some(function (b) { return b.block === n; })) blocks.push({ block: n, weeks: defaultWeeks(n) });
+    });
+    return blocks.sort(function (a, b) { return a.block - b.block; });
+  }
 
   function buildWeeks(plan) {
     var out = [], d = new Date(plan.start_date + "T00:00:00");
@@ -260,7 +280,7 @@
   function renderPlanEdit() {
     ticket();
     var first = !PLAN;
-    var blocks = (PLAN && PLAN.blocks ? PLAN.blocks : DEFAULT_BLOCKS).map(function (b) { return { block: b.block, weeks: b.weeks }; });
+    var blocks = planBlocks(PLAN);
     var startVal = PLAN ? PLAN.start_date : dateVal(nextMonday());
 
     function draw() {
@@ -268,11 +288,12 @@
         '<div class="stack">' +
           '<div class="eyebrow">' + (first ? "Welcome" : "Your plan") + "</div>" +
           "<h1>" + (first ? "Set up your plan" : "Change your plan") + "</h1>" +
-          '<p class="dim">Two sessions a week. The nine blocks stay in the order Francesco wrote them — you choose when you start and how long you spend on each.</p>' +
+          '<p class="dim">Two sessions a week. The ' + blocks.length + ' blocks stay in the order Francesco wrote them — you choose when you start and how long you spend on each.</p>' +
           '<div class="field"><label for="sd">First week starts</label><input class="input" id="sd" type="date" value="' + esc(startVal) + '"></div>' +
           '<div class="card stack">' +
             blocks.map(function (b, i) {
-              return '<div class="plan-row"><div class="grow"><b>Block ' + b.block + '</b> <span class="dim">· ' + esc(PHASE[b.block]) + "</span></div>" +
+              return '<div class="plan-row"><div class="grow"><b>Block ' + b.block + "</b>" +
+                (PHASE[b.block] ? ' <span class="dim">· ' + esc(PHASE[b.block]) + "</span>" : "") + "</div>" +
                 '<div class="stepper"><button class="btn btn--ghost" data-d="-1" data-i="' + i + '" aria-label="Fewer weeks">−</button>' +
                 '<span class="stepper__n">' + b.weeks + ' <small>wk</small></span>' +
                 '<button class="btn btn--ghost" data-d="1" data-i="' + i + '" aria-label="More weeks">+</button></div></div>';
@@ -314,7 +335,7 @@
       btn.disabled = true; btn.textContent = "Saving…";
       try {
         PLAN = await Store.savePlan({ user_id: me.id, name: (PLAN && PLAN.name) || "My plan",
-          start_date: start, days_per_week: 2, blocks: blocks });
+          start_date: start, blocks: blocks });
         WEEKS = buildWeeks(PLAN);
         UI.toast(first ? "Plan set — your first session is ready" : "Plan saved");
         if ((location.hash || "#/") === "#/") route(); else location.hash = "#/";
@@ -699,7 +720,11 @@
       (real.length ? '<div class="list" style="margin-top:var(--space-4)">' + real.map(function (w) {
         var d = new Date(w.started_at);
         var detail = w.finished_at
-          ? (w.duration_seconds ? Math.round(w.duration_seconds / 60) + " min" : "") + (w.logged_manually ? " · logged by hand" : " · " + w.set_count + " sets")
+          // A hand-logged workout can still have sets — weights typed in
+          // afterwards — so the count shows whenever there is one.
+          ? (w.duration_seconds ? Math.round(w.duration_seconds / 60) + " min" : "") +
+            (w.logged_manually ? " · logged by hand" : "") +
+            (w.set_count || !w.logged_manually ? " · " + w.set_count + " sets" : "")
           : "stopped early · " + w.set_count + " sets";
         return '<a class="card card--tap" href="#/h/' + esc(w.id) + '"><div class="row"><div class="grow"><h2>Workout ' + esc(w.session_key) + "</h2>" +
           '<p class="dim">' + d.toLocaleDateString([], { weekday: "short", day: "numeric", month: "short" }) + " · " + detail + "</p></div>" +
