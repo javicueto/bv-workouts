@@ -492,7 +492,9 @@
             '<p class="dim">' + (d
               ? longDate(d.started_at) + " · " + hhmm(d.started_at) + "–" + hhmm(d.finished_at)
               : s.blocks.length + " blocks · " + s.blocks.map(function (b) { return b.letter; }).join(" ")) + "</p></div>" +
-            (d ? '<span class="badge badge--good">done ✓</span>' : '<span class="badge">start ›</span>') + "</div>" +
+            (d
+              ? '<span class="badge badge--good">done ✓' + (d.times > 1 ? " ×" + d.times : "") + "</span>"
+              : '<span class="badge">start ›</span>') + "</div>" +
             // What you are about to do, so the card answers "what is today?"
             // without having to open anything.
             (d ? "" : '<ul class="day-card__blocks">' + s.blocks.map(function (b) {
@@ -501,10 +503,13 @@
                 '<span class="faint">' + esc(blockCount(b)) + "</span></li>";
             }).join("") + "</ul>") +
             "</a>" +
-            (d ? "" : '<div class="day-card__acts">' +
-              '<a href="#/view/' + esc(s.key) + wq + '">View workout</a>' +
-              '<a href="#/log/' + esc(s.key) + wq + '">Mark as done</a>' +
-              "</div>") +
+            '<div class="day-card__acts">' +
+              (d
+                ? '<a href="#/run/' + esc(s.key) + wq + '">Do it again</a>' +
+                  '<a href="#/view/' + esc(s.key) + wq + '">View workout</a>'
+                : '<a href="#/view/' + esc(s.key) + wq + '">View workout</a>' +
+                  '<a href="#/log/' + esc(s.key) + wq + '">Mark as done</a>') +
+            "</div>" +
             "</div>";
         }).join("") + "</div></div>";
     }

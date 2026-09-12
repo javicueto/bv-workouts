@@ -247,12 +247,20 @@ window.Store = (function () {
   /* Finished workouts this plan week, one per session — the latest, if a
      session was done more than once (a re-do). Includes the id so a done
      card can open that workout. */
+  /* The most recent finished workout per session for a week, plus how many
+     times that session was done — doing a third session in a week means doing
+     one of the two twice (Javier, 12 Sep 2026), and the week screen has to be
+     able to say so. */
   async function doneThisWeek(userId, weekStart) {
     if (!sb() || !userId) return {};
     var r = await sb().from(T_WORKOUTS).select("*")
       .eq("user_id", userId).eq("week_start", weekStart).not("finished_at", "is", null)
       .order("finished_at", { ascending: false });
-    var m = {}; (r.data || []).forEach(function (w) { if (!m[w.session_key]) m[w.session_key] = w; });
+    var m = {};
+    (r.data || []).forEach(function (w) {
+      if (!m[w.session_key]) { m[w.session_key] = w; w.times = 1; }
+      else m[w.session_key].times++;
+    });
     return m;
   }
   async function workout(id) {
