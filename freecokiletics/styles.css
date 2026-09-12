@@ -348,6 +348,46 @@ body.is-resting .tabata__phase.rest { color: #fff; }
 .day-card { padding: 0; overflow: hidden; }
 .day-card__main { display: block; padding: var(--space-5); color: inherit; text-decoration: none; }
 .day-card__main:active { filter: brightness(1.08); }
+/* The block letter, A–F. Same mark on the card list and the view screen. */
+.letter {
+  flex: none; width: 22px; height: 22px; display: grid; place-items: center;
+  border-radius: 6px; background: var(--accent-soft); color: var(--accent);
+  font-size: 12px; font-weight: 800;
+}
+
+/* What's in the session, listed on the card. The week screen only ever holds
+   one block and two days, so the room is there — and it answers "what am I
+   doing today?" without opening anything. */
+.day-card__blocks { list-style: none; margin: var(--space-4) 0 0; padding: 0; display: grid; gap: var(--space-2); }
+/* min-width:0 is load-bearing: a grid item defaults to min-width:auto, so the
+   long block names widened the row past the card and pushed the round count
+   out of sight behind the card's overflow:hidden. */
+.day-card__blocks li { display: flex; align-items: center; gap: var(--space-3); font-size: 14px; min-width: 0; }
+.day-card__blocks .grow { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.day-card__acts { display: flex; border-top: 1px solid var(--line-soft); }
+.day-card__acts a {
+  flex: 1; padding: var(--space-4) var(--space-3); text-align: center;
+  font-size: 14px; color: var(--text-dim); text-decoration: none;
+}
+.day-card__acts a:first-child { color: var(--accent); border-right: 1px solid var(--line-soft); }
+.day-card__acts a:active { background: var(--bg-sunken); }
+
+/* ------------------------------------------------------- read-only session */
+.vsec { margin-top: var(--space-6); }
+.vsec__head { display: flex; align-items: center; gap: var(--space-3); margin-bottom: var(--space-2); }
+.vsec__h { font-size: 17px; margin: 0; }
+.vgrid {
+  display: grid; gap: var(--space-3); margin-top: var(--space-3);
+  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+}
+.vthumb { margin: 0; }
+.vthumb img, .vthumb__none {
+  width: 100%; aspect-ratio: 16 / 9; object-fit: cover;
+  border-radius: var(--radius-sm); background: #000; display: block;
+}
+.vthumb figcaption { margin-top: var(--space-2); font-size: 13px; color: var(--text-dim); line-height: 1.35; }
+.vthumb figcaption b { color: var(--text); }
+
 .day-card__alt {
   display: block; padding: var(--space-3) var(--space-5);
   border-top: 1px solid var(--line-soft);

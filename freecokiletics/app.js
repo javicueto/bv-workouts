@@ -44,6 +44,28 @@
   // "Choose a new password" and nothing else.
   var recoveryMode = false;
 
+  /* Read-only description of a movement or a block. The runner has its own
+     copies tuned for a live session; these are the quiet, at-a-glance versions.
+     Never invent a number here — only restate what the programme says. */
+  function previewUrl(id) {
+    return P.exercises[id] && P.exercises[id].has_preview ? "../previews/" + id + ".webp" : "";
+  }
+  function repsLabel(e) {
+    if (e.seconds) return e.seconds + '"' + (e.per_side ? " / side" : "");
+    if (e.reps != null) return e.reps + (e.per_side ? " / side" : "");
+    return "";
+  }
+  function restLabel(sec) {
+    if (!sec) return "";
+    if (sec === 90) return "1½ min rest";
+    if (sec % 60 === 0) return sec / 60 + " min rest";
+    if (sec < 60) return sec + " s rest";
+    return Math.floor(sec / 60) + ":" + String(sec % 60).padStart(2, "0") + " rest";
+  }
+  function blockCount(b) {
+    return b.kind === "tabata" ? b.cycles + " × " + b.work_seconds + '"' : b.rounds + " rounds";
+  }
+
   function esc(s) { return String(s == null ? "" : s).replace(/[&<>"']/g, function (c) {
     return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]; }); }
   var MONTHS = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
@@ -470,8 +492,19 @@
             '<p class="dim">' + (d
               ? longDate(d.started_at) + " · " + hhmm(d.started_at) + "–" + hhmm(d.finished_at)
               : s.blocks.length + " blocks · " + s.blocks.map(function (b) { return b.letter; }).join(" ")) + "</p></div>" +
-            (d ? '<span class="badge badge--good">done ✓</span>' : '<span class="badge">start ›</span>') + "</div></a>" +
-            (d ? "" : '<a class="day-card__alt" href="#/log/' + esc(s.key) + wq + '">Did it without the phone? Mark as done</a>') +
+            (d ? '<span class="badge badge--good">done ✓</span>' : '<span class="badge">start ›</span>') + "</div>" +
+            // What you are about to do, so the card answers "what is today?"
+            // without having to open anything.
+            (d ? "" : '<ul class="day-card__blocks">' + s.blocks.map(function (b) {
+              return "<li><span class=\"letter\">" + esc(b.letter) + "</span>" +
+                '<span class="grow">' + esc(b.name) + "</span>" +
+                '<span class="faint">' + esc(blockCount(b)) + "</span></li>";
+            }).join("") + "</ul>") +
+            "</a>" +
+            (d ? "" : '<div class="day-card__acts">' +
+              '<a href="#/view/' + esc(s.key) + wq + '">View workout</a>' +
+              '<a href="#/log/' + esc(s.key) + wq + '">Mark as done</a>' +
+              "</div>") +
             "</div>";
         }).join("") + "</div></div>";
     }
@@ -489,6 +522,55 @@
           .then(function (ok) { if (ok) { Runner.abandon(); route(); } });
       });
     }
+  }
+
+  /* A session, read only. Reached from the day card, and the one place to look
+     something up mid-week without starting a workout — starting one used to be
+     the only way in, which meant discarding it afterwards just to have looked. */
+  function renderView(key, weekStart) {
+    ticket();
+    var s = sessionByKey(key);
+    if (!s) { location.hash = "#/"; return; }
+    var wq = weekStart ? "?w=" + encodeURIComponent(weekStart) : "";
+    var back = weekStart ? "#/week/" + weekStart : "#/";
+    var html = topbar(null, back) +
+      '<div class="stack">' +
+        '<div class="eyebrow">Block ' + s.block + " · session " + s.variant + "</div>" +
+        "<h1>" + esc(s.title) + "</h1>" +
+      "</div>";
+
+    if (s.warmup) {
+      html += '<section class="vsec"><h2 class="vsec__h">Warm-up</h2>' +
+        (s.warmup.text ? '<p class="note">' + esc(s.warmup.text) + "</p>" : "") +
+        '<div class="vgrid">' + (s.warmup.exercises || []).map(function (e) {
+          var u = previewUrl(e.id);
+          return '<figure class="vthumb">' + (u ? '<img src="' + u + '" alt="" loading="lazy">' : '<div class="vthumb__none"></div>') +
+            "<figcaption>" + esc(e.name) + "</figcaption></figure>";
+        }).join("") + "</div></section>";
+    }
+
+    s.blocks.forEach(function (b) {
+      html += '<section class="vsec"><div class="vsec__head">' +
+        '<span class="letter">' + esc(b.letter) + "</span>" +
+        '<h2 class="vsec__h grow">' + esc(b.name) + "</h2>" +
+        '<span class="badge">' + esc(blockCount(b)) + "</span></div>" +
+        (b.kind === "tabata"
+          ? '<p class="dim">' + b.work_seconds + '" work · ' + b.rest_seconds + '" rest · ' + b.cycles + " cycles</p>"
+          : '<p class="dim">' + esc(b.rest_seconds ? restLabel(b.rest_seconds) + " between rounds"
+                                                   : (b.rest_note || "No rest")) + "</p>") +
+        '<div class="vgrid">' + (b.exercises || []).map(function (e) {
+          var u = previewUrl(e.id), reps = repsLabel(e);
+          return '<figure class="vthumb">' + (u ? '<img src="' + u + '" alt="" loading="lazy">' : '<div class="vthumb__none"></div>') +
+            "<figcaption>" + (reps ? "<b>" + esc(reps) + "</b> " : "") + esc(e.name) + "</figcaption></figure>";
+        }).join("") + "</div></section>";
+    });
+
+    html += '<div class="stack" style="margin-top:var(--space-6)">' +
+      '<a class="btn btn--primary btn--big btn--block" href="#/run/' + esc(key) + wq + '">Start this session</a>' +
+      '<a class="btn btn--quiet btn--block" href="#/log/' + esc(key) + wq + '">Did it without the phone? Mark as done</a>' +
+      "</div>";
+    app.innerHTML = html;
+    syncBadge();
   }
 
   function renderPlan() {
@@ -765,6 +847,7 @@
     else if (h === "#/plan") renderPlan();
     else if (h === "#/history") renderHistory();
     else if ((m = h.match(/^#\/h\/([\w-]+)$/))) renderWorkout(m[1]);
+    else if ((m = h.match(/^#\/view\/([\d.]+)/))) renderView(m[1], wParam);
     else if ((m = h.match(/^#\/log\/([\d.]+)/))) renderLog(m[1], wParam);
     else if ((m = h.match(/^#\/week\/(\d{4}-\d{2}-\d{2})$/))) renderHome(m[1]);
     else renderHome();
