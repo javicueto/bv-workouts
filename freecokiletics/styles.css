@@ -22,7 +22,30 @@
 
   --safe-top:    env(safe-area-inset-top, 0px);
   --safe-bottom: env(safe-area-inset-bottom, 0px);
+  /* The strip behind the phone's clock and battery. Dark in BOTH themes: the
+     status bar is translucent, so those glyphs are always white and on the
+     light theme's cream they vanished. Zero-height in a browser tab, where
+     the inset is 0 and the bar is the browser's own. */
+  --status-band: #0e0c0b;
 }
+
+/* Installed, full-screen. The floor is the fix for a real iOS combination:
+   the webview running edge-to-edge while safe-area-inset-top reports 0, which
+   left the Back button under the clock, where the status bar swallows taps.
+   54px clears the tallest iPhone status bar; where the inset works it is
+   larger than this and nothing changes. */
+@media (display-mode: standalone) {
+  :root { --safe-top: max(env(safe-area-inset-top, 0px), 54px); }
+}
+body::before {
+  content: "";
+  position: fixed; top: 0; left: 0; right: 0; height: var(--safe-top);
+  background: var(--status-band);
+  z-index: 90;                 /* over every layer, including dialogs */
+  pointer-events: none;
+}
+/* Rest mode owns the whole screen, status bar included. */
+body.is-resting::before { background: var(--rest); }
 
 /* Motion off: the shared rule collapses everything; these two carry MEANING
    and are put back — the rest ring's sweep IS the countdown, and the screen
@@ -522,6 +545,10 @@ body.is-resting :where(a, button, input, [tabindex]):focus-visible { outline-col
 .vsec:first-of-type { padding-top: 0; border-top: 0; }
 .vsec__head { display: flex; align-items: center; gap: var(--space-3); margin-bottom: var(--space-2); }
 .vsec__h { font-size: 22px; margin: 0; line-height: 1.05; }   /* condensed: 17px read too small */
+/* The warm-up's heading stands alone; every other block's is inside
+   .vsec__head, which carries the gap. Without this the "Warm-up" line sat
+   directly on top of the coach's note box. */
+.vsec > .vsec__h { margin-bottom: var(--space-3); }
 /* 16:9 and small, THREE across on a normal phone — not square like the round
    card (Javier, 12 Sep 2026). This screen is for scanning a whole session, and
    wide tiles pack better when there are a dozen of them: the same reason the

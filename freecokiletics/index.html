@@ -11,11 +11,17 @@
 <meta name="robots" content="noindex, nofollow, noarchive, nosnippet, noimageindex">
 <meta name="referrer" content="strict-origin-when-cross-origin">
 <meta name="apple-mobile-web-app-capable" content="yes">
-<!-- "default", not "black-translucent": translucent draws the clock and
-     battery in WHITE regardless of theme-color, invisible on the light theme's
-     cream. With "default" iOS colours the glyphs from theme-color, which
-     theme.js keeps in step with the page. iOS reads this once at launch. -->
-<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<!-- MUST stay "black-translucent" (tried "default" on 12 Sep 2026 and reverted
+     the same day: on the installed app the top bar ended up UNDER the clock
+     and the Back button could not be tapped — with viewport-fit=cover, iOS
+     laid the webview out edge-to-edge while reporting
+     safe-area-inset-top: 0, so nothing padded it clear).
+     Translucent means the page runs under the status bar and the clock and
+     battery are drawn in WHITE whatever theme-color says — which is why
+     body::before paints that strip dark in BOTH themes (see styles.css).
+     iOS reads this at launch, and a home-screen icon may keep the value it
+     was installed with until it is removed and re-added. -->
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="Cokiletics">
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="apple-touch-icon" sizes="180x180" href="icon-180.png">
