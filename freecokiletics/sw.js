@@ -11,7 +11,7 @@
  *   vendor/ and precached with the shell like any other file — no CDN, so
  *   the precache cannot half-fail on a third party at install time.
  */
-const CACHE = "freeco-v37";
+const CACHE = "freeco-v38";
 const SHELL = [
   "./", "./index.html", "./styles.css", "../shared/tokens.css", "./config.js",
   "./theme.js", "./icons.js", "./ui.js", "./store.js", "./timer.js", "./runner.js",
@@ -25,7 +25,14 @@ const SHELL = [
 ];
 
 self.addEventListener("install", (e) => {
-  e.waitUntil(caches.open(CACHE).then((c) => c.addAll(SHELL)).then(() => self.skipWaiting()));
+  /* cache: "reload" on every precache request. A plain addAll() is allowed to
+     take files from the BROWSER's HTTP cache, and GitHub Pages serves the
+     shell with max-age=600 — so a freshly installed CACHE could be filled
+     with the previous version's files and then serve them for as long as the
+     network stayed slow. That is how a fix could be live on the server and
+     still not on the phone. */
+  const fresh = SHELL.map((u) => new Request(u, { cache: "reload" }));
+  e.waitUntil(caches.open(CACHE).then((c) => c.addAll(fresh)).then(() => self.skipWaiting()));
 });
 
 self.addEventListener("activate", (e) => {

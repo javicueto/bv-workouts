@@ -559,8 +559,10 @@ body.is-resting :where(a, button, input, [tabindex]):focus-visible { outline-col
 .vsec__h { font-size: 22px; margin: 0; line-height: 1.05; }   /* condensed: 17px read too small */
 /* The warm-up's heading stands alone; every other block's is inside
    .vsec__head, which carries the gap. Without this the "Warm-up" line sat
-   directly on top of the coach's note box. */
-.vsec > .vsec__h { margin-bottom: var(--space-3); }
+   directly on top of the coach's note box. 20px, not the 12 the other
+   headings get (Javier, 12 Sep 2026): what follows this one is a filled box
+   with its own edge, and a boxed element needs more air than a line of text. */
+.vsec > .vsec__h { margin-bottom: var(--space-5); }
 /* 16:9 and small, THREE across on a normal phone — not square like the round
    card (Javier, 12 Sep 2026). This screen is for scanning a whole session, and
    wide tiles pack better when there are a dozen of them: the same reason the
