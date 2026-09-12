@@ -261,7 +261,6 @@ window.Runner = (function () {
       '<div class="ex-card__body">' +
         '<div class="ex-card__label">' + esc(it.label) + "</div>" +
         '<div class="ex-card__name">' + esc(e.name) + "</div>" +
-        '<div class="ex-card__row">' +
         '<div class="ex-card__target' + (repsEdited ? " is-edited" : "") + '" data-target-for="' + ix + '"' +
           (target != null ? ' data-target="' + esc(target) + '"' : "") + ">" +
           '<span data-target-n="' + ix + '">' + esc(repsEdited ? r : it.target.n) + "</span> <small>" + esc(it.target.unit) + "</small>" +
@@ -275,10 +274,9 @@ window.Runner = (function () {
           '<button class="logbtn" type="button" data-logtoggle="' + ix + '" aria-expanded="false" aria-controls="log' + ix + '"' +
             ' aria-label="Weight in kilos">' + ICONS.dumbbell + wLabel + "</button>" +
           (needsBox ? "" :
-            '<button class="logbtn logbtn--r" type="button" data-repstoggle="' + ix + '" aria-expanded="false"' +
+            '<button class="logbtn" type="button" data-repstoggle="' + ix + '" aria-expanded="false"' +
               ' aria-label="Change ' + (timed ? "seconds" : "reps") + '">' + rLabel + ICONS.arrowsRepeat + "</button>") +
         "</div>" +
-      "</div>" +
       "</div>" +
         (timed ? '<button class="btn btn--hold" data-hold="' + ix + '" data-side="1">' + ICONS.play +
           '<span class="hold__long">Start </span>' + esc(it.target.n) + ' s<span class="hold__long"> timer</span>' +

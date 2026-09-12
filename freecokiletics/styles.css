@@ -266,6 +266,29 @@ p  { margin: 0; }
 .screen.swiping::before,
 .screen.out::before,
 .screen.back::before { opacity: 1; }
+
+/* The card under this one — the deck idea borrowed from SmoothUI's card stack,
+   built by hand rather than pulling in React + Motion for it. It is an empty
+   surface, not a render of the next round: the point is depth, so you can see
+   there is something behind what you are pushing away. Sits at z-index -2 so
+   it stays behind the card's own surface (-1), and it does NOT travel with the
+   drag — the card slides off it. */
+.screen::after {
+  content: "";
+  position: absolute; inset: calc(var(--space-3) * -1);
+  z-index: -2;
+  background: var(--bg-sunken);
+  border: 1px solid var(--line-soft);
+  border-radius: var(--radius);
+  opacity: 0;
+  transform: translateY(10px) scale(.97);
+  transition: opacity .14s var(--ease-out);
+  pointer-events: none;
+}
+.screen.swiping::after,
+.screen.out::after,
+.screen.back::after { opacity: 1; }
+@media (prefers-reduced-motion: reduce) { .screen::after { display: none; } }
 .screen.out  { animation: cardFlyLeft  .4s var(--ease-in) forwards; }
 .screen.back { animation: cardFlyRight .4s var(--ease-in) forwards; }
 
@@ -312,20 +335,21 @@ p  { margin: 0; }
 .ex-card__target { font-size: 28px; font-weight: 800; letter-spacing: -.02em; line-height: 1.05; margin-top: 2px; }
 .ex-card__target small { font-size: 14px; font-weight: 600; color: var(--text-dim); letter-spacing: 0; }
 .ex-card__cue { font-size: 13px; color: var(--accent); font-weight: 650; }
-/* The target number on the left of its line, the two icons on the right of
-   the same line — they used to take a row of their own, which cost ~44px of
-   card height for nothing. */
-.ex-card__row { display: flex; align-items: center; gap: var(--space-3); min-width: 0; }
-.ex-card__row .ex-card__target { flex: none; }
-.ex-card__log { flex: 1; min-width: 0; display: flex; gap: var(--space-2); align-items: center; }
+/* The two icons sit BELOW the reps, together in the card's bottom-right
+   corner (Javier, 12 Sep 2026). `margin-top: auto` pins them to the bottom of
+   the right column however tall the name wraps, so they line up across cards
+   in a round instead of floating at different heights. */
+.ex-card__log {
+  margin-top: auto; padding-top: var(--space-2);
+  display: flex; justify-content: flex-end; min-width: 0;
+}
+.logbtns { flex: none; min-width: 0; display: flex; align-items: center; gap: var(--space-1); }
 .ex-card__body > .btn--hold { width: 100%; margin-top: var(--space-2); }
 
 /* The two corner buttons: a dumbbell bottom-left for the weight, an
    arrows-repeat bottom-right for the reps. Icon alone when there is nothing to
    report; the number beside it when there is. Deliberately quiet — most sets
    use whatever weight is to hand and the reps are almost never changed. */
-.logbtns { flex: 1; min-width: 0; display: flex; align-items: center; gap: var(--space-1); }
-.logbtn--r { margin-left: auto; }
 .logbtn {
   display: inline-flex; align-items: center; gap: var(--space-2);
   min-height: 36px; min-width: 44px; padding: 0 var(--space-2);
