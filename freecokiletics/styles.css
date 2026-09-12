@@ -56,6 +56,13 @@
   --ui-bg:       #0e0c0b;     /* the status bar outside rest mode — MUST match --bg */
   --radius:    16px;
   --radius-sm: 10px;
+
+  /* Named easings — never the browser's `ease`, and never a bounce or an
+     overshoot on UI. A var() that does not exist falls back to linear in
+     silence, so anything using these must be declared here. */
+  --ease-out:    cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-in:     cubic-bezier(0.55, 0, 1, 0.45);
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
   /* Two voices and no third. Display carries numbers, headings and buttons —
      anything you glance at; body carries anything you read. Both self-hosted
      in ../fonts (see fonts.css) because the gym has no signal. */
@@ -226,15 +233,37 @@ p  { margin: 0; }
 .progress i.now  { background: var(--accent); opacity: .5; }
 
 /* One screen = one round. It swipes as a whole. */
+/* Card-deck swipe, matched to DeHetSwipe (shared/engine.js + style.css) so the
+   two apps feel the same: settle back over 0.3s, fly out over 0.4s to 150% with
+   a 30-degree tilt. The rotation while dragging is set inline by runner.js at
+   0.15deg per px. */
 .screen {
   flex: 1; display: flex; flex-direction: column; gap: var(--space-4);
   touch-action: pan-y;
-  transition: transform .18s ease, opacity .18s ease;
+  transition: transform .3s var(--ease-out);
   will-change: transform;
 }
-.screen.swiping { transition: none; }
-.screen.out  { transform: translateX(-110%); opacity: 0; }
-.screen.back { transform: translateX(110%);  opacity: 0; }
+.screen.swiping { transition: none; }          /* it tracks the finger 1:1 */
+.screen.out  { animation: cardFlyLeft  .4s var(--ease-in) forwards; }
+.screen.back { animation: cardFlyRight .4s var(--ease-in) forwards; }
+
+@keyframes cardFlyLeft  { to { transform: translateX(-150%) rotate(-30deg); opacity: 0; } }
+@keyframes cardFlyRight { to { transform: translateX(150%)  rotate(30deg);  opacity: 0; } }
+
+/* The hint line already under the card brightens as you drag:
+   --swipe-progress runs 0 → 1 as the drag approaches the threshold, so it is
+   fully lit exactly when letting go would count. Set inline by runner.js. */
+.screen.swipe-left .swipe-hint,
+.screen.swipe-right .swipe-hint {
+  color: var(--accent);
+  opacity: calc(.45 + var(--swipe-progress, 0) * .55);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  /* Spatial motion collapses to a crossfade; the card still leaves, quietly. */
+  .screen { transition: opacity .14s linear; }
+  .screen.out, .screen.back { animation: none; opacity: 0; transform: none; }
+}
 
 .round-head { display: flex; align-items: baseline; justify-content: space-between; gap: var(--space-3); flex-wrap: wrap; }
 
@@ -284,7 +313,22 @@ p  { margin: 0; }
   grid-column: 1 / -1; display: grid; gap: var(--space-2);
   padding-top: var(--space-2); border-top: 1px solid var(--line-soft);
 }
-.logpanel__f { display: grid; gap: 2px; font-size: 11px; color: var(--text-faint); font-weight: 700; text-transform: uppercase; letter-spacing: .06em; }
+/* A short left-aligned box with an OK tick beside it, not a full-width field:
+   you are typing two or three characters (Javier, 12 Sep 2026). */
+.logfield { display: flex; align-items: center; gap: var(--space-3); }
+.logfield label {
+  flex: none; font-size: 11px; color: var(--text-faint); font-weight: 700;
+  text-transform: uppercase; letter-spacing: .06em; min-width: 3ch;
+}
+.input--sm.input--num { width: 6ch; flex: none; text-align: left; font-variant-numeric: tabular-nums; }
+.logok {
+  flex: none; margin-left: auto; width: 44px; min-height: 40px;
+  display: grid; place-items: center;
+  background: var(--accent-soft); color: var(--accent);
+  border: 1px solid var(--accent-line); border-radius: var(--radius-sm); cursor: pointer;
+}
+.logok svg { width: 17px; height: 17px; display: block; }
+.logok:active { background: var(--accent); color: var(--accent-ink); }
 .logpanel--reps { border-top-style: dashed; }
 .logpanel__more, .logpanel__reset {
   justify-self: start; background: none; border: 0; padding: var(--space-1) 0;
@@ -333,7 +377,7 @@ p  { margin: 0; }
 .zoom {
   position: fixed; inset: 0; z-index: 50;
   display: flex; flex-direction: column; align-items: center; justify-content: center; gap: var(--space-3);
-  padding: var(--space-4); background: #0e1116f2; text-align: center;
+  padding: var(--space-4); background: color-mix(in srgb, var(--bg) 95%, transparent); text-align: center;
 }
 .zoom img { width: 100%; max-width: 560px; aspect-ratio: 16 / 9; object-fit: cover; border-radius: var(--radius); }
 .zoom__name { font-size: 20px; font-weight: 700; }

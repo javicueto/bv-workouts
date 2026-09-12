@@ -284,17 +284,20 @@ window.Runner = (function () {
         "</div>" +
       "</div>" +
       '<div class="logpanel" id="log' + ix + '" data-logpanel="' + ix + '" hidden>' +
-        '<label class="logpanel__f"><span>kg</span>' +
-          '<input class="input input--sm" data-w="' + ix + '" inputmode="decimal" placeholder="\u2014" value="' + esc(w) + '"></label>' +
+        '<div class="logfield"><label for="w' + ix + '">kg</label>' +
+          '<input class="input input--sm input--num" id="w' + ix + '" data-w="' + ix + '" inputmode="decimal" placeholder="\u2014" value="' + esc(w) + '">' +
+          '<button class="logok" type="button" data-logdone="' + ix + '" aria-label="Done">' + ICONS.check + "</button></div>" +
         (needsBox
-          ? '<label class="logpanel__f"><span>' + (timed ? "sec" : "reps") + '</span>' +
-            '<input class="input input--sm" data-r="' + ix + '" inputmode="numeric" placeholder="' + (it.target.n === "MAX" ? "how many?" : "\u2014") + '" value="' + esc(r) + '"></label>'
+          ? '<div class="logfield"><label for="r' + ix + '">' + (timed ? "sec" : "reps") + "</label>" +
+            '<input class="input input--sm input--num" id="r' + ix + '" data-r="' + ix + '" inputmode="numeric" placeholder="' + (it.target.n === "MAX" ? "how many?" : "\u2014") + '" value="' + esc(r) + '">' +
+            '<button class="logok" type="button" data-logdone="' + ix + '" aria-label="Done">' + ICONS.check + "</button></div>"
           : "") +
       "</div>" +
       (needsBox ? "" :
         '<div class="logpanel logpanel--reps" data-repsbox="' + ix + '" hidden>' +
-          '<label class="logpanel__f"><span>' + (timed ? "sec" : "reps") + '</span>' +
-            '<input class="input input--sm" data-r="' + ix + '" inputmode="numeric" value="' + esc(r) + '" aria-label="' + unitWord + '"></label>' +
+          '<div class="logfield"><label for="r' + ix + '">' + (timed ? "sec" : "reps") + "</label>" +
+            '<input class="input input--sm input--num" id="r' + ix + '" data-r="' + ix + '" inputmode="numeric" value="' + esc(r) + '" aria-label="' + unitWord + '">' +
+            '<button class="logok" type="button" data-repsdone="' + ix + '" aria-label="Done">' + ICONS.check + "</button></div>" +
           '<button class="logpanel__reset" type="button" data-repsreset="' + ix + '">Back to ' + esc(target) + "</button>" +
         "</div>") +
       "</article>";
@@ -392,6 +395,26 @@ window.Runner = (function () {
         box.hidden = !open;
         b.setAttribute("aria-expanded", String(open));
         if (open) { var f = box.querySelector("input"); if (f) { f.focus(); f.select(); } }
+      });
+    });
+    /* The tick is "I'm done typing" — it folds the panel away. The value is
+       already held by the input; the round is what actually saves it. */
+    container.querySelectorAll("[data-logdone]").forEach(function (b) {
+      b.addEventListener("click", function () {
+        var ix = b.getAttribute("data-logdone");
+        var panel = container.querySelector('[data-logpanel="' + ix + '"]');
+        var t = container.querySelector('[data-logtoggle="' + ix + '"]');
+        if (panel) panel.hidden = true;
+        if (t) t.setAttribute("aria-expanded", "false");
+      });
+    });
+    container.querySelectorAll("[data-repsdone]").forEach(function (b) {
+      b.addEventListener("click", function () {
+        var ix = b.getAttribute("data-repsdone");
+        var box = container.querySelector('[data-repsbox="' + ix + '"]');
+        var t = container.querySelector('[data-repstoggle="' + ix + '"]');
+        if (box) box.hidden = true;
+        if (t) t.setAttribute("aria-expanded", "false");
       });
     });
     container.querySelectorAll("[data-repsreset]").forEach(function (b) {
@@ -499,28 +522,78 @@ window.Runner = (function () {
 
   // Swipe left = done, right = back. Must be clearly horizontal, so scrolling
   // a tall round never fires it, and never starts on an input.
+  /* Swipe, card-deck style (Javier, 12 Sep 2026 — "more like Tinder").
+     Three things make it feel like a card rather than a slide:
+       - it tilts as it travels, and the tilt flips depending on whether you
+         grabbed above or below the middle, so it pivots around your thumb;
+       - a flick counts even if it is short, because velocity is judged as well
+         as distance — a fast 60px flick is a decision, a slow 100px drag is a
+         look;
+       - under the threshold it settles back instead of snapping, so nothing
+         moves without being animated.
+     No overshoot on the way back: this is UI, not a toy. */
+  /* These three are DeHetSwipe's own numbers, read from its engine.js so the
+     two apps feel identical in the hand: threshold 80px, rotation 0.15deg per
+     px dragged, and distance only — no velocity, so a flick that doesn't
+     travel never counts. Change them in both places or not at all. */
+  var SWIPE_THRESHOLD = 80;
+  var ROTATION_FACTOR = 0.15;
+
   function bindSwipe(el, step) {
-    var x0 = 0, y0 = 0, dx = 0, active = false, horizontal = null;
+    var x0 = 0, y0 = 0, dx = 0, dy = 0, active = false, horizontal = null;
+
+    function paint() {
+      el.style.transform = "translateX(" + dx + "px) rotate(" + (dx * ROTATION_FACTOR).toFixed(2) + "deg)";
+      // the hint under the card strengthens as you approach the threshold,
+      // which is how DeHetSwipe tells you the swipe has registered
+      var progress = Math.min(Math.abs(dx) / SWIPE_THRESHOLD, 1);
+      el.classList.toggle("swipe-left", dx < -20);
+      el.classList.toggle("swipe-right", dx > 20);
+      el.style.setProperty("--swipe-progress", progress.toFixed(2));
+    }
+    function settle() {
+      el.classList.remove("swiping", "swipe-left", "swipe-right");
+      el.style.transform = ""; el.style.opacity = "";
+      el.style.removeProperty("--swipe-progress");
+    }
+    function fling(dir, then) {
+      el.classList.remove("swiping", "swipe-left", "swipe-right");
+      el.style.transform = ""; el.style.opacity = "";   // let the keyframe own it
+      el.classList.add(dir < 0 ? "out" : "back");
+      setTimeout(then, 400);                            // matches the animation
+    }
+
     el.addEventListener("touchstart", function (ev) {
-      if (ev.target.closest("input, button")) { active = false; return; }
-      var t = ev.touches[0]; x0 = t.clientX; y0 = t.clientY; dx = 0; active = true; horizontal = null;
+      if (ev.target.closest("input, button, a")) { active = false; return; }
+      var t = ev.touches[0];
+      x0 = t.clientX; y0 = t.clientY; dx = dy = 0;
+      active = true; horizontal = null;
     }, { passive: true });
+
     el.addEventListener("touchmove", function (ev) {
       if (!active) return;
       var t = ev.touches[0], mx = t.clientX - x0, my = t.clientY - y0;
       if (horizontal === null && (Math.abs(mx) > 8 || Math.abs(my) > 8)) horizontal = Math.abs(mx) > Math.abs(my) * 1.3;
       if (!horizontal) return;
-      dx = mx; el.classList.add("swiping");
-      el.style.transform = "translateX(" + dx + "px)";
-      el.style.opacity = String(Math.max(0.35, 1 - Math.abs(dx) / 420));
+      dx = mx; dy = my;
+      el.classList.add("swiping");
+      paint();
     }, { passive: true });
+
     el.addEventListener("touchend", function () {
       if (!active) return;
-      active = false; el.classList.remove("swiping");
-      if (horizontal && dx < -90) { if (step.kind === "round") logRound(step); el.classList.add("out"); setTimeout(function () { go(1); }, 170); }
-      else if (horizontal && dx > 90 && state.i > 0) { el.classList.add("back"); setTimeout(function () { go(-1); }, 170); }
-      else { el.style.transform = ""; el.style.opacity = ""; }
+      active = false;
+      if (!horizontal) { settle(); return; }
+      if (Math.abs(dx) < SWIPE_THRESHOLD) { settle(); return; }
+      if (dx < 0) {
+        if (step.kind === "round") logRound(step);
+        fling(-1, function () { go(1); });
+      } else if (state.i > 0) {
+        fling(1, function () { go(-1); });
+      } else settle();
     });
+
+    el.addEventListener("touchcancel", function () { active = false; settle(); });
   }
 
   // ---------------------------------------------------------------- rest

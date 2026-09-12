@@ -39,7 +39,7 @@ window.Theme = (function () {
   // is a second thing to forget when the palette changes.
   function uiColor() {
     var v = getComputedStyle(document.documentElement).getPropertyValue("--ui-bg").trim();
-    return v || "#0e1116";
+    return v || "#0e0c0b";       // keep in step with --bg
   }
 
   function set(mode) {
