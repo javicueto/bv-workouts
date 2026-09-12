@@ -3,7 +3,7 @@
 
    One site, English. It once also served Nacho's Spanish programme at /nacho/
    through a `site`/`strings` layer in the data; that programme is archived
-   (_archive/nacho/, 12 Sep 2026) and the layer went with it — a second site
+   (12 Sep 2026, kept off the public repo) and the layer went with it — a second site
    would come back as data, not as a branch in here. */
 
 (function () {

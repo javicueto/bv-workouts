@@ -38,8 +38,8 @@ def load(path):
     return json.loads(text).get('exercises', {})
 
 # Collect from the built data. Falls back to the raw export if the site has
-# not been built yet. (Nacho's programme was archived on 12 Sep 2026 — see
-# _archive/nacho/ — so only Javier's programme is fetched now.)
+# not been built yet. (Nacho's programme was archived on 12 Sep 2026 — it is
+# kept off the public repo — so only Javier's programme is fetched now.)
 wanted = {}
 sources = ['data/workouts.js']
 if not pathlib.Path('data/workouts.js').exists():

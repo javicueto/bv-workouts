@@ -158,7 +158,7 @@ block 1 starts again on 8 Feb to build for May. Nacho has his own account and
 picks his own lengths. Nobody sees anybody else's plan or logs.
 
 The fixed schedule that shipped first (`schedule.json`) is gone — the last copy
-is kept as `_archive/schedule_before_plans.json` for reference.
+is kept in `_archive/` on Javier’s Drive, which is not part of the public repo.
 
 **Where the data lives.** Three tables, `freeco_workouts`, `freeco_sets` and
 `freeco_plans`, in the **Maky** Supabase project (the free plan allows only two
@@ -268,8 +268,8 @@ Cokiletics, by design.
 ## Nacho's programme — archived
 
 A separate hand-authored programme for Nacho lived at `/nacho/` from 8 to
-12 Sep 2026. It didn't suit him and is archived in `_archive/nacho/` (not
-published — see its README). He follows the same programme as Javier instead,
+12 Sep 2026. It didn't suit him and is archived on Javier’s Drive — not in
+this repo, because it holds personal details and the repo is public. He follows the same programme as Javier instead,
 through his own Freecokiletics account, with his own start date and block lengths.
 
 ## The published site

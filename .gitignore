@@ -19,3 +19,12 @@ logs/
 # picker). Kept on this Mac as the record of what was compared; NOT in the
 # public repo and NOT on the published site (Javier, 12 Sep 2026).
 tests/
+
+# PRIVATE — never in the public repo (Javier, 12 Sep 2026). The project notes
+# hold account and security facts, the archive holds a friend’s personal
+# details, and _backup/ holds the pre-scrub history. All three live only on
+# Javier’s Drive; the notes and archive were also scrubbed from git history.
+CLAUDE.md
+CLAUDE.local.md
+_archive/
+_backup/
