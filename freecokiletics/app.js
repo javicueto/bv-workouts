@@ -31,6 +31,14 @@
   function planEnd() { var last = WEEKS[WEEKS.length - 1]; var d = new Date(last.start + "T00:00:00"); d.setDate(d.getDate() + 6); return d; }
   var app = document.getElementById("app");
   var me = null;
+  /* Each screen's <h1> is its name; announcing it once per paint is what a
+     screen reader needs after a navigation. Watching the container means a
+     new screen is covered without remembering to call anything. The runner
+     paints inside its own child and announces its own steps. */
+  new MutationObserver(function () {
+    var h = app.querySelector("h1");
+    if (h) UI.announce(h.textContent);
+  }).observe(app, { childList: true });
 
   /* Every screen takes a ticket when it starts drawing. A screen that waited on
      the network checks its ticket before painting and gives up if a newer

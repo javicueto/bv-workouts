@@ -5,6 +5,8 @@
  *   UI.confirm({ title, body, confirm: "Delete", cancel: "Keep", danger: true })
  *     → Promise<boolean>
  *   UI.toast("Saved: 52 min, 18 sets")
+ *   UI.announce("History")                → the screen reader's live region
+ *   UI.overlay(el, "Hold timer", close)   → dialog semantics + Escape + focus
  */
 window.UI = (function () {
   function esc(s) { return String(s == null ? "" : s).replace(/[&<>"']/g, function (c) {
@@ -65,6 +67,36 @@ window.UI = (function () {
     });
   }
 
+  /* One line into the page's only live region, so a screen reader hears
+     where it is after a navigation without the whole screen being re-read. */
+  function announce(text) {
+    var el = document.getElementById("announce");
+    if (!el) return;
+    el.textContent = "";                 // same text twice must still announce
+    setTimeout(function () { el.textContent = text; }, 30);
+  }
+
+  /* The one way to put something OVER the app: a full-screen element that is
+     a dialog (role, aria-modal), closes on Escape, takes focus, and gives
+     focus back to whatever opened it when it goes. The hold timer and the
+     preview zoom both use it, so they cannot drift apart. `close` is the
+     caller's own teardown; call the returned function from it. */
+  function overlay(el, label, close) {
+    el.setAttribute("role", "dialog"); el.setAttribute("aria-modal", "true");
+    if (label) el.setAttribute("aria-label", label);
+    if (!el.hasAttribute("tabindex")) el.setAttribute("tabindex", "-1");
+    var prevFocus = document.activeElement;
+    function onKey(e) { if (e.key === "Escape") { e.preventDefault(); close(); } }
+    document.addEventListener("keydown", onKey, true);
+    document.body.appendChild(el);
+    var first = el.querySelector("button, [href], input, [tabindex='0']");
+    (first || el).focus({ preventScroll: true });
+    return function release() {
+      document.removeEventListener("keydown", onKey, true);
+      if (prevFocus && prevFocus.focus && document.contains(prevFocus)) prevFocus.focus({ preventScroll: true });
+    };
+  }
+
   var toastEl = null, toastTimer = null;
   function toast(msg, ms) {
     if (!toastEl) {
@@ -78,5 +110,5 @@ window.UI = (function () {
     toastTimer = setTimeout(function () { toastEl.classList.remove("in"); }, ms || 3200);
   }
 
-  return { confirm: confirm, info: info, toast: toast };
+  return { confirm: confirm, info: info, toast: toast, announce: announce, overlay: overlay };
 })();

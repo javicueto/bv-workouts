@@ -2,13 +2,20 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, user-scalable=no">
+<!-- No user-scalable=no: it blocks pinch-zoom (WCAG 1.4.4) and buys nothing —
+     every input is ≥16px so iOS never zooms on focus, and tap highlights are
+     already off in the stylesheet. -->
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Cokiletics</title>
 <meta name="theme-color" content="#0e0c0b">
 <meta name="robots" content="noindex, nofollow, noarchive, nosnippet, noimageindex">
 <meta name="referrer" content="strict-origin-when-cross-origin">
 <meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<!-- "default", not "black-translucent": translucent draws the clock and
+     battery in WHITE regardless of theme-color, invisible on the light theme's
+     cream. With "default" iOS colours the glyphs from theme-color, which
+     theme.js keeps in step with the page. iOS reads this once at launch. -->
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
 <meta name="apple-mobile-web-app-title" content="Cokiletics">
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="apple-touch-icon" sizes="180x180" href="icon-180.png">
@@ -36,7 +43,12 @@
 <script src="theme.js"></script>
 </head>
 <body>
-<main id="app" aria-live="polite"></main>
+<!-- NOT aria-live: with the whole app live, a screen reader re-read every
+     screen on every navigation and announced the rest countdown once per
+     second. Screens announce their name through UI.announce() into the
+     region below; countdowns are role="timer", which readers treat as opt-in. -->
+<main id="app"></main>
+<div id="announce" class="sr-only" aria-live="polite"></div>
 
 <!-- Order matters: config → library → store → timer → runner → app.
      The Supabase client is VENDORED (vendor/), not loaded from a CDN: the

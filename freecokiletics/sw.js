@@ -11,7 +11,7 @@
  *   vendor/ and precached with the shell like any other file — no CDN, so
  *   the precache cannot half-fail on a third party at install time.
  */
-const CACHE = "freeco-v31";
+const CACHE = "freeco-v32";
 const SHELL = [
   "./", "./index.html", "./styles.css", "./config.js",
   "./theme.js", "./icons.js", "./ui.js", "./store.js", "./timer.js", "./runner.js", "./app.js",
@@ -56,8 +56,12 @@ const NETWORK_TIMEOUT_MS = 3000;
 async function networkFirst(req) {
   const cache = await caches.open(CACHE);
   try {
+    // cache: "no-cache" = ask the SERVER, not the browser's HTTP cache. Without
+    // it, "network-first" happily served a shell file the HTTP cache still
+    // held (GitHub Pages says max-age=600), so a fix took ten minutes and two
+    // reloads to reach the phone. A revalidation is a cheap 304.
     const res = await Promise.race([
-      fetch(req),
+      fetch(req, { cache: "no-cache" }),
       new Promise((_, reject) => setTimeout(() => reject(new Error("timeout")), NETWORK_TIMEOUT_MS)),
     ]);
     if (res.ok) cache.put(req, res.clone());

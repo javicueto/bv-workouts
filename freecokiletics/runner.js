@@ -176,6 +176,8 @@ window.Runner = (function () {
   function render() {
     var step = state.steps[state.i];
     setResting(step.kind === "rest");
+    UI.announce(step.kind === "round" ? "Block " + step.block + ", round " + step.round + " of " + step.rounds
+      : step.kind === "rest" ? "Rest" : step.kind === "warmup" ? "Warm-up" : step.kind === "tabata" ? "Tabata" : "Session complete");
     if (step.kind === "warmup") renderWarmup(step);
     else if (step.kind === "round") renderRound(step);
     else if (step.kind === "rest") renderRest(step);
@@ -255,9 +257,9 @@ window.Runner = (function () {
        the value alone can't tell the two apart — `prev` is what says this round
        was logged here. A carried-over weight shows in the accent. */
     var wLabel = prev && prev.weight != null
-      ? '<b class="logbtn__v">' + esc(prev.weight) + "</b>"
-      : (w !== "" && w != null ? '<b class="logbtn__v logbtn__v--last">' + esc(w) + "</b>" : "");
-    var rLabel = repsEdited ? '<b class="logbtn__v logbtn__v--last">' + esc(r) + "</b>" : "";
+      ? chip(prev.weight, "logged")
+      : (w !== "" && w != null ? chip(w, "last") : "");
+    var rLabel = repsEdited ? chip(r, "edited") : "";
     return '<article class="ex-card">' +
       '<button class="ex-card__thumb" data-zoom="' + esc(id) + '" aria-label="Show ' + esc(e.name) + ' larger">' +
         (img ? '<img src="' + img + '" alt="">' : "") + "</button>" +
@@ -275,10 +277,11 @@ window.Runner = (function () {
         '<div class="ex-card__log">' +
         '<div class="logbtns">' +
           '<button class="logbtn" type="button" data-logtoggle="' + ix + '" aria-expanded="false" aria-controls="log' + ix + '"' +
-            ' aria-label="Weight in kilos">' + ICONS.dumbbell + wLabel + "</button>" +
+            ' aria-label="' + esc(weightLabel(prev && prev.weight != null ? prev.weight : w, !(prev && prev.weight != null))) + '">' +
+            ICONS.dumbbell + wLabel + "</button>" +
           (needsBox ? "" :
             '<button class="logbtn" type="button" data-repstoggle="' + ix + '" aria-expanded="false"' +
-              ' aria-label="Change ' + (timed ? "seconds" : "reps") + '">' + rLabel + ICONS.arrowsRepeat + "</button>") +
+              ' aria-label="' + esc(repsLabel(unitWord, repsEdited ? r : "")) + '">' + rLabel + ICONS.arrowsRepeat + "</button>") +
         "</div>" +
       "</div>" +
         (timed ? '<button class="btn btn--hold" data-hold="' + ix + '" data-side="1">' + ICONS.play +
@@ -306,13 +309,31 @@ window.Runner = (function () {
       "</article>";
   }
 
+  /* The number on a corner button, and its accessible name. A carried-over
+     value SAYS "last time" beside the number, not just in the accent: colour
+     alone is invisible to a screen reader and to a colour-blind eye, and the
+     whole point of the distinction is knowing whether this set is recorded.
+     An aria-label overrides the button's content, so the name has to carry
+     the number itself — and it is built here, once, for render and sync. */
+  /* kind: "logged" (plain), "last" (accent + the words), "edited" (accent; the
+     non-colour cue is the ↺ beside the target, which this chip mirrors). */
+  function chip(v, kind) {
+    return '<b class="logbtn__v' + (kind === "logged" ? "" : " logbtn__v--last") + '">' + esc(v) +
+      (kind === "last" ? '<small class="logbtn__last">last time</small>' : "") + "</b>";
+  }
+  function weightLabel(v, last) {
+    return "Weight in kilos" + (v === "" || v == null ? ", not set" : ": " + v + (last ? ", last time" : ""));
+  }
+  function repsLabel(unitWord, v) { return "Change " + unitWord.toLowerCase() + (v === "" || v == null ? "" : ": " + v); }
+
   /* Keep the folded views honest about what the hidden inputs hold. */
   function syncChip(ix) {
     var inp = container.querySelector('[data-w="' + ix + '"]');
     var btn = container.querySelector('[data-logtoggle="' + ix + '"]');
     if (!inp || !btn) return;
     var v = inp.value.trim();
-    btn.innerHTML = ICONS.dumbbell + (v !== "" ? '<b class="logbtn__v">' + esc(v) + "</b>" : "");
+    btn.innerHTML = ICONS.dumbbell + (v !== "" ? chip(v, "logged") : "");
+    btn.setAttribute("aria-label", weightLabel(v, false));
   }
   function syncTarget(ix) {
     var inp = container.querySelector('[data-r="' + ix + '"]');
@@ -328,7 +349,10 @@ window.Runner = (function () {
     if (reset) reset.hidden = !edited;
     // the corner button carries the changed number too
     var rBtn = container.querySelector('[data-repstoggle="' + ix + '"]');
-    if (rBtn) rBtn.innerHTML = (edited ? '<b class="logbtn__v logbtn__v--last">' + esc(v) + "</b>" : "") + ICONS.arrowsRepeat;
+    if (rBtn) {
+      rBtn.innerHTML = (edited ? chip(v, "edited") : "") + ICONS.arrowsRepeat;
+      rBtn.setAttribute("aria-label", repsLabel(inp.getAttribute("aria-label") || "Reps", edited ? v : ""));
+    }
   }
 
   function logRound(step) {
@@ -449,9 +473,12 @@ window.Runner = (function () {
     var ov = document.createElement("div");
     ov.className = "zoom";
     ov.innerHTML = (img ? '<img src="' + img + '" alt="">' : "") + '<div class="zoom__name">' + esc(e.name || "") + "</div>" +
-      '<div class="faint" style="font-size:13px">tap anywhere to close</div>';
-    ov.addEventListener("click", function () { ov.remove(); });
-    document.body.appendChild(ov);
+      '<button class="btn btn--ghost zoom__close" type="button">Close</button>' +
+      '<div class="faint" style="font-size:13px">or tap anywhere</div>';
+    var release;
+    function close() { release(); ov.remove(); }
+    ov.addEventListener("click", close);
+    release = UI.overlay(ov, e.name || "Preview", close);
   }
 
   /* Timed hold (30″ plank…): takes over the whole screen, like the rest timer
@@ -465,16 +492,15 @@ window.Runner = (function () {
     var R = 44, C = 2 * Math.PI * R, total = it.target.n;
     var ov = document.createElement("div");
     ov.className = "hold-screen";
-    ov.setAttribute("role", "dialog"); ov.setAttribute("aria-modal", "true"); ov.setAttribute("aria-label", "Hold timer");
     ov.innerHTML =
       '<div class="hold-screen__name">' + esc(it.exercise.name) + "</div>" +
       '<div class="hold-screen__side" id="hsd"></div>' +
-      '<div class="rest__ring hold-screen__ring"><svg viewBox="0 0 100 100"><circle class="track" cx="50" cy="50" r="' + R + '"/>' +
+      '<div class="rest__ring hold-screen__ring"><svg viewBox="0 0 100 100" aria-hidden="true"><circle class="track" cx="50" cy="50" r="' + R + '"/>' +
       '<circle class="arc" id="harc" cx="50" cy="50" r="' + R + '" stroke-dasharray="' + C + '" stroke-dashoffset="0"/></svg>' +
-      '<div class="rest__time" id="ht"></div></div>' +
+      '<div class="rest__time" id="ht" role="timer"></div></div>' +
       '<div class="hold-screen__phase" id="hp"></div>' +
       '<div class="hold-screen__actions" id="ha"></div>';
-    document.body.appendChild(ov);
+    var release = UI.overlay(ov, "Hold timer", function () { close(false); });
     var ht = ov.querySelector("#ht"), hp = ov.querySelector("#hp"), ha = ov.querySelector("#ha"), arc = ov.querySelector("#harc"), hsd = ov.querySelector("#hsd");
 
     function actions(html) {
@@ -489,7 +515,7 @@ window.Runner = (function () {
     }
     function close(finished) {
       if (countdown) { countdown.stop(); countdown = null; }
-      ov.remove();
+      release(); ov.remove();
       if (finished) { btn.classList.add("is-done"); btn.innerHTML = 'Done ✓<span class="hold__long"> — swipe when ready</span>'; }
       else if (side > 1 && side <= sides) { btn.innerHTML = ICONS.play + '<span class="hold__long">Start </span>side ' + side; }
     }
@@ -606,9 +632,9 @@ window.Runner = (function () {
     var R = 44, C = 2 * Math.PI * R;
     container.innerHTML = header(step, "Block " + step.block + " · rest") +
       '<section class="rest">' +
-        '<div class="rest__ring"><svg viewBox="0 0 100 100"><circle class="track" cx="50" cy="50" r="' + R + '"/>' +
+        '<div class="rest__ring"><svg viewBox="0 0 100 100" aria-hidden="true"><circle class="track" cx="50" cy="50" r="' + R + '"/>' +
         '<circle class="arc" id="arc" cx="50" cy="50" r="' + R + '" stroke-dasharray="' + C + '" stroke-dashoffset="0"/></svg>' +
-        '<div class="rest__time" id="t"></div></div>' +
+        '<div class="rest__time" id="t" role="timer"></div></div>' +
         '<div class="rest__next">Next · round ' + step.nextRound + " of " + step.rounds + "<br><b>" + step.next.map(esc).join(" + ") + "</b></div>" +
         '<div class="rest__actions"><button class="btn btn--ghost" data-act="extend">+30″</button>' +
         '<button class="btn btn--primary" data-act="skip">Skip →</button></div>' +
@@ -649,7 +675,7 @@ window.Runner = (function () {
       tab.innerHTML =
         '<div class="tabata__phase" id="ph"></div>' +
         '<div class="tabata__gif" id="gif"></div>' +
-        '<div class="tabata__time" id="t"></div>' +
+        '<div class="tabata__time" id="t" role="timer"></div>' +
         '<div class="tabata__move" id="mv"></div>' +
         '<div class="tabata__cycle" id="cy"></div>' +
         '<button class="btn btn--quiet" data-act="skip">Skip block</button>';
