@@ -235,33 +235,86 @@ window.Runner = (function () {
     var w = prev ? prev.weight : (last && last.weight != null ? last.weight : "");
     var r = prev ? prev.reps : (typeof it.target.n === "number" ? it.target.n : "");
     if (r == null) r = "";
-    // Reps are fixed at the target and only become editable on a tap — most
-    // sets hit the target, and a live box on every movement is clutter. MAX
-    // sets (chin-ups, pull-ups) have no target, so they get an open box.
+    /* Logging is folded away (Javier, 12 Sep 2026): most sets are done with
+       whatever weight is to hand and only a few movements are worth tracking,
+       so a pair of boxes on every card was clutter. The weight sits behind one
+       tap; the reps sit behind a second, because they are almost never changed.
+       MAX sets (chin-ups) have no target, so their reps box opens with the
+       weight rather than hiding another level down. */
     var needsBox = it.target.n === "MAX" || r === "";
     var unitWord = timed ? "Seconds" : "Reps";
-    var repsField = needsBox
-      ? '<input class="input input--sm" data-r="' + ix + '" inputmode="numeric" placeholder="' + (it.target.n === "MAX" ? "how many?" : "—") + '" value="' + esc(r) + '">'
-      : '<span class="fixed"><input class="input input--sm input--fixed" data-r="' + ix + '" data-fixed="1" inputmode="numeric" readonly value="' + esc(r) + '" aria-label="' + unitWord + " " + esc(r) + ', tap to change">' +
-        '<span class="fixed__edit">' + ICONS.pen + "</span></span>";
+    var target = typeof it.target.n === "number" ? it.target.n : null;
+    var repsEdited = target != null && r !== "" && +r !== target;
+    /* What the folded button says. The weight box is PREFILLED with last
+       time's weight, so the value alone can't tell the two apart — `prev` is
+       what says you logged this round in this session. A carried-over weight
+       shows in the accent and says so; a weight you entered shows plain. */
+    var chip = prev && prev.weight != null
+      ? '<b class="logchip__v">' + esc(prev.weight) + " kg</b>"
+      : (w !== "" && w != null
+          ? '<b class="logchip__v logchip__v--last">' + esc(w) + " kg</b><span class=\"logchip__hint\">last time</span>"
+          : '<span class="logchip__hint">add weight</span>');
     return '<article class="ex-card">' +
       '<button class="ex-card__thumb" data-zoom="' + esc(id) + '" aria-label="Show ' + esc(e.name) + ' larger">' +
         (img ? '<img src="' + img + '" alt="">' : "") + "</button>" +
       '<div class="ex-card__body">' +
         '<div class="ex-card__label">' + esc(it.label) + "</div>" +
         '<div class="ex-card__name">' + esc(e.name) + "</div>" +
-        '<div class="ex-card__target">' + esc(it.target.n) + " <small>" + esc(it.target.unit) + "</small></div>" +
+        '<div class="ex-card__target' + (repsEdited ? " is-edited" : "") + '" data-target-for="' + ix + '"' +
+          (target != null ? ' data-target="' + esc(target) + '"' : "") + ">" +
+          '<span data-target-n="' + ix + '">' + esc(repsEdited ? r : it.target.n) + "</span> <small>" + esc(it.target.unit) + "</small>" +
+          (target != null
+            ? ' <button class="target__reset" type="button" data-repsreset="' + ix + '"' +
+              ' aria-label="Back to ' + esc(target) + ' ' + esc(it.target.unit) + '"' + (repsEdited ? "" : " hidden") + ">\u21ba</button>"
+            : "") +
+        "</div>" +
         (it.note ? '<div class="ex-card__cue">' + esc(it.note) + "</div>" : "") +
       "</div>" +
       '<div class="ex-card__log">' +
-        '<label><span>kg</span><input class="input input--sm" data-w="' + ix + '" inputmode="decimal" placeholder="—" value="' + esc(w) + '"></label>' +
-        '<label><span>' + (timed ? "sec" : "reps") + "</span>" + repsField + "</label>" +
         (timed ? '<button class="btn btn--hold" data-hold="' + ix + '" data-side="1">' + ICONS.play +
           '<span class="hold__long">Start </span>' + esc(it.target.n) + ' s<span class="hold__long"> timer</span>' +
           (e.per_side ? " · side 1" : "") + "</button>" : "") +
+        '<button class="logchip" type="button" data-logtoggle="' + ix + '" aria-expanded="false" aria-controls="log' + ix + '">' +
+          chip + "</button>" +
       "</div>" +
-      (last && last.weight != null ? '<div class="ex-card__last">last time ' + esc(last.weight) + " kg" + (last.reps ? " × " + esc(last.reps) : "") + "</div>" : "") +
+      '<div class="logpanel" id="log' + ix + '" data-logpanel="' + ix + '" hidden>' +
+        '<label class="logpanel__f"><span>kg</span>' +
+          '<input class="input input--sm" data-w="' + ix + '" inputmode="decimal" placeholder="\u2014" value="' + esc(w) + '"></label>' +
+        (needsBox
+          ? '<label class="logpanel__f"><span>' + (timed ? "sec" : "reps") + '</span>' +
+            '<input class="input input--sm" data-r="' + ix + '" inputmode="numeric" placeholder="' + (it.target.n === "MAX" ? "how many?" : "\u2014") + '" value="' + esc(r) + '"></label>'
+          : '<button class="logpanel__more" type="button" data-repstoggle="' + ix + '" aria-expanded="false">Change ' + (timed ? "seconds" : "reps") + "</button>" +
+            '<div class="logpanel__reps" data-repsbox="' + ix + '" hidden>' +
+              '<label class="logpanel__f"><span>' + (timed ? "sec" : "reps") + '</span>' +
+                '<input class="input input--sm" data-r="' + ix + '" inputmode="numeric" value="' + esc(r) + '" aria-label="' + unitWord + '"></label>' +
+              '<button class="logpanel__reset" type="button" data-repsreset="' + ix + '">Back to ' + esc(target) + "</button>" +
+            "</div>") +
+      "</div>" +
       "</article>";
+  }
+
+  /* Keep the folded views honest about what the hidden inputs hold. */
+  function syncChip(ix) {
+    var inp = container.querySelector('[data-w="' + ix + '"]');
+    var btn = container.querySelector('[data-logtoggle="' + ix + '"]');
+    if (!inp || !btn) return;
+    var v = inp.value.trim();
+    btn.innerHTML = v !== ""
+      ? '<b class="logchip__v">' + esc(v) + " kg</b>"
+      : '<span class="logchip__hint">add weight</span>';
+  }
+  function syncTarget(ix) {
+    var inp = container.querySelector('[data-r="' + ix + '"]');
+    var line = container.querySelector('[data-target-for="' + ix + '"]');
+    if (!inp || !line) return;
+    var nSpan = line.querySelector('[data-target-n="' + ix + '"]');
+    var reset = line.querySelector(".target__reset");
+    var target = line.getAttribute("data-target");      // one source of truth
+    var v = inp.value.trim();
+    if (nSpan && v !== "") nSpan.textContent = v;
+    var edited = target != null && v !== "" && +v !== +target;
+    line.classList.toggle("is-edited", edited);
+    if (reset) reset.hidden = !edited;
   }
 
   function logRound(step) {
@@ -311,13 +364,44 @@ window.Runner = (function () {
     container.querySelectorAll("[data-zoom]").forEach(function (b) {
       b.addEventListener("click", function (ev) { ev.stopPropagation(); zoom(b.getAttribute("data-zoom")); });
     });
-    container.querySelectorAll("[data-fixed]").forEach(function (inp) {
-      inp.addEventListener("click", function () {
-        if (!inp.readOnly) return;
-        inp.readOnly = false; inp.classList.remove("input--fixed"); inp.removeAttribute("data-fixed");
-        var ed = inp.parentNode.querySelector(".fixed__edit"); if (ed) ed.remove();
-        inp.focus(); inp.select();
+    /* Fold the weight open, and the reps one level below it. The inputs stay
+       in the DOM either way, so logRound still reads them by data-w/data-r —
+       hiding them must never change what gets saved. */
+    container.querySelectorAll("[data-logtoggle]").forEach(function (b) {
+      b.addEventListener("click", function () {
+        var ix = b.getAttribute("data-logtoggle");
+        var panel = container.querySelector('[data-logpanel="' + ix + '"]');
+        var open = panel.hidden;
+        panel.hidden = !open;
+        b.setAttribute("aria-expanded", String(open));
+        if (open) { var f = panel.querySelector("input"); if (f) { f.focus(); f.select(); } }
       });
+    });
+    container.querySelectorAll("[data-repstoggle]").forEach(function (b) {
+      b.addEventListener("click", function () {
+        var box = container.querySelector('[data-repsbox="' + b.getAttribute("data-repstoggle") + '"]');
+        var open = box.hidden;
+        box.hidden = !open;
+        b.setAttribute("aria-expanded", String(open));
+        if (open) { var f = box.querySelector("input"); if (f) { f.focus(); f.select(); } }
+      });
+    });
+    container.querySelectorAll("[data-repsreset]").forEach(function (b) {
+      b.addEventListener("click", function (ev) {
+        ev.stopPropagation();
+        var ix = b.getAttribute("data-repsreset");
+        var inp = container.querySelector('[data-r="' + ix + '"]');
+        var line = container.querySelector('[data-target-for="' + ix + '"]');
+        if (inp && line) { inp.value = line.getAttribute("data-target") || ""; syncTarget(ix); }
+      });
+    });
+    // The folded button and the big target line both mirror what is typed, so
+    // closing the panel never hides a change you just made.
+    container.querySelectorAll("[data-w]").forEach(function (inp) {
+      inp.addEventListener("input", function () { syncChip(inp.getAttribute("data-w")); });
+    });
+    container.querySelectorAll("[data-r]").forEach(function (inp) {
+      inp.addEventListener("input", function () { syncTarget(inp.getAttribute("data-r")); });
     });
     container.querySelectorAll("[data-hold]").forEach(function (b) {
       b.addEventListener("click", function () { startHold(step.items[+b.getAttribute("data-hold")], b); });

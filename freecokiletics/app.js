@@ -560,8 +560,17 @@
       "</div>";
 
     if (s.warmup) {
+      /* The coach's warm-up text is a heading plus the list of movements, and
+         the movements are already named under their own previews below — so
+         only the lines that are NOT an exercise name are kept. Matching on the
+         real names means nothing is dropped if the coach writes it differently. */
+      var wNames = (s.warmup.exercises || []).map(function (e) { return (e.name || "").trim().toLowerCase(); });
+      var wText = (s.warmup.text || "").split("\n").filter(function (line) {
+        var t = line.trim().toLowerCase().replace(/[.;:,]+$/, "");
+        return t !== "" && wNames.indexOf(t) === -1;
+      }).join("\n");
       html += '<section class="vsec"><h2 class="vsec__h">Warm-up</h2>' +
-        (s.warmup.text ? '<p class="note">' + esc(s.warmup.text) + "</p>" : "") +
+        (wText ? '<p class="note">' + esc(wText) + "</p>" : "") +
         '<div class="vgrid">' + (s.warmup.exercises || []).map(function (e) {
           var u = previewUrl(e.id);
           return '<figure class="vthumb">' + (u ? '<img src="' + u + '" alt="" loading="lazy">' : '<div class="vthumb__none"></div>') +
