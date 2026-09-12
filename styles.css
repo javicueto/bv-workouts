@@ -25,9 +25,10 @@
   --accent:      #ff6b3d;
   --accent-soft: #ff6b3d1f;
   /* Text ON an accent fill. White on this orange is 2.83:1 — it has always
-     failed AA and reads washed out; near-black on it is 6.7:1. Any new
-     accent-filled surface uses this, never #fff. */
-  --accent-ink: #150f0d;
+     failed AA and reads washed out. This is the page colour reused as ink:
+     7.03:1 on the orange and 7.17:1 on the danger red, which clears AAA at
+     every size, not just AA. Any new accent-filled surface uses it, never #fff. */
+  --accent-ink: #0a0908;
   --cool:        #4dd4c4;
 
   --radius:    14px;
