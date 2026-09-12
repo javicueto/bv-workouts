@@ -245,15 +245,16 @@ window.Runner = (function () {
     var unitWord = timed ? "Seconds" : "Reps";
     var target = typeof it.target.n === "number" ? it.target.n : null;
     var repsEdited = target != null && r !== "" && +r !== target;
-    /* What the folded button says. The weight box is PREFILLED with last
-       time's weight, so the value alone can't tell the two apart — `prev` is
-       what says you logged this round in this session. A carried-over weight
-       shows in the accent and says so; a weight you entered shows plain. */
-    var chip = prev && prev.weight != null
-      ? '<b class="logchip__v">' + esc(prev.weight) + " kg</b>"
-      : (w !== "" && w != null
-          ? '<b class="logchip__v logchip__v--last">' + esc(w) + " kg</b><span class=\"logchip__hint\">last time</span>"
-          : '<span class="logchip__hint">add weight</span>');
+    /* Two icons in the card's bottom corners (Javier, 12 Sep 2026): a dumbbell
+       bottom-left opens the weight, an arrows-repeat bottom-right opens the
+       reps. Just the icon when there is nothing to say; the number beside it
+       when there is. The weight box is PREFILLED with last time's weight, so
+       the value alone can't tell the two apart — `prev` is what says this round
+       was logged here. A carried-over weight shows in the accent. */
+    var wLabel = prev && prev.weight != null
+      ? '<b class="logbtn__v">' + esc(prev.weight) + "</b>"
+      : (w !== "" && w != null ? '<b class="logbtn__v logbtn__v--last">' + esc(w) + "</b>" : "");
+    var rLabel = repsEdited ? '<b class="logbtn__v logbtn__v--last">' + esc(r) + "</b>" : "";
     return '<article class="ex-card">' +
       '<button class="ex-card__thumb" data-zoom="' + esc(id) + '" aria-label="Show ' + esc(e.name) + ' larger">' +
         (img ? '<img src="' + img + '" alt="">' : "") + "</button>" +
@@ -274,8 +275,13 @@ window.Runner = (function () {
         (timed ? '<button class="btn btn--hold" data-hold="' + ix + '" data-side="1">' + ICONS.play +
           '<span class="hold__long">Start </span>' + esc(it.target.n) + ' s<span class="hold__long"> timer</span>' +
           (e.per_side ? " · side 1" : "") + "</button>" : "") +
-        '<button class="logchip" type="button" data-logtoggle="' + ix + '" aria-expanded="false" aria-controls="log' + ix + '">' +
-          chip + "</button>" +
+        '<div class="logbtns">' +
+          '<button class="logbtn" type="button" data-logtoggle="' + ix + '" aria-expanded="false" aria-controls="log' + ix + '"' +
+            ' aria-label="Weight in kilos">' + ICONS.dumbbell + wLabel + "</button>" +
+          (needsBox ? "" :
+            '<button class="logbtn logbtn--r" type="button" data-repstoggle="' + ix + '" aria-expanded="false"' +
+              ' aria-label="Change ' + (timed ? "seconds" : "reps") + '">' + rLabel + ICONS.arrowsRepeat + "</button>") +
+        "</div>" +
       "</div>" +
       '<div class="logpanel" id="log' + ix + '" data-logpanel="' + ix + '" hidden>' +
         '<label class="logpanel__f"><span>kg</span>' +
@@ -283,13 +289,14 @@ window.Runner = (function () {
         (needsBox
           ? '<label class="logpanel__f"><span>' + (timed ? "sec" : "reps") + '</span>' +
             '<input class="input input--sm" data-r="' + ix + '" inputmode="numeric" placeholder="' + (it.target.n === "MAX" ? "how many?" : "\u2014") + '" value="' + esc(r) + '"></label>'
-          : '<button class="logpanel__more" type="button" data-repstoggle="' + ix + '" aria-expanded="false">Change ' + (timed ? "seconds" : "reps") + "</button>" +
-            '<div class="logpanel__reps" data-repsbox="' + ix + '" hidden>' +
-              '<label class="logpanel__f"><span>' + (timed ? "sec" : "reps") + '</span>' +
-                '<input class="input input--sm" data-r="' + ix + '" inputmode="numeric" value="' + esc(r) + '" aria-label="' + unitWord + '"></label>' +
-              '<button class="logpanel__reset" type="button" data-repsreset="' + ix + '">Back to ' + esc(target) + "</button>" +
-            "</div>") +
+          : "") +
       "</div>" +
+      (needsBox ? "" :
+        '<div class="logpanel logpanel--reps" data-repsbox="' + ix + '" hidden>' +
+          '<label class="logpanel__f"><span>' + (timed ? "sec" : "reps") + '</span>' +
+            '<input class="input input--sm" data-r="' + ix + '" inputmode="numeric" value="' + esc(r) + '" aria-label="' + unitWord + '"></label>' +
+          '<button class="logpanel__reset" type="button" data-repsreset="' + ix + '">Back to ' + esc(target) + "</button>" +
+        "</div>") +
       "</article>";
   }
 
@@ -299,9 +306,7 @@ window.Runner = (function () {
     var btn = container.querySelector('[data-logtoggle="' + ix + '"]');
     if (!inp || !btn) return;
     var v = inp.value.trim();
-    btn.innerHTML = v !== ""
-      ? '<b class="logchip__v">' + esc(v) + " kg</b>"
-      : '<span class="logchip__hint">add weight</span>';
+    btn.innerHTML = ICONS.dumbbell + (v !== "" ? '<b class="logbtn__v">' + esc(v) + "</b>" : "");
   }
   function syncTarget(ix) {
     var inp = container.querySelector('[data-r="' + ix + '"]');
@@ -315,6 +320,9 @@ window.Runner = (function () {
     var edited = target != null && v !== "" && +v !== +target;
     line.classList.toggle("is-edited", edited);
     if (reset) reset.hidden = !edited;
+    // the corner button carries the changed number too
+    var rBtn = container.querySelector('[data-repstoggle="' + ix + '"]');
+    if (rBtn) rBtn.innerHTML = (edited ? '<b class="logbtn__v logbtn__v--last">' + esc(v) + "</b>" : "") + ICONS.arrowsRepeat;
   }
 
   function logRound(step) {
