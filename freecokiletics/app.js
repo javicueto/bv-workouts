@@ -669,7 +669,12 @@
                 var rounds = b.rounds || 1;
                 return '<div class="card wt-block"><div class="eyebrow">' + esc(b.letter) + " · " + esc(b.name) + "</div>" +
                   b.exercises.map(function (e) {
-                    return '<div class="wt-ex"><div class="wt-ex__name">' + esc(e.name) + "</div>" +
+                    // The moving preview, same as everywhere else: by name alone
+                    // it is not obvious which movement a row is (Javier, 12 Sep).
+                    var pv = previewUrl(e.id);
+                    return '<div class="wt-ex"><div class="wt-ex__head">' +
+                      (pv ? '<img class="wt-ex__gif" src="' + pv + '" alt="" loading="lazy">' : '<span class="wt-ex__gif"></span>') +
+                      '<div class="wt-ex__name">' + esc(e.name) + "</div></div>" +
                       '<div class="wt-ex__rounds" style="grid-template-columns:repeat(' + rounds + ',1fr)">' +
                       Array.from({ length: rounds }, function (_, i) {
                         var r = i + 1, x = byKey[setKey(b.letter, r, e.id)];

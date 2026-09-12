@@ -480,7 +480,12 @@ a.week-row { color: inherit; text-decoration: none; }
 
 /* ------------------------------------------------------------ weights editor */
 .wt-block { display: grid; gap: var(--space-4); }
-.wt-ex__name { font-size: 15px; font-weight: 600; margin-bottom: var(--space-2); }
+.wt-ex__head { display: flex; align-items: center; gap: var(--space-3); margin-bottom: var(--space-2); min-width: 0; }
+.wt-ex__gif {
+  flex: none; width: 68px; aspect-ratio: 16 / 9; object-fit: cover; display: block;
+  border-radius: var(--radius-sm); background: var(--bg-sunken);
+}
+.wt-ex__name { font-size: 15px; font-weight: 600; min-width: 0; }
 .wt-ex__rounds { display: grid; gap: var(--space-2); }
 .wt-cell { display: grid; gap: 2px; font-size: 11px; font-weight: 700; color: var(--text-faint); text-align: center; min-width: 0; }
 .wt-cell small { font-weight: 500; }
