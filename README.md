@@ -163,7 +163,8 @@ is kept as `_archive/schedule_before_plans.json` for reference.
 **Where the data lives.** Three tables, `freeco_workouts`, `freeco_sets` and
 `freeco_plans`, in the **Maky** Supabase project (the free plan allows only two
 projects). Row-level security means each account only ever sees its own data;
-anonymous sessions are refused. Schema history is in `freecokiletics/db/` —
+anonymous sessions are refused, and only accounts on the members list can use
+Cokiletics at all (see *Letting a friend use Cokiletics* below). Schema history is in `freecokiletics/db/` —
 migrations 001–003 still say `javiplan_` because that is what they did at the
 time; 004 renames the tables. Never rewrite an applied migration.
 
@@ -186,7 +187,83 @@ meanwhile. Nothing is lost by finishing a session offline. Signing out warns
 if anything is still waiting.
 
 Migration `005` adds a shape check on `freeco_plans.blocks` and drops the
-unused `days_per_week` column.
+unused `days_per_week` column. `006` makes Cokiletics members-only and `007`
+hardens it after Supabase’s security advisor — see the next section.
+
+## Letting a friend use Cokiletics
+
+Cokiletics has been **invite-only since 12 Sep 2026**. Two people use it: Javier
+and Nacho.
+
+### Why it is closed the way it is
+
+- **Accounts live in Maky’s account system** (the same Supabase project), and
+  Maky has its own users. Switching sign-up off in Supabase’s settings would
+  close Maky too — so don’t.
+- **The “Create an account” button is only a button.** It is hidden now
+  (`allowSignup: false` in `freecokiletics/config.js`), but the app’s connection
+  key is public, so an account can still be made without it.
+- **What actually keeps people out is a members list** in the database
+  (`freeco_members`). Cokiletics only reads and saves data for accounts on it.
+  Anyone else who signs in sees *“Not set up for Cokiletics”* with a Sign out
+  button, and cannot see or save anything.
+
+### Adding a friend
+
+Ask Claude to do steps 1, 3 and 4 — it takes a few minutes.
+
+1. **Turn sign-up on**: `allowSignup: true` in `freecokiletics/config.js`, bump
+   `CACHE` in `freecokiletics/sw.js`, push.
+2. **Your friend signs up**: they open
+   <https://javicueto.github.io/bv-workouts/freecokiletics/>, tap **Create an
+   account**, and choose their own email and password. No confirmation email
+   is involved — the account works at once. Until step 3 they will see
+   “Not set up for Cokiletics”; that is expected.
+3. **Add them to the members list** — as the project owner, in the Supabase SQL
+   editor for the Maky project:
+   ```sql
+   insert into public.freeco_members (user_id, note)
+   select id, 'friend, added <date>' from auth.users where email = '<their email>';
+   ```
+4. **Turn sign-up off again**: `allowSignup: false`, bump `CACHE`, push.
+5. **Your friend opens the app again** (from the home screen, twice if it was
+   already open), sets up their plan, and starts. Their plan and logs are
+   private to them — nobody else can see them, Javier included.
+
+### Removing someone, or checking who is in
+
+```sql
+-- who is a member
+select u.email, m.note, m.added_at
+from public.freeco_members m join auth.users u on u.id = m.user_id
+order by m.added_at;
+
+-- remove someone: their data stays, but they can no longer see or change it
+delete from public.freeco_members
+where user_id = (select id from auth.users where email = '<their email>');
+```
+
+Deleting their account in Supabase’s Authentication page removes their data as
+well.
+
+### Tell a friend before they start
+
+- **A forgotten password cannot be reset by email yet.** Supabase’s built-in
+  email service only delivers to members of the project’s team, and only two
+  emails an hour. Until a custom email provider (SMTP) is set up in the Maky
+  project’s Auth settings, a friend who forgets their password needs Javier to
+  sort it out. Suggest they save it in their phone’s password manager.
+- **Passwords are not checked against leaked-password lists.** Supabase offers
+  that (HaveIBeenPwned) only on the Pro plan; Maky is on the Free plan.
+- **Put it on the home screen** (Share → Add to Home Screen, in Chrome or
+  Safari) and open it from there — that is what makes it work with no signal.
+
+### Accounts in the system that are not members
+
+Not everyone in Maky’s account list is a stranger: Maky’s own users (from May
+2026) belong to Maky, and one account with Javier’s work email was created on
+11 Sep 2026 while testing sign-up and password reset. None of these can use
+Cokiletics, by design.
 
 ## Nacho's programme — archived
 
