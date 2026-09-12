@@ -28,7 +28,7 @@
 
     if (pendingRun) {
       html += '<div class="card card--tap" id="resume"><div class="eyebrow">In progress</div>' +
-        '<h2>' + esc(pendingRun.title) + '</h2><p class="dim">Started ' + new Date(pendingRun.startedAt).toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" }) +
+        '<h2>' + esc(pendingRun.title) + '</h2><p class="dim">Started ' + A.hhmm(pendingRun.startedAt) +
         ' · step ' + (pendingRun.i + 1) + "/" + pendingRun.steps.length + "</p>" +
         '<div class="row" style="margin-top:var(--space-4)"><button class="btn btn--primary grow" id="resume-go">Resume</button>' +
         '<button class="btn btn--ghost" id="resume-drop">Discard</button></div></div>';
@@ -109,11 +109,13 @@
             '<a class="day-card__main" href="' + (d ? "#/h/" + esc(d.id) : "#/run/" + esc(s.key) + wq) + '">' +
             '<div class="row"><div class="grow"><div class="eyebrow">Day ' + (ix + 1) + "</div>" +
             '<h2>' + esc(s.title) + "</h2>" +
-            '<p class="dim">' + (d
-              ? (d.times > 1
+            // Done once: date on one line, times on the next (Javier, 12 Sep 2026).
+            (d && d.times === 1
+              ? '<p class="dim day-card__when"><span>' + esc(A.dayDate(d.started_at)) + "</span>" +
+                "<span>" + esc(A.hhmm(d.started_at)) + "–" + esc(A.hhmm(d.finished_at)) + "</span></p></div>"
+              : '<p class="dim">' + (d
                   ? "Done " + d.times + " times this week"
-                  : A.longDate(d.started_at) + " · " + A.hhmm(d.started_at) + "–" + A.hhmm(d.finished_at))
-              : s.blocks.length + " blocks · " + s.blocks.map(function (b) { return b.letter; }).join(" ")) + "</p></div>" +
+                  : s.blocks.length + " blocks · " + s.blocks.map(function (b) { return b.letter; }).join(" ")) + "</p></div>") +
             (d
               ? '<span class="badge badge--good">done ✓' + (d.times > 1 ? " ×" + d.times : "") + "</span>"
               : '<span class="badge">start ›</span>') + "</div>" +
@@ -130,7 +132,7 @@
             (d && d.times > 1
               ? '<ul class="day-card__runs">' + d.runs.map(function (r) {
                   return '<li><a href="#/h/' + esc(r.id) + '">' +
-                    "<span>" + esc(A.shortDate(r.started_at)) + "</span>" +
+                    "<span>" + esc(A.dayDate(r.started_at)) + "</span>" +
                     '<span class="faint">' + esc(A.hhmm(r.started_at)) +
                       (r.finished_at ? "–" + esc(A.hhmm(r.finished_at)) : "") + "</span>" +
                     "</a></li>";

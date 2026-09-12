@@ -115,10 +115,18 @@ window.App = (function () {
   function pad2(n) { return String(n).padStart(2, "0"); }
   function dateVal(d) { return d.getFullYear() + "-" + pad2(d.getMonth() + 1) + "-" + pad2(d.getDate()); }
   function timeVal(d) { return pad2(d.getHours()) + ":" + pad2(d.getMinutes()); }
-  function hhmm(iso) { return new Date(iso).toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" }); }
+  /* Built by hand, never toLocale*String: that hands order, separators and
+     12- vs 24-hour to the phone's locale, so the same workout read "06:30 PM"
+     on one device and "18:30" on another. Javier's formats (12 Sep 2026):
+     24-hour time, and "Fri 11 Sep ’26" — the apostrophe stands for the
+     dropped century. */
+  var WEEKDAYS = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+  function hhmm(iso) { var d = new Date(iso); return pad2(d.getHours()) + ":" + pad2(d.getMinutes()); }
+  function dayDate(iso) {
+    var d = new Date(iso);
+    return WEEKDAYS[d.getDay()] + " " + d.getDate() + " " + MONTHS[d.getMonth()] + " ’" + String(d.getFullYear()).slice(-2);
+  }
   function longDate(iso) { return new Date(iso).toLocaleDateString([], { weekday: "long", day: "numeric", month: "long" }); }
-  // "Sat 12 Sep" — the long weekday wrapped the run list onto two lines.
-  function shortDate(iso) { return new Date(iso).toLocaleDateString([], { weekday: "short", day: "numeric", month: "short" }); }
   function today() { var d = new Date(); return new Date(d.getFullYear(), d.getMonth(), d.getDate()); }
   function isoDate(d) { return d.getFullYear() + "-" + pad2(d.getMonth() + 1) + "-" + pad2(d.getDate()); }
   function mondayOf(d) { var x = new Date(d); x.setDate(x.getDate() - ((x.getDay() + 6) % 7)); return x; }
@@ -305,7 +313,7 @@ window.App = (function () {
     ticket: ticket, stale: stale,
     previewUrl: previewUrl, repsLabel: repsLabel, restLabel: restLabel, blockCount: blockCount,
     fmt: fmt, fmtRange: fmtRange, dateVal: dateVal, timeVal: timeVal, hhmm: hhmm, longDate: longDate,
-    shortDate: shortDate, today: today, isoDate: isoDate, mondayOf: mondayOf, nextMonday: nextMonday, timesFrom: timesFrom,
+    dayDate: dayDate, today: today, isoDate: isoDate, mondayOf: mondayOf, nextMonday: nextMonday, timesFrom: timesFrom,
     weekFor: weekFor, sessionsFor: sessionsFor, sessionByKey: sessionByKey,
     topbar: topbar, renderSetup: renderSetup, loadError: loadError, bindRetry: bindRetry,
     isInstalled: isInstalled, installCard: installCard, bindInstall: bindInstall, syncBadge: syncBadge,
