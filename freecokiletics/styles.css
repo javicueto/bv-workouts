@@ -270,12 +270,18 @@ p  { margin: 0; }
 /* Exercise card: moving thumbnail left, what to do right, log underneath. */
 .ex-list { display: grid; gap: var(--space-3); }
 .ex-card {
-  display: grid; grid-template-columns: 50% 1fr; gap: var(--space-3);
+  /* 38%, not half. The preview is SQUARE now, so its width sets the card's
+     height: at 50% a round of three grew to 882px and stopped fitting an
+     812px screen. 38% is the largest square where all 506 screens still fit,
+     and it is still 45% more image than the old 42% 16:9 tile (130x130 vs
+     144x81) because none of it is wasted on empty sides. Re-measure the whole
+     sweep before touching this number. */
+  display: grid; grid-template-columns: 38% 1fr; gap: var(--space-3);
   padding: var(--space-3);
   background: var(--bg-sunken); border: 1px solid var(--line); border-radius: var(--radius);
 }
 .ex-card__thumb {
-  position: relative; aspect-ratio: 16 / 9; align-self: start;
+  position: relative; aspect-ratio: 1; align-self: start;
   border: 0; padding: 0; border-radius: var(--radius-sm); overflow: hidden; background: #000; cursor: zoom-in;
 }
 .ex-card__thumb img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
@@ -357,7 +363,7 @@ p  { margin: 0; }
 /* Dense variant for 3+ movement rounds: tighter padding, smaller numbers and
    inputs. Measured at 375×812 — the normal card overflowed by 55px. */
 .ex-list--dense { gap: var(--space-2); }
-.ex-list--dense .ex-card { grid-template-columns: 44% 1fr; padding: var(--space-2) var(--space-3); gap: var(--space-2) var(--space-3); }
+.ex-list--dense .ex-card { grid-template-columns: 32% 1fr; padding: var(--space-2) var(--space-3); gap: var(--space-2) var(--space-3); }
 .ex-list--dense .ex-card__name { font-size: 15px; }
 .ex-list--dense .ex-card__target { font-size: 22px; }
 .ex-list--dense .input--sm { min-height: 38px; font-size: 16px; }
@@ -367,6 +373,10 @@ p  { margin: 0; }
 .thumb-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--space-2); }
 .thumb-grid--2 { grid-template-columns: repeat(2, 1fr); width: 100%; }
 .thumb { display: grid; gap: 4px; border: 0; padding: 0; background: none; text-align: left; cursor: zoom-in; }
+/* The warm-up / Tabata grid stays 16:9 on purpose (Javier: "keep the warm-up
+   as is"). Eleven squares three-across is 190px taller than the same grid in
+   16:9 and pushes the screen past the viewport; wide tiles pack better when
+   there are this many. */
 .thumb img, .thumb__none { width: 100%; aspect-ratio: 16 / 9; object-fit: cover; border-radius: var(--radius-sm); background: #000; display: block; }
 .thumb__name { font-size: 11px; line-height: 1.25; color: var(--text-dim); }
 
@@ -444,7 +454,7 @@ body.is-resting .tabata__phase.rest { color: #fff; }
 
 /* ------------------------------------------------------------ Tabata running */
 .tabata__gif { width: 100%; }
-.tabata__gif img { width: 100%; aspect-ratio: 16 / 9; object-fit: cover; border-radius: var(--radius); display: block; background: #000; }
+.tabata__gif img { width: 100%; max-width: 340px; margin: 0 auto; aspect-ratio: 1; object-fit: cover; border-radius: var(--radius); display: block; background: #000; }
 
 /* ------------------------------------------------------------ timed hold */
 .ex-card__log { flex-wrap: wrap; }
@@ -510,7 +520,7 @@ body.is-resting .tabata__phase.rest { color: #fff; }
 }
 .vthumb { margin: 0; }
 .vthumb img, .vthumb__none {
-  width: 100%; aspect-ratio: 16 / 9; object-fit: cover;
+  width: 100%; aspect-ratio: 1; object-fit: cover;
   border-radius: var(--radius-sm); background: #000; display: block;
 }
 .vthumb figcaption { margin-top: var(--space-2); font-size: 13px; color: var(--text-dim); line-height: 1.35; }
@@ -582,7 +592,7 @@ a.week-row { color: inherit; text-decoration: none; }
 .wt-block { display: grid; gap: var(--space-4); }
 .wt-ex__head { display: flex; align-items: center; gap: var(--space-3); margin-bottom: var(--space-2); min-width: 0; }
 .wt-ex__gif {
-  flex: none; width: 68px; aspect-ratio: 16 / 9; object-fit: cover; display: block;
+  flex: none; width: 52px; aspect-ratio: 1; object-fit: cover; display: block;
   border-radius: var(--radius-sm); background: var(--bg-sunken);
 }
 .wt-ex__name { font-size: 15px; font-weight: 600; min-width: 0; }

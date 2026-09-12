@@ -9,7 +9,7 @@
  * - Supabase: never cached — always network. The app keeps its own offline
  *   queue for writes.
  */
-const CACHE = "freeco-v24";
+const CACHE = "freeco-v25";
 const SHELL = [
   "./", "./index.html", "./styles.css", "./config.js",
   "./theme.js", "./icons.js", "./ui.js", "./store.js", "./timer.js", "./runner.js", "./app.js",
