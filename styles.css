@@ -1,6 +1,8 @@
 /* Workouts — personal training site.
    Dark by design: it is read on a phone, in a gym, one-handed.
-   No web fonts, no CDN: the whole point is that it works with no signal. */
+   The fonts are SELF-HOSTED in ../fonts, never a CDN: the whole point is that
+   it works with no signal. Same two faces and same palette as Cokiletics, so
+   the reference and the app read as one product (Court, 12 Sep 2026). */
 
 :root {
   /* 4pt scale */
@@ -8,15 +10,15 @@
   --space-5: 20px; --space-6: 24px; --space-8: 32px; --space-10: 40px;
   --space-12: 48px; --space-16: 64px; --space-20: 80px;
 
-  --bg:        #0e1116;
-  --bg-raised: #161b23;
-  --bg-sunken: #0a0d11;
-  --line:      #232b36;
-  --line-soft: #1b222b;
+  --bg:        #17130f;
+  --bg-raised: #211b16;
+  --bg-sunken: #100d0a;
+  --line:      #342a22;
+  --line-soft: #271f19;
 
-  --text:      #e8edf4;
-  --text-dim:  #9aa7b8;
-  --text-faint:#66738a;
+  --text:      #f6f1ec;
+  --text-dim:  #bcaea2;
+  --text-faint:#96877a;
 
   --accent:      #ff6b3d;
   --accent-soft: #ff6b3d1f;
@@ -25,7 +27,8 @@
   --radius:    14px;
   --radius-sm: 9px;
 
-  --font: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  --font:         "IBM Plex Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  --font-display: "Big Shoulders Display", "Arial Narrow", var(--font);
   --max: 1180px;
 }
 
@@ -72,7 +75,7 @@ a { color: inherit; }
 }
 
 .topbar__title {
-  font-size: 16px; font-weight: 650; letter-spacing: -0.01em;
+  font-size: 20px; font-weight: 800; letter-spacing: .02em; text-transform: uppercase;
   /* Never wrap to a second line and grow the bar; if the nav leaves too little
      room on a very narrow phone, truncate rather than push the page wider. */
   white-space: nowrap;
@@ -106,18 +109,22 @@ a { color: inherit; }
 }
 
 /* On a phone the nav pills would squeeze the wordmark into an ellipsis, so they
-   get smaller and the wordmark drops a point. Measured at 320 and 375: both fit
-   "Beach Volleyball" with room to spare. */
+   get smaller and the wordmark drops a point. The display face is uppercase and
+   tracked, which costs width — so the tracking goes back to zero here. Measured
+   at 320 and 375 after the Court switch: "B-V Workouts" fits with room. */
 @media (max-width: 599px) {
   .topbar { padding-left: var(--space-3); padding-right: var(--space-3); }
   .topbar__home { gap: var(--space-2); }
-  .topbar__title { font-size: 15px; }
-  .topbar__nav a { font-size: 13px; padding: var(--space-2) var(--space-3); }
+  .topbar__title { font-size: 17px; letter-spacing: 0; }
+  .topbar__nav a { font-size: 13px; padding: var(--space-2) var(--space-2); }
 }
 
 @media (max-width: 359px) {
-  .topbar__title { font-size: 14px; }
-  .topbar__nav a { padding: var(--space-2); }
+  /* At 320 the wordmark, three nav pills and the mark cannot all fit. The mark
+     is purely decorative (aria-hidden), so it goes rather than the words. */
+  .topbar__title { font-size: 15px; }
+  .topbar__mark { display: none; }
+  .topbar__nav a { padding: var(--space-2) 5px; font-size: 12px; }
 }
 
 /* ------------------------------------------------------------------ page */
@@ -135,11 +142,13 @@ main {
 
 .page-head { margin-bottom: var(--space-8); }
 
+/* Anything you glance at is the display voice; anything you read stays body. */
 .page-head h1 {
   margin: 0 0 var(--space-2);
-  font-size: clamp(28px, 7vw, 40px);
-  font-weight: 700; letter-spacing: -0.025em;
-  line-height: 1.1;
+  font-family: var(--font-display);
+  font-size: clamp(40px, 11vw, 62px);
+  font-weight: 800; letter-spacing: 0; text-transform: uppercase;
+  line-height: 0.92;
 }
 
 .page-head p { margin: 0; color: var(--text-dim); font-size: 15px; }
@@ -168,6 +177,9 @@ main {
   color: var(--accent);
   margin-bottom: var(--space-3);
 }
+.block__num, .card__key, .letter, .card__letter, .topbar__title, .wk-head h1 {
+  font-family: var(--font-display);
+}
 
 /* --------------------------------------------------------- block listing */
 
@@ -195,9 +207,9 @@ main {
 }
 
 .block__num {
-  font-size: clamp(34px, 9vw, 52px);
-  font-weight: 700; letter-spacing: -0.04em;
-  line-height: 1;
+  font-size: clamp(44px, 12vw, 68px);
+  font-weight: 800; letter-spacing: 0;
+  line-height: 0.9;
   color: var(--accent);
 }
 
@@ -223,8 +235,8 @@ main {
 .card:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
 
 .card__key {
-  font-size: 22px; font-weight: 700; letter-spacing: -0.02em;
-  margin-bottom: var(--space-3);
+  font-size: 29px; font-weight: 800; letter-spacing: .01em; text-transform: uppercase;
+  line-height: 1; margin-bottom: var(--space-3);
 }
 
 .card__list {
@@ -238,7 +250,7 @@ main {
   color: var(--text-dim);
 }
 
-.card__letter { color: var(--accent); font-weight: 700; font-size: 12px; padding-top: 2px; }
+.card__letter { color: var(--accent); font-weight: 800; font-size: 15px; padding-top: 1px; line-height: 1.2; }
 
 .card__foot {
   margin-top: var(--space-4);
@@ -294,6 +306,7 @@ main {
 
 .letter {
   display: grid; place-items: center;
+  font-weight: 800; font-size: 19px;
   width: 34px; height: 34px;
   border-radius: 10px;
   background: var(--accent-soft);

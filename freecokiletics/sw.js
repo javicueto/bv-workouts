@@ -9,11 +9,13 @@
  * - Supabase: never cached — always network. The app keeps its own offline
  *   queue for writes.
  */
-const CACHE = "freeco-v7";
+const CACHE = "freeco-v8";
 const SHELL = [
   "./", "./index.html", "./styles.css", "./config.js",
   "./theme.js", "./icons.js", "./ui.js", "./store.js", "./timer.js", "./runner.js", "./app.js",
   "./data/programme.js",
+  // Self-hosted type. Both are variable fonts — one file per family.
+  "../fonts/fonts.css", "../fonts/big-shoulders-display.woff2", "../fonts/ibm-plex-sans.woff2",
   "./manifest.webmanifest", "./icon-180.png", "./icon-192.png", "./icon-512.png",
   // The Supabase client MUST be precached. It is fetched on the very first page
   // load, before this worker controls the page, so the runtime cache below

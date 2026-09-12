@@ -100,6 +100,15 @@ One name, *heels elevated back squat*, exists three times in the library; the ne
 was used. If that video ever looks like the wrong variation, change the id in
 `data/name_resolution.json`.
 
+## How it looks
+
+Both the reference site and the app use the same look, picked on 12 Sep 2026
+from two directions mocked up in `tests/`: dark warm ground, a condensed
+industrial face for anything you glance at, one signal orange. The fonts live in
+`fonts/` rather than being loaded from Google — the app has to work in a gym
+with no signal, and a CDN font is the one thing that would still need the
+network. Two files, 76 KB, one per family.
+
 ## Cokiletics — the training app (/freecokiletics)
 
 A phone app for actually doing the sessions: <https://javicueto.github.io/bv-workouts/freecokiletics/>

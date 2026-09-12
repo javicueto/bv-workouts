@@ -1,0 +1,56 @@
+/* Hallmark · macrostructure: n/a (app screens, not a page) · tone: editorial/quiet · anchor hue: warm 32°
+ * theme: Programme — light paper · roman-serif display · brick accent
+ * pre-emit critique: P5 H4 E4 S5 R5 V4
+ *
+ * MOCKUP TOKENS — not wired into the live app. programme.css references these
+ * names only; no raw colour or font values live below the token block.
+ */
+
+:root {
+  /* ---- paper + ink. Warm off-white, never pure white; ink never pure black. ---- */
+  --color-paper:      oklch(97.5% 0.006 85);
+  --color-paper-2:    oklch(99.2% 0.003 85);
+  --color-paper-3:    oklch(94% 0.008 85);
+  --color-ink:        oklch(24% 0.012 60);
+  --color-ink-2:      oklch(45% 0.012 60);
+  --color-ink-3:      oklch(52% 0.012 60);   /* 4.5:1 on paper — small text lives here */
+
+  /* ---- one accent: a printed brick red, used as a mark, not a surface ---- */
+  --color-accent:     oklch(48% 0.15 32);
+  --color-accent-ink: oklch(99% 0 0);
+  --color-accent-dim: oklch(48% 0.15 32 / 0.10);
+
+  --color-rest:       oklch(38% 0.08 245);
+  --color-rest-ink:   oklch(98% 0 0);
+  --color-done:       oklch(45% 0.1 155);
+
+  --color-rule:       oklch(84% 0.008 85);
+  --color-rule-soft:  oklch(90% 0.006 85);
+  --color-focus:      oklch(52% 0.16 250);
+
+  /* ---- type. 2 + 1: roman serif display, engineering sans body. ---- */
+  --font-display: "Newsreader", Georgia, "Times New Roman", serif;
+  --font-body:    "IBM Plex Sans", system-ui, -apple-system, sans-serif;
+
+  --text-hero:  clamp(2.75rem, 12vw, 3.75rem);
+  --text-2xl:   1.875rem;
+  --text-xl:    1.375rem;
+  --text-lg:    1.125rem;
+  --text-base:  1rem;
+  --text-sm:    0.875rem;
+  --text-xs:    0.75rem;
+
+  --space-2xs: 4px;  --space-xs: 8px;  --space-sm: 12px; --space-md: 16px;
+  --space-lg:  24px; --space-xl: 32px; --space-2xl: 48px; --space-3xl: 64px;
+
+  --rule-hair: 1px;
+  --rule-bold: 2px;
+  --radius-sm: 3px;
+  --radius-md: 6px;
+
+  --ease-out:    cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-in:     cubic-bezier(0.55, 0, 1, 0.45);
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+  --dur-fast: 120ms;
+  --dur-mid:  200ms;
+}
