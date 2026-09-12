@@ -10,18 +10,24 @@
   --space-5: 20px; --space-6: 24px; --space-8: 32px; --space-10: 40px;
   --space-12: 48px; --space-16: 64px; --space-20: 80px;
 
-  --bg:        #17130f;
-  --bg-raised: #211b16;
-  --bg-sunken: #100d0a;
-  --line:      #342a22;
-  --line-soft: #271f19;
+  /* Darkened 12 Sep 2026 — see the app's styles.css for why the surfaces
+     separate by border rather than by fill. Kept identical to the app. */
+  --bg:        #0a0908;
+  --bg-raised: #1c1614;
+  --bg-sunken: #050404;
+  --line:      #3a2e27;
+  --line-soft: #2b221d;
 
-  --text:      #f6f1ec;
-  --text-dim:  #bcaea2;
-  --text-faint:#96877a;
+  --text:      #f7f3ef;
+  --text-dim:  #c6b8ac;
+  --text-faint:#9e9083;
 
   --accent:      #ff6b3d;
   --accent-soft: #ff6b3d1f;
+  /* Text ON an accent fill. White on this orange is 2.83:1 — it has always
+     failed AA and reads washed out; near-black on it is 6.7:1. Any new
+     accent-filled surface uses this, never #fff. */
+  --accent-ink: #150f0d;
   --cool:        #4dd4c4;
 
   --radius:    14px;
@@ -235,7 +241,7 @@ main {
 .card:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
 
 .card__key {
-  font-size: 29px; font-weight: 800; letter-spacing: .01em; text-transform: uppercase;
+  font-size: 34px; font-weight: 800; letter-spacing: .01em; text-transform: uppercase;
   line-height: 1; margin-bottom: var(--space-3);
 }
 
@@ -505,7 +511,7 @@ body.is-locked .foot { display: none; }
 .lock__btn {
   padding: var(--space-4);
   font: inherit; font-size: 16px; font-weight: 650;
-  color: #fff;
+  color: var(--accent-ink);
   background: var(--accent);
   border: 0; border-radius: var(--radius);
   cursor: pointer;

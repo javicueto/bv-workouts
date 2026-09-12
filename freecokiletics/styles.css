@@ -14,19 +14,26 @@
   --space-5: 20px; --space-6: 24px; --space-8: 32px; --space-10: 40px;
   --space-12: 48px; --space-16: 64px;
 
-  /* Court, 12 Sep 2026. Neutrals are warm-tinted on purpose: the accent is
-     warm, and cool greys under a warm accent look wrong without anyone being
-     able to say why. */
-  --bg:        #17130f;
-  --bg-raised: #211b16;
-  --bg-sunken: #100d0a;
-  --line:      #342a22;
-  --line-soft: #271f19;
-  --text:      #f6f1ec;
-  --text-dim:  #bcaea2;
-  --text-faint:#96877a;
+  /* Court, darkened 12 Sep 2026 (Javier: the brown ground wasn't dark enough).
+     Near-black with only a whisper of warmth left — enough to keep the neutrals
+     on the same side as the orange accent, not enough to read as brown.
+     Surfaces separate by their hairline BORDER, not by fill: at this luminance
+     a fill step of any believable size is worth ~1.1:1 and does nothing. */
+  --bg:        #0a0908;
+  --bg-raised: #1c1614;
+  --bg-sunken: #050404;
+  --line:      #3a2e27;
+  --line-soft: #2b221d;
+  --text:      #f7f3ef;
+  --text-dim:  #c6b8ac;
+  --text-faint:#9e9083;
   --accent:      #ff6b3d;
   --accent-soft: #ff6b3d1f;
+  /* Text ON an accent fill. White on this orange is 2.83:1 — it has always
+     failed AA and reads washed out; near-black on it is 6.7:1. Any new
+     accent-filled surface uses this, never #fff. */
+  --accent-ink: #150f0d;
+  --danger-ink: #150f0d;
   --cool:        #4dd4c4;
   --good:        #4dd48a;
   --rest:        #1e5bd6;     /* rest mode: whole screen, and the status bar via theme-color */
@@ -65,20 +72,23 @@
   --text:      #1d1712;
   --text-dim:  #6a5a4d;
   --text-faint:#7d6d5f;
-  /* Deeper than the brand tone on purpose: #ff6b3d on white is too pale to read
-     as text or a border. Buttons keep the brand orange as their background. */
-  --accent:      #c9491b;
-  --accent-soft: #c9491b14;
-  --accent-line: #c9491b40;
-  --cool:        #0d8578;
-  --cool-soft:   #0d857814;
-  --good:        #157f46;
-  --good-soft:   #157f4614;
-  --good-line:   #157f4640;
-  --danger:      #c62828;
-  --danger-text: #b3261e;
-  --shadow:      #1117201f;
-  --ui-bg:       #f5f7fa;
+  /* Deeper than the brand tone on purpose: #ff6b3d is 2.6:1 on this paper —
+     unreadable as text or a border. Every value below clears 4.5:1 on both the
+     paper and the white card; measured, not eyeballed. */
+  --accent:      #b33d15;   /* 5.4:1 on paper, 4.8:1 on its own 8% tint */
+  --accent-soft: #b33d1514;
+  --accent-line: #b33d1540;
+  --accent-ink:  #ffffff;   /* white on this fill is 5.8:1; near-black only 3.3 */
+  --cool:        #0a7267;
+  --cool-soft:   #0a726714;
+  --good:        #13743f;
+  --good-soft:   #13743f14;
+  --good-line:   #13743f40;
+  --danger:      #b3261e;
+  --danger-ink:  #ffffff;
+  --danger-text: #a32019;
+  --shadow:      #1d17121f;
+  --ui-bg:       #faf6f1;   /* was a leftover cool grey from the old palette */
 }
 
 * { box-sizing: border-box; }
@@ -121,7 +131,7 @@ h1 {
 }
 h2 {
   margin: 0; font-family: var(--font-display); font-weight: 700;
-  font-size: 26px; letter-spacing: .01em; line-height: 1.05; text-transform: uppercase;
+  font-size: 31px; letter-spacing: .01em; line-height: 1.02; text-transform: uppercase;
 }
 p  { margin: 0; }
 
@@ -135,7 +145,7 @@ p  { margin: 0; }
   transition: transform .08s, filter .15s;
 }
 .btn:active { transform: scale(.97); }
-.btn--primary { background: var(--accent); color: #fff; }
+.btn--primary { background: var(--accent); color: var(--accent-ink); }
 .btn--ghost { background: transparent; border: 1px solid var(--line); }
 .btn--quiet { background: transparent; color: var(--text-dim); min-height: 44px; }
 .btn--block { width: 100%; }
@@ -167,7 +177,7 @@ p  { margin: 0; }
 
 .card {
   background: var(--bg-raised);
-  border: 1px solid var(--line-soft);
+  border: 1px solid var(--line);       /* the border is what separates a card */
   border-radius: var(--radius);
   padding: var(--space-5);
 }
@@ -322,7 +332,7 @@ p  { margin: 0; }
 
 .week-row { display: flex; align-items: center; gap: var(--space-3); padding: var(--space-3) 0; border-bottom: 1px solid var(--line-soft); }
 .week-row .num { width: 34px; height: 34px; border-radius: 9px; display: grid; place-items: center; background: var(--bg-raised); font-weight: 800; font-size: 19px; }
-.week-row.now .num { background: var(--accent); color: #fff; }
+.week-row.now .num { background: var(--accent); color: var(--accent-ink); }
 .week-row.past { opacity: .55; }
 
 /* ------------------------------------------------------------ rest mode (blue) */
@@ -338,7 +348,7 @@ body.is-resting .rest__ring .track { stroke: #ffffff38; }
 body.is-resting .rest__ring .arc { stroke: #fff; }
 body.is-resting .rest__ring .arc.final { stroke: var(--accent); }   /* last 10 s */
 body.is-resting .btn--ghost { border-color: #ffffff66; color: #fff; }
-body.is-resting .btn--primary { background: #fff; color: var(--rest); }
+body.is-resting .btn--primary { background: #fff; color: var(--rest); }  /* blue+white is 5.96:1 — fine */
 body.is-resting .btn--quiet { color: #ffffffcc; }
 body.is-resting .tabata__phase.rest { color: #fff; }
 
@@ -353,7 +363,7 @@ body.is-resting .tabata__phase.rest { color: #fff; }
   background: var(--accent-soft); color: var(--accent); border: 1px solid var(--accent-line);
   font-size: 16px;
 }
-.btn--hold.is-running { background: var(--accent); color: #fff; border-color: var(--accent); }
+.btn--hold.is-running { background: var(--accent); color: var(--accent-ink); border-color: var(--accent); }
 .btn--hold.is-done { background: var(--good-soft); color: var(--good); border-color: var(--good-line); }
 /* Dense (3-movement) rounds: the timer sits inline beside kg/sec, short label. */
 .ex-list--dense .btn--hold { flex: 0 0 auto; min-height: 38px; padding: 0 var(--space-3); font-size: 15px; }
@@ -392,7 +402,7 @@ body.is-resting .tabata__phase.rest { color: #fff; }
 /* ------------------------------------------------------- read-only session */
 .vsec { margin-top: var(--space-6); }
 .vsec__head { display: flex; align-items: center; gap: var(--space-3); margin-bottom: var(--space-2); }
-.vsec__h { font-size: 17px; margin: 0; }
+.vsec__h { font-size: 22px; margin: 0; line-height: 1.05; }   /* condensed: 17px read too small */
 .vgrid {
   display: grid; gap: var(--space-3); margin-top: var(--space-3);
   grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
@@ -413,7 +423,7 @@ body.is-resting .tabata__phase.rest { color: #fff; }
 .time-row { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-3); }
 
 /* ------------------------------------------------------------ dialogs + toast */
-.btn--danger { background: var(--danger); color: #fff; }
+.btn--danger { background: var(--danger); color: var(--danger-ink); }
 .btn--danger-text { color: var(--danger); }
 
 .sheet-back {
@@ -508,7 +518,7 @@ a.week-row { color: inherit; text-decoration: none; }
 .install-card__actions .btn { width: 100%; }
 .steps { list-style: none; margin: var(--space-2) 0; padding: 0; display: grid; gap: var(--space-4); }
 .steps li { display: grid; grid-template-columns: 28px 1fr; gap: var(--space-3); align-items: start; font-size: 16px; line-height: 1.4; }
-.step__n { width: 28px; height: 28px; display: grid; place-items: center; border-radius: 50%; background: var(--accent); color: #fff; font-weight: 800; font-size: 14px; }
+.step__n { width: 28px; height: 28px; display: grid; place-items: center; border-radius: 50%; background: var(--accent); color: var(--accent-ink); font-weight: 800; font-size: 14px; }
 .inline-icon { display: inline-grid; place-items: center; width: 26px; height: 26px; vertical-align: middle; border-radius: 7px; background: var(--bg-sunken); color: var(--text); }
 .inline-icon svg { width: 14px; height: 14px; }
 
