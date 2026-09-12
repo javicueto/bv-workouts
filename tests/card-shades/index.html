@@ -105,17 +105,27 @@ h1 {
 .inset { margin-top: var(--space-4); background: var(--card); border: 1px solid var(--line); border-radius: var(--radius); padding: var(--space-5); }
 .inset .sunken { margin-top: var(--space-3); background: var(--bg-sunken); border: 1px solid var(--line-soft); border-radius: var(--radius-sm); padding: var(--space-3); font-size: 13px; color: var(--text-dim); }
 
+.q {
+  font-family: var(--font-display); font-weight: 800; text-transform: uppercase;
+  font-size: 24px; letter-spacing: .01em; margin: var(--space-10) 0 var(--space-2);
+  padding-top: var(--space-6); border-top: 1px solid var(--line);
+}
 .note { margin-top: var(--space-10); padding-top: var(--space-6); border-top: 1px solid var(--line); color: var(--text-faint); font-size: 14px; }
 .note code { color: var(--text-dim); }
 </style>
 </head>
 <body>
 <div class="wrap">
-  <h1>Card shades</h1>
-  <p class="lede"><b>Shade 7 was chosen</b> and is live on both sites. The rest are kept
-  as the record of what was compared. The page stays <code>#0a0908</code>. Only the content box changes.
-  Tap a shade to apply it to every sample at once, then scroll and judge — comparing
-  side by side is misleading, because a box always looks darker next to a lighter one.</p>
+  <h1>Dark shades</h1>
+  <p class="lede"><b>Question 2 (12 Sep 2026):</b> now that a content box is the same colour
+  as the page, should the page itself lift off near-black? Tap a page colour — it applies to
+  this whole screen, so you are judging it the way you would use it, not next to a swatch.</p>
+
+  <div class="pick" id="pagepick"></div>
+
+  <h2 class="q">The content box, for the record</h2>
+  <p class="lede">Shade 7 was chosen and is live. The rest are kept as the record of what was
+  compared. Tap one to apply it to every sample below.</p>
 
   <div class="pick" id="pick"></div>
   <div id="samples"></div>
@@ -178,6 +188,34 @@ function render(only) {
   var list = only ? SHADES.filter(function (s) { return s.hex === only; }) : SHADES;
   document.getElementById("samples").innerHTML = list.map(cardHTML).join("");
 }
+
+/* Page colours. Card follows the page, because shade 7 tied them together. */
+var PAGES = [
+  { hex: "#0a0908", name: "Shade 7", note: "live now — near-black" },
+  { hex: "#0e0c0b", name: "Shade 6", note: "a touch lifted" },
+  { hex: "#110e0d", name: "Shade 5", note: "clearly lifted" },
+  { hex: "#141110", name: "Shade 4", note: "lifted further" }
+];
+document.getElementById("pagepick").innerHTML = PAGES.map(function (p) {
+  var acc = ratio("#ff6b3d", p.hex);
+  return '<button type="button" data-page="' + p.hex + '" aria-pressed="' + (p.hex === PAGE) + '">' +
+    '<span class="sw" style="background:' + p.hex + '"></span>' +
+    "<b>" + p.name + "</b>" +
+    '<span class="meta">' + p.hex + " · text " + ratio(TEXT, p.hex) + ":1 · orange " + acc +
+      ":1 " + (acc >= 7 ? "AAA" : "AA") + "</span></button>";
+}).join("");
+
+document.getElementById("pagepick").addEventListener("click", function (e) {
+  var b = e.target.closest("button[data-page]");
+  if (!b) return;
+  [].forEach.call(this.querySelectorAll("button"), function (x) { x.setAttribute("aria-pressed", "false"); });
+  b.setAttribute("aria-pressed", "true");
+  var hex = b.getAttribute("data-page");
+  document.documentElement.style.setProperty("--bg", hex);
+  document.documentElement.style.setProperty("--bg-raised", hex);
+  // The sample cards read --card; keep them level with the page, as they are live.
+  [].forEach.call(document.querySelectorAll(".sample"), function (el) { el.style.setProperty("--card", hex); });
+});
 
 document.getElementById("pick").innerHTML =
   '<button type="button" data-hex="" aria-pressed="true">' +
