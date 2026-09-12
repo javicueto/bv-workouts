@@ -2,8 +2,9 @@
  *
  * Sound is synthesised with the Web Audio API — no audio files to load or
  * cache. iOS only lets a page make sound after a user gesture, so Sound.unlock()
- * must be called from the tap that starts the session; it also keeps a short
- * silent loop alive so the context is not suspended mid-rest.
+ * runs on every tap (see the bottom of this file), which also resumes the
+ * context after iOS has suspended it. There is no keep-alive loop: nothing
+ * can make a locked iPhone play a cue, which is what WakeLock is for.
  *
  * Cues the rest timer gives, as agreed:
  *   - one low "dong" at the halfway point
@@ -82,7 +83,14 @@ window.Sound = (function () {
 
 /* Countdown built on the wall clock, not on accumulated setTimeout drift, so
    it stays honest if the tab is throttled. onTick(secondsLeft) fires once per
-   second; onDone when it hits zero. Cues fire from inside the tick. */
+   second; onDone when it hits zero. Cues fire from inside the tick.
+
+   A phone that locks, or switches app, freezes timers entirely; the deadline
+   does not move. On coming back the countdown re-reads the clock at once, so
+   the display is right and — if the rest ended meanwhile — the end cue and
+   onDone fire immediately instead of up to 100ms plus whatever iOS held back.
+   No timer can make a locked iPhone play a sound; that is what WakeLock is
+   for. Mid-way cues that were missed while frozen are skipped, not replayed. */
 window.Countdown = function (totalSeconds, opts) {
   var o = opts || {};
   var end = Date.now() + totalSeconds * 1000;
@@ -94,6 +102,7 @@ window.Countdown = function (totalSeconds, opts) {
   function fire(name, fn) { if (!fired[name]) { fired[name] = true; fn && fn(); } }
 
   function tick() {
+    if (handle) { clearTimeout(handle); handle = null; }
     var now = Date.now();
     var l = Math.max(0, Math.ceil((end - now) / 1000));
     if (l !== left) {
@@ -109,11 +118,16 @@ window.Countdown = function (totalSeconds, opts) {
     }
     handle = setTimeout(tick, 100);
   }
+  function onVisible() { if (document.visibilityState === "visible" && handle) tick(); }
 
-  this.stop = function () { if (handle) { clearTimeout(handle); handle = null; } };
+  this.stop = function () {
+    if (handle) { clearTimeout(handle); handle = null; }
+    document.removeEventListener("visibilitychange", onVisible);
+  };
   this.extend = function (seconds) { end += seconds * 1000; totalSeconds += seconds; fired = {}; };
   this.left = function () { return left; };
   o.onTick && o.onTick(left, totalSeconds);
+  document.addEventListener("visibilitychange", onVisible);
   handle = setTimeout(tick, 100);
 };
 

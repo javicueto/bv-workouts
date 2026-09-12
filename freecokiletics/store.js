@@ -19,6 +19,8 @@ window.Store = (function () {
   var T_SETS = "freeco_sets";
   var T_PLANS = "freeco_plans";
   var PLAN_KEY = "freeco.plan";
+  var SESSION_KEY = "freeco.session";    // owned by runner.js; cleared here on sign-out
+  var DROPPED_KEY = "freeco.dropped";    // rows the server refused, kept for inspection
   var listeners = [];
 
   function configured() { return !!(cfg.supabaseUrl && cfg.supabaseKey && window.supabase); }
@@ -43,11 +45,38 @@ window.Store = (function () {
     return client;
   }
 
+  /* Every read goes through this. A gym with one bar of signal is the normal
+     case, and a request that never answers is worse than one that fails: the
+     screen just sits on "Loading…". So a read either resolves within
+     REQUEST_TIMEOUT_MS or throws, and the caller shows a Retry. The service
+     worker's own 3s timeout does not apply here — it never touches Supabase. */
+  var REQUEST_TIMEOUT_MS = 8000;
+  function timed(promise) {
+    return new Promise(function (resolve, reject) {
+      var h = setTimeout(function () { reject(new Error("The server took too long to answer")); }, REQUEST_TIMEOUT_MS);
+      Promise.resolve(promise).then(function (v) { clearTimeout(h); resolve(v); },
+                                    function (e) { clearTimeout(h); reject(e); });
+    });
+  }
+  // Run a query builder; throw on error or timeout, return data otherwise.
+  async function q(builder) {
+    var r = await timed(builder);
+    if (r.error) throw r.error;
+    return r.data;
+  }
+
   // ------------------------------------------------------------- auth
+  /* Who is signed in, from the session stored ON THIS PHONE. This used to be
+     auth.getUser(), which asks the server — with no signal it answered
+     "nobody" and the app opened on the sign-in form, which also needs signal.
+     getSession() reads local storage (and refreshes the token when it can;
+     when it can't, supabase-js keeps the stored session rather than dropping
+     it). The server is still the authority on every write: row-level security
+     rejects a revoked account the moment it is back online. */
   async function user() {
     if (!sb()) return null;
-    var r = await sb().auth.getUser();
-    return r.data && r.data.user ? r.data.user : null;
+    var r = await sb().auth.getSession();
+    return r.data && r.data.session && r.data.session.user ? r.data.session.user : null;
   }
   async function signIn(email, password) {
     var r = await sb().auth.signInWithPassword({ email: email, password: password });
@@ -59,9 +88,19 @@ window.Store = (function () {
     if (r.error) throw r.error;
     return r.data;
   }
+  /* Leaves nothing of this account on the phone: plan, last weights, the
+     upload queue and a half-done session (the runner's own key). The queue
+     used to survive — on a shared phone the next account then saw the previous
+     one's session card, and the previous account's unsent sets were rejected
+     by row-level security under the new token. app.js warns about unsent sets
+     BEFORE calling this; by here the decision is made. Device preferences
+     (theme, "not now" on the install card) are not the account's and stay. */
   async function signOut() {
-    try { localStorage.removeItem(PLAN_KEY); localStorage.removeItem(LAST_KEY); } catch (e) {}
-    if (sb()) await sb().auth.signOut();
+    try {
+      [PLAN_KEY, LAST_KEY, Q_KEY, SESSION_KEY].forEach(function (k) { localStorage.removeItem(k); });
+    } catch (e) {}
+    notify();
+    if (sb()) { try { await timed(sb().auth.signOut()); } catch (e) { /* offline: the local session is gone regardless */ } }
   }
 
   // ------------------------------------------------------------- password reset
@@ -93,7 +132,13 @@ window.Store = (function () {
   function writeQ(q) { localStorage.setItem(Q_KEY, JSON.stringify(q)); notify(); }
   function notify() { listeners.forEach(function (fn) { fn(readQ().length); }); }
 
-  function enqueue(op) { var q = readQ(); q.push(op); writeQ(q); flush(); }
+  /* Every queued op carries its own id. The flush removes an op by that id
+     AFTER its upload lands, re-reading the queue at that moment — never by
+     writing back a copy it took earlier. A copy taken before a slow upload
+     did not contain anything logged during it, so writing it back threw those
+     sets away, silently, with the sync badge reading zero. */
+  function enqueue(op) { op.qid = uuid(); var q = readQ(); q.push(op); writeQ(q); flush(); }
+  function dropFromQ(qid) { writeQ(readQ().filter(function (x) { return x.qid !== qid; })); }
 
   /* flush() returns the upload already in progress if there is one, so a
      caller can `await Store.flush()` and know its row has landed — the home
@@ -105,34 +150,51 @@ window.Store = (function () {
     flushing = doFlush().finally(function () { flushing = null; });
     return flushing;
   }
+  /* The server refused the row for what it IS (bad data, a policy, a missing
+     parent): sending it again can only fail again, so it must not block the
+     rows behind it. Postgres/PostgREST errors carry a code; a dead network does
+     not — those are retried for as long as it takes. */
+  function isPermanent(res) {
+    var e = res.error || {};
+    if (res.status >= 500) return false;
+    return !!e.code;
+  }
+  function keepDropped(op, err) {
+    console.error("server refused this row; kept in " + DROPPED_KEY, op, err);
+    try {
+      var d = JSON.parse(localStorage.getItem(DROPPED_KEY) || "[]");
+      d.push({ op: op, error: err && err.message, at: new Date().toISOString() });
+      localStorage.setItem(DROPPED_KEY, JSON.stringify(d.slice(-50)));
+    } catch (e) {}
+  }
   async function doFlush() {
     if (!navigator.onLine || !sb()) return;
     var u = await user();
     if (!u) return;
-    {
-      var q = readQ();
-      while (q.length) {
-        var op = q[0];
-        var res;
+    var q;
+    while ((q = readQ()).length) {
+      var op = q[0];
+      if (!op.qid) { op.qid = uuid(); writeQ(q); }        // queued before ids existed
+      var res;
+      try {
         if (op.op === "delete") {
           // Deleting a workout removes its sets too (on delete cascade).
-          res = await sb().from(T_WORKOUTS).delete().eq("id", op.id);
-        } else if (op.table === "workouts") res = await sb().from(T_WORKOUTS).upsert(op.row, { onConflict: "id" });
-        else res = await sb().from(T_SETS).upsert(op.row, { onConflict: "id" });
-        if (res.error) {
-          // A rejected row (bad data, RLS) would block the queue forever: drop it
-          // and say so rather than wedge every later write behind it.
-          if (res.error.code && res.error.code.indexOf("PGRST") === 0 || res.error.code === "42501" || res.error.code === "23503") {
-            console.error("dropping unsyncable row", op, res.error);
-            q.shift(); writeQ(q); continue;
-          }
-          break;                                  // network-ish: retry later
-        }
-        q.shift(); writeQ(q);
+          res = await timed(sb().from(T_WORKOUTS).delete().eq("id", op.id));
+        } else if (op.table === "workouts") res = await timed(sb().from(T_WORKOUTS).upsert(op.row, { onConflict: "id" }));
+        else res = await timed(sb().from(T_SETS).upsert(op.row, { onConflict: "id" }));
+      } catch (e) { break; }                              // timeout: retry later
+      if (res.error) {
+        if (isPermanent(res)) { keepDropped(op, res.error); dropFromQ(op.qid); continue; }
+        break;                                            // network: retry later
       }
+      dropFromQ(op.qid);
     }
   }
   window.addEventListener("online", flush);
+  // A failed upload is retried when the app comes back to the front and, while
+  // anything is waiting, every half minute — a bar of signal comes and goes.
+  document.addEventListener("visibilitychange", function () { if (document.visibilityState === "visible") flush(); });
+  setInterval(function () { if (readQ().length) flush(); }, 30000);
 
   // ------------------------------------------------------------- logging
   function uuid() {
@@ -169,13 +231,13 @@ window.Store = (function () {
     exerciseIds.forEach(function (id) { if (local[id]) out[id] = local[id]; });
     if (!navigator.onLine || !sb() || !userId) return out;
     try {
-      var r = await sb().from(T_SETS)
+      var rows = await q(sb().from(T_SETS)
         .select("exercise_id, workout_id, round, weight, reps, done_at")
         .eq("user_id", userId).in("exercise_id", exerciseIds).eq("skipped", false)
-        .order("done_at", { ascending: false }).limit(600);
-      if (!r.error) {
+        .order("done_at", { ascending: false }).limit(600));
+      {
         var fromServer = {};
-        r.data.forEach(function (row) {
+        rows.forEach(function (row) {
           var e = fromServer[row.exercise_id];
           if (!e) e = fromServer[row.exercise_id] = { workout: row.workout_id, at: new Date(row.done_at).getTime(), byRound: {} };
           if (row.workout_id !== e.workout) return;                   // only the most recent workout
@@ -186,7 +248,7 @@ window.Store = (function () {
           if (!out[id] || fromServer[id].at >= (out[id].at || 0)) out[id] = fromServer[id];
         });
       }
-    } catch (e) { /* offline mid-request: local copy is enough */ }
+    } catch (e) { /* offline, or too slow: the local copy is enough to start */ }
     return out;
   }
 
@@ -198,17 +260,23 @@ window.Store = (function () {
     try { cached = JSON.parse(localStorage.getItem(PLAN_KEY) || "null"); } catch (e) {}
     if (cached && cached.user_id !== userId) cached = null;      // a different account on this phone
     if (!navigator.onLine || !sb() || !userId) return cached;
-    var r = await sb().from(T_PLANS).select("*").eq("user_id", userId).maybeSingle();
-    if (r.error) return cached;
-    if (r.data) { try { localStorage.setItem(PLAN_KEY, JSON.stringify(r.data)); } catch (e) {} }
-    return r.data || cached;
+    var row;
+    try { row = await q(sb().from(T_PLANS).select("*").eq("user_id", userId).maybeSingle()); }
+    catch (e) {
+      /* With a cached plan, a failed fetch is just offline. Without one it
+         must NOT look like "no plan yet": the router would then open "Set up
+         your plan" over a plan that exists, and saving there overwrites it. */
+      if (cached) return cached;
+      throw e;
+    }
+    if (row) { try { localStorage.setItem(PLAN_KEY, JSON.stringify(row)); } catch (e) {} }
+    return row || cached;
   }
   async function savePlan(row) {
     row.updated_at = new Date().toISOString();
-    var r = await sb().from(T_PLANS).upsert(row, { onConflict: "user_id" }).select().maybeSingle();
-    if (r.error) throw r.error;
-    try { localStorage.setItem(PLAN_KEY, JSON.stringify(r.data || row)); } catch (e) {}
-    return r.data || row;
+    var saved = await q(sb().from(T_PLANS).upsert(row, { onConflict: "user_id" }).select().maybeSingle());
+    try { localStorage.setItem(PLAN_KEY, JSON.stringify(saved || row)); } catch (e) {}
+    return saved || row;
   }
 
   function saveWorkout(row) { enqueue({ table: "workouts", row: row }); }
@@ -220,20 +288,22 @@ window.Store = (function () {
     var q = readQ().filter(function (op) {
       return !(op.table === "workouts" && op.row && op.row.id === id) && !(op.table === "sets" && op.row && op.row.workout_id === id);
     });
-    q.push({ table: "workouts", op: "delete", id: id });
+    q.push({ table: "workouts", op: "delete", id: id, qid: uuid() });
     writeQ(q);
     return flush();
   }
   function saveSet(row) { rememberWeight(row.exercise_id, row.round, row.weight, row.reps, row.done_at); enqueue({ table: "sets", row: row }); }
 
+  /* The reads below THROW when the server cannot be reached or refuses (they
+     used to return an empty list, which painted "Nothing logged yet" over a
+     real history). The screens catch and offer Retry. */
   async function history(userId, limit) {
     if (!sb() || !userId) return [];
     // Embedded count of each workout's sets, so History can spot the empty
     // unfinished ones (a session opened and left without logging anything).
-    var r = await sb().from(T_WORKOUTS).select("*, freeco_sets(count)").eq("user_id", userId)
-      .order("started_at", { ascending: false }).limit(limit || 60);
-    if (r.error) return [];
-    return r.data.map(function (w) {
+    var rows = await q(sb().from(T_WORKOUTS).select("*, freeco_sets(count)").eq("user_id", userId)
+      .order("started_at", { ascending: false }).limit(limit || 60));
+    return rows.map(function (w) {
       w.set_count = (w.freeco_sets && w.freeco_sets[0] && w.freeco_sets[0].count) || 0;
       delete w.freeco_sets;
       return w;
@@ -241,23 +311,19 @@ window.Store = (function () {
   }
   async function setsFor(workoutId) {
     if (!sb()) return [];
-    var r = await sb().from(T_SETS).select("*").eq("workout_id", workoutId).order("done_at");
-    return r.error ? [] : r.data;
+    return q(sb().from(T_SETS).select("*").eq("workout_id", workoutId).order("done_at"));
   }
-  /* Finished workouts this plan week, one per session — the latest, if a
-     session was done more than once (a re-do). Includes the id so a done
-     card can open that workout. */
   /* The most recent finished workout per session for a week, plus how many
      times that session was done — doing a third session in a week means doing
      one of the two twice (Javier, 12 Sep 2026), and the week screen has to be
-     able to say so. */
+     able to say so. Includes the id so a done card can open that workout. */
   async function doneThisWeek(userId, weekStart) {
     if (!sb() || !userId) return {};
-    var r = await sb().from(T_WORKOUTS).select("*")
+    var rows = await q(sb().from(T_WORKOUTS).select("*")
       .eq("user_id", userId).eq("week_start", weekStart).not("finished_at", "is", null)
-      .order("finished_at", { ascending: false });
+      .order("finished_at", { ascending: false }));
     var m = {};
-    (r.data || []).forEach(function (w) {
+    rows.forEach(function (w) {
       if (!m[w.session_key]) { m[w.session_key] = w; w.times = 1; w.runs = [w]; }
       else { m[w.session_key].times++; m[w.session_key].runs.push(w); }
     });
@@ -265,8 +331,7 @@ window.Store = (function () {
   }
   async function workout(id) {
     if (!sb()) return null;
-    var r = await sb().from(T_WORKOUTS).select("*").eq("id", id).maybeSingle();
-    return r.error ? null : r.data;
+    return q(sb().from(T_WORKOUTS).select("*").eq("id", id).maybeSingle());
   }
 
   return {

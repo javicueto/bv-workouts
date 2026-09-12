@@ -38,9 +38,13 @@
 <body>
 <main id="app" aria-live="polite"></main>
 
-<!-- Order matters: config → library → store → timer → runner → app. -->
+<!-- Order matters: config → library → store → timer → runner → app.
+     The Supabase client is VENDORED (vendor/), not loaded from a CDN: the
+     service worker precaches the shell in one go, and a CDN hiccup at install
+     time used to mean no offline shell at all. Upgrading = drop the new UMD
+     build in vendor/, update this line, sw.js's SHELL, and bump CACHE. -->
 <script src="config.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.116.0/dist/umd/supabase.min.js"></script>
+<script src="vendor/supabase-js-2.116.0.min.js"></script>
 <script src="data/programme.js"></script>
 <script src="icons.js"></script>
 <script src="ui.js"></script>

@@ -221,6 +221,18 @@ p  { margin: 0; }
 .badge--cool { background: var(--cool-soft); color: var(--cool); }
 .note { padding: var(--space-3) var(--space-4); border-left: 2px solid var(--accent); background: var(--bg-sunken); border-radius: 0 var(--radius-sm) var(--radius-sm) 0; font-size: 14px; color: var(--text-dim); white-space: pre-wrap; }
 .error { color: var(--danger-text); font-size: 14px; }
+/* A read that failed: the message and a Retry, never a screen stuck on
+   "Loading…". `.notice` is the quiet inline form for a screen that still
+   works without the missing data (Home without "done" marks). */
+.load-error { text-align: center; }
+.load-error .btn { justify-self: center; }
+.notice {
+  display: flex; align-items: center; justify-content: space-between; gap: var(--space-3);
+  padding: var(--space-2) var(--space-3); margin-bottom: var(--space-3);
+  border: 1px solid var(--line); border-radius: var(--radius-sm);
+  font-size: 13px; color: var(--text-dim);
+}
+.notice .btn { min-height: 36px; padding: 0 var(--space-3); font-size: 14px; flex: none; }
 .list { display: grid; gap: var(--space-3); }
 .divider { height: 1px; background: var(--line-soft); margin: var(--space-2) 0; }
 

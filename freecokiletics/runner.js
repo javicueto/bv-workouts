@@ -121,6 +121,9 @@ window.Runner = (function () {
     if (s && s.workoutSaved !== false) Store.deleteWorkout(s.workoutId);
     unmount(); clear(); onExit && onExit();
   }
+  // Sign-out: drop the saved session from this phone WITHOUT touching the
+  // server — whatever it logged may already be uploaded and stays in History.
+  function forget() { if (state) unmount(); clear(); }
 
   /* Rest is a different mode, so it looks like one: the whole screen turns
      blue, including the phone's status bar. Toggled by the rest timer and by
@@ -695,6 +698,6 @@ window.Runner = (function () {
     bind(state.steps[state.i]);
   }
 
-  return { start: start, resume: resume, mount: mount, unmount: unmount, abandon: abandon, pending: pending,
+  return { start: start, resume: resume, mount: mount, unmount: unmount, abandon: abandon, forget: forget, pending: pending,
            current: function () { return state; } };
 })();

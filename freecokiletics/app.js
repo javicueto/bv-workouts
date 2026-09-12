@@ -105,7 +105,8 @@
   // ---------------------------------------------------------------- views
   function topbar(title, back, menu) {
     return '<div class="topbar">' +
-      (back ? '<a class="btn btn--quiet" href="' + back + '">‹ Back</a>' : '<div class="row"><span class="logo">' + ICONS.bicep + '</span><b>Cokiletics</b></div>') +
+      // `back` can come from the URL hash: escape it like any other value.
+      (back ? '<a class="btn btn--quiet" href="' + esc(back) + '">‹ Back</a>' : '<div class="row"><span class="logo">' + ICONS.bicep + '</span><b>Cokiletics</b></div>') +
       '<div class="row">' +
         '<span class="faint" id="sync" style="font-size:12px"></span>' +
         (menu ? '<button class="iconbtn" id="menu-btn" type="button" aria-label="Menu" ' +
@@ -174,6 +175,20 @@
     ticket();
     app.innerHTML = topbar() + '<div class="stack"><h1>Not configured</h1>' +
       '<p class="dim">config.js has no Supabase URL and key yet. Fill them in and reload.</p></div>';
+  }
+
+  /* A read that failed or timed out. Every screen that waits on the server
+     shows this instead of sitting on "Loading…": what went wrong in plain
+     words, and one button that tries again. `retry` re-runs the screen. */
+  function loadError(err, retry) {
+    var msg = !navigator.onLine ? "You’re offline." : ((err && err.message) || "Couldn’t reach the server.");
+    return '<div class="card stack load-error" role="alert"><p><b>Couldn’t load this.</b></p>' +
+      '<p class="dim">' + esc(msg) + "</p>" +
+      '<button class="btn btn--primary" type="button" id="retry">Try again</button></div>';
+  }
+  function bindRetry(retry) {
+    var b = document.getElementById("retry");
+    if (b) b.addEventListener("click", function () { b.disabled = true; b.textContent = "Loading…"; retry(); });
   }
 
   // ---------------------------------------------------------------- add to home screen
@@ -462,7 +477,12 @@
         '<a class="btn btn--primary btn--big btn--block" href="#/plan/edit">Set up the next plan</a></div>';
     } else {
       var w = wf.week;
-      var done = await Store.doneThisWeek(me.id, w.start);
+      /* The week is usable without knowing what is done — offline in the gym
+         is exactly when it must be — so a failed check does not block the
+         screen; it gets a notice and a Retry. */
+      var done = {}, doneErr = null;
+      try { done = await Store.doneThisWeek(me.id, w.start); }
+      catch (e) { doneErr = e; }
       if (stale(t)) return;
       var sessions = sessionsFor(w.block);
       var prevW = WEEKS[wf.index - 1], nextW = WEEKS[wf.index + 1];
@@ -477,6 +497,8 @@
           (nextW ? '<a class="btn btn--ghost btn--icon" href="#/week/' + nextW.start + '" aria-label="Next week">›</a>' : '<span class="btn--icon"></span>') +
         "</div>" +
         (wf.index !== nowWf.index && nowWf.week ? '<a class="week-nav__today" href="#/">Back to this week</a>' : "") +
+        (doneErr ? '<div class="notice" role="status"><span>' + (navigator.onLine ? "Couldn’t check what’s done this week." : "Offline — done sessions can’t be checked.") +
+                   '</span><button class="btn btn--quiet" type="button" id="retry">Retry</button></div>' : "") +
         '<div class="stack">' +
         '<div class="eyebrow">' + esc(w.phase) + " · week " + w.week_of_block + " of " + w.weeks_in_block + "</div>" +
         "<h1>Block " + w.block + "</h1>" +
@@ -532,7 +554,8 @@
     app.innerHTML = html;
     syncBadge();
     bindInstall();
-    document.getElementById("out").addEventListener("click", async function () { await Store.signOut(); me = null; PLAN = null; WEEKS = []; route(); });
+    bindRetry(function () { renderHome(weekStart); });
+    document.getElementById("out").addEventListener("click", signOutFlow);
     document.getElementById("cp").addEventListener("click", function () { renderSetPassword(null, { cancel: true }); });
     if (pendingRun) {
       document.getElementById("resume-go").addEventListener("click", function () { location.hash = "#/run/" + pendingRun.key + "?resume=1"; });
@@ -542,6 +565,33 @@
           .then(function (ok) { if (ok) { Runner.abandon(); route(); } });
       });
     }
+  }
+
+  /* Signing out throws away whatever is still only on this phone. So, first,
+     anything waiting is uploaded if there is signal; then, if sets are still
+     unsent or a session is half done, it says so and asks — the safe answer
+     (stay signed in) is the one focused. Javier's call, 12 Sep 2026: warn and
+     block, with an explicit way to discard. */
+  async function signOutFlow() {
+    if (Store.pending() && navigator.onLine) { try { await Store.flush(); } catch (e) {} }
+    var n = Store.pending(), run = Runner.pending();
+    if (n || run) {
+      var parts = [];
+      if (n) parts.push(n + (n === 1 ? " logged set is" : " logged sets are") + " not uploaded yet" +
+                        (navigator.onLine ? "" : " (you’re offline)"));
+      if (run) parts.push("a session is in progress");
+      var ok = await UI.confirm({
+        title: "Sign out anyway?",
+        body: parts.join(", and ").replace(/^./, function (c) { return c.toUpperCase(); }) +
+              ". Signing out deletes " + (n && run ? "both" : n ? "them" : "it") + " from this phone" +
+              (n ? " — stay signed in and they upload when there is signal." : "."),
+        confirm: "Sign out and lose " + (n && run ? "them" : "it"), cancel: "Stay signed in", danger: true });
+      if (!ok) return;
+    }
+    Runner.forget();
+    await Store.signOut();
+    me = null; PLAN = null; WEEKS = [];
+    route();
   }
 
   /* A session, read only. Reached from the day card, and the one place to look
@@ -620,7 +670,14 @@
   async function renderHistory() {
     var t = ticket();
     app.innerHTML = topbar("History", "#/") + '<p class="dim">Loading…</p>';
-    var rows = await Store.history(me.id, 120);
+    var rows;
+    try { rows = await Store.history(me.id, 120); }
+    catch (e) {
+      if (stale(t)) return;
+      app.innerHTML = topbar("History", "#/") + loadError(e);
+      bindRetry(renderHistory);
+      return;
+    }
     if (stale(t)) return;
     // Opened and left without logging anything: noise from before sessions
     // were only saved on the first logged round. Offered for one-tap removal.
@@ -663,11 +720,16 @@
     var t = ticket();
     var back = /^#\/(history|week\/)/.test(prevHash) ? prevHash : "#/";
     app.innerHTML = topbar("Workout", back) + '<p class="dim">Loading…</p>';
-    var w = await Store.workout(id);
+    var w, sets;
+    try { w = await Store.workout(id); if (w) sets = await Store.setsFor(id); }
+    catch (e) {
+      if (stale(t)) return;
+      app.innerHTML = topbar("Workout", back) + loadError(e);
+      bindRetry(function () { renderWorkout(id); });
+      return;
+    }
     if (stale(t)) return;
-    if (!w) { app.innerHTML = topbar("Workout", back) + '<p class="dim">Couldn’t load this workout — it needs a connection.</p>'; return; }
-    var sets = await Store.setsFor(id);
-    if (stale(t)) return;
+    if (!w) { app.innerHTML = topbar("Workout", back) + '<p class="dim">This workout no longer exists.</p>'; return; }
     var s = sessionByKey(w.session_key);
     var setKey = function (L, r, exId) { return L + "|" + r + "|" + exId; };
     var byKey = {};
@@ -865,7 +927,15 @@
     if (stale(t) || recoveryMode) return;
     if (!me) { renderLogin(); return; }
     if (!PLAN) {
-      PLAN = await Store.plan(me.id);
+      try { PLAN = await Store.plan(me.id); }
+      catch (e) {
+        // No cached plan and no server: nothing can be shown yet, but "Set up
+        // your plan" would be wrong — the plan may well exist.
+        if (stale(t)) return;
+        app.innerHTML = topbar() + loadError(e);
+        bindRetry(route);
+        return;
+      }
       if (stale(t)) return;
       if (PLAN) WEEKS = buildWeeks(PLAN);
     }

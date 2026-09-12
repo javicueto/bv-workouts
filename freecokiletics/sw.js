@@ -6,22 +6,20 @@
  *   the SECOND reload. Bump CACHE when the shell changes so old files go.
  * - Exercise previews (../previews/*.webp): cached the first time they are
  *   seen, so a session you have opened once works fully offline afterwards.
- * - Supabase: never cached — always network. The app keeps its own offline
- *   queue for writes.
+ * - Supabase data: never cached — always network. The app keeps its own
+ *   offline queue for writes. The Supabase CLIENT LIBRARY is vendored in
+ *   vendor/ and precached with the shell like any other file — no CDN, so
+ *   the precache cannot half-fail on a third party at install time.
  */
-const CACHE = "freeco-v30";
+const CACHE = "freeco-v31";
 const SHELL = [
   "./", "./index.html", "./styles.css", "./config.js",
   "./theme.js", "./icons.js", "./ui.js", "./store.js", "./timer.js", "./runner.js", "./app.js",
   "./data/programme.js",
+  "./vendor/supabase-js-2.116.0.min.js",     // keep in step with index.html
   // Self-hosted type. Both are variable fonts — one file per family.
   "../fonts/fonts.css", "../fonts/big-shoulders-display.woff2", "../fonts/ibm-plex-sans.woff2",
   "./manifest.webmanifest", "./icon.svg", "./icon-180.png", "./icon-192.png", "./icon-512.png",
-  // The Supabase client MUST be precached. It is fetched on the very first page
-  // load, before this worker controls the page, so the runtime cache below
-  // never sees it — without this line the first offline open cannot sign in.
-  // Keep the version in step with index.html.
-  "https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.116.0/dist/umd/supabase.min.js",
 ];
 
 self.addEventListener("install", (e) => {
@@ -39,10 +37,6 @@ self.addEventListener("fetch", (e) => {
   const url = new URL(e.request.url);
   if (e.request.method !== "GET") return;
   if (url.hostname.endsWith("supabase.co")) return;          // live data, never cached
-  if (url.hostname.includes("jsdelivr.net")) {                // the Supabase client library
-    e.respondWith(cacheFirst(e.request));
-    return;
-  }
   if (url.origin !== location.origin) return;
   if (url.pathname.includes("/previews/")) { e.respondWith(cacheFirst(e.request)); return; }
   e.respondWith(networkFirst(e.request));
