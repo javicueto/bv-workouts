@@ -11,10 +11,12 @@
  *   vendor/ and precached with the shell like any other file — no CDN, so
  *   the precache cannot half-fail on a third party at install time.
  */
-const CACHE = "freeco-v32";
+const CACHE = "freeco-v34";
 const SHELL = [
-  "./", "./index.html", "./styles.css", "./config.js",
-  "./theme.js", "./icons.js", "./ui.js", "./store.js", "./timer.js", "./runner.js", "./app.js",
+  "./", "./index.html", "./styles.css", "../shared/tokens.css", "./config.js",
+  "./theme.js", "./icons.js", "./ui.js", "./store.js", "./timer.js", "./runner.js",
+  "./core.js", "./views/auth.js", "./views/home.js", "./views/plan.js", "./views/session.js",
+  "./views/workout.js", "./views/history.js", "./app.js",
   "./data/programme.js",
   "./vendor/supabase-js-2.116.0.min.js",     // keep in step with index.html
   // Self-hosted type. Both are variable fonts — one file per family.

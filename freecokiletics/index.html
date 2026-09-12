@@ -37,6 +37,7 @@
 <link rel="preload" href="../fonts/big-shoulders-display.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="../fonts/ibm-plex-sans.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="../fonts/fonts.css">
+<link rel="stylesheet" href="../shared/tokens.css">   <!-- the palette, shared with the reference site; in sw.js SHELL -->
 <link rel="stylesheet" href="styles.css">
 <!-- After the stylesheet (so --ui-bg is readable) but before <body>, so the
      first paint already has the right palette. -->
@@ -50,7 +51,9 @@
 <main id="app"></main>
 <div id="announce" class="sr-only" aria-live="polite"></div>
 
-<!-- Order matters: config → library → store → timer → runner → app.
+<!-- Order matters: config → library → data → icons → ui → store → timer →
+     runner → core → views → app (router + boot, last). A new view file goes
+     between core.js and app.js, and into sw.js's SHELL.
      The Supabase client is VENDORED (vendor/), not loaded from a CDN: the
      service worker precaches the shell in one go, and a CDN hiccup at install
      time used to mean no offline shell at all. Upgrading = drop the new UMD
@@ -63,6 +66,13 @@
 <script src="store.js"></script>
 <script src="timer.js"></script>
 <script src="runner.js"></script>
+<script src="core.js"></script>
+<script src="views/auth.js"></script>
+<script src="views/home.js"></script>
+<script src="views/plan.js"></script>
+<script src="views/session.js"></script>
+<script src="views/workout.js"></script>
+<script src="views/history.js"></script>
 <script src="app.js"></script>
 <script>
   if ("serviceWorker" in navigator) {

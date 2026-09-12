@@ -26,8 +26,7 @@ window.Runner = (function () {
   var onExit = null;
   var countdown = null;
 
-  function esc(s) { return String(s == null ? "" : s).replace(/[&<>"']/g, function (c) {
-    return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]; }); }
+  var esc = UI.esc;
   function preview(id) { return P.exercises[id] && P.exercises[id].has_preview ? "../previews/" + id + ".webp" : ""; }
 
   // ---------------------------------------------------------------- steps

@@ -9,6 +9,9 @@
  *   UI.overlay(el, "Hold timer", close)   → dialog semantics + Escape + focus
  */
 window.UI = (function () {
+  /* THE escape for markup built from strings. ui.js loads before store,
+     runner and app, which take it as `var esc = UI.esc` — one copy, not
+     three that could drift apart. */
   function esc(s) { return String(s == null ? "" : s).replace(/[&<>"']/g, function (c) {
     return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]; }); }
 
@@ -110,5 +113,5 @@ window.UI = (function () {
     toastTimer = setTimeout(function () { toastEl.classList.remove("in"); }, ms || 3200);
   }
 
-  return { confirm: confirm, info: info, toast: toast, announce: announce, overlay: overlay };
+  return { esc: esc, confirm: confirm, info: info, toast: toast, announce: announce, overlay: overlay };
 })();

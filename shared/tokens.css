@@ -1,0 +1,152 @@
+/* Court — the ONE palette, type and scale for both the reference site and
+   Cokiletics. Linked before each site's own stylesheet; loaded from file://
+   with a relative path and precached by the app's service worker (add it to
+   SHELL and bump CACHE if this file moves).
+
+   Tokens only, plus three base rules that every page needs identically (the
+   focus ring, reduced motion, .sr-only). NO primitives: .card, .letter,
+   .topbar and .eyebrow exist in both sites and mean different things — sharing
+   them would restyle one site with the other's rules.
+
+   Two copies of this used to live in styles.css and freecokiletics/styles.css,
+   25 tokens byte-identical and two (--radius, --radius-sm) already drifted
+   apart. One file cannot drift. */
+
+:root {
+  /* The pages are dark by default and the browser must know it, or native
+     controls (search clear, autofill, scrollbars) come out light-mode on a
+     near-black page. The app's light theme overrides it below; the reference
+     site has no data-theme and stays dark. */
+  color-scheme: dark;
+
+  /* 4pt scale */
+  --space-1: 4px;  --space-2: 8px;  --space-3: 12px; --space-4: 16px;
+  --space-5: 20px; --space-6: 24px; --space-8: 32px; --space-10: 40px;
+  --space-12: 48px; --space-16: 64px; --space-20: 80px;
+
+  /* Darkened 12 Sep 2026 (Javier: the brown ground wasn't dark enough).
+     Near-black with only a whisper of warmth left — enough to keep the neutrals
+     on the same side as the orange accent, not enough to read as brown.
+     Shade 7 (Javier, 12 Sep 2026): a content box is the SAME colour as the
+     page and is separated by its border alone — at this luminance a fill step
+     of any believable size is worth ~1.1:1 and does nothing. Anything that
+     used to rely on a fill needs its own outline. Things that FLOAT over
+     content (menu, dialogs, popovers) use --bg-float. */
+  --bg:        #0e0c0b;
+  --bg-raised: #0e0c0b;
+  --bg-float:  #1c1614;
+  --bg-sunken: #050404;
+  /* --line is the decorative hairline (1.5:1 — a whisper, on purpose).
+     --line-strong is the boundary of anything you can TAP or TYPE in:
+     WCAG 1.4.11 wants 3:1 for a control's edge, and on shade 7 the border is
+     the only edge a button has. Measured: 3.29:1 on the page, 3.45 on sunken. */
+  --line:        #3a2e27;
+  --line-soft:   #2b221d;
+  --line-strong: #75604f;
+
+  --text:      #f7f3ef;
+  --text-dim:  #c6b8ac;
+  --text-faint:#9e9083;
+
+  --accent:      #ff6b3d;
+  --accent-soft: #ff6b3d1f;
+  --accent-line: #ff6b3d55;
+  /* Text ON an accent fill. White on this orange is 2.83:1 — it has always
+     failed AA and reads washed out. This is the page colour reused as ink:
+     7.03:1 on the orange and 7.17:1 on the danger red, which clears AAA at
+     every size, not just AA. Any new accent-filled surface uses it, never #fff. */
+  --accent-ink: #0a0908;
+  --danger-ink: #0a0908;
+  --cool:        #4dd4c4;
+  --cool-soft:   #4dd4c41f;
+  --good:        #4dd48a;
+  --good-soft:   #4dd48a1f;
+  --good-line:   #4dd48a55;
+  --danger:      #ff6b6b;
+  --danger-text: #ff8c8c;     /* form errors — readable on the dark ground */
+  --shadow:      #000a;
+  --ui-bg:       #0e0c0b;     /* the phone's status bar — MUST equal --bg */
+
+  --radius:    16px;
+  --radius-sm: 10px;
+  /* The smallest thing a thumb can be expected to hit (Apple HIG, WCAG 2.5.5).
+     Where the VISUAL must stay smaller, grow the hit area with an ::after —
+     never shrink this. */
+  --tap: 44px;
+
+  /* Named easings — never the browser's `ease`, and never a bounce or an
+     overshoot on UI. A var() that does not exist falls back to linear in
+     silence, so anything using these must be declared here. */
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-in:  cubic-bezier(0.55, 0, 1, 0.45);
+
+  /* Two voices and no third. Display carries numbers, headings and buttons —
+     anything you GLANCE at; body carries anything you READ. Both self-hosted
+     in fonts/ (see fonts/fonts.css) because the gym has no signal. */
+  --font:         "IBM Plex Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  --font-display: "Big Shoulders Display", "Arial Narrow", var(--font);
+}
+
+/* ------------------------------------------------------------- light mode */
+/* ONE copy of the light palette. The app's theme.js always writes an explicit
+   data-theme (resolving the phone's setting itself), so there is no
+   media-query duplicate to drift out of step. */
+:root[data-theme="light"] {
+  color-scheme: light;
+  --bg:        #faf6f1;
+  --bg-raised: #ffffff;
+  --bg-float:  #ffffff;
+  --bg-sunken: #f0e9e1;
+  --line:        #ddd2c6;
+  --line-soft:   #ebe3da;
+  --line-strong: #94806e;   /* 3.6:1 on white, 3.35 on paper, 3.0 on sunken */
+  --text:      #1d1712;
+  --text-dim:  #6a5a4d;
+  /* 4.8:1 on --bg-sunken, where the small text lives (the kg label, the
+     corner buttons). #7d6d5f was 4.13 there and failed AA. */
+  --text-faint:#6f6052;
+  /* Deeper than the brand tone on purpose: #ff6b3d is 2.6:1 on this paper —
+     unreadable as text or a border. Every value below clears 4.5:1 on both the
+     paper and the white card; measured, not eyeballed. */
+  --accent:      #b33d15;   /* 5.4:1 on paper, 4.8:1 on its own 8% tint */
+  --accent-soft: #b33d1514;
+  --accent-line: #b33d1540;
+  --accent-ink:  #ffffff;   /* white on this fill is 5.8:1; near-black only 3.3 */
+  --cool:        #0a7267;
+  --cool-soft:   #0a726714;
+  --good:        #13743f;
+  --good-soft:   #13743f14;
+  --good-line:   #13743f40;
+  --danger:      #b3261e;
+  --danger-ink:  #ffffff;
+  --danger-text: #a32019;
+  --shadow:      #1d17121f;
+  --ui-bg:       #faf6f1;
+}
+
+/* ------------------------------------------------------------- base rules */
+/* Visually hidden, still read: live regions and icon-button text. */
+.sr-only {
+  position: absolute; width: 1px; height: 1px; margin: -1px; padding: 0;
+  overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0;
+}
+
+/* ONE focus ring for everything focusable, so a new control is covered by
+   default. :where() keeps it at zero specificity — any component can still
+   restyle it. Never `outline: none` without a replacement at least this
+   visible: a 1px border tint is not a focus indicator. */
+:where(a, button, summary, input, select, textarea, [tabindex]):focus-visible {
+  outline: 2px solid var(--accent); outline-offset: 2px;
+}
+
+/* Motion off = every transition and animation collapses to nothing. A page
+   that has motion which carries MEANING puts it back with its own, more
+   specific rule (the app does this for the rest ring's sweep and the screen
+   crossfade). A new animation is reduced by default instead of needing to be
+   remembered. */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: .01ms !important; animation-iteration-count: 1 !important;
+    transition-duration: .01ms !important;
+  }
+}

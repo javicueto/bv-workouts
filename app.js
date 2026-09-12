@@ -1,42 +1,16 @@
 /* Workouts — tiny hash-routed viewer over window.WORKOUTS (data/workouts.js).
-   No framework and no build: index.html opens straight from Finder.  */
+   No framework and no build: index.html opens straight from Finder.
+
+   One site, English. It once also served Nacho's Spanish programme at /nacho/
+   through a `site`/`strings` layer in the data; that programme is archived
+   (_archive/nacho/, 12 Sep 2026) and the layer went with it — a second site
+   would come back as data, not as a branch in here. */
 
 (function () {
   'use strict';
 
   var DATA = window.WORKOUTS;
-
-  /* Two sites run this same file: Javier's at the root and Nacho's at /nacho/.
-     Everything that differs between them comes from the data, never from a
-     branch in here — the copy, the language and where the media lives.
-     Javier's data carries no `site`/`strings`, so these defaults are his. */
-  var SITE = DATA.site || {};
-  var BASE = window.MEDIA_BASE || '';   // '../' on /nacho/, so previews/ resolve to the shared folder
-  var T = Object.assign({
-    warmup: 'Warm-up',
-    you_did_this: 'You did this',
-    you_do_this: 'You\u2019re on this',
-    you_will_do_this: 'Coming up',
-    block: 'Block',
-    session: 'session',
-    blocks_count: 'blocks',
-    circuit: 'circuit',
-    mobility_exercises: 'mobility exercises',
-    prev: 'prev',
-    next: 'next',
-    no_video: 'No video',
-    assigned: 'assigned',
-    done: 'done',
-    to_do: 'do',
-    workouts: 'workouts',
-    exercises: 'exercises',
-    all_exercises: 'Exercise index',
-    exercises_intro: 'Every movement in the programme, with the workouts it appears in.',
-    search_placeholder: 'Search exercises…',
-    warmup_only: 'warm-up only',
-  }, DATA.strings || {});
-  var MONTHS = (DATA.strings && DATA.strings.months) ||
-    ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+  var MONTHS = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
   var view = document.getElementById('view');
 
   if (!DATA) {
@@ -73,12 +47,12 @@
      the programme is a year of history with the newest block still ahead. */
   function whenLabel(from, to) {
     var today = new Date().toISOString().slice(0, 10);
-    if (to < today) return T.you_did_this;
-    if (from > today) return T.you_will_do_this;
-    return T.you_do_this;
+    if (to < today) return 'You did this';
+    if (from > today) return 'Coming up';
+    return 'You’re on this';
   }
   function datesNote(from, to, times) {
-    return whenLabel(from, to) + ' ' + fmtDate(from) + ' – ' + fmtDate(to) + ' · ' + times + '\u00d7';
+    return whenLabel(from, to) + ' ' + fmtDate(from) + ' – ' + fmtDate(to) + ' · ' + times + '×';
   }
   function infoDot(text) {
     return '<span class="when"><button class="when__btn" type="button" aria-expanded="false" ' +
@@ -104,8 +78,7 @@
   function fmtDate(iso) {
     if (!iso) return '';
     var p = iso.split('-');
-    var m = MONTHS;
-    return Number(p[2]) + ' ' + m[Number(p[1]) - 1] + ' ' + p[0];
+    return Number(p[2]) + ' ' + MONTHS[Number(p[1]) - 1] + ' ' + p[0];
   }
 
   /* ------------------------------------------------------------- videos */
@@ -124,28 +97,29 @@
     return e.youtube_id ? 'https://i.ytimg.com/vi/' + e.youtube_id + '/hqdefault.jpg' : '';
   }
 
-  function videoCard(id) {
+  function videoCard(id, extra) {
     var e = ex(id);
     if (!e) return '';
     var name = esc(e.name);
+    var attrs = ' data-id="' + esc(e.id) + '"';
     if (!e.has_preview && !e.youtube_id && !e.has_local_video) {
-      return '<div class="vid"><div class="vid__frame vid__frame--empty">' +
-        '<span>' + T.no_video + '</span></div><p class="vid__name">' + name + '</p></div>';
+      return '<div class="vid"' + attrs + '><div class="vid__frame vid__frame--empty">' +
+        '<span>No video</span></div><p class="vid__name">' + name + '</p>' + (extra || '') + '</div>';
     }
-    var preview = e.has_preview ? BASE + 'previews/' + e.id + '.webp' : '';
+    var preview = e.has_preview ? 'previews/' + e.id + '.webp' : '';
     var remote = ytPoster(e);
     var src = preview || remote;
     // data-fallback swaps in the still YouTube thumbnail if a preview is missing,
     // without re-rendering anything.
     var img = src
-      ? '<img class="vid__anim" alt="" loading="lazy" src="' + esc(src) + '"' +
+      ? '<img alt="" loading="lazy" src="' + esc(src) + '"' +
         (preview && remote ? ' data-fallback="' + esc(remote) + '"' : '') + '>'
       : '';
-    return '<div class="vid">' +
+    return '<div class="vid"' + attrs + '>' +
       '<button class="vid__frame" data-ex="' + esc(e.id) + '" ' +
         'aria-label="Play ' + name + '">' + img +
       '</button>' +
-      '<p class="vid__name">' + name + '</p></div>';
+      '<p class="vid__name">' + name + '</p>' + (extra || '') + '</div>';
   }
 
   // Image errors do not bubble, so listen in the capture phase.
@@ -178,7 +152,7 @@
     if (HAS_LOCAL_VIDEOS && e.has_local_video) {
       var v = document.createElement('video');
       v.controls = true; v.autoplay = true; v.playsInline = true; v.preload = 'metadata';
-      v.src = BASE + 'videos/' + e.id + '.mp4';
+      v.src = 'videos/' + e.id + '.mp4';
       // If the file is not actually there, fall through to YouTube rather than
       // leaving a dead player.
       v.addEventListener('error', function () {
@@ -197,14 +171,16 @@
     close.type = 'button';
     close.className = 'vid__close';
     close.setAttribute('aria-label', 'Close ' + e.name);
-    close.textContent = '\u00d7';
+    close.textContent = '×';
     close.addEventListener('click', function (evt) {
       evt.stopPropagation();
       frame.replaceWith(button);
+      button.focus();
     });
     frame.appendChild(close);
 
     button.replaceWith(frame);
+    close.focus();
   }
 
   document.addEventListener('click', function (evt) {
@@ -217,15 +193,12 @@
   function renderHome() {
     var blocks = {};
     DATA.workouts.forEach(function (w) { (blocks[w.block] = blocks[w.block] || []).push(w); });
-    var asc = (SITE.order || 'desc') === 'asc';
-    var nums = Object.keys(blocks).map(Number).sort(function (a, b) { return asc ? a - b : b - a; });
+    var nums = Object.keys(blocks).map(Number).sort(function (a, b) { return b - a; });   // newest first
 
     var html = '<div class="page-head">' +
-      '<span class="eyebrow">' + DATA.workout_count + ' ' + T.workouts + ' · ' +
-        DATA.exercise_count + ' ' + T.exercises + '</span>' +
-      '<h1>' + esc(SITE.title || 'Francesco\u2019s Beach Volleyball Workouts') + '</h1>' +
-      '<p>' + esc(SITE.intro || 'Every workout from block 1 onwards, newest first. Two sessions per block.') + '</p>' +
-      (SITE.note ? '<p class="page-note">' + esc(SITE.note) + '</p>' : '') +
+      '<span class="eyebrow">' + DATA.workout_count + ' workouts · ' + DATA.exercise_count + ' exercises</span>' +
+      '<h1>Francesco’s Beach Volleyball Workouts</h1>' +
+      '<p class="page-head__lede">Every workout from block 1 onwards, newest first. Two sessions per block.</p>' +
       '</div>';
 
     nums.forEach(function (n) {
@@ -246,7 +219,7 @@
                 '<span>' + esc(it.name) + '</span></li>';
             }).join('') +
           '</ul>' +
-          '<div class="card__foot"><span>' + w.items.length + ' ' + T.blocks_count + '</span>' +
+          '<div class="card__foot"><span>' + w.items.length + ' blocks</span>' +
             // Just the count. This is a reference, not a tracker — it says how
             // many times the session is on the calendar, and any "done"/"to do"
             // wording claims something the page cannot actually know.
@@ -267,29 +240,28 @@
     var next = i < order.length - 1 ? order[i + 1] : null;
 
     var html = '<div class="wk-head"><div class="page-head" style="margin:0">' +
-      '<span class="eyebrow">' + T.block + ' ' + w.block + ' · ' + T.session + ' ' + w.variant + '</span>' +
+      '<span class="eyebrow">Block ' + w.block + ' · session ' + w.variant + '</span>' +
       '<h1>' + esc(w.title) + '</h1>' +
-      '<p>' + esc(w.items.length + ' ' + T.blocks_count) +
+      '<p class="page-head__lede">' + esc(w.items.length + ' blocks') +
         infoDot(datesNote(w.first_date, w.last_date, w.assigned_count)) +
         '</p></div>' +
       '<div class="pager">' +
         (prev ? '<a href="#/w/' + esc(prev) + '">← ' + esc(prev) + '</a>'
-              : '<span>← ' + T.prev + '</span>') +
+              : '<span>← prev</span>') +
         (next ? '<a href="#/w/' + esc(next) + '">' + esc(next) + ' →</a>'
-              : '<span>' + T.next + ' →</span>') +
+              : '<span>next →</span>') +
       '</div></div>';
 
     if (w.warmup || w.warmup_exercises.length) {
       html += '<details class="section section--warmup">' +
         '<summary class="section__head">' +
           '<span class="letter">W</span>' +
-          '<span><span class="section__name">' + T.warmup + '</span>' +
-            '<span class="section__sub">' + w.warmup_exercises.length +
-            ' ' + T.mobility_exercises + '</span></span>' +
+          '<span><span class="section__name">Warm-up</span>' +
+            '<span class="section__sub">' + w.warmup_exercises.length + ' mobility exercises</span></span>' +
           '<span class="chev"></span>' +
         '</summary><div class="section__body">' +
           (w.warmup ? '<p class="info">' + esc(w.warmup) + '</p>' : '') +
-          '<div class="vids">' + w.warmup_exercises.map(videoCard).join('') + '</div>' +
+          '<div class="vids">' + w.warmup_exercises.map(function (id) { return videoCard(id); }).join('') + '</div>' +
         '</div></details>';
     }
 
@@ -298,11 +270,11 @@
         '<summary class="section__head">' +
           '<span class="letter">' + esc(it.letter) + '</span>' +
           '<span><span class="section__name">' + esc(it.name) + '</span>' +
-            (it.is_circuit ? '<span class="section__sub">' + T.circuit + '</span>' : '') +
+            (it.is_circuit ? '<span class="section__sub">circuit</span>' : '') +
           '</span><span class="chev"></span>' +
         '</summary><div class="section__body">' +
           (it.info ? '<p class="info">' + esc(it.info) + '</p>' : '') +
-          '<div class="vids">' + it.exercises.map(videoCard).join('') + '</div>' +
+          '<div class="vids">' + it.exercises.map(function (id) { return videoCard(id); }).join('') + '</div>' +
         '</div></details>';
     });
 
@@ -312,44 +284,57 @@
         '<span><span class="section__name">Cool-down</span></span>' +
         '<span class="chev"></span></summary><div class="section__body">' +
         (w.cooldown ? '<p class="info">' + esc(w.cooldown) + '</p>' : '') +
-        '<div class="vids">' + w.cooldown_exercises.map(videoCard).join('') + '</div>' +
+        '<div class="vids">' + w.cooldown_exercises.map(function (id) { return videoCard(id); }).join('') + '</div>' +
         '</div></details>';
     }
 
     view.innerHTML = html;
   }
 
+  /* The index renders all 168 cards ONCE and filters by hiding, never by
+     rebuilding: re-writing the grid on every keystroke re-created and
+     re-decoded 168 animated WebPs (18 MB) per character typed. */
   function renderExercises() {
     var all = Object.keys(DATA.exercises)
       .map(function (id) { return DATA.exercises[id]; })
       .sort(function (a, b) { return a.name.toLowerCase() < b.name.toLowerCase() ? -1 : 1; });
 
     view.innerHTML = '<div class="page-head">' +
-      '<span class="eyebrow">' + all.length + ' ' + T.exercises + '</span>' +
-      '<h1>' + T.all_exercises + '</h1>' +
-      '<p>' + T.exercises_intro + '</p></div>' +
-      '<input class="search" type="search" placeholder="' + T.search_placeholder + '" ' +
+      '<span class="eyebrow">' + all.length + ' exercises</span>' +
+      '<h1>Exercise index</h1>' +
+      '<p class="page-head__lede">Every movement in the programme, with the workouts it appears in.</p></div>' +
+      '<input class="search" type="search" placeholder="Search exercises…" ' +
         'autocomplete="off" aria-label="Search exercises">' +
-      '<div class="ex-grid" id="ex-grid"></div>';
+      '<div class="ex-grid" id="ex-grid">' +
+        all.map(function (e) {
+          return videoCard(e.id, '<p class="ex-used">' +
+            (e.used_in.length ? esc(e.used_in.join(' · ')) : 'warm-up only') + '</p>');
+        }).join('') +
+      '</div>' +
+      '<p class="empty" id="ex-empty" hidden></p>';
 
-    var grid = document.getElementById('ex-grid');
+    var cards = Array.prototype.slice.call(document.querySelectorAll('#ex-grid .vid'));
+    var names = cards.map(function (c) { return ((ex(c.getAttribute('data-id')) || {}).name || '').toLowerCase(); });
     var input = view.querySelector('.search');
+    var empty = document.getElementById('ex-empty');
 
-    function draw(q) {
+    function filter(q) {
       var term = (q || '').trim().toLowerCase();
-      var hits = term ? all.filter(function (e) { return e.name.toLowerCase().indexOf(term) > -1; }) : all;
-      grid.innerHTML = hits.length
-        ? hits.map(function (e) {
-            return videoCard(e.id).replace('</div>',
-              '<p class="ex-used">' +
-              (e.used_in.length ? e.used_in.join(' · ') : T.warmup_only) +
-              '</p></div>');
-          }).join('')
-        : '<p class="empty">Nothing matches “' + esc(q) + '”.</p>';
+      var hits = 0;
+      cards.forEach(function (c, i) {
+        var hit = !term || names[i].indexOf(term) > -1;
+        c.hidden = !hit;
+        if (hit) hits++;
+      });
+      empty.hidden = hits > 0;
+      if (!hits) empty.textContent = 'Nothing matches “' + q + '”.';
     }
 
-    input.addEventListener('input', function () { draw(input.value); });
-    draw('');
+    var pending = null;
+    input.addEventListener('input', function () {
+      clearTimeout(pending);
+      pending = setTimeout(function () { filter(input.value); }, 120);
+    });
   }
 
   /* ------------------------------------------------------------- router */
