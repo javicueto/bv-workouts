@@ -93,6 +93,9 @@ scripts/
   download_videos.sh   fetch missing videos + poster frames
   make_previews.py     turn new videos into looping previews
   build_site.py        export → data/workouts.js
+  git-hooks/           refuse a commit that would publish an email address or a
+                       private file — enable once per clone:
+                       git config core.hooksPath scripts/git-hooks
 logs/                 download logs
 ```
 

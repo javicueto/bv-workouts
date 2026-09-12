@@ -1,0 +1,13 @@
+#!/bin/sh
+# Enable once per clone:  git config core.hooksPath scripts/git-hooks
+# Refuses a commit MESSAGE containing an email address — this repo is public
+# (Javier, 12 Sep 2026). Also stops any AI co-author trailer, which Javier
+# never wants on his commits. Bypass deliberately with --no-verify.
+emails=$(grep -v '^#' "$1" | grep -oE '[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}' | grep -viE '@users\.noreply\.github\.com$' | sort -u)
+if [ -n "$emails" ]; then
+  echo "commit-msg: refused — email address(es) in the commit message:"
+  printf '%s\n' "$emails" | sed 's/^/  /'
+  echo "  This repo is public. Reword, or bypass deliberately with --no-verify."
+  exit 1
+fi
+exit 0

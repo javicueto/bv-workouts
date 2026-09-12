@@ -1,0 +1,28 @@
+#!/bin/sh
+# Enable once per clone:  git config core.hooksPath scripts/git-hooks
+# Refuses a commit that would publish personal data in this PUBLIC repo
+# (Javier, 12 Sep 2026 — its history had to be scrubbed once already).
+# Checks only what the commit ADDS. Bypass deliberately with --no-verify.
+fail=0
+added=$(git diff --cached -U0 --no-color -- . ':(exclude)freecokiletics/vendor' | grep '^+' | grep -v '^+++')
+emails=$(printf '%s\n' "$added" | grep -oE '[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}' | grep -viE '@users\.noreply\.github\.com$' | sort -u)
+if [ -n "$emails" ]; then
+  echo "pre-commit: refused — email address(es) in the change:"
+  printf '%s\n' "$emails" | sed 's/^/  /'
+  fail=1
+fi
+private=$(git diff --cached --name-only --diff-filter=ACMR | grep -E '^(CLAUDE(\.local)?\.md$|_archive/|_backup/)')
+if [ -n "$private" ]; then
+  echo "pre-commit: refused — private file(s) staged:"
+  printf '%s\n' "$private" | sed 's/^/  /'
+  fail=1
+fi
+case "$(git config user.email)" in
+  *@users.noreply.github.com) ;;
+  *) echo "pre-commit: refused — commit identity is not the GitHub no-reply address"; fail=1 ;;
+esac
+if [ "$fail" -ne 0 ]; then
+  echo "  This repo is public. Fix the change, or bypass deliberately with --no-verify."
+  exit 1
+fi
+exit 0
