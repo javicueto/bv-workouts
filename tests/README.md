@@ -24,6 +24,17 @@ options, so it is clear what was compared. Direction B was not built.
 The live implementation differs from this mockup in one way that matters: the
 fonts are self-hosted from `../../fonts/` there, not pulled from Google.
 
+## card-shades/
+
+A second, smaller comparison, added 12 Sep 2026: seven shades for the dark-mode
+content boxes, from what is live now (`#1c1614`) down to the same colour as the
+page. Tap one and it applies to every sample, because judging two boxes side by
+side is misleading — a box always looks darker next to a lighter one.
+
+Contrast ratios are measured in the page rather than typed in, so they cannot go
+stale. None of the seven affects readability: body text stays between 16.2 and
+18.0:1 on all of them.
+
 ## If one of them gets picked
 
 Two things have to change before any of this ships:
