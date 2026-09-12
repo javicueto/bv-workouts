@@ -20,7 +20,13 @@
      Surfaces separate by their hairline BORDER, not by fill: at this luminance
      a fill step of any believable size is worth ~1.1:1 and does nothing. */
   --bg:        #0a0908;
-  --bg-raised: #1c1614;
+  /* Javier picked shade 7 (12 Sep 2026): a content box is the SAME colour as
+     the page and is separated by its border alone. So anything that used to
+     rely on this fill to be visible now needs its own outline — see .btn and
+     .week-row .num below. Things that FLOAT over content (the menu, dialogs,
+     popovers) must still be distinguishable, and use --bg-float instead. */
+  --bg-raised: #0a0908;
+  --bg-float:  #1c1614;
   --bg-sunken: #050404;
   --line:      #3a2e27;
   --line-soft: #2b221d;
@@ -67,6 +73,7 @@
   color-scheme: light;
   --bg:        #faf6f1;
   --bg-raised: #ffffff;
+  --bg-float:  #ffffff;
   --bg-sunken: #f0e9e1;
   --line:      #ddd2c6;
   --line-soft: #ebe3da;
@@ -139,7 +146,7 @@ p  { margin: 0; }
 .btn {
   display: inline-flex; align-items: center; justify-content: center; gap: var(--space-2);
   min-height: 52px; padding: 0 var(--space-6);
-  border: 0; border-radius: var(--radius-sm);
+  border: 1px solid var(--line); border-radius: var(--radius-sm);
   background: var(--bg-raised); color: var(--text);
   font-weight: 800; font-size: 19px; letter-spacing: .05em; text-transform: uppercase;
   white-space: nowrap; cursor: pointer;
@@ -157,7 +164,7 @@ p  { margin: 0; }
 .field label { font-size: 13px; color: var(--text-dim); font-weight: 600; }
 .input {
   width: 100%; min-height: 52px; padding: 0 var(--space-4);
-  background: var(--bg-raised); color: var(--text);
+  background: var(--bg-sunken); color: var(--text);   /* a well, not a panel */
   border: 1px solid var(--line); border-radius: var(--radius-sm);
   font-size: 17px;                              /* ≥16px stops iOS zooming on focus */
 }
@@ -234,7 +241,7 @@ p  { margin: 0; }
 .ex-card {
   display: grid; grid-template-columns: 42% 1fr; gap: var(--space-3);
   padding: var(--space-3);
-  background: var(--bg-raised); border: 1px solid var(--line-soft); border-radius: var(--radius);
+  background: var(--bg-sunken); border: 1px solid var(--line); border-radius: var(--radius);
 }
 .ex-card__thumb {
   position: relative; aspect-ratio: 16 / 9; align-self: start;
@@ -332,7 +339,7 @@ p  { margin: 0; }
 .done-list li span:last-child { color: var(--text-dim); white-space: nowrap; }
 
 .week-row { display: flex; align-items: center; gap: var(--space-3); padding: var(--space-3) 0; border-bottom: 1px solid var(--line-soft); }
-.week-row .num { width: 34px; height: 34px; border-radius: 9px; display: grid; place-items: center; background: var(--bg-raised); font-weight: 800; font-size: 19px; }
+.week-row .num { width: 34px; height: 34px; border-radius: 9px; display: grid; place-items: center; background: var(--bg-raised); border: 1px solid var(--line); font-weight: 800; font-size: 19px; }
 .week-row.now .num { background: var(--accent); color: var(--accent-ink); }
 .week-row.past { opacity: .55; }
 
@@ -438,7 +445,7 @@ body.is-resting .tabata__phase.rest { color: #fff; }
   width: 100%; max-width: 480px;
   display: grid; gap: var(--space-3);
   padding: var(--space-6) var(--space-5) var(--space-5);
-  background: var(--bg-raised); color: var(--text);
+  background: var(--bg-float); color: var(--text);     /* floats above content */
   border: 1px solid var(--line); border-radius: var(--radius);
   transform: translateY(24px); transition: transform .16s ease;
 }
@@ -556,7 +563,7 @@ a.week-row { color: inherit; text-decoration: none; }
   position: absolute; right: 0; top: calc(100% + 6px); z-index: 40;
   min-width: 220px; max-width: calc(100vw - var(--space-6));
   padding: var(--space-2); display: grid; gap: 2px;
-  background: var(--bg-raised); border: 1px solid var(--line);
+  background: var(--bg-float); border: 1px solid var(--line);
   border-radius: var(--radius); box-shadow: 0 16px 40px var(--shadow);
 }
 .menu__item {

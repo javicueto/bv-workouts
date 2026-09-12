@@ -13,7 +13,12 @@
   /* Darkened 12 Sep 2026 — see the app's styles.css for why the surfaces
      separate by border rather than by fill. Kept identical to the app. */
   --bg:        #0a0908;
-  --bg-raised: #1c1614;
+  /* Shade 7 (Javier, 12 Sep 2026): a content box is the same colour as the
+     page and separated by its border alone. Anything borderless that relied on
+     this fill needs its own outline; anything that FLOATS over content uses
+     --bg-float, which stays a distinct surface. Kept in step with the app. */
+  --bg-raised: #0a0908;
+  --bg-float:  #1c1614;
   --bg-sunken: #050404;
   --line:      #3a2e27;
   --line-soft: #2b221d;
@@ -112,6 +117,7 @@ a { color: inherit; }
 
 .topbar__nav a[aria-current="page"] {
   background: var(--bg-raised);
+  border: 1px solid var(--line);
   color: var(--text);
 }
 
@@ -172,7 +178,7 @@ main {
   max-width: 62ch;
   font-size: 14px; line-height: 1.55;
   color: var(--text-dim);
-  background: var(--bg-raised);
+  background: var(--bg-sunken);
   border-left: 2px solid var(--accent);
   border-radius: 0 var(--radius) var(--radius) 0;
 }
@@ -285,6 +291,7 @@ main {
   font-size: 14px; font-weight: 550;
   text-decoration: none;
   background: var(--bg-raised);
+  border: 1px solid var(--line);
 }
 
 .pager span { opacity: .35; }
@@ -298,7 +305,10 @@ main {
   overflow: hidden;
 }
 
-.section--warmup { background: var(--bg-sunken); }
+/* Under shade 7 every section is the page colour; the warm-up is marked out by
+   its teal letter, not by a darker fill. It used to be sunken, which made the
+   callout inside it — also sunken — vanish into its own parent. */
+.section--warmup { background: var(--bg-raised); }
 
 .section__head {
   display: grid;
@@ -550,7 +560,7 @@ body.is-locked .foot { display: none; }
 .when__pop {
   position: absolute; left: 0; top: calc(100% + 6px); z-index: 20;
   min-width: 190px; padding: var(--space-3) var(--space-4);
-  background: var(--bg-raised); color: var(--text);
+  background: var(--bg-float); color: var(--text);
   border: 1px solid var(--line); border-radius: var(--radius-sm);
   font-size: 13px; line-height: 1.45; font-weight: 500; white-space: normal;
   box-shadow: 0 10px 30px #0009;
