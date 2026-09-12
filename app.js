@@ -14,11 +14,9 @@
   var BASE = window.MEDIA_BASE || '';   // '../' on /nacho/, so previews/ resolve to the shared folder
   var T = Object.assign({
     warmup: 'Warm-up',
-    current_block: 'current block',
     you_did_this: 'You did this',
     you_do_this: 'You\u2019re on this',
     you_will_do_this: 'Coming up',
-    next_block: 'starts soon',
     block: 'Block',
     session: 'session',
     blocks_count: 'blocks',
@@ -83,23 +81,23 @@
     return whenLabel(from, to) + ' ' + fmtDate(from) + ' – ' + fmtDate(to) + ' · ' + times + '\u00d7';
   }
   function infoDot(text) {
-    return '<span class="info"><button class="info__btn" type="button" aria-expanded="false" ' +
+    return '<span class="when"><button class="when__btn" type="button" aria-expanded="false" ' +
       'aria-label="When this was done">' + INFO_ICON + '</button>' +
-      '<span class="info__pop" role="note" hidden>' + esc(text) + '</span></span>';
+      '<span class="when__pop" role="note" hidden>' + esc(text) + '</span></span>';
   }
   // One open at a time, and a tap anywhere else closes it.
   document.addEventListener('click', function (ev) {
-    var btn = ev.target.closest && ev.target.closest('.info__btn');
-    document.querySelectorAll('.info__btn[aria-expanded="true"]').forEach(function (b) {
+    var btn = ev.target.closest && ev.target.closest('.when__btn');
+    document.querySelectorAll('.when__btn[aria-expanded="true"]').forEach(function (b) {
       if (b === btn) return;
       b.setAttribute('aria-expanded', 'false');
-      b.parentNode.querySelector('.info__pop').hidden = true;
+      b.parentNode.querySelector('.when__pop').hidden = true;
     });
     if (!btn) return;
     ev.preventDefault();
     var open = btn.getAttribute('aria-expanded') === 'true';
     btn.setAttribute('aria-expanded', String(!open));
-    btn.parentNode.querySelector('.info__pop').hidden = open;
+    btn.parentNode.querySelector('.when__pop').hidden = open;
   });
 
   // "2026-08-05" → "5 Aug 2026"
@@ -219,38 +217,8 @@
   function renderHome() {
     var blocks = {};
     DATA.workouts.forEach(function (w) { (blocks[w.block] = blocks[w.block] || []).push(w); });
-    /* "Current" is the block whose dates contain today — NOT simply the highest
-       number. Javier's blocks arrive one at a time so the two used to coincide,
-       but Nacho's whole programme is published up front: newest-first would put
-       him on block 4 on day one. Falls back to the next block due, then to the
-       last one, so a finished programme still marks something. */
-    var today = new Date().toISOString().slice(0, 10);
     var asc = (SITE.order || 'desc') === 'asc';
     var nums = Object.keys(blocks).map(Number).sort(function (a, b) { return asc ? a - b : b - a; });
-
-    function span(n) {
-      var ws = blocks[n];
-      return {
-        from: ws.reduce(function (m, w) { return w.first_date < m ? w.first_date : m; }, ws[0].first_date),
-        to: ws.reduce(function (m, w) { return w.last_date > m ? w.last_date : m; }, ws[0].last_date),
-      };
-    }
-    var ordered = Object.keys(blocks).map(Number).sort(function (a, b) { return a - b; });
-    var current = null;
-    var currentState = null;      // 'now' | 'next' — drives which label is shown
-    ordered.forEach(function (n) {
-      var s = span(n);
-      if (current === null && today >= s.from && today <= s.to) {
-        current = n; currentState = 'now';
-      }
-    });
-    if (current === null) {
-      ordered.forEach(function (n) {
-        if (current === null && span(n).from > today) { current = n; currentState = 'next'; }
-      });
-    }
-    // Past the end of the programme nothing is highlighted: calling the last
-    // block "current" months after it finished would be a lie.
 
     var html = '<div class="page-head">' +
       '<span class="eyebrow">' + DATA.workout_count + ' ' + T.workouts + ' · ' +
@@ -264,14 +232,10 @@
       var ws = blocks[n].slice().sort(function (a, b) { return a.variant - b.variant; });
       var from = ws[0].first_date;
       var to = ws[ws.length - 1].last_date;
-      html += '<section class="block' + (n === current ? ' block--current' : '') + '">' +
+      html += '<section class="block">' +
         '<div class="block__label">' +
           '<span class="block__num">' + n + '</span>' +
-          '<span class="block__meta">' +
-            infoDot(datesNote(from, to, ws[0].assigned_count)) +
-            (n === current && currentState
-              ? '<br>' + (currentState === 'now' ? T.current_block : T.next_block)
-              : '') + '</span>' +
+          infoDot(datesNote(from, to, ws[0].assigned_count)) +
         '</div><div class="block__cards">';
       ws.forEach(function (w) {
         html += '<a class="card" href="#/w/' + esc(w.key) + '">' +

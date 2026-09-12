@@ -198,12 +198,8 @@ main {
   font-size: clamp(34px, 9vw, 52px);
   font-weight: 700; letter-spacing: -0.04em;
   line-height: 1;
-  color: var(--text-faint);
+  color: var(--accent);
 }
-
-.block--current .block__num { color: var(--accent); }
-
-.block__meta { font-size: 13px; color: var(--text-faint); }
 
 .block__cards { display: grid; gap: var(--space-4); }
 
@@ -519,17 +515,19 @@ body.is-locked .foot { display: none; }
 
 .foot p { margin: 0; }
 
-/* ------------------------------------------------------------ info dot */
-/* Last year's TrueCoach dates, kept as a reference but tucked away. Tap to
-   open; tapping anywhere else closes it (see app.js). */
-.info { position: relative; display: inline-flex; vertical-align: middle; }
-.info__btn {
-  width: 28px; height: 28px; display: grid; place-items: center;
-  border: 0; background: none; color: var(--text-faint); cursor: pointer; border-radius: 50%;
+/* ------------------------------------------------------- date dot (.when) */
+/* Deliberately NOT called .info — that class is already the coach's instruction
+   callout on the workout pages, and naming this one .info restyled every one of
+   them into an inline box. Check for an existing class before adding one. */
+.when { position: relative; display: inline-flex; vertical-align: middle; }
+.when__btn {
+  width: 22px; height: 22px; display: grid; place-items: center;
+  border: 0; background: none; color: var(--text-faint); cursor: pointer;
+  border-radius: 50%; opacity: .45; padding: 0;
 }
-.info__btn svg { width: 15px; height: 15px; }
-.info__btn:hover, .info__btn[aria-expanded="true"] { color: var(--accent); background: var(--accent-soft); }
-.info__pop {
+.when__btn svg { width: 12px; height: 12px; }
+.when__btn:hover, .when__btn[aria-expanded="true"] { opacity: 1; color: var(--accent); }
+.when__pop {
   position: absolute; left: 0; top: calc(100% + 6px); z-index: 20;
   min-width: 190px; padding: var(--space-3) var(--space-4);
   background: var(--bg-raised); color: var(--text);
@@ -537,9 +535,9 @@ body.is-locked .foot { display: none; }
   font-size: 13px; line-height: 1.45; font-weight: 500; white-space: normal;
   box-shadow: 0 10px 30px #0009;
 }
-.block__label .info__pop { left: -8px; }
-/* Link to the training app. The phone is where this actually gets used, so it
-   must survive 320px — the label shortens rather than disappearing. */
+.block__label .when { align-self: center; }
+@media (min-width: 700px) { .block__label .when { align-self: start; margin-left: -2px; } }
+.block__label .when__pop { left: -8px; }
 .topbar__app { color: var(--accent) !important; white-space: nowrap; }
 .topbar__app-short { display: none; }
 @media (max-width: 599px) {
