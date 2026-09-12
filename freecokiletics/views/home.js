@@ -3,6 +3,13 @@
   "use strict";
   var A = window.App, S = A.S, V = A.views, esc = A.esc, app = A.app, topbar = A.topbar;
 
+  /* How far back "still open" looks. Javier trains 1 one week and 3 the next
+     (12 Sep 2026), so a session left over from a week or two ago is something
+     he will actually make up; one from two months ago is history, and a
+     notice that never clears is a notice nobody reads. Three weeks also means
+     the list empties itself — there is nothing to dismiss. */
+  var BACKLOG_WEEKS = 3;
+
   /* Home shows one plan week — this week by default, or any other picked with
      the arrows (to do next week's sessions early, or look back). Whatever is
      started or logged from a week's card is filed under THAT week, so doing
@@ -35,11 +42,29 @@
       var w = wf.week;
       /* The week is usable without knowing what is done — offline in the gym
          is exactly when it must be — so a failed check does not block the
-         screen; it gets a notice and a Retry. */
-      var done = {}, doneErr = null;
-      try { done = await Store.doneThisWeek(S.me.id, w.start); }
+         screen; it gets a notice and a Retry. One query covers this week and
+         the weeks behind it (see Store.doneByWeek). */
+      var fromIx = Math.max(0, wf.index - BACKLOG_WEEKS);
+      var byWeek = {}, doneErr = null;
+      try { byWeek = await Store.doneByWeek(S.me.id, W[fromIx].start); }
       catch (e) { doneErr = e; }
       if (A.stale(t)) return;
+      var done = byWeek[w.start] || {};
+
+      /* Sessions from earlier weeks with no finished workout. Only while
+         looking at the CURRENT week: on a past or future week the same list
+         would be about somewhere else entirely. Each one links to its own
+         week, so doing it now completes THAT week rather than padding this
+         one — which is the point of catching up. */
+      var open = [];
+      if (wf.index === nowWf.index && nowWf.status === "now" && !doneErr) {
+        for (var pi = fromIx; pi < wf.index; pi++) {
+          var pw = W[pi], pdone = byWeek[pw.start] || {};
+          A.sessionsFor(pw.block).forEach(function (ps) {
+            if (!pdone[ps.key]) open.push({ week: pw, session: ps, index: pi });
+          });
+        }
+      }
       var sessions = A.sessionsFor(w.block);
       var prevW = W[wf.index - 1], nextW = W[wf.index + 1];
       var label = wf.index === nowWf.index && nowWf.status === "now" ? "This week"
@@ -47,6 +72,22 @@
         : wf.index === nowWf.index - 1 ? "Last week"
         : (wf.status === "upcoming" ? "Starts " + A.fmt(w.start) : "Week of " + A.fmtRange(w.start));
       var wq = "?w=" + encodeURIComponent(w.start);        // carried into run / log links
+
+      if (open.length) {
+        var shown = open.slice(0, 4);
+        html += '<div class="card backlog"><div class="eyebrow">Still open</div>' +
+          '<ul class="backlog__list">' + shown.map(function (o) {
+            var when = o.index === nowWf.index - 1 ? "last week" : A.fmtRange(o.week.start);
+            return '<li><a href="#/week/' + o.week.start + '">' +
+              "<b>" + esc(o.session.title) + "</b>" +
+              '<span class="faint">' + esc(when) + " ›</span></a></li>";
+          }).join("") + "</ul>" +
+          (open.length > shown.length
+            ? '<p class="faint backlog__more">and ' + (open.length - shown.length) + " more</p>"
+            : "") +
+          "</div>";
+      }
+
       html += '<div class="week-nav">' +
           (prevW ? '<a class="btn btn--ghost btn--icon" href="#/week/' + prevW.start + '" aria-label="Previous week">‹</a>' : '<span class="btn--icon"></span>') +
           '<div class="week-nav__label"><b>' + esc(label) + "</b><span>" + A.fmtRange(w.start) + "</span></div>" +

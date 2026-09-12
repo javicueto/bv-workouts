@@ -550,6 +550,21 @@ body.is-resting :where(a, button, input, [tabindex]):focus-visible { outline-col
 .day-card__acts a:first-child { color: var(--accent); border-right: 1px solid var(--line-soft); }
 .day-card__acts a:active { background: var(--bg-sunken); }
 
+/* --------------------------------------------------- still open (backlog) */
+/* Sessions left over from earlier weeks, at the top of the current week. An
+   accent edge so it reads as something to act on, not an error. */
+.backlog { border-color: var(--accent-line); margin-bottom: var(--space-4); padding: var(--space-4) var(--space-5); }
+.backlog__list { list-style: none; margin: var(--space-2) 0 0; padding: 0; display: grid; }
+.backlog__list a {
+  display: flex; align-items: center; justify-content: space-between; gap: var(--space-3);
+  min-height: var(--tap); padding: var(--space-2) 0;
+  border-top: 1px solid var(--line-soft);
+  color: var(--text); text-decoration: none; font-size: 15px;
+}
+.backlog__list li:first-child a { border-top: 0; }
+.backlog__list a:active { color: var(--accent); }
+.backlog__more { font-size: 13px; margin-top: var(--space-2); }
+
 /* ------------------------------------------------------- read-only session */
 /* A rule between blocks, so A / B / C read as separate blocks rather than one
    long list (Javier, 12 Sep 2026). The first section needs no rule above it. */

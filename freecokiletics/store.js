@@ -328,21 +328,27 @@ window.Store = (function () {
     if (!sb()) return [];
     return q(sb().from(T_SETS).select("*").eq("workout_id", workoutId).order("done_at"));
   }
-  /* The most recent finished workout per session for a week, plus how many
-     times that session was done — doing a third session in a week means doing
-     one of the two twice (Javier, 12 Sep 2026), and the week screen has to be
-     able to say so. Includes the id so a done card can open that workout. */
-  async function doneThisWeek(userId, weekStart) {
+  /* Finished workouts from `fromWeekStart` onwards, grouped
+     week → session key → the most recent workout for it, carrying how many
+     times that session was done and every run (a third session in a week
+     means doing one of the two twice — Javier, 12 Sep 2026 — and the week
+     screen has to be able to say so). Includes the id so a done card can
+     open that workout.
+
+     ONE query covers the week Home is showing AND the weeks behind it, so
+     asking "what is still open from earlier weeks" costs no extra request. */
+  async function doneByWeek(userId, fromWeekStart) {
     if (!sb() || !userId) return {};
     var rows = await q(sb().from(T_WORKOUTS).select("*")
-      .eq("user_id", userId).eq("week_start", weekStart).not("finished_at", "is", null)
+      .eq("user_id", userId).gte("week_start", fromWeekStart).not("finished_at", "is", null)
       .order("finished_at", { ascending: false }));
-    var m = {};
+    var out = {};
     rows.forEach(function (w) {
+      var m = out[w.week_start] || (out[w.week_start] = {});
       if (!m[w.session_key]) { m[w.session_key] = w; w.times = 1; w.runs = [w]; }
       else { m[w.session_key].times++; m[w.session_key].runs.push(w); }
     });
-    return m;                          // newest first, so runs[0] is the latest
+    return out;                        // newest first, so runs[0] is the latest
   }
   async function workout(id) {
     if (!sb()) return null;
@@ -354,7 +360,7 @@ window.Store = (function () {
     sendReset: sendReset, setPassword: setPassword, ready: ready, onAuth: onAuth,
     plan: plan, savePlan: savePlan,
     uuid: uuid, saveWorkout: saveWorkout, saveSet: saveSet, lastForExercises: lastForExercises,
-    history: history, setsFor: setsFor, doneThisWeek: doneThisWeek, workout: workout, deleteWorkout: deleteWorkout,
+    history: history, setsFor: setsFor, doneByWeek: doneByWeek, workout: workout, deleteWorkout: deleteWorkout,
     flush: flush, pending: function () { return readQ().length; },
     onQueue: function (fn) { listeners.push(fn); },
   };
