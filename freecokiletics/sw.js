@@ -11,7 +11,7 @@
  *   vendor/ and precached with the shell like any other file — no CDN, so
  *   the precache cannot half-fail on a third party at install time.
  */
-const CACHE = "freeco-v34";
+const CACHE = "freeco-v35";
 const SHELL = [
   "./", "./index.html", "./styles.css", "../shared/tokens.css", "./config.js",
   "./theme.js", "./icons.js", "./ui.js", "./store.js", "./timer.js", "./runner.js",

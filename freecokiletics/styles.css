@@ -522,16 +522,24 @@ body.is-resting :where(a, button, input, [tabindex]):focus-visible { outline-col
 .vsec:first-of-type { padding-top: 0; border-top: 0; }
 .vsec__head { display: flex; align-items: center; gap: var(--space-3); margin-bottom: var(--space-2); }
 .vsec__h { font-size: 22px; margin: 0; line-height: 1.05; }   /* condensed: 17px read too small */
+/* 16:9 and small, THREE across on a normal phone — not square like the round
+   card (Javier, 12 Sep 2026). This screen is for scanning a whole session, and
+   wide tiles pack better when there are a dozen of them: the same reason the
+   runner's warm-up grid stays 16:9. 105px is the widest minimum that still
+   fits three columns at 375 (3 × 105 + 2 × 12 = 339 ≤ 343 of content), which
+   lands the tile at the same size as that grid's. Square here made every
+   block a two-column list and pushed the Start button far down the page. */
 .vgrid {
   display: grid; gap: var(--space-3); margin-top: var(--space-3);
-  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(105px, 1fr));
 }
 .vthumb { margin: 0; }
 .vthumb img, .vthumb__none {
-  width: 100%; aspect-ratio: 1; object-fit: cover;
+  width: 100%; aspect-ratio: 16 / 9; object-fit: cover;
   border-radius: var(--radius-sm); background: #000; display: block;
 }
-.vthumb figcaption { margin-top: var(--space-2); font-size: 13px; color: var(--text-dim); line-height: 1.35; }
+/* 12px, not 13: the label sits under a 105px tile now. */
+.vthumb figcaption { margin-top: var(--space-2); font-size: 12px; color: var(--text-dim); line-height: 1.35; }
 .vthumb figcaption b { color: var(--text); }
 
 .time-row { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-3); }
