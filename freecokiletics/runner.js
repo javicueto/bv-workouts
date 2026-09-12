@@ -128,7 +128,7 @@ window.Runner = (function () {
   function setResting(on) {
     document.body.classList.toggle("is-resting", !!on);
     var meta = document.querySelector('meta[name="theme-color"]');
-    if (meta) meta.setAttribute("content", on ? "#1e5bd6" : "#0e1116");
+    if (meta) meta.setAttribute("content", on ? "#1e5bd6" : Theme.uiColor());
   }
 
   function go(delta) {

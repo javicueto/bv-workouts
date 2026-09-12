@@ -103,6 +103,9 @@
       '<a class="menu__item" href="#/history">History</a>' +
       '<a class="menu__item" href="../">Programme reference ↗</a>' +
       '<div class="menu__sep"></div>' +
+      '<button class="menu__item menu__item--icon" type="button" id="theme">' +
+        themeLabel() + "</button>" +
+      '<div class="menu__sep"></div>' +
       '<button class="menu__item" type="button" id="cp">Change password</button>' +
       '<button class="menu__item" type="button" id="out">Sign out</button>' +
       "</div>";
@@ -111,6 +114,12 @@
      re-rendered every time you come back to it, so binding them per render
      piled up a new pair on every visit, each holding a panel that had already
      been thrown away. Look the elements up at event time instead. */
+  // Offers the mode you would be switching TO, which is the thing you are choosing.
+  function themeLabel() {
+    return Theme.current() === "dark"
+      ? '<span class="menu__icon">' + ICONS.sun + "</span>Light mode"
+      : '<span class="menu__icon">' + ICONS.moon + "</span>Dark mode";
+  }
   function closeMenu() {
     var btn = document.getElementById("menu-btn"), panel = document.getElementById("menu");
     if (!panel || panel.hidden) return;
@@ -124,6 +133,12 @@
       var willOpen = panel.hidden;
       panel.hidden = !willOpen;
       btn.setAttribute("aria-expanded", String(willOpen));
+      return;
+    }
+    var theme = e.target.closest && e.target.closest("#theme");
+    if (theme) {
+      Theme.toggle();
+      theme.innerHTML = themeLabel();     // the menu stays open so the switch is visible
       return;
     }
     // Picking an item closes it too, and so does a tap anywhere outside.

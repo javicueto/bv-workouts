@@ -2,6 +2,12 @@
    the two feel like one product. Everything is sized for one thumb at arm's
    length in a gym: big targets, big numbers, no hover-only affordances. */
 
+/* Two themes. Dark is the base — it is what a 6am gym wants and what the app
+   has always been. Light is an override, reached either by the phone's own
+   setting or by the menu toggle, which writes data-theme on <html> (theme.js).
+   Every colour in this file MUST come from a token below: a hex baked into a
+   rule cannot follow the theme, which is how the tinted badges and the error
+   red were nearly missed. */
 :root {
   color-scheme: dark;          /* native date/time pickers and their icons match the dark UI */
   --space-1: 4px;  --space-2: 8px;  --space-3: 12px; --space-4: 16px;
@@ -22,12 +28,50 @@
   --good:        #4dd48a;
   --rest:        #1e5bd6;     /* rest mode: whole screen, and the status bar via theme-color */
   --danger:      #ff6b6b;
+  --danger-text: #ff8c8c;     /* form errors — readable on the dark ground */
+  --accent-line: #ff6b3d55;
+  --good-soft:   #4dd48a1f;
+  --good-line:   #4dd48a55;
+  --cool-soft:   #4dd4c41f;
+  --shadow:      #000a;
+  --ui-bg:       #0e1116;     /* what the status bar shows outside rest mode */
   --radius:    16px;
   --radius-sm: 10px;
   --font: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
 
   --safe-top:    env(safe-area-inset-top, 0px);
   --safe-bottom: env(safe-area-inset-bottom, 0px);
+}
+
+
+/* --------------------------------------------------------------- light mode */
+/* ONE copy of the light palette, and theme.js always writes an explicit
+   data-theme (resolving the phone's setting itself), so there is no media-query
+   duplicate to drift out of step. No JS, no attribute, dark — the old default. */
+:root[data-theme="light"] {
+  color-scheme: light;
+  --bg:        #f5f7fa;
+  --bg-raised: #ffffff;
+  --bg-sunken: #e9edf3;
+  --line:      #d5dce6;
+  --line-soft: #e4e9f0;
+  --text:      #111720;
+  --text-dim:  #55617a;
+  --text-faint:#6d7b91;
+  /* Deeper than the brand tone on purpose: #ff6b3d on white is too pale to read
+     as text or a border. Buttons keep the brand orange as their background. */
+  --accent:      #c9491b;
+  --accent-soft: #c9491b14;
+  --accent-line: #c9491b40;
+  --cool:        #0d8578;
+  --cool-soft:   #0d857814;
+  --good:        #157f46;
+  --good-soft:   #157f4614;
+  --good-line:   #157f4640;
+  --danger:      #c62828;
+  --danger-text: #b3261e;
+  --shadow:      #1117201f;
+  --ui-bg:       #f5f7fa;
 }
 
 * { box-sizing: border-box; }
@@ -112,7 +156,7 @@ p  { margin: 0; }
 }
 .card--tap { cursor: pointer; }
 .card--tap:active { filter: brightness(1.08); }
-.card--done { border-color: #4dd48a55; }
+.card--done { border-color: var(--good-line); }
 
 .topbar {
   display: flex; align-items: center; justify-content: space-between; gap: var(--space-3);
@@ -129,10 +173,10 @@ p  { margin: 0; }
   background: var(--accent-soft); color: var(--accent);
   font-size: 12px; font-weight: 700; letter-spacing: .04em;
 }
-.badge--good { background: #4dd48a1f; color: var(--good); }
-.badge--cool { background: #4dd4c41f; color: var(--cool); }
+.badge--good { background: var(--good-soft); color: var(--good); }
+.badge--cool { background: var(--cool-soft); color: var(--cool); }
 .note { padding: var(--space-3) var(--space-4); border-left: 2px solid var(--accent); background: var(--bg-sunken); border-radius: 0 var(--radius-sm) var(--radius-sm) 0; font-size: 14px; color: var(--text-dim); white-space: pre-wrap; }
-.error { color: #ff8c8c; font-size: 14px; }
+.error { color: var(--danger-text); font-size: 14px; }
 .list { display: grid; gap: var(--space-3); }
 .divider { height: 1px; background: var(--line-soft); margin: var(--space-2) 0; }
 
@@ -289,11 +333,11 @@ body.is-resting .tabata__phase.rest { color: #fff; }
 .ex-card__log { flex-wrap: wrap; }
 .btn--hold {
   flex: 1 1 100%; min-height: 52px;
-  background: var(--accent-soft); color: var(--accent); border: 1px solid #ff6b3d55;
+  background: var(--accent-soft); color: var(--accent); border: 1px solid var(--accent-line);
   font-size: 16px;
 }
 .btn--hold.is-running { background: var(--accent); color: #fff; border-color: var(--accent); }
-.btn--hold.is-done { background: #4dd48a1f; color: var(--good); border-color: #4dd48a55; }
+.btn--hold.is-done { background: var(--good-soft); color: var(--good); border-color: var(--good-line); }
 /* Dense (3-movement) rounds: the timer sits inline beside kg/sec, short label. */
 .ex-list--dense .btn--hold { flex: 0 0 auto; min-height: 38px; padding: 0 var(--space-3); font-size: 15px; }
 .ex-list--dense .hold__long { display: none; }
@@ -395,7 +439,7 @@ a.week-row { color: inherit; text-decoration: none; }
 /* ------------------------------------------------------------ add to home screen */
 .install-card {
   display: grid; grid-template-columns: auto 1fr; gap: var(--space-2) var(--space-3); align-items: start;
-  margin-bottom: var(--space-5); border-color: #ff6b3d40;
+  margin-bottom: var(--space-5); border-color: var(--accent-line);
 }
 .install-card__icon { width: 36px; height: 36px; display: grid; place-items: center; border-radius: 10px; background: var(--accent-soft); color: var(--accent); }
 .install-card__icon svg { width: 18px; height: 18px; }
@@ -436,7 +480,7 @@ a.week-row { color: inherit; text-decoration: none; }
   min-width: 220px; max-width: calc(100vw - var(--space-6));
   padding: var(--space-2); display: grid; gap: 2px;
   background: var(--bg-raised); border: 1px solid var(--line);
-  border-radius: var(--radius); box-shadow: 0 16px 40px #000a;
+  border-radius: var(--radius); box-shadow: 0 16px 40px var(--shadow);
 }
 .menu__item {
   display: block; width: 100%; text-align: left;
@@ -447,3 +491,6 @@ a.week-row { color: inherit; text-decoration: none; }
 }
 .menu__item:active { background: var(--bg-sunken); }
 .menu__sep { height: 1px; background: var(--line-soft); margin: var(--space-2) var(--space-2); }
+.menu__item--icon { display: flex; align-items: center; gap: var(--space-3); }
+.menu__icon { display: inline-grid; place-items: center; color: var(--text-dim); }
+.menu__icon svg { width: 16px; height: 16px; display: block; }

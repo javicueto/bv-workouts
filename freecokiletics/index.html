@@ -13,6 +13,9 @@
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="apple-touch-icon" sizes="180x180" href="icon-180.png">
 <link rel="stylesheet" href="styles.css">
+<!-- After the stylesheet (so --ui-bg is readable) but before <body>, so the
+     first paint already has the right palette. -->
+<script src="theme.js"></script>
 </head>
 <body>
 <main id="app" aria-live="polite"></main>
