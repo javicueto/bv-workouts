@@ -81,7 +81,7 @@
   // ---------------------------------------------------------------- views
   function topbar(title, back, menu) {
     return '<div class="topbar">' +
-      (back ? '<a class="btn btn--quiet" href="' + back + '">‹ Back</a>' : '<div class="row"><span class="mark"></span><b>Cokiletics</b></div>') +
+      (back ? '<a class="btn btn--quiet" href="' + back + '">‹ Back</a>' : '<div class="row"><span class="logo">' + ICONS.bicep + '</span><b>Cokiletics</b></div>') +
       '<div class="row">' +
         '<span class="faint" id="sync" style="font-size:12px"></span>' +
         (menu ? '<button class="iconbtn" id="menu-btn" type="button" aria-label="Menu" ' +
@@ -298,6 +298,7 @@
   function renderLogin(msg, email) {
     ticket();
     app.innerHTML = topbar() + '<div class="stack" style="margin-top:var(--space-8)">' +
+      '<div class="logo logo--big">' + ICONS.bicep + '</div>' +
       '<div class="eyebrow">Sign in</div><h1>Cokiletics</h1>' +
       '<form id="f" class="stack" autocomplete="on">' +
         '<div class="field"><label for="e">Email</label><input class="input" id="e" type="email" autocomplete="username" required value="' + esc(email || "") + '"></div>' +

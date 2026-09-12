@@ -118,7 +118,12 @@ p  { margin: 0; }
   display: flex; align-items: center; justify-content: space-between; gap: var(--space-3);
   margin-bottom: var(--space-6);
 }
-.mark { width: 12px; height: 12px; border-radius: 3px; background: var(--accent); }
+/* The app's logo: Font Awesome Classic Regular "bicep", same glyph as the
+   home-screen icon so the two read as one thing. */
+.logo { display: inline-grid; place-items: center; color: var(--accent); }
+.logo svg { width: 22px; height: 22px; display: block; }
+.logo--big { margin-bottom: var(--space-3); }
+.logo--big svg { width: 44px; height: 44px; }
 .badge {
   display: inline-block; padding: 2px 10px; border-radius: 999px;
   background: var(--accent-soft); color: var(--accent);

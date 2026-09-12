@@ -9,12 +9,12 @@
  * - Supabase: never cached — always network. The app keeps its own offline
  *   queue for writes.
  */
-const CACHE = "freeco-v4";
+const CACHE = "freeco-v5";
 const SHELL = [
   "./", "./index.html", "./styles.css", "./config.js",
   "./icons.js", "./ui.js", "./store.js", "./timer.js", "./runner.js", "./app.js",
   "./data/programme.js",
-  "./manifest.webmanifest", "./icon-192.png", "./icon-512.png",
+  "./manifest.webmanifest", "./icon-180.png", "./icon-192.png", "./icon-512.png",
   // The Supabase client MUST be precached. It is fetched on the very first page
   // load, before this worker controls the page, so the runtime cache below
   // never sees it — without this line the first offline open cannot sign in.
