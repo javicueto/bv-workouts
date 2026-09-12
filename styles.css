@@ -12,12 +12,12 @@
 
   /* Darkened 12 Sep 2026 — see the app's styles.css for why the surfaces
      separate by border rather than by fill. Kept identical to the app. */
-  --bg:        #0a0908;
+  --bg:        #0e0c0b;
   /* Shade 7 (Javier, 12 Sep 2026): a content box is the same colour as the
      page and separated by its border alone. Anything borderless that relied on
      this fill needs its own outline; anything that FLOATS over content uses
      --bg-float, which stays a distinct surface. Kept in step with the app. */
-  --bg-raised: #0a0908;
+  --bg-raised: #0e0c0b;
   --bg-float:  #1c1614;
   --bg-sunken: #050404;
   --line:      #3a2e27;

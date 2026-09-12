@@ -19,13 +19,13 @@
      on the same side as the orange accent, not enough to read as brown.
      Surfaces separate by their hairline BORDER, not by fill: at this luminance
      a fill step of any believable size is worth ~1.1:1 and does nothing. */
-  --bg:        #0a0908;
+  --bg:        #0e0c0b;
   /* Javier picked shade 7 (12 Sep 2026): a content box is the SAME colour as
      the page and is separated by its border alone. So anything that used to
      rely on this fill to be visible now needs its own outline — see .btn and
      .week-row .num below. Things that FLOAT over content (the menu, dialogs,
      popovers) must still be distinguishable, and use --bg-float instead. */
-  --bg-raised: #0a0908;
+  --bg-raised: #0e0c0b;
   --bg-float:  #1c1614;
   --bg-sunken: #050404;
   --line:      #3a2e27;
@@ -39,6 +39,8 @@
      failed AA and reads washed out. This is the page colour reused as ink:
      7.03:1 on the orange and 7.17:1 on the danger red, which clears AAA at
      every size, not just AA. Any new accent-filled surface uses it, never #fff. */
+  /* Deliberately darker than the page: this is ink on an orange fill, and at
+     #0a0908 it holds 7.03:1 there — the top grade at any size. */
   --accent-ink: #0a0908;
   --danger-ink: #0a0908;
   --cool:        #4dd4c4;
@@ -51,7 +53,7 @@
   --good-line:   #4dd48a55;
   --cool-soft:   #4dd4c41f;
   --shadow:      #000a;
-  --ui-bg:       #0e1116;     /* what the status bar shows outside rest mode */
+  --ui-bg:       #0e0c0b;     /* the status bar outside rest mode — MUST match --bg */
   --radius:    16px;
   --radius-sm: 10px;
   /* Two voices and no third. Display carries numbers, headings and buttons —

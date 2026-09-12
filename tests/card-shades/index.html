@@ -15,7 +15,7 @@
   --space-1: 4px;  --space-2: 8px;  --space-3: 12px; --space-4: 16px;
   --space-5: 20px; --space-6: 24px; --space-8: 32px; --space-10: 40px;
 
-  --bg:        #0a0908;
+  --bg:        #0e0c0b;
   --bg-raised: #1c1614;          /* the knob: overridden per sample */
   --bg-sunken: #050404;
   --line:      #3a2e27;
@@ -158,7 +158,7 @@ function lum(c) { var f = function (v) { v /= 255; return v <= 0.03928 ? v/12.92
 function ratio(a, b) { var l1 = lum(a), l2 = lum(b);
   return ((Math.max(l1,l2) + 0.05) / (Math.min(l1,l2) + 0.05)).toFixed(2); }
 
-var PAGE = "#0a0908", TEXT = "#f7f3ef";
+var PAGE = "#0e0c0b", TEXT = "#f7f3ef";
 
 function cardHTML(s) {
   return '<div class="sample" style="--card:' + s.hex + '">' +
@@ -191,8 +191,8 @@ function render(only) {
 
 /* Page colours. Card follows the page, because shade 7 tied them together. */
 var PAGES = [
-  { hex: "#0a0908", name: "Shade 7", note: "live now — near-black" },
-  { hex: "#0e0c0b", name: "Shade 6", note: "a touch lifted" },
+  { hex: "#0a0908", name: "Shade 7", note: "near-black — the previous page" },
+  { hex: "#0e0c0b", name: "Shade 6", note: "CHOSEN 12 Sep 2026 — live now" },
   { hex: "#110e0d", name: "Shade 5", note: "clearly lifted" },
   { hex: "#141110", name: "Shade 4", note: "lifted further" }
 ];
