@@ -241,7 +241,7 @@ p  { margin: 0; }
 /* Exercise card: moving thumbnail left, what to do right, log underneath. */
 .ex-list { display: grid; gap: var(--space-3); }
 .ex-card {
-  display: grid; grid-template-columns: 42% 1fr; gap: var(--space-3);
+  display: grid; grid-template-columns: 50% 1fr; gap: var(--space-3);
   padding: var(--space-3);
   background: var(--bg-sunken); border: 1px solid var(--line); border-radius: var(--radius);
 }
@@ -256,21 +256,21 @@ p  { margin: 0; }
 .ex-card__target { font-size: 28px; font-weight: 800; letter-spacing: -.02em; line-height: 1.05; margin-top: 2px; }
 .ex-card__target small { font-size: 14px; font-weight: 600; color: var(--text-dim); letter-spacing: 0; }
 .ex-card__cue { font-size: 13px; color: var(--accent); font-weight: 650; }
-.ex-card__log { grid-column: 1 / -1; display: flex; gap: var(--space-2); align-items: center; }
+.ex-card__log { grid-column: 2; display: flex; gap: var(--space-2); align-items: center; flex-wrap: wrap; }
 .ex-card__log .btn--hold { flex: 1; }
 
 /* The two corner buttons: a dumbbell bottom-left for the weight, an
    arrows-repeat bottom-right for the reps. Icon alone when there is nothing to
    report; the number beside it when there is. Deliberately quiet — most sets
    use whatever weight is to hand and the reps are almost never changed. */
-.logbtns { flex: 1; display: flex; align-items: center; justify-content: space-between; }
+.logbtns { flex: 1; display: flex; align-items: center; gap: var(--space-1); }
+.logbtn--r { margin-left: auto; }
 .logbtn {
   display: inline-flex; align-items: center; gap: var(--space-2);
   min-height: 36px; min-width: 44px; padding: 0 var(--space-2);
   background: none; border: 0; border-radius: var(--radius-sm);
   color: var(--text-faint); cursor: pointer; font-family: var(--font); font-size: 15px;
 }
-.logbtn--r { justify-content: flex-end; }      /* pinned to the right corner */
 .logbtn svg { width: 19px; height: 19px; display: block; flex: none; }
 .logbtn:active { background: var(--bg-sunken); }
 .logbtn[aria-expanded="true"] { color: var(--accent); }
@@ -313,7 +313,7 @@ p  { margin: 0; }
 /* Dense variant for 3+ movement rounds: tighter padding, smaller numbers and
    inputs. Measured at 375×812 — the normal card overflowed by 55px. */
 .ex-list--dense { gap: var(--space-2); }
-.ex-list--dense .ex-card { grid-template-columns: 34% 1fr; padding: var(--space-2) var(--space-3); gap: var(--space-2) var(--space-3); }
+.ex-list--dense .ex-card { grid-template-columns: 44% 1fr; padding: var(--space-2) var(--space-3); gap: var(--space-2) var(--space-3); }
 .ex-list--dense .ex-card__name { font-size: 15px; }
 .ex-list--dense .ex-card__target { font-size: 22px; }
 .ex-list--dense .input--sm { min-height: 38px; font-size: 16px; }
