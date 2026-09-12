@@ -116,7 +116,10 @@ p  { margin: 0; }
 .btn:active { transform: scale(.97); }
 .btn--primary { background: var(--accent); color: var(--accent-ink); border-color: var(--accent); }
 .btn--ghost { background: transparent; }
-.btn--quiet { background: transparent; border-color: transparent; color: var(--text-dim); min-height: 44px; }
+/* Quiet = secondary, NOT invisible: it keeps the border every other control
+   has. Dropping it (12 Sep 2026) left "‹ Back", "Forgot password?" and the
+   session's X as bare text with no edge to aim at. */
+.btn--quiet { background: transparent; color: var(--text-dim); min-height: var(--tap); }
 .btn--block { width: 100%; }
 .btn--big { min-height: 64px; font-size: 18px; }
 .btn[disabled] { opacity: .5; cursor: default; }
@@ -385,8 +388,16 @@ p  { margin: 0; }
 .target__reset::after { content: ""; position: absolute; inset: -13px; }
 .input--sm { min-height: 44px; font-size: 18px; font-weight: 700; text-align: center; padding: 0 var(--space-2); }
 .btn svg { width: 18px; height: 18px; flex: none; }
-.btn--icon { width: 44px; padding: 0; }
+.btn--icon { width: var(--tap); padding: 0; }
 .btn--icon svg { width: 20px; height: 20px; }
+/* The way out of a session (Javier, 12 Sep 2026: "isn't the X too small?").
+   44px is the floor for a control you aim at calmly; this one is hit mid-set,
+   one-handed, so it gets 52 — the same height as every real button on the
+   screen — with a 24px glyph and full-contrast ink. .head-spacer matches it so
+   the session title stays centred between them. */
+.btn--quit { width: 52px; min-height: 52px; padding: 0; color: var(--text); }
+.btn--quit svg { width: 24px; height: 24px; }
+.head-spacer { width: 52px; flex: none; }
 
 /* Dense variant for 3+ movement rounds: tighter padding, smaller numbers and
    inputs, and the narrow preview at every width. Measured at 375×812 — the
@@ -481,7 +492,8 @@ body.is-resting .progress i.done, body.is-resting .progress i.now { background: 
 body.is-resting .rest__ring .track { stroke: var(--rest-line); }
 body.is-resting .rest__ring .arc { stroke: var(--rest-ink); }
 body.is-resting .rest__ring .arc.final { stroke: var(--rest-arc-final); }   /* last 10 s */
-body.is-resting .btn--ghost { border-color: var(--rest-line-strong); color: var(--rest-ink); }
+body.is-resting .btn--ghost, body.is-resting .btn--quiet { border-color: var(--rest-line-strong); }
+body.is-resting .btn--ghost { color: var(--rest-ink); }
 body.is-resting .btn--primary { background: var(--rest-ink); color: var(--rest); border-color: var(--rest-ink); }  /* blue+white is 5.96:1 — fine */
 body.is-resting .btn--quiet { color: var(--rest-ink-dim); }
 body.is-resting .tabata__phase.rest { color: var(--rest-ink); }

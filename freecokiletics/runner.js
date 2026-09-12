@@ -160,10 +160,10 @@ window.Runner = (function () {
   }
   function header(step, sub) {
     return '<div class="row">' +
-      '<button class="btn btn--quiet btn--icon" data-act="quit" aria-label="Leave session">' + ICONS.xmark + "</button>" +
+      '<button class="btn btn--ghost btn--quit" data-act="quit" aria-label="Leave session">' + ICONS.xmark + "</button>" +
       '<div class="grow" style="text-align:center"><div class="eyebrow">' + esc(state.title) + '</div>' +
       '<div class="dim" style="font-size:13px">' + esc(sub || "") + "</div></div>" +
-      '<span style="width:44px"></span></div>' + progressBar(step);
+      '<span class="head-spacer"></span></div>' + progressBar(step);
   }
   function footer(label) {
     return '<div class="actions">' +
