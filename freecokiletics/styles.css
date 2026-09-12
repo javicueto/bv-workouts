@@ -399,6 +399,14 @@ body.is-resting .tabata__phase.rest { color: #fff; }
    out of sight behind the card's overflow:hidden. */
 .day-card__blocks li { display: flex; align-items: center; gap: var(--space-3); font-size: 14px; min-width: 0; }
 .day-card__blocks .grow { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+/* One line per run when a session was done more than once. */
+.day-card__runs { list-style: none; margin: 0; padding: 0 var(--space-5) var(--space-4); display: grid; gap: 1px; }
+.day-card__runs a {
+  display: flex; align-items: baseline; justify-content: space-between; gap: var(--space-3);
+  padding: var(--space-2) 0; font-size: 14px; color: var(--text-dim); text-decoration: none;
+  border-top: 1px solid var(--line-soft);
+}
+.day-card__runs a:active { color: var(--text); }
 .day-card__acts { display: flex; border-top: 1px solid var(--line-soft); }
 .day-card__acts a {
   flex: 1; padding: var(--space-4) var(--space-3); text-align: center;
@@ -408,7 +416,10 @@ body.is-resting .tabata__phase.rest { color: #fff; }
 .day-card__acts a:active { background: var(--bg-sunken); }
 
 /* ------------------------------------------------------- read-only session */
-.vsec { margin-top: var(--space-6); }
+/* A rule between blocks, so A / B / C read as separate blocks rather than one
+   long list (Javier, 12 Sep 2026). The first section needs no rule above it. */
+.vsec { margin-top: var(--space-6); padding-top: var(--space-6); border-top: 1px solid var(--line); }
+.vsec:first-of-type { padding-top: 0; border-top: 0; }
 .vsec__head { display: flex; align-items: center; gap: var(--space-3); margin-bottom: var(--space-2); }
 .vsec__h { font-size: 22px; margin: 0; line-height: 1.05; }   /* condensed: 17px read too small */
 .vgrid {

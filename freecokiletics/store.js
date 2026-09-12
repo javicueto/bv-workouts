@@ -258,10 +258,10 @@ window.Store = (function () {
       .order("finished_at", { ascending: false });
     var m = {};
     (r.data || []).forEach(function (w) {
-      if (!m[w.session_key]) { m[w.session_key] = w; w.times = 1; }
-      else m[w.session_key].times++;
+      if (!m[w.session_key]) { m[w.session_key] = w; w.times = 1; w.runs = [w]; }
+      else { m[w.session_key].times++; m[w.session_key].runs.push(w); }
     });
-    return m;
+    return m;                          // newest first, so runs[0] is the latest
   }
   async function workout(id) {
     if (!sb()) return null;

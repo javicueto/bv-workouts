@@ -82,6 +82,8 @@
   function toIso(dateStr, timeStr) { return new Date(dateStr + "T" + timeStr).toISOString(); }
   function hhmm(iso) { return new Date(iso).toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" }); }
   function longDate(iso) { return new Date(iso).toLocaleDateString([], { weekday: "long", day: "numeric", month: "long" }); }
+  // "Sat 12 Sep" — the long weekday wrapped the run list onto two lines.
+  function shortDate(iso) { return new Date(iso).toLocaleDateString([], { weekday: "short", day: "numeric", month: "short" }); }
 
   function today() { var d = new Date(); return new Date(d.getFullYear(), d.getMonth(), d.getDate()); }
   function isoDate(d) { return d.getFullYear() + "-" + String(d.getMonth() + 1).padStart(2, "0") + "-" + String(d.getDate()).padStart(2, "0"); }
@@ -490,7 +492,9 @@
             '<div class="row"><div class="grow"><div class="eyebrow">Day ' + (ix + 1) + "</div>" +
             '<h2>' + esc(s.title) + "</h2>" +
             '<p class="dim">' + (d
-              ? longDate(d.started_at) + " · " + hhmm(d.started_at) + "–" + hhmm(d.finished_at)
+              ? (d.times > 1
+                  ? "Done " + d.times + " times this week"
+                  : longDate(d.started_at) + " · " + hhmm(d.started_at) + "–" + hhmm(d.finished_at))
               : s.blocks.length + " blocks · " + s.blocks.map(function (b) { return b.letter; }).join(" ")) + "</p></div>" +
             (d
               ? '<span class="badge badge--good">done ✓' + (d.times > 1 ? " ×" + d.times : "") + "</span>"
@@ -503,6 +507,17 @@
                 '<span class="faint">' + esc(blockCount(b)) + "</span></li>";
             }).join("") + "</ul>") +
             "</a>" +
+            // Done more than once: every run gets its own line, so the extra
+            // session is visible and openable, not just counted in the badge.
+            (d && d.times > 1
+              ? '<ul class="day-card__runs">' + d.runs.map(function (r, i) {
+                  return '<li><a href="#/h/' + esc(r.id) + '">' +
+                    "<span>" + esc(shortDate(r.started_at)) + "</span>" +
+                    '<span class="faint">' + esc(hhmm(r.started_at)) +
+                      (r.finished_at ? "–" + esc(hhmm(r.finished_at)) : "") + "</span>" +
+                    "</a></li>";
+                }).join("") + "</ul>"
+              : "") +
             '<div class="day-card__acts">' +
               (d
                 ? '<a href="#/run/' + esc(s.key) + wq + '">Do it again</a>' +
