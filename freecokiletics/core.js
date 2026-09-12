@@ -22,6 +22,7 @@ window.App = (function () {
     recoveryMode: false,    // true from a reset link until the new password is saved
     prevHash: "#/", curHash: "#/",   // for "Back" on screens reachable from two places
     installEvt: null,       // Android/desktop Chrome's beforeinstallprompt, if it fired
+    memberFor: null,        // account id the server confirmed as a Cokiletics member (db/006)
   };
 
   /* Francesco's names for the phases, by block. A block beyond these (10 and

@@ -13,6 +13,16 @@
     if (!S.me) S.me = await Store.user();
     if (A.stale(t) || S.recoveryMode) return;
     if (!S.me) { V.renderLogin(); return; }
+    /* Members only (db/006). false = the server says this account is not
+       listed: say so, rather than let it wander into an empty app. null =
+       could not tell (offline): carry on — the database still refuses a
+       stranger, and a real member must never be locked out in the gym. */
+    if (S.memberFor !== S.me.id) {
+      var member = await Store.isMember(S.me.id);
+      if (A.stale(t)) return;
+      if (member === false) { V.renderNotMember(); return; }
+      if (member === true) S.memberFor = S.me.id;
+    }
     if (!S.PLAN) {
       try { S.PLAN = await Store.plan(S.me.id); }
       catch (e) {

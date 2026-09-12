@@ -132,6 +132,20 @@
     });
   };
 
+  /* Signed in, but not on the members list (db/006). Plain words and a way
+     out — without this an unlisted account met "Set up your plan" and then a
+     refused save. */
+  V.renderNotMember = function () {
+    ticket();
+    app.innerHTML = topbar() + '<div class="stack" style="margin-top:var(--space-8)">' +
+      '<div class="logo logo--big">' + ICONS.bicep + '</div>' +
+      '<div class="eyebrow">Invite only</div><h1>Not set up for Cokiletics</h1>' +
+      '<p class="dim">You’re signed in, but this account hasn’t been added to Cokiletics. Ask Javier to add you, then open the app again.</p>' +
+      '<button class="btn btn--ghost btn--block" type="button" id="nm-out">Sign out</button>' +
+      "</div>";
+    document.getElementById("nm-out").addEventListener("click", V.signOutFlow);
+  };
+
   /* Signing out throws away whatever is still only on this phone. So, first,
      anything waiting is uploaded if there is signal; then, if sets are still
      unsent or a session is half done, it says so and asks — the safe answer
@@ -155,7 +169,7 @@
     }
     Runner.forget();
     await Store.signOut();
-    S.me = null; S.PLAN = null; S.WEEKS = [];
+    S.me = null; S.PLAN = null; S.WEEKS = []; S.memberFor = null;
     A.route();
   };
 })();

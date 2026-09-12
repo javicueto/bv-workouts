@@ -18,9 +18,11 @@ window.Store = (function () {
   var T_WORKOUTS = "freeco_workouts";
   var T_SETS = "freeco_sets";
   var T_PLANS = "freeco_plans";
+  var T_MEMBERS = "freeco_members";      // who may use Cokiletics at all (db/006)
   var PLAN_KEY = "freeco.plan";
   var SESSION_KEY = "freeco.session";    // owned by runner.js; cleared here on sign-out
   var DROPPED_KEY = "freeco.dropped";    // rows the server refused, kept for inspection
+  var MEMBER_KEY = "freeco.member";      // id of the account last confirmed as a member
   var listeners = [];
 
   function configured() { return !!(cfg.supabaseUrl && cfg.supabaseKey && window.supabase); }
@@ -97,7 +99,7 @@ window.Store = (function () {
      (theme, "not now" on the install card) are not the account's and stay. */
   async function signOut() {
     try {
-      [PLAN_KEY, LAST_KEY, Q_KEY, SESSION_KEY].forEach(function (k) { localStorage.removeItem(k); });
+      [PLAN_KEY, LAST_KEY, Q_KEY, SESSION_KEY, MEMBER_KEY].forEach(function (k) { localStorage.removeItem(k); });
     } catch (e) {}
     notify();
     if (sb()) { try { await timed(sb().auth.signOut()); } catch (e) { /* offline: the local session is gone regardless */ } }
@@ -252,6 +254,27 @@ window.Store = (function () {
     return out;
   }
 
+  /* Cokiletics is members-only (db/006): an account that is not listed in
+     freeco_members can still sign in — the auth is Maky's, and shared — but
+     every read comes back empty and every write is refused. This tells the
+     app which case it is in, so a non-member is told so in plain words
+     instead of meeting "Set up your plan" and then a refused save.
+
+     true / false, or null when it cannot be known (offline, server slow). A
+     member is NEVER shut out on a null: the phone remembers the last account
+     it confirmed, and the database refuses anyone who is not listed anyway. */
+  async function isMember(userId) {
+    var known = null;
+    try { known = localStorage.getItem(MEMBER_KEY); } catch (e) {}
+    var fallback = known === userId ? true : null;
+    if (!navigator.onLine || !sb() || !userId) return fallback;
+    try {
+      var row = await q(sb().from(T_MEMBERS).select("user_id").eq("user_id", userId).maybeSingle());
+      try { if (row) localStorage.setItem(MEMBER_KEY, userId); else localStorage.removeItem(MEMBER_KEY); } catch (e) {}
+      return !!row;
+    } catch (e) { return fallback; }
+  }
+
   /* The training plan: when you start and how long each block runs. One per
      person, so Javier and Nacho each have their own. Cached locally, because
      the app has to know which week it is with no signal. */
@@ -358,7 +381,7 @@ window.Store = (function () {
   return {
     configured: configured, user: user, signIn: signIn, signUp: signUp, signOut: signOut,
     sendReset: sendReset, setPassword: setPassword, ready: ready, onAuth: onAuth,
-    plan: plan, savePlan: savePlan,
+    plan: plan, savePlan: savePlan, isMember: isMember,
     uuid: uuid, saveWorkout: saveWorkout, saveSet: saveSet, lastForExercises: lastForExercises,
     history: history, setsFor: setsFor, doneByWeek: doneByWeek, workout: workout, deleteWorkout: deleteWorkout,
     flush: flush, pending: function () { return readQ().length; },
