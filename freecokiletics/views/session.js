@@ -39,6 +39,14 @@
       return x && x.weight != null ? +x.weight : null;
     });
   }
+  /* The movements "Your weights" lists: those that take a weight, plus any
+     no-weight one (data/no_weight.json) that has one logged anyway — a weight
+     already typed is never hidden. */
+  function weighable(b, byKey) {
+    return (b.exercises || []).filter(function (e) {
+      return !e.no_weight || roundWeights(b, e, byKey).some(function (v) { return v != null; });
+    });
+  }
   function distinct(vals) { return vals.filter(function (v, i) { return v != null && vals.indexOf(v) === i; }); }
   function heaviest(vals) { var d = distinct(vals); return d.length ? Math.max.apply(null, d) : null; }
   function kg(s) { s = String(s).trim(); if (s === "") return null; var v = parseFloat(s.replace(",", ".")); return isNaN(v) ? null : v; }
@@ -112,7 +120,7 @@
     return '<form class="vweights editable" id="wt-' + esc(b.letter) + '" data-b="' + esc(b.letter) + '" novalidate>' +
       '<div class="vweights__head"><span class="vweights__title">' + ICONS.dumbbell + "Your weights</span>" +
         editActs("weights") + "</div>" +
-      '<ul class="vweights__list">' + b.exercises.map(function (e) {
+      '<ul class="vweights__list">' + weighable(b, byKey).map(function (e) {
         var vals = roundWeights(b, e, byKey);
         var byRound = rounds > 1 && distinct(vals).length > 1;
         var unit = '<span class="vweights__unit">kg</span>';
@@ -180,7 +188,8 @@
           var reps = A.repsLabel(e);
           return thumb(e, (reps ? "<b>" + esc(reps) + "</b> " : "") + esc(e.name));
         }).join("") + "</div>" +
-        (rec && b.kind === "rounds" ? weightsBox(b, rec.byKey) : "") +
+        // No box at all when nothing in the block takes a weight (a core circuit).
+        (rec && b.kind === "rounds" && weighable(b, rec.byKey).length ? weightsBox(b, rec.byKey) : "") +
         "</section>";
     });
 

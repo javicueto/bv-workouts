@@ -348,6 +348,10 @@ window.Runner = (function () {
        MAX sets (chin-ups) have no target, so their reps box opens with the
        weight rather than hiding another level down. */
     var needsBox = it.target.n === "MAX" || r === "";
+    /* No weight for bodyweight, bands, TRX… (data/no_weight.json, Javier's
+       review, 13 Sep 2026) — unless this round already has one logged, which
+       always shows so nothing typed disappears. */
+    var showWeight = !e.no_weight || !!(prev && prev.weight != null);
     var unitWord = timed ? "Seconds" : "Reps";
     var target = typeof it.target.n === "number" ? it.target.n : null;
     var repsEdited = target != null && r !== "" && +r !== target;
@@ -379,9 +383,15 @@ window.Runner = (function () {
         "</div>" +
         '<div class="ex-card__log">' +
         '<div class="logbtns">' +
-          '<button class="logbtn" type="button" data-logtoggle="' + ix + '" aria-expanded="false" aria-controls="log' + ix + '"' +
-            ' aria-label="' + esc(weightLabel(logged ? prev.weight : w, carried)) + '">' +
-            ICONS.dumbbell + wLabel + "</button>" +
+          (showWeight
+            ? '<button class="logbtn" type="button" data-logtoggle="' + ix + '" aria-expanded="false" aria-controls="log' + ix + '"' +
+                ' aria-label="' + esc(weightLabel(logged ? prev.weight : w, carried)) + '">' +
+                ICONS.dumbbell + wLabel + "</button>"
+            // No weight, but reps with no target (MAX) still need their box.
+            : needsBox
+              ? '<button class="logbtn" type="button" data-logtoggle="' + ix + '" aria-expanded="false" aria-controls="log' + ix + '"' +
+                  ' aria-label="' + esc(repsLabel(unitWord, "")) + '">' + ICONS.arrowsRepeat + "</button>"
+              : "") +
           (needsBox ? "" :
             '<button class="logbtn" type="button" data-repstoggle="' + ix + '" aria-expanded="false"' +
               ' aria-label="' + esc(repsLabel(unitWord, repsEdited ? r : "")) + '">' + rLabel + ICONS.arrowsRepeat + "</button>") +
@@ -392,19 +402,19 @@ window.Runner = (function () {
           (e.per_side ? " · side 1" : "") + "</button>" : "") +
         (it.note ? '<div class="ex-card__cue">' + esc(it.note) + "</div>" : "") +
       "</div>" +
-      '<div class="logpanel" id="log' + ix + '" data-logpanel="' + ix + '" hidden>' +
+      (showWeight || needsBox ? '<div class="logpanel" id="log' + ix + '" data-logpanel="' + ix + '" hidden>' : "") +
         // \u2212 and + step 1 kg (Javier, 13 Sep 2026); a half kilo is still typed.
-        '<div class="logfield logfield--step"><label for="w' + ix + '">kg</label>' +
+        (showWeight ? '<div class="logfield logfield--step"><label for="w' + ix + '">kg</label>' +
           '<button class="logstep" type="button" data-wstep="-1" data-for="' + ix + '" aria-label="1 kilo less">' + ICONS.minus + "</button>" +
           '<input class="input input--sm input--num" id="w' + ix + '" data-w="' + ix + '" inputmode="decimal" placeholder="\u2014" value="' + esc(w) + '">' +
           '<button class="logstep" type="button" data-wstep="1" data-for="' + ix + '" aria-label="1 kilo more">' + ICONS.plus + "</button>" +
-          '<button class="logok" type="button" data-logdone="' + ix + '" aria-label="Done">' + ICONS.check + "</button></div>" +
+          '<button class="logok" type="button" data-logdone="' + ix + '" aria-label="Done">' + ICONS.check + "</button></div>" : "") +
         (needsBox
           ? '<div class="logfield"><label for="r' + ix + '">' + (timed ? "sec" : "reps") + "</label>" +
             '<input class="input input--sm input--num" id="r' + ix + '" data-r="' + ix + '" inputmode="numeric" placeholder="' + (it.target.n === "MAX" ? "how many?" : "\u2014") + '" value="' + esc(r) + '">' +
             '<button class="logok" type="button" data-logdone="' + ix + '" aria-label="Done">' + ICONS.check + "</button></div>"
           : "") +
-      "</div>" +
+      (showWeight || needsBox ? "</div>" : "") +
       (needsBox ? "" :
         '<div class="logpanel logpanel--reps" data-repsbox="' + ix + '" hidden>' +
           '<div class="logfield"><label for="r' + ix + '">' + (timed ? "sec" : "reps") + "</label>" +

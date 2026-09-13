@@ -18,13 +18,15 @@ window.PROGRAMME = {
    "id": "11245580",
    "name": "Dynamic plank",
    "youtube_id": "6x403tfAPZs",
-   "has_preview": true
+   "has_preview": true,
+   "no_weight": true
   },
   "11245585": {
    "id": "11245585",
    "name": "Front to side plank",
    "youtube_id": "_EJ48P7fauM",
-   "has_preview": true
+   "has_preview": true,
+   "no_weight": true
   },
   "11246339": {
    "id": "11246339",
@@ -42,7 +44,8 @@ window.PROGRAMME = {
    "id": "11246395",
    "name": "Lateral climbers",
    "youtube_id": "yLnVyQQCXTU",
-   "has_preview": true
+   "has_preview": true,
+   "no_weight": true
   },
   "11249249": {
    "id": "11249249",
@@ -54,13 +57,15 @@ window.PROGRAMME = {
    "id": "11249258",
    "name": "Plyo push up",
    "youtube_id": "ovr_OX8NmSM",
-   "has_preview": true
+   "has_preview": true,
+   "no_weight": true
   },
   "11249269": {
    "id": "11249269",
    "name": "Split jump",
    "youtube_id": "-sv7Z0op0V0",
-   "has_preview": true
+   "has_preview": true,
+   "no_weight": true
   },
   "11249277": {
    "id": "11249277",
@@ -78,7 +83,8 @@ window.PROGRAMME = {
    "id": "11250441",
    "name": "TRX shoulders openings",
    "youtube_id": "YQdw9EfQa8Q",
-   "has_preview": true
+   "has_preview": true,
+   "no_weight": true
   },
   "11250646": {
    "id": "11250646",
@@ -132,7 +138,8 @@ window.PROGRAMME = {
    "id": "11259664",
    "name": "Plank twist",
    "youtube_id": "OozLkbgXFMw",
-   "has_preview": true
+   "has_preview": true,
+   "no_weight": true
   },
   "11279371": {
    "id": "11279371",
@@ -150,31 +157,36 @@ window.PROGRAMME = {
    "id": "11279375",
    "name": "Band twist",
    "youtube_id": "EWlW6TPgV_I",
-   "has_preview": true
+   "has_preview": true,
+   "no_weight": true
   },
   "11279401": {
    "id": "11279401",
    "name": "Hands to elbows plank",
    "youtube_id": "Rg0D3lTjOwQ",
-   "has_preview": true
+   "has_preview": true,
+   "no_weight": true
   },
   "11279404": {
    "id": "11279404",
    "name": "Band tall kneeling shoulder press",
    "youtube_id": "DgzZEJ6ebWc",
-   "has_preview": true
+   "has_preview": true,
+   "no_weight": true
   },
   "11279407": {
    "id": "11279407",
    "name": "TRX push up",
    "youtube_id": "CNtRXSK0wIQ",
-   "has_preview": true
+   "has_preview": true,
+   "no_weight": true
   },
   "11279419": {
    "id": "11279419",
    "name": "TRX upper row",
    "youtube_id": "vmgUYLeJb1g",
-   "has_preview": true
+   "has_preview": true,
+   "no_weight": true
   },
   "11279962": {
    "id": "11279962",
@@ -186,25 +198,29 @@ window.PROGRAMME = {
    "id": "11279970",
    "name": "Single leg alternated lateral jump",
    "youtube_id": "XyoQf9Sarfg",
-   "has_preview": true
+   "has_preview": true,
+   "no_weight": true
   },
   "11280034": {
    "id": "11280034",
    "name": "High knee switches",
    "youtube_id": "eZwpUPhv9KU",
-   "has_preview": true
+   "has_preview": true,
+   "no_weight": true
   },
   "11280043": {
    "id": "11280043",
    "name": "Elbows lateral climbers",
    "youtube_id": "4lotc9HdHrs",
-   "has_preview": true
+   "has_preview": true,
+   "no_weight": true
   },
   "11288950": {
    "id": "11288950",
    "name": "Modified tuck up",
    "youtube_id": "3IdtQ1mi-ks",
-   "has_preview": true
+   "has_preview": true,
+   "no_weight": true
   },
   "11288954": {
    "id": "11288954",
@@ -222,13 +238,15 @@ window.PROGRAMME = {
    "id": "11288963",
    "name": "Half kneeling band pull down",
    "youtube_id": "hLl6zMNtTBQ",
-   "has_preview": true
+   "has_preview": true,
+   "no_weight": true
   },
   "11288977": {
    "id": "11288977",
    "name": "Isometric deadbug",
    "youtube_id": "56Q87MgptgY",
-   "has_preview": true
+   "has_preview": true,
+   "no_weight": true
   },
   "11291128": {
    "id": "11291128",
@@ -252,19 +270,22 @@ window.PROGRAMME = {
    "id": "11292207",
    "name": "Band core activation dead bug",
    "youtube_id": "EpYCmA4huKY",
-   "has_preview": true
+   "has_preview": true,
+   "no_weight": true
   },
   "11292212": {
    "id": "11292212",
    "name": "Single leg bridge",
    "youtube_id": "Y6i0IhzklZ4",
-   "has_preview": true
+   "has_preview": true,
+   "no_weight": true
   },
   "11292256": {
    "id": "11292256",
    "name": "Band lateral walk",
    "youtube_id": "wXZX7CApku8",
-   "has_preview": true
+   "has_preview": true,
+   "no_weight": true
   },
   "11292305": {
    "id": "11292305",
@@ -282,13 +303,15 @@ window.PROGRAMME = {
    "id": "11292342",
    "name": "Plank arm raise",
    "youtube_id": "s-DxL0hy-v4",
-   "has_preview": true
+   "has_preview": true,
+   "no_weight": true
   },
   "11292345": {
    "id": "11292345",
    "name": "Side bridge",
    "youtube_id": "c0leGbP-bfA",
-   "has_preview": true
+   "has_preview": true,
+   "no_weight": true
   },
   "11292356": {
    "id": "11292356",
@@ -312,25 +335,29 @@ window.PROGRAMME = {
    "id": "11292707",
    "name": "Band internal rotation",
    "youtube_id": "iDT6mOuBjTY",
-   "has_preview": true
+   "has_preview": true,
+   "no_weight": true
   },
   "11292710": {
    "id": "11292710",
    "name": "Band external rotation",
    "youtube_id": "Ogwx6y96rHI",
-   "has_preview": true
+   "has_preview": true,
+   "no_weight": true
   },
   "11292942": {
    "id": "11292942",
    "name": "Plank leg raise",
    "youtube_id": "1yDIOmzqco0",
-   "has_preview": true
+   "has_preview": true,
+   "no_weight": true
   },
   "11293149": {
    "id": "11293149",
    "name": "Fitball leg curl",
    "youtube_id": "ISD-dNCGkvM",
-   "has_preview": true
+   "has_preview": true,
+   "no_weight": true
   },
   "11293295": {
    "id": "11293295",
@@ -348,7 +375,8 @@ window.PROGRAMME = {
    "id": "11298002",
    "name": "Band rhomboids openings",
    "youtube_id": "t8Zzh7CyWuE",
-   "has_preview": true
+   "has_preview": true,
+   "no_weight": true
   },
   "11307746": {
    "id": "11307746",
@@ -372,7 +400,8 @@ window.PROGRAMME = {
    "id": "11307787",
    "name": "Band glute bridge (3\" hold)",
    "youtube_id": "pm3Ge7deNCc",
-   "has_preview": true
+   "has_preview": true,
+   "no_weight": true
   },
   "11307805": {
    "id": "11307805",
@@ -384,13 +413,15 @@ window.PROGRAMME = {
    "id": "11307824",
    "name": "Ipsilateral deadbug",
    "youtube_id": "I7ijDnXU0H8",
-   "has_preview": true
+   "has_preview": true,
+   "no_weight": true
   },
   "11307835": {
    "id": "11307835",
    "name": "Push up",
    "youtube_id": "Rv51wbddtqg",
-   "has_preview": true
+   "has_preview": true,
+   "no_weight": true
   },
   "11326763": {
    "id": "11326763",
@@ -420,7 +451,8 @@ window.PROGRAMME = {
    "id": "11327019",
    "name": "TRX lower row",
    "youtube_id": "u5rJWjYKNXc",
-   "has_preview": true
+   "has_preview": true,
+   "no_weight": true
   },
   "11329531": {
    "id": "11329531",
@@ -432,7 +464,8 @@ window.PROGRAMME = {
    "id": "11329535",
    "name": "Sit up",
    "youtube_id": "AXNM3JlBQQU",
-   "has_preview": true
+   "has_preview": true,
+   "no_weight": true
   },
   "11329545": {
    "id": "11329545",
@@ -450,7 +483,8 @@ window.PROGRAMME = {
    "id": "11331922",
    "name": "Fitball plank",
    "youtube_id": "ivowFa_F6go",
-   "has_preview": true
+   "has_preview": true,
+   "no_weight": true
   },
   "11355605": {
    "id": "11355605",
@@ -462,19 +496,22 @@ window.PROGRAMME = {
    "id": "11372777",
    "name": "Supinated grip shoulder blade depression",
    "youtube_id": "nE7dKMK6nOY",
-   "has_preview": true
+   "has_preview": true,
+   "no_weight": true
   },
   "11372781": {
    "id": "11372781",
    "name": "Band half kneeling high to low chop",
    "youtube_id": "-_VSPjyWpTE",
-   "has_preview": true
+   "has_preview": true,
+   "no_weight": true
   },
   "11372794": {
    "id": "11372794",
    "name": "Contralateral leg arm raise plank",
    "youtube_id": "fDfiChcxW14",
-   "has_preview": true
+   "has_preview": true,
+   "no_weight": true
   },
   "11372937": {
    "id": "11372937",
@@ -522,7 +559,8 @@ window.PROGRAMME = {
    "id": "11373085",
    "name": "Plyometric depth jump",
    "youtube_id": "AzPJZHOmGEg",
-   "has_preview": true
+   "has_preview": true,
+   "no_weight": true
   },
   "11373099": {
    "id": "11373099",
@@ -546,19 +584,22 @@ window.PROGRAMME = {
    "id": "11407364",
    "name": "Floor rhomboids openings",
    "youtube_id": "NqquZu3cr-k",
-   "has_preview": true
+   "has_preview": true,
+   "no_weight": true
   },
   "11425178": {
    "id": "11425178",
    "name": "Australian pull up",
    "youtube_id": "bHO0A4ZF_Zg",
-   "has_preview": true
+   "has_preview": true,
+   "no_weight": true
   },
   "11473108": {
    "id": "11473108",
    "name": "TRX single arm row",
    "youtube_id": "2lFpz7UpjHc",
-   "has_preview": true
+   "has_preview": true,
+   "no_weight": true
   },
   "11473269": {
    "id": "11473269",
@@ -576,7 +617,8 @@ window.PROGRAMME = {
    "id": "11473301",
    "name": "Pass simulation side lunges",
    "youtube_id": "QoTbBkg07tM",
-   "has_preview": true
+   "has_preview": true,
+   "no_weight": true
   },
   "11473304": {
    "id": "11473304",
@@ -588,7 +630,8 @@ window.PROGRAMME = {
    "id": "11479416",
    "name": "Bent hollow flutter kicks",
    "youtube_id": "DxFZz8mVLrA",
-   "has_preview": true
+   "has_preview": true,
+   "no_weight": true
   },
   "11479463": {
    "id": "11479463",
@@ -606,19 +649,22 @@ window.PROGRAMME = {
    "id": "11493541",
    "name": "Shoulder tap bear crawl",
    "youtube_id": "HCcJ7yNfAAk",
-   "has_preview": true
+   "has_preview": true,
+   "no_weight": true
   },
   "11494648": {
    "id": "11494648",
    "name": "Scissor crunch",
    "youtube_id": "fposjY4kmqA",
-   "has_preview": true
+   "has_preview": true,
+   "no_weight": true
   },
   "11494918": {
    "id": "11494918",
    "name": "TRX shoulder depression and row",
    "youtube_id": "XT6O63xPYy4",
-   "has_preview": true
+   "has_preview": true,
+   "no_weight": true
   },
   "11497501": {
    "id": "11497501",
@@ -636,19 +682,22 @@ window.PROGRAMME = {
    "id": "11521897",
    "name": "Fitball crunch",
    "youtube_id": "q-z5KR5gxFo",
-   "has_preview": true
+   "has_preview": true,
+   "no_weight": true
   },
   "11521901": {
    "id": "11521901",
    "name": "Cross wallet",
    "youtube_id": "QZcbQ2FDZ8I",
-   "has_preview": true
+   "has_preview": true,
+   "no_weight": true
   },
   "11570004": {
    "id": "11570004",
    "name": "No arms consecutive vertical jumps",
    "youtube_id": "gdRkJ9ndGQM",
-   "has_preview": true
+   "has_preview": true,
+   "no_weight": true
   },
   "11577511": {
    "id": "11577511",
@@ -672,25 +721,29 @@ window.PROGRAMME = {
    "id": "11611416",
    "name": "Band half kneeling Pallof press",
    "youtube_id": "I59jOsDWgqw",
-   "has_preview": true
+   "has_preview": true,
+   "no_weight": true
   },
   "11612011": {
    "id": "11612011",
    "name": "Band tall kneeling pull down",
    "youtube_id": "5jiZ4zc2yaU",
-   "has_preview": true
+   "has_preview": true,
+   "no_weight": true
   },
   "11684653": {
    "id": "11684653",
    "name": "Cross body mountain climbers",
    "youtube_id": "GTlzRwL2WHw",
-   "has_preview": true
+   "has_preview": true,
+   "no_weight": true
   },
   "12378571": {
    "id": "12378571",
    "name": "Band standing Pallof press",
    "youtube_id": "f_D0GByfZh0",
-   "has_preview": true
+   "has_preview": true,
+   "no_weight": true
   },
   "12417679": {
    "id": "12417679",
@@ -708,19 +761,22 @@ window.PROGRAMME = {
    "id": "12457696",
    "name": "Leg raise side plank",
    "youtube_id": "9Yw2uZxRilw",
-   "has_preview": true
+   "has_preview": true,
+   "no_weight": true
   },
   "12457698": {
    "id": "12457698",
    "name": "Bear hug band internal rotation",
    "youtube_id": "cv42v77Gkuo",
-   "has_preview": true
+   "has_preview": true,
+   "no_weight": true
   },
   "12457699": {
    "id": "12457699",
    "name": "Bear hug band external rotation",
    "youtube_id": "UGqB2NGvkok",
-   "has_preview": true
+   "has_preview": true,
+   "no_weight": true
   },
   "12457757": {
    "id": "12457757",
@@ -738,13 +794,15 @@ window.PROGRAMME = {
    "id": "12479502",
    "name": "High elbow band internal rotation",
    "youtube_id": "sKNux4DQD-Q",
-   "has_preview": true
+   "has_preview": true,
+   "no_weight": true
   },
   "12479504": {
    "id": "12479504",
    "name": "High elbow band external rotation",
    "youtube_id": "BABJXLzPq74",
-   "has_preview": true
+   "has_preview": true,
+   "no_weight": true
   },
   "12503061": {
    "id": "12503061",
@@ -762,25 +820,29 @@ window.PROGRAMME = {
    "id": "12626046",
    "name": "Hollow body flutter kicks",
    "youtube_id": "V_Pa5y5cJYg",
-   "has_preview": true
+   "has_preview": true,
+   "no_weight": true
   },
   "12651865": {
    "id": "12651865",
    "name": "Foam roller miniband press",
    "youtube_id": "bDGrBQZ3w7g",
-   "has_preview": true
+   "has_preview": true,
+   "no_weight": true
   },
   "12690832": {
    "id": "12690832",
    "name": "Pass simulation reverse lunges",
    "youtube_id": "gecOK43Dsu8",
-   "has_preview": true
+   "has_preview": true,
+   "no_weight": true
   },
   "12690843": {
    "id": "12690843",
    "name": "Pass simulation lunge forward",
    "youtube_id": "OXp8MqDVEak",
-   "has_preview": true
+   "has_preview": true,
+   "no_weight": true
   },
   "12695626": {
    "id": "12695626",
@@ -792,7 +854,8 @@ window.PROGRAMME = {
    "id": "12711639",
    "name": "Plyo lateral jump",
    "youtube_id": "91-e4OVXfBg",
-   "has_preview": true
+   "has_preview": true,
+   "no_weight": true
   },
   "12717300": {
    "id": "12717300",
@@ -804,7 +867,8 @@ window.PROGRAMME = {
    "id": "12720641",
    "name": "Pull up",
    "youtube_id": "gfRjCi4JSM8",
-   "has_preview": true
+   "has_preview": true,
+   "no_weight": true
   },
   "12755748": {
    "id": "12755748",
@@ -816,7 +880,8 @@ window.PROGRAMME = {
    "id": "12777905",
    "name": "Chin up",
    "youtube_id": "nMngQ4nxUU0",
-   "has_preview": true
+   "has_preview": true,
+   "no_weight": true
   },
   "12778078": {
    "id": "12778078",
@@ -834,7 +899,8 @@ window.PROGRAMME = {
    "id": "14310937",
    "name": "TRX wallet crunch",
    "youtube_id": "jR-Dl_yb3t4",
-   "has_preview": true
+   "has_preview": true,
+   "no_weight": true
   },
   "14360341": {
    "id": "14360341",
@@ -888,7 +954,8 @@ window.PROGRAMME = {
    "id": "14645591",
    "name": "Front band hip to shoulder half moon",
    "youtube_id": "B6RIchxMZZM",
-   "has_preview": true
+   "has_preview": true,
+   "no_weight": true
   },
   "14695037": {
    "id": "14695037",
@@ -912,7 +979,8 @@ window.PROGRAMME = {
    "id": "15680324",
    "name": "TRX overhead extension",
    "youtube_id": "Z5Moa78y_gI",
-   "has_preview": true
+   "has_preview": true,
+   "no_weight": true
   },
   "15711087": {
    "id": "15711087",
@@ -924,7 +992,8 @@ window.PROGRAMME = {
    "id": "15734789",
    "name": "Floor row",
    "youtube_id": "-4_dXypRISs",
-   "has_preview": true
+   "has_preview": true,
+   "no_weight": true
   },
   "15788247": {
    "id": "15788247",
@@ -948,7 +1017,8 @@ window.PROGRAMME = {
    "id": "16117250",
    "name": "Plank shoulder tap",
    "youtube_id": "8rgurWd-PB8",
-   "has_preview": true
+   "has_preview": true,
+   "no_weight": true
   },
   "16130107": {
    "id": "16130107",
@@ -996,13 +1066,15 @@ window.PROGRAMME = {
    "id": "17664164",
    "name": "Miniband external rotation",
    "youtube_id": "iEA_KlzRoyQ",
-   "has_preview": true
+   "has_preview": true,
+   "no_weight": true
   },
   "17677181": {
    "id": "17677181",
    "name": "Full range push up",
    "youtube_id": "5yySze8P2DM",
-   "has_preview": true
+   "has_preview": true,
+   "no_weight": true
   },
   "20100237": {
    "id": "20100237",
@@ -1081,13 +1153,15 @@ window.PROGRAMME = {
        "reps": 8,
        "per_side": true,
        "id": "11292707",
-       "name": "Band internal rotation"
+       "name": "Band internal rotation",
+       "no_weight": true
       },
       {
        "reps": 8,
        "per_side": true,
        "id": "11292710",
-       "name": "Band external rotation"
+       "name": "Band external rotation",
+       "no_weight": true
       },
       {
        "reps": 12,
@@ -1110,7 +1184,8 @@ window.PROGRAMME = {
       {
        "seconds": 30,
        "id": "11245580",
-       "name": "Dynamic plank"
+       "name": "Dynamic plank",
+       "no_weight": true
       },
       {
        "reps": 10,
@@ -1122,7 +1197,8 @@ window.PROGRAMME = {
        "reps": 10,
        "note": "3 SEC HOLD",
        "id": "11307787",
-       "name": "Band glute bridge (3\" hold)"
+       "name": "Band glute bridge (3\" hold)",
+       "no_weight": true
       }
      ],
      "raw": "2 rounds\n30\" Dynamic plank\n10/side Medball contralateral deadbug\n10 Band bridge *3 SEC HOLD\nRest 1 min",
@@ -1147,7 +1223,8 @@ window.PROGRAMME = {
       {
        "reps": 12,
        "id": "11288963",
-       "name": "Half kneeling band pull down"
+       "name": "Half kneeling band pull down",
+       "no_weight": true
       }
      ],
      "raw": "3 rounds\n10/side Floor press\n12 Band half kneeling pull down \nRest 1 minute"
@@ -1290,13 +1367,15 @@ window.PROGRAMME = {
        "reps": 8,
        "per_side": true,
        "id": "11292707",
-       "name": "Band internal rotation"
+       "name": "Band internal rotation",
+       "no_weight": true
       },
       {
        "reps": 8,
        "per_side": true,
        "id": "11292710",
-       "name": "Band external rotation"
+       "name": "Band external rotation",
+       "no_weight": true
       },
       {
        "reps": 12,
@@ -1319,20 +1398,23 @@ window.PROGRAMME = {
       {
        "reps": 20,
        "id": "11493541",
-       "name": "Shoulder tap bear crawl"
+       "name": "Shoulder tap bear crawl",
+       "no_weight": true
       },
       {
        "reps": 10,
        "per_side": true,
        "id": "11307824",
-       "name": "Ipsilateral deadbug"
+       "name": "Ipsilateral deadbug",
+       "no_weight": true
       },
       {
        "reps": 8,
        "per_side": true,
        "note": "3\" hold",
        "id": "11292345",
-       "name": "Side bridge"
+       "name": "Side bridge",
+       "no_weight": true
       }
      ],
      "raw": "2 rounds\n20 Shoulder tap bear crawl\n10/side Ipsilateral deadbug\n8/side Side bridge (3\" hold)\nRest 1 min",
@@ -1356,7 +1438,8 @@ window.PROGRAMME = {
       {
        "reps": 16,
        "id": "11473301",
-       "name": "Pass simulation side lunges"
+       "name": "Pass simulation side lunges",
+       "no_weight": true
       }
      ],
      "raw": "3 rounds\n10 BB sumo deadlfit\n16 Pass simulation side lunges\nRest 1,5 minute"
@@ -1379,7 +1462,8 @@ window.PROGRAMME = {
       {
        "reps": 10,
        "id": "11298002",
-       "name": "Band rhomboids openings"
+       "name": "Band rhomboids openings",
+       "no_weight": true
       }
      ],
      "raw": "3 rounds\n10 DB cross over \n10 Rhomboids openings\nRest 1,5 minute"
@@ -1490,18 +1574,21 @@ window.PROGRAMME = {
        "reps": 8,
        "per_side": true,
        "id": "12457698",
-       "name": "Bear hug band internal rotation"
+       "name": "Bear hug band internal rotation",
+       "no_weight": true
       },
       {
        "reps": 8,
        "per_side": true,
        "id": "12457699",
-       "name": "Bear hug band external rotation"
+       "name": "Bear hug band external rotation",
+       "no_weight": true
       },
       {
        "reps": 12,
        "id": "11407364",
-       "name": "Floor rhomboids openings"
+       "name": "Floor rhomboids openings",
+       "no_weight": true
       }
      ],
      "raw": "2 round\n8/side Bear hug band internal rotation \n8/side Bear hug band external rotation \n12 Floor DB rhomboids openings"
@@ -1519,18 +1606,21 @@ window.PROGRAMME = {
       {
        "seconds": 30,
        "id": "11245585",
-       "name": "Front to side plank"
+       "name": "Front to side plank",
+       "no_weight": true
       },
       {
        "reps": 20,
        "id": "11292207",
-       "name": "Band core activation dead bug"
+       "name": "Band core activation dead bug",
+       "no_weight": true
       },
       {
        "reps": 10,
        "per_side": true,
        "id": "11292212",
-       "name": "Single leg bridge"
+       "name": "Single leg bridge",
+       "no_weight": true
       }
      ],
      "raw": "3 rounds\n30\" Front to side plank\n20 Core activation deadbug\n10/side Single leg bridge \nNo rest",
@@ -1579,7 +1669,8 @@ window.PROGRAMME = {
        "reps": 12,
        "per_side": true,
        "id": "11292256",
-       "name": "Band lateral walk"
+       "name": "Band lateral walk",
+       "no_weight": true
       }
      ],
      "raw": "3 rounds\n16 DB Cossack squat\n12/side Band lateral walk\nRest 1,5 minute"
@@ -1604,7 +1695,8 @@ window.PROGRAMME = {
        "reps": 10,
        "per_side": true,
        "id": "11611416",
-       "name": "Band half kneeling Pallof press"
+       "name": "Band half kneeling Pallof press",
+       "no_weight": true
       }
      ],
      "raw": "3 rounds \n10/side Single leg press\n10/side Band Pallof press\nRest 1,5 minute"
@@ -1691,18 +1783,21 @@ window.PROGRAMME = {
        "reps": 8,
        "per_side": true,
        "id": "12457698",
-       "name": "Bear hug band internal rotation"
+       "name": "Bear hug band internal rotation",
+       "no_weight": true
       },
       {
        "reps": 8,
        "per_side": true,
        "id": "12457699",
-       "name": "Bear hug band external rotation"
+       "name": "Bear hug band external rotation",
+       "no_weight": true
       },
       {
        "reps": 12,
        "id": "11407364",
-       "name": "Floor rhomboids openings"
+       "name": "Floor rhomboids openings",
+       "no_weight": true
       }
      ],
      "raw": "2 round\n8/side Bear hug band internal rotation \n8/side Bear hug band external rotation \n12 Floor DB rhomboids openings"
@@ -1720,18 +1815,21 @@ window.PROGRAMME = {
       {
        "reps": 20,
        "id": "11292342",
-       "name": "Plank arm raise"
+       "name": "Plank arm raise",
+       "no_weight": true
       },
       {
        "seconds": 5,
        "holds": 4,
        "id": "11288977",
-       "name": "Isometric deadbug"
+       "name": "Isometric deadbug",
+       "no_weight": true
       },
       {
        "reps": 12,
        "id": "11293149",
-       "name": "Fitball leg curl"
+       "name": "Fitball leg curl",
+       "no_weight": true
       }
      ],
      "raw": "3 rounds\n20 Plank arm raise\n4 x 5\" isometric deadbug\n12 Fitball leg curl",
@@ -1774,12 +1872,14 @@ window.PROGRAMME = {
       {
        "reps": 10,
        "id": "11279407",
-       "name": "TRX push up"
+       "name": "TRX push up",
+       "no_weight": true
       },
       {
        "reps": 10,
        "id": "11279419",
-       "name": "TRX upper row"
+       "name": "TRX upper row",
+       "no_weight": true
       }
      ],
      "raw": "3 rounds\n10 TRX push up\n10 TRX upper row\nRest 1 minute"
@@ -1893,13 +1993,15 @@ window.PROGRAMME = {
        "reps": 8,
        "per_side": true,
        "id": "12479502",
-       "name": "High elbow band internal rotation"
+       "name": "High elbow band internal rotation",
+       "no_weight": true
       },
       {
        "reps": 8,
        "per_side": true,
        "id": "12479504",
-       "name": "High elbow band external rotation"
+       "name": "High elbow band external rotation",
+       "no_weight": true
       },
       {
        "reps": 12,
@@ -1922,7 +2024,8 @@ window.PROGRAMME = {
       {
        "reps": 20,
        "id": "11292942",
-       "name": "Plank leg raise"
+       "name": "Plank leg raise",
+       "no_weight": true
       },
       {
        "reps": 10,
@@ -1934,7 +2037,8 @@ window.PROGRAMME = {
        "reps": 10,
        "per_side": true,
        "id": "12457696",
-       "name": "Leg raise side plank"
+       "name": "Leg raise side plank",
+       "no_weight": true
       }
      ],
      "raw": "3 rounds\n20 Plank leg raise\n10/side DB single arm deadbug \n10/side Leg raise side plank\nNo rest",
@@ -1958,7 +2062,8 @@ window.PROGRAMME = {
       {
        "reps": 10,
        "id": "11327019",
-       "name": "TRX lower row"
+       "name": "TRX lower row",
+       "no_weight": true
       }
      ],
      "raw": "3 rounds\n10 DB bench press\n10 TRX lower row\nRest 1 minute"
@@ -1983,7 +2088,8 @@ window.PROGRAMME = {
        "reps": 16,
        "note": "CONTROL RODILLA",
        "id": "12690832",
-       "name": "Pass simulation reverse lunges"
+       "name": "Pass simulation reverse lunges",
+       "no_weight": true
       }
      ],
      "raw": "3 rounds\n10 BB rack deadlift (3\" hold)\n16 Pass simultion reverse lunges *CONTROL RODILLA\nRest 1 minute"
@@ -2007,7 +2113,8 @@ window.PROGRAMME = {
        "reps": 8,
        "per_side": true,
        "id": "11372781",
-       "name": "Band half kneeling high to low chop"
+       "name": "Band half kneeling high to low chop",
+       "no_weight": true
       }
      ],
      "raw": "3 rounds \n16 DB side lunges\n8/side Half kneeling high to low chop\nRest 1 minute"
@@ -2026,7 +2133,8 @@ window.PROGRAMME = {
       },
       {
        "id": "16117250",
-       "name": "Plank shoulder tap"
+       "name": "Plank shoulder tap",
+       "no_weight": true
       }
      ],
      "raw": "Obstacle run back and fourth\nPlank shoulder tap"
@@ -2098,13 +2206,15 @@ window.PROGRAMME = {
        "reps": 8,
        "per_side": true,
        "id": "12479502",
-       "name": "High elbow band internal rotation"
+       "name": "High elbow band internal rotation",
+       "no_weight": true
       },
       {
        "reps": 8,
        "per_side": true,
        "id": "12479504",
-       "name": "High elbow band external rotation"
+       "name": "High elbow band external rotation",
+       "no_weight": true
       },
       {
        "reps": 12,
@@ -2127,18 +2237,21 @@ window.PROGRAMME = {
       {
        "reps": 10,
        "id": "11329535",
-       "name": "Sit up"
+       "name": "Sit up",
+       "no_weight": true
       },
       {
        "reps": 12,
        "id": "11372794",
-       "name": "Contralateral leg arm raise plank"
+       "name": "Contralateral leg arm raise plank",
+       "no_weight": true
       },
       {
        "reps": 10,
        "per_side": true,
        "id": "11246395",
-       "name": "Lateral climbers"
+       "name": "Lateral climbers",
+       "no_weight": true
       }
      ],
      "raw": "3 rounds\n10 Sit up\n12 Leg/arm raise plank\n10/side Lateral climbers",
@@ -2164,7 +2277,8 @@ window.PROGRAMME = {
       {
        "reps": 16,
        "id": "12690843",
-       "name": "Pass simulation lunge forward"
+       "name": "Pass simulation lunge forward",
+       "no_weight": true
       }
      ],
      "raw": "3 rounds\n8/side Multipower split squat *RIR 3\n16 Pass simulation lunge forward \nRest 1 minute"
@@ -2187,7 +2301,8 @@ window.PROGRAMME = {
       {
        "reps": 10,
        "id": "11372777",
-       "name": "Supinated grip shoulder blade depression"
+       "name": "Supinated grip shoulder blade depression",
+       "no_weight": true
       }
      ],
      "raw": "3 rounds\n10 Row machine\n10 Supinated grip shoulder blade depression\nRest 1 minute"
@@ -2212,7 +2327,8 @@ window.PROGRAMME = {
        "reps": 8,
        "per_side": true,
        "id": "12378571",
-       "name": "Band standing Pallof press"
+       "name": "Band standing Pallof press",
+       "no_weight": true
       }
      ],
      "raw": "3 rounds\n10 Hip trust *RIR 3\n8/side Band standing Pallof press\nRest 1 minute"
@@ -2303,13 +2419,15 @@ window.PROGRAMME = {
        "reps": 8,
        "per_side": true,
        "id": "11292707",
-       "name": "Band internal rotation"
+       "name": "Band internal rotation",
+       "no_weight": true
       },
       {
        "reps": 8,
        "per_side": true,
        "id": "11292710",
-       "name": "Band external rotation"
+       "name": "Band external rotation",
+       "no_weight": true
       }
      ],
      "raw": "2 rounds\n8/side Band internal rotation \n8/side Band external rotation"
@@ -2327,17 +2445,20 @@ window.PROGRAMME = {
       {
        "seconds": 30,
        "id": "12626046",
-       "name": "Hollow body flutter kicks"
+       "name": "Hollow body flutter kicks",
+       "no_weight": true
       },
       {
        "reps": 20,
        "id": "11280043",
-       "name": "Elbows lateral climbers"
+       "name": "Elbows lateral climbers",
+       "no_weight": true
       },
       {
        "reps": 20,
        "id": "16117250",
-       "name": "Plank shoulder tap"
+       "name": "Plank shoulder tap",
+       "no_weight": true
       }
      ],
      "raw": "3 rounds\n30\" Hollow body flutter kicks\n20 Elbows lateral climbers\n20 Plank shoulder tap",
@@ -2400,7 +2521,8 @@ window.PROGRAMME = {
       {
        "reps": 10,
        "id": "11612011",
-       "name": "Band tall kneeling pull down"
+       "name": "Band tall kneeling pull down",
+       "no_weight": true
       },
       {
        "reps": 10,
@@ -2521,13 +2643,15 @@ window.PROGRAMME = {
        "reps": 8,
        "per_side": true,
        "id": "11292707",
-       "name": "Band internal rotation"
+       "name": "Band internal rotation",
+       "no_weight": true
       },
       {
        "reps": 8,
        "per_side": true,
        "id": "11292710",
-       "name": "Band external rotation"
+       "name": "Band external rotation",
+       "no_weight": true
       }
      ],
      "raw": "2 round\n8/side Band internal rotation \n8/side Band external rotation"
@@ -2545,17 +2669,20 @@ window.PROGRAMME = {
       {
        "seconds": 30,
        "id": "11479416",
-       "name": "Bent hollow flutter kicks"
+       "name": "Bent hollow flutter kicks",
+       "no_weight": true
       },
       {
        "reps": 20,
        "id": "11684653",
-       "name": "Cross body mountain climbers"
+       "name": "Cross body mountain climbers",
+       "no_weight": true
       },
       {
        "reps": 20,
        "id": "16117250",
-       "name": "Plank shoulder tap"
+       "name": "Plank shoulder tap",
+       "no_weight": true
       }
      ],
      "raw": "3 rounds\n30\" Bent hollow flutter kicks\n20 Cross body mountain climbers\n20 Plank shoulder tap\nNo rest",
@@ -2642,7 +2769,8 @@ window.PROGRAMME = {
       {
        "reps": 10,
        "id": "11494918",
-       "name": "TRX shoulder depression and row"
+       "name": "TRX shoulder depression and row",
+       "no_weight": true
       }
      ],
      "raw": "3 sets of 10\nRest 1,5 minute"
@@ -2661,7 +2789,8 @@ window.PROGRAMME = {
        "reps": 8,
        "per_side": true,
        "id": "11473108",
-       "name": "TRX single arm row"
+       "name": "TRX single arm row",
+       "no_weight": true
       }
      ],
      "raw": "3 sets of 8/side\nRest 1,5 minute"
@@ -2739,7 +2868,8 @@ window.PROGRAMME = {
        "reps": 8,
        "note": "lento",
        "id": "12651865",
-       "name": "Foam roller miniband press"
+       "name": "Foam roller miniband press",
+       "no_weight": true
       }
      ],
      "raw": "2 rounds\n8/side DB external rotation \n8 Miniband press (lento)"
@@ -2757,12 +2887,14 @@ window.PROGRAMME = {
       {
        "seconds": 30,
        "id": "11331922",
-       "name": "Fitball plank"
+       "name": "Fitball plank",
+       "no_weight": true
       },
       {
        "reps": 20,
        "id": "11288950",
-       "name": "Modified tuck up"
+       "name": "Modified tuck up",
+       "no_weight": true
       },
       {
        "reps": 10,
@@ -2857,7 +2989,8 @@ window.PROGRAMME = {
        "reps": "MAX",
        "note": "MAX REPS - RIR 0",
        "id": "12777905",
-       "name": "Chin up"
+       "name": "Chin up",
+       "no_weight": true
       }
      ],
      "raw": "3 sets *MAX REPS - RIR 0 \nRest 1,5 minute"
@@ -2958,7 +3091,8 @@ window.PROGRAMME = {
        "reps": 8,
        "note": "lento",
        "id": "12651865",
-       "name": "Foam roller miniband press"
+       "name": "Foam roller miniband press",
+       "no_weight": true
       }
      ],
      "raw": "2 rounds\n8/side DB external rotation \n8 Miniband press (lento)"
@@ -2976,12 +3110,14 @@ window.PROGRAMME = {
       {
        "seconds": 30,
        "id": "11521897",
-       "name": "Fitball crunch"
+       "name": "Fitball crunch",
+       "no_weight": true
       },
       {
        "reps": 20,
        "id": "11521901",
-       "name": "Cross wallet"
+       "name": "Cross wallet",
+       "no_weight": true
       },
       {
        "reps": 10,
@@ -3049,7 +3185,8 @@ window.PROGRAMME = {
       {
        "reps": 10,
        "id": "11250441",
-       "name": "TRX shoulders openings"
+       "name": "TRX shoulders openings",
+       "no_weight": true
       }
      ],
      "raw": "3 rounds:\n8/side KB cross side lunges\n10 TRX shoulders openings\nRest 1,5 min"
@@ -3086,7 +3223,8 @@ window.PROGRAMME = {
       {
        "reps": 10,
        "id": "11372777",
-       "name": "Supinated grip shoulder blade depression"
+       "name": "Supinated grip shoulder blade depression",
+       "no_weight": true
       }
      ],
      "raw": "3 sets of 10\nRest 1,5 minute"
@@ -3158,7 +3296,8 @@ window.PROGRAMME = {
        "reps": 8,
        "per_side": true,
        "id": "17664164",
-       "name": "Miniband external rotation"
+       "name": "Miniband external rotation",
+       "no_weight": true
       },
       {
        "reps": 8,
@@ -3181,17 +3320,20 @@ window.PROGRAMME = {
       {
        "reps": 10,
        "id": "11279401",
-       "name": "Hands to elbows plank"
+       "name": "Hands to elbows plank",
+       "no_weight": true
       },
       {
        "reps": 12,
        "id": "11279404",
-       "name": "Band tall kneeling shoulder press"
+       "name": "Band tall kneeling shoulder press",
+       "no_weight": true
       },
       {
        "reps": 12,
        "id": "14310937",
-       "name": "TRX wallet crunch"
+       "name": "TRX wallet crunch",
+       "no_weight": true
       }
      ],
      "raw": "3 rounds\n10 Hands to elbows plank \n12 Band tall kneeling shoulder press\n12 TRX wallet crunch",
@@ -3247,13 +3389,15 @@ window.PROGRAMME = {
       {
        "reps": 12,
        "id": "11425178",
-       "name": "Australian pull up"
+       "name": "Australian pull up",
+       "no_weight": true
       },
       {
        "reps": "MAX",
        "note": "RIR 0",
        "id": "11307835",
-       "name": "Push up"
+       "name": "Push up",
+       "no_weight": true
       }
      ],
      "raw": "3 rounds:\n12 Australian pull up\nMax reps full range push up *RIR 0\nRest 1,5 min"
@@ -3271,7 +3415,8 @@ window.PROGRAMME = {
       {
        "reps": "MAX",
        "id": "12720641",
-       "name": "Pull up"
+       "name": "Pull up",
+       "no_weight": true
       }
      ],
      "raw": "3 sets of MAX \nRest 2 minute"
@@ -3362,7 +3507,8 @@ window.PROGRAMME = {
        "reps": 8,
        "per_side": true,
        "id": "17664164",
-       "name": "Miniband external rotation"
+       "name": "Miniband external rotation",
+       "no_weight": true
       },
       {
        "reps": 8,
@@ -3391,7 +3537,8 @@ window.PROGRAMME = {
       {
        "reps": 12,
        "id": "11279375",
-       "name": "Band twist"
+       "name": "Band twist",
+       "no_weight": true
       },
       {
        "reps": 10,
@@ -3575,13 +3722,15 @@ window.PROGRAMME = {
        "reps": 10,
        "per_side": true,
        "id": "12457698",
-       "name": "Bear hug band internal rotation"
+       "name": "Bear hug band internal rotation",
+       "no_weight": true
       },
       {
        "reps": 10,
        "per_side": true,
        "id": "12457699",
-       "name": "Bear hug band external rotation"
+       "name": "Bear hug band external rotation",
+       "no_weight": true
       }
      ],
      "raw": "2 rounds\n10/side Bear hug band internal rotation\n10/side Bear hug band external rotation"
@@ -3611,7 +3760,8 @@ window.PROGRAMME = {
       {
        "reps": 20,
        "id": "11494648",
-       "name": "Scissor crunch"
+       "name": "Scissor crunch",
+       "no_weight": true
       }
      ],
      "raw": "3 rounds:\n8/side TK windmill press\n12/side Split stance plate twist\n20 Scissor crunch\nRest as little as possible",
@@ -3662,7 +3812,8 @@ window.PROGRAMME = {
        "reps": 10,
        "note": "EXPLOSIVO",
        "id": "11249258",
-       "name": "Plyo push up"
+       "name": "Plyo push up",
+       "no_weight": true
       }
      ],
      "raw": "4 rounds:\n5 BB bench press *RIR 1\n10 Plyo push up *EXPLOSIVO\nRest 1,5 minutes"
@@ -3688,7 +3839,8 @@ window.PROGRAMME = {
        "reps": 12,
        "note": "EXPLOSIVO",
        "id": "11249269",
-       "name": "Split jump"
+       "name": "Split jump",
+       "no_weight": true
       }
      ],
      "raw": "4 rounds:\n6/side Lunge forward *RIR 2\n12 Split jump *EXPLOSIVO\nRest 1,5 minutes"
@@ -3714,7 +3866,8 @@ window.PROGRAMME = {
        "per_side": true,
        "note": "RIR 3",
        "id": "11288963",
-       "name": "Half kneeling band pull down"
+       "name": "Half kneeling band pull down",
+       "no_weight": true
       }
      ],
      "raw": "4 rounds:\n6 DB pull over *RIR 1\n6/side Half kneeling band pull down *RIR 3\nRest 1,5 minutes"
@@ -3781,7 +3934,8 @@ window.PROGRAMME = {
       {
        "seconds": 30,
        "id": "11288977",
-       "name": "Isometric deadbug"
+       "name": "Isometric deadbug",
+       "no_weight": true
       },
       {
        "reps": 10,
@@ -3819,7 +3973,8 @@ window.PROGRAMME = {
        "reps": 8,
        "note": "EXPLOSIVO",
        "id": "11570004",
-       "name": "No arms consecutive vertical jumps"
+       "name": "No arms consecutive vertical jumps",
+       "no_weight": true
       }
      ],
      "raw": "4 rounds:\n5 BB back squat *TAP THE BENCH RIR 3\n8 No arms consecutive squat jumps *EXPLOSIVO\nRest 1,5 minutes"
@@ -3869,7 +4024,8 @@ window.PROGRAMME = {
       {
        "reps": 12,
        "id": "11279970",
-       "name": "Single leg alternated lateral jump"
+       "name": "Single leg alternated lateral jump",
+       "no_weight": true
       }
      ],
      "raw": "4 rounds:\n10 Landmine side lunge *CONTROL\n12 Single leg alternating lateral jump\nRest 1,5 minutes"
@@ -3888,7 +4044,8 @@ window.PROGRAMME = {
        "reps": 12,
        "note": "EXPLOSIVO",
        "id": "11279419",
-       "name": "TRX upper row"
+       "name": "TRX upper row",
+       "no_weight": true
       },
       {
        "reps": 6,
@@ -3963,13 +4120,15 @@ window.PROGRAMME = {
        "reps": 10,
        "per_side": true,
        "id": "12479502",
-       "name": "High elbow band internal rotation"
+       "name": "High elbow band internal rotation",
+       "no_weight": true
       },
       {
        "reps": 10,
        "per_side": true,
        "id": "12479504",
-       "name": "High elbow band external rotation"
+       "name": "High elbow band external rotation",
+       "no_weight": true
       }
      ],
      "raw": "2 rounds\n10/side High elbow band internal rotation\n10/side High elbow band external rotation"
@@ -3998,7 +4157,8 @@ window.PROGRAMME = {
       {
        "reps": 20,
        "id": "11259664",
-       "name": "Plank twist"
+       "name": "Plank twist",
+       "no_weight": true
       }
      ],
      "raw": "3 rounds:\n12 Tall kneeling plate half moon\n8/side L-sit shoulder press rotation\n20 Plank twist\nRest as little as possible",
@@ -4025,7 +4185,8 @@ window.PROGRAMME = {
        "reps": 8,
        "per_side": true,
        "id": "11280034",
-       "name": "High knee switches"
+       "name": "High knee switches",
+       "no_weight": true
       }
      ],
      "raw": "4 rounds:\n5/side BB reverse lunges *Control\n8/side High knees switches\nRest 1,5 minutes"
@@ -4050,7 +4211,8 @@ window.PROGRAMME = {
        "reps": 8,
        "note": "explosive",
        "id": "17677181",
-       "name": "Full range push up"
+       "name": "Full range push up",
+       "no_weight": true
       }
      ],
      "raw": "4 rounds:\n5 DB incline bench press *RIR 1\n8 Full range push up (explosive)\nRest 1,5 minutes"
@@ -4075,7 +4237,8 @@ window.PROGRAMME = {
        "reps": 10,
        "per_side": true,
        "id": "12711639",
-       "name": "Plyo lateral jump"
+       "name": "Plyo lateral jump",
+       "no_weight": true
       }
      ],
      "raw": "4 rounds:\n6 DB deadift *RIR 1\n10/side Plyo lateral jump\nRest 1,5 minutes"
@@ -4093,7 +4256,8 @@ window.PROGRAMME = {
       {
        "reps": 6,
        "id": "15680324",
-       "name": "TRX overhead extension"
+       "name": "TRX overhead extension",
+       "no_weight": true
       },
       {
        "reps": 6,
@@ -4201,7 +4365,8 @@ window.PROGRAMME = {
       {
        "reps": 8,
        "id": "11373085",
-       "name": "Plyometric depth jump"
+       "name": "Plyometric depth jump",
+       "no_weight": true
       }
      ],
      "raw": "4 rounds:\n5 BB back squat *Control\n8 Plyometric depth jump\nRest 1,5 minutes"
@@ -4402,7 +4567,8 @@ window.PROGRAMME = {
        "reps": 10,
        "note": "3 SEC HOLD",
        "id": "15734789",
-       "name": "Floor row"
+       "name": "Floor row",
+       "no_weight": true
       }
      ],
      "raw": "3 rounds:\n10 Hip trust machine\n10 Floor row *3 SEC HOLD\nRest 1 minute"
@@ -4422,13 +4588,15 @@ window.PROGRAMME = {
        "per_side": true,
        "note": "3 SEC HOLD",
        "id": "11292345",
-       "name": "Side bridge"
+       "name": "Side bridge",
+       "no_weight": true
       },
       {
        "reps": 8,
        "note": "LENTO",
        "id": "14645591",
-       "name": "Front band hip to shoulder half moon"
+       "name": "Front band hip to shoulder half moon",
+       "no_weight": true
       }
      ],
      "raw": "3 rounds:\n8/side Side bridge *3 SEC HOLD\n8 Front band hip to shoulder half moon *LENTO\nRest as little as possible"
@@ -4568,7 +4736,8 @@ window.PROGRAMME = {
       {
        "reps": 8,
        "id": "11494918",
-       "name": "TRX shoulder depression and row"
+       "name": "TRX shoulder depression and row",
+       "no_weight": true
       }
      ],
      "raw": "3 rounds:\n10 Heels elevated goblet squat\n8 TRX scapular row\nRest 1 minute"
@@ -4587,12 +4756,14 @@ window.PROGRAMME = {
        "reps": 10,
        "per_side": true,
        "id": "11292212",
-       "name": "Single leg bridge"
+       "name": "Single leg bridge",
+       "no_weight": true
       },
       {
        "reps": 10,
        "id": "11298002",
-       "name": "Band rhomboids openings"
+       "name": "Band rhomboids openings",
+       "no_weight": true
       }
      ],
      "raw": "3 rounds:\n10/side Single leg bridge\n10 Band rhomboids openings"

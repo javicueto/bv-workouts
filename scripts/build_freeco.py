@@ -23,6 +23,7 @@ import sys
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 SRC = ROOT / "data" / "workouts.js"
 OVERRIDES = ROOT / "freecokiletics" / "data" / "programme_overrides.json"
+NO_WEIGHT = ROOT / "freecokiletics" / "data" / "no_weight.json"    # exercises with no weight to log
 OUT = ROOT / "freecokiletics" / "data" / "programme.js"
 
 # Blocks with no rest written are the prehab/core circuits. Javier's call
@@ -253,8 +254,26 @@ def main():
         silenced = set(ov.get("silence", []))
         problems[:] = [p for p in problems if not any(p.startswith(s) for s in silenced)]
 
+    # Exercises with no weight to log — bodyweight, bands, TRX… (Javier's
+    # review, 13 Sep 2026; see the file's _about). Marked on every block
+    # exercise and in the exercise index; the app hides the weight field for
+    # them unless a weight was already logged.
+    no_weight = set()
+    if NO_WEIGHT.exists():
+        no_weight = set(json.loads(NO_WEIGHT.read_text())["exercises"])
+        missing = sorted(i for i in no_weight if i not in ex)
+        if missing:
+            print(f"  no_weight.json lists exercises this programme does not have: {', '.join(missing)}")
+        for s in sessions:
+            for b in s["blocks"]:
+                for e in b.get("exercises", []):
+                    if e.get("id") in no_weight:
+                        e["no_weight"] = True
+
     exercises = {i: {"id": i, "name": e["name"], "youtube_id": e["youtube_id"],
-                     "has_preview": e["has_preview"]} for i, e in ex.items()}
+                     "has_preview": e["has_preview"], **({"no_weight": True} if i in no_weight else {})}
+                 for i, e in ex.items()}
+    print(f"  {sum(1 for i in ex if i in no_weight)} exercises marked no weight")
     payload = {"generated_from": "data/workouts.js", "session_count": len(sessions),
                "exercises": exercises, "sessions": sessions}
     OUT.parent.mkdir(parents=True, exist_ok=True)
