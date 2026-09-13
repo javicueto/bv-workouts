@@ -49,13 +49,13 @@
     return '<div class="record">' +
       '<div class="record__row">' +
         '<div class="grow">' +
-          '<div class="record__label">' + (w.logged_manually ? "Done · logged by hand" : "Done") + "</div>" +
+          '<div class="record__label">' + (w.logged_manually ? "Done ✓ · logged by hand" : "Done ✓") + "</div>" +
           // Date on one line, times on the next — as on the done day card. On
           // one line it wrapped at 375px and left "min" on a line of its own.
           '<div class="record__when"><span>' + esc(A.dayDate(w.started_at)) + "</span><span>" + esc(A.hhmm(w.started_at)) +
             (end ? "–" + esc(A.hhmm(w.finished_at)) : "") + mins + "</span></div>" +
         "</div>" +
-        '<button class="btn btn--quiet record__edit" type="button" data-edit="times" aria-expanded="false" aria-controls="times">Edit</button>' +
+        '<button class="btn btn--quiet record__edit" type="button" data-edit="times" aria-expanded="false" aria-controls="times">' + ICONS.pen + "Edit</button>" +
       "</div>" +
       '<form class="record__form" id="times" hidden>' +
         '<div class="field"><label for="d">Date</label><input class="input" id="d" type="date" value="' + A.dateVal(start) + '"></div>' +
@@ -74,22 +74,25 @@
   function weightsBox(b, byKey) {
     var rounds = b.rounds || 1, id = "wt-" + b.letter;
     return '<div class="vweights">' +
-      '<div class="vweights__head"><span class="vweights__title">Your weights</span>' +
-        '<button class="btn btn--quiet" type="button" data-edit="' + esc(id) + '" aria-expanded="false" aria-controls="' + esc(id) + '">Edit</button></div>' +
+      // The app's icon language: dumbbell = weight, arrows-repeat = reps or
+      // seconds, pen = edit, ✓ = done — the same marks as in a session.
+      '<div class="vweights__head"><span class="vweights__title">' + ICONS.dumbbell + "Your weights</span>" +
+        '<button class="btn btn--quiet" type="button" data-edit="' + esc(id) + '" aria-expanded="false" aria-controls="' + esc(id) + '">' + ICONS.pen + "Edit</button></div>" +
       '<ul class="vweights__list" data-list="' + esc(id) + '">' + b.exercises.map(function (e) {
         return '<li><span class="vweights__ex">' + esc(e.name) + '</span><span class="vweights__v">' + esc(weightsLine(b, e, byKey)) + "</span></li>";
       }).join("") + "</ul>" +
       '<form class="vweights__form" id="' + esc(id) + '" hidden>' +
+        '<p class="vweights__hint">kg per round</p>' +          // the unit, as the session's "kg" field says it
         b.exercises.map(function (e) {
           return '<div class="vweights__exrow"><div class="vweights__ex">' + esc(e.name) + "</div>" +
             '<div class="wt-ex__rounds" style="grid-template-columns:repeat(' + rounds + ',1fr)">' +
             Array.from({ length: rounds }, function (_, i) {
               var r = i + 1, x = byKey[setKey(b.letter, r, e.id)];
-              var reps = x && x.reps != null ? "× " + x.reps : (x && x.seconds != null ? x.seconds + "″" : "");
+              var reps = x && x.reps != null ? String(x.reps) : (x && x.seconds != null ? x.seconds + "″" : "");
               return '<label class="wt-cell"><span>R' + r + "</span>" +
                 '<input class="input input--sm" inputmode="decimal" placeholder="—" data-k="' + esc(setKey(b.letter, r, e.id)) + '"' +
                 ' data-b="' + esc(b.letter) + '" data-r="' + r + '" data-e="' + esc(e.id) + '" value="' + esc(x && x.weight != null ? +x.weight : "") + '">' +
-                (reps ? "<small>" + esc(reps) + "</small>" : "") + "</label>";
+                (reps ? '<small><span class="sr-only">' + (x.seconds != null && x.reps == null ? "seconds" : "reps") + " </span>" + ICONS.arrowsRepeat + esc(reps) + "</small>" : "") + "</label>";
             }).join("") + "</div></div>";
         }).join("") +
         '<div class="record__actions"><button class="btn btn--ghost" type="button" data-cancel="' + esc(id) + '">Cancel</button>' +

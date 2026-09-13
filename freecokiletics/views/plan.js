@@ -88,6 +88,6 @@
           "</div>" + chip + "</a>";
       }).join("") +
       "</div>" +
-      '<a class="btn btn--ghost btn--block" style="margin-top:var(--space-5)" href="#/plan/edit">Edit my plan</a>';
+      '<a class="btn btn--ghost btn--block" style="margin-top:var(--space-5)" href="#/plan/edit">' + ICONS.pen + "Edit my plan</a>";
   };
 })();
