@@ -407,7 +407,8 @@
     var t = A.ticket();
     var s = A.sessionByKey(key);
     if (!s) { location.hash = "#/"; return; }
-    if (resume && Runner.resume()) { /* state restored */ }
+    var resumed = !!(resume && Runner.resume());
+    if (resumed) { /* state restored */ }
     else {
       var wf = A.weekFor(A.today());
       var ids = []; s.warmup.exercises.forEach(function (e) { ids.push(e.id); });
@@ -422,6 +423,6 @@
       if (result && result.finished) {
         UI.toast("Saved · " + Math.round(result.duration / 60) + " min · " + result.sets + " sets");
       }
-    });
+    }, { countIn: !resumed });                 // 3 · 2 · 1 · Go! on a fresh start only
   };
 })();

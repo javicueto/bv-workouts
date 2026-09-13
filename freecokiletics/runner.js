@@ -107,8 +107,16 @@ window.Runner = (function () {
     state.workoutSaved = true; save();
   }
   function resume() { state = pending(); return !!state; }
-  function mount(el, exit) { container = el; onExit = exit; Sound.unlock(); WakeLock.on(); render(); }
+  /* opts.countIn: play 3 · 2 · 1 · Go! first — a session just started, not a
+     resumed one. Off by default, so anything else that mounts the runner
+     (the layout sweep) gets the screens straight away. */
+  function mount(el, exit, opts) {
+    container = el; onExit = exit; Sound.unlock(); WakeLock.on(); render();
+    startClock();
+    if (opts && opts.countIn) countIn();
+  }
   function unmount() {
+    stopClock(); stopCountIn();
     if (countdown) { countdown.stop(); countdown = null; }
     var hs = document.querySelector(".hold-screen"); if (hs) hs.remove();   // leaving mid-hold
     setResting(false); WakeLock.off();
@@ -131,6 +139,77 @@ window.Runner = (function () {
     document.body.classList.toggle("is-resting", !!on);
     var meta = document.querySelector('meta[name="theme-color"]');
     if (meta) meta.setAttribute("content", on ? "#1e5bd6" : Theme.uiColor());
+  }
+
+  /* The session's running time, top right of every screen's header (Javier,
+     13 Sep 2026). One ticker for the whole session paints whichever header is
+     on screen; it counts from state.startedAt, so a re-render or a resumed
+     session shows the same time. */
+  var clockTimer = null;
+  function clockText() {
+    if (state.counting) return "0:00";
+    var s = Math.max(0, Math.floor((Date.now() - new Date(state.startedAt)) / 1000));
+    var h = Math.floor(s / 3600), m = Math.floor(s % 3600 / 60), sec = String(s % 60).padStart(2, "0");
+    return h ? h + ":" + String(m).padStart(2, "0") + ":" + sec : m + ":" + sec;
+  }
+  function paintClock() {
+    if (!state || !container) return;
+    var el = container.querySelector("[data-clock]");
+    if (el) el.textContent = clockText();
+  }
+  function startClock() { stopClock(); paintClock(); clockTimer = setInterval(paintClock, 1000); }
+  function stopClock() { if (clockTimer) { clearInterval(clockTimer); clockTimer = null; } }
+
+  function startedText() {
+    return "Started " + window.App.dayDate(state.startedAt) + " at " + window.App.hhmm(state.startedAt);
+  }
+  // On the session's first screen only — the done screen repeats it.
+  function startedLine() {
+    return state.i === 0 ? '<p class="started" data-started>' + esc(startedText()) + "</p>" : "";
+  }
+
+  /* 3 · 2 · 1 · Go! over the first screen when a session starts (Javier,
+     13 Sep 2026), so it is clear the workout has begun. Orange — this is work —
+     and silent. The session's time starts at Go!, not at the tap on Start.
+     Escape skips straight to Go!. */
+  var countInTimer = null;
+  function countIn() {
+    state.counting = true; paintClock();
+    var ov = document.createElement("div");
+    ov.className = "countin";
+    ov.innerHTML = '<div class="countin__title">' + esc(state.title) + "</div>" +
+      '<div class="countin__n" aria-live="assertive"></div>';
+    var n = ov.querySelector(".countin__n"), left = 3, begun = false;
+    var meta = document.querySelector('meta[name="theme-color"]');
+    document.body.classList.add("is-counting");
+    if (meta) meta.setAttribute("content", getComputedStyle(document.documentElement).getPropertyValue("--accent").trim());
+    var release = UI.overlay(ov, "Starting " + state.title, begin);
+    function show(t) { n.textContent = t; n.classList.remove("pop"); void n.offsetWidth; n.classList.add("pop"); }
+    function tick() {
+      if (left > 0) { show(String(left)); left--; countInTimer = setTimeout(tick, 1000); }
+      else begin();
+    }
+    function begin() {
+      if (begun) return;
+      begun = true; clearTimeout(countInTimer);
+      state.startedAt = new Date().toISOString(); state.counting = false; save();
+      paintClock();
+      container.querySelectorAll("[data-started]").forEach(function (el) { el.textContent = startedText(); });
+      show("Go!"); ov.classList.add("is-go");
+      countInTimer = setTimeout(end, 700);
+    }
+    function end() {
+      countInTimer = null; release(); ov.remove();
+      document.body.classList.remove("is-counting");
+      if (meta) meta.setAttribute("content", Theme.uiColor());
+    }
+    tick();
+  }
+  function stopCountIn() {
+    if (countInTimer) { clearTimeout(countInTimer); countInTimer = null; }
+    var ov = document.querySelector(".countin"); if (ov) ov.remove();
+    document.body.classList.remove("is-counting");
+    if (state && state.counting) state.counting = false;
   }
 
   function go(delta) {
@@ -163,7 +242,9 @@ window.Runner = (function () {
       '<button class="btn btn--ghost btn--quit" data-act="quit" aria-label="Leave session">' + ICONS.xmark + "</button>" +
       '<div class="grow" style="text-align:center"><div class="eyebrow">' + esc(state.title) + '</div>' +
       '<div class="dim" style="font-size:13px">' + esc(sub || "") + "</div></div>" +
-      '<span class="head-spacer"></span></div>' + progressBar(step);
+      // The running time sits where a spacer balanced the close button.
+      '<span class="head-clock" data-clock role="timer" aria-label="Time in this session">' + clockText() + "</span></div>" +
+      progressBar(step);
   }
   function footer(label) {
     return '<div class="actions">' +
@@ -207,6 +288,8 @@ window.Runner = (function () {
             '<span class="thumb__name">' + esc(e.name) + "</span></button>";
         }).join("") + "</div>" +
         footer("Warm-up done ✓") +
+        // Under the button, never above it: at 320px it pushed Done off the screen.
+        startedLine() +
       "</section>";
     bind(step);
   }
@@ -223,6 +306,7 @@ window.Runner = (function () {
         '<div class="ex-list' + (step.items.length >= 3 ? " ex-list--dense" : "") + '">' +
           step.items.map(exerciseCard).join("") + "</div>" +
         footer(step.round < step.rounds ? "Round " + step.round + " done ✓" : "Block done ✓") +
+        startedLine() +                        // a session with no warm-up starts here
       "</section>";
     bind(step);
   }
@@ -741,6 +825,7 @@ window.Runner = (function () {
     container.innerHTML = header(state.steps[state.i], "") +
       '<section class="rest"><div class="eyebrow">Session complete</div><h1>' + esc(state.title) + "</h1>" +
       '<p class="dim">' + mins + " min · " + n + " sets logged</p>" +
+      '<p class="started">' + esc(startedText()) + "</p>" +
       '<button class="btn btn--primary btn--big btn--block" data-act="finish">Save & finish</button>' +
       '<button class="btn btn--quiet" data-act="back">Back</button></section>';
     bind(state.steps[state.i]);

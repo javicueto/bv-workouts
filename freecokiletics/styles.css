@@ -404,11 +404,36 @@ p  { margin: 0; }
 /* The way out of a session (Javier, 12 Sep 2026: "isn't the X too small?").
    44px is the floor for a control you aim at calmly; this one is hit mid-set,
    one-handed, so it gets 52 — the same height as every real button on the
-   screen — with a 24px glyph and full-contrast ink. .head-spacer matches it so
-   the session title stays centred between them. */
+   screen — with a 24px glyph and full-contrast ink. .head-clock on the other
+   side is as wide, so the session title stays centred between them. */
 .btn--quit { width: 52px; min-height: 52px; padding: 0; color: var(--text); }
 .btn--quit svg { width: 24px; height: 24px; }
-.head-spacer { width: 52px; flex: none; }
+/* The session's running time (Javier, 13 Sep 2026), in the slot that
+   balances the close button so the title stays centred. min-width, not width:
+   past an hour "1:02:03" may take a little more. */
+.head-clock {
+  min-width: 52px; flex: none; text-align: right; white-space: nowrap;
+  font-size: 15px; font-weight: 700; font-variant-numeric: tabular-nums; color: inherit;
+}
+/* "Started Sun 13 Sep ’26 at 07:05" — first screen and the done screen. */
+.started { margin: 0; font-size: 13px; color: var(--text-dim); }
+.screen > .started { text-align: center; }   /* under the swipe hint, never above the Done button */
+
+/* 3 · 2 · 1 · Go! when a session starts. Orange: this is work. Silent. */
+.countin {
+  position: fixed; inset: 0; z-index: 60;
+  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: var(--space-4);
+  padding: calc(var(--safe-top) + var(--space-6)) var(--space-4) calc(var(--safe-bottom) + var(--space-6));
+  background: var(--accent); color: var(--accent-ink); text-align: center;
+}
+.countin:focus { outline: none; }
+.countin__title { font-size: 14px; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; }
+.countin__n { font-family: var(--font-display); font-size: 180px; font-weight: 800; line-height: 1; font-variant-numeric: tabular-nums; min-height: 1em; }
+.countin.is-go .countin__n { font-size: 140px; }
+.countin__n.pop { animation: countin-pop .8s cubic-bezier(.2, .8, .2, 1) both; }
+@keyframes countin-pop { from { transform: scale(1.4); opacity: 0; } 30% { opacity: 1; } to { transform: scale(1); opacity: 1; } }
+@media (prefers-reduced-motion: reduce) { .countin__n.pop { animation: none; } }
+body.is-counting::before { background: var(--accent); }   /* the status-bar band turns with it */
 
 /* Dense variant for 3+ movement rounds: tighter padding, smaller numbers and
    inputs, and the narrow preview at every width. Measured at 375×812 — the
