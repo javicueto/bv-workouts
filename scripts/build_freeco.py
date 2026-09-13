@@ -48,6 +48,11 @@ def parse_rest(info):
         return 0, "Rest as little as possible", False
     if tail == "" or tail.startswith("no"):
         return 0, "No rest", False
+    # "1:30 min" is how build_site.py writes a rest now (scripts/units.py);
+    # "1,5 minutes" is the coach's original, still read for safety.
+    mc = re.match(r"(\d+):(\d{2})\s*min\b", tail)
+    if mc:
+        return int(mc.group(1)) * 60 + int(mc.group(2)), None, False
     mm = re.match(r"(\d+)(?:[.,](\d))?\s*(min|minute|minutes|seg|sec|s)\b", tail)
     if not mm:
         return None, tail, False
@@ -68,7 +73,7 @@ REPS_LINE = re.compile(
     r"""^\s*
     (?:
       (?P<pyr>\d+-\d+-\d+)                 # 10-8-6 across rounds
-     |(?P<holds>\d+)\s*x\s*(?P<holdsec>\d+)\s*["”]  # 4 x 5" isometric
+     |(?P<holds>\d+)\s*x\s*(?P<holdsec>\d+)\s*(?:["”″]|(?:secs?|seg)\b)  # 4 x 5" / 4 x 5 sec isometric
      # 30" / 30 sec. The \b applies to the WORD units only: after a quote sign
      # it never matches before a space, which silently turned every 30" plank
      # into "30 reps" (found 11 Sep 2026).

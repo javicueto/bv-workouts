@@ -181,9 +181,9 @@
         '<h2 class="vsec__h grow">' + esc(b.name) + "</h2>" +
         '<span class="badge">' + esc(A.blockCount(b)) + "</span></div>" +
         (b.kind === "tabata"
-          ? '<p class="dim">' + b.work_seconds + '" work · ' + b.rest_seconds + '" rest · ' + b.cycles + " cycles</p>"
-          : '<p class="dim">' + esc(b.rest_seconds ? A.restLabel(b.rest_seconds) + " between rounds"
-                                                   : (b.rest_note || "No rest")) + "</p>") +
+          ? '<p class="dim">' + A.durHTML(b.work_seconds) + " work · " + A.durHTML(b.rest_seconds) + " rest · " + b.cycles + " cycles</p>"
+          : '<p class="dim">' + (b.rest_seconds ? A.restHTML(b.rest_seconds) + " between rounds"
+                                                : esc(b.rest_note || "No rest")) + "</p>") +
         '<div class="vgrid">' + (b.exercises || []).map(function (e) {
           var reps = A.repsLabel(e);
           return thumb(e, (reps ? "<b>" + esc(reps) + "</b> " : "") + esc(e.name));

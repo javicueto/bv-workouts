@@ -833,7 +833,7 @@ window.WORKOUTS = {
   },
   "11307787": {
    "id": "11307787",
-   "name": "Band glute bridge (3\" hold)",
+   "name": "Band glute bridge (3 sec hold)",
    "url": "https://youtu.be/pm3Ge7deNCc",
    "youtube_id": "pm3Ge7deNCc",
    "has_local_video": true,
@@ -2292,7 +2292,7 @@ window.WORKOUTS = {
     {
      "letter": "B",
      "name": "Core stability",
-     "info": "2 rounds\n30\" Dynamic plank\n10/side Medball contralateral deadbug\n10 Band bridge *3 SEC HOLD\nRest 1 min",
+     "info": "2 rounds\n30 sec Dynamic plank\n10/side Medball contralateral deadbug\n10 Band bridge *3 SEC HOLD\nRest 1 min",
      "is_circuit": true,
      "matched_by_name": false,
      "exercises": [
@@ -2304,7 +2304,7 @@ window.WORKOUTS = {
     {
      "letter": "C",
      "name": "Floor press + Band half kneeling pull down",
-     "info": "3 rounds\n10/side Floor press\n12 Band half kneeling pull down \nRest 1 minute",
+     "info": "3 rounds\n10/side Floor press\n12 Band half kneeling pull down \nRest 1 min",
      "is_circuit": true,
      "matched_by_name": false,
      "exercises": [
@@ -2315,7 +2315,7 @@ window.WORKOUTS = {
     {
      "letter": "D",
      "name": "Reverse lunge to high knee + Single leg deadlift",
-     "info": "3 rounds\n8/side Reverse lunge to high knee\n8/side Single leg deadlift\nRest 1 minute",
+     "info": "3 rounds\n8/side Reverse lunge to high knee\n8/side Single leg deadlift\nRest 1 min",
      "is_circuit": true,
      "matched_by_name": false,
      "exercises": [
@@ -2326,7 +2326,7 @@ window.WORKOUTS = {
     {
      "letter": "E",
      "name": "DB deadlift + Pulley",
-     "info": "3 rounds \n10 DB deadlift\n10 Pulley\nRest 1 minute",
+     "info": "3 rounds \n10 DB deadlift\n10 Pulley\nRest 1 min",
      "is_circuit": true,
      "matched_by_name": false,
      "exercises": [
@@ -2336,7 +2336,7 @@ window.WORKOUTS = {
     },
     {
      "letter": "F",
-     "name": "Tabata: 20\" work - 10\" rest x 8 cycles",
+     "name": "Tabata: 20 sec work - 10 sec rest x 8 cycles",
      "info": "Run back and fourth\nPlank",
      "is_circuit": true,
      "matched_by_name": false,
@@ -2387,7 +2387,7 @@ window.WORKOUTS = {
     {
      "letter": "B",
      "name": "Core stability",
-     "info": "2 rounds\n20 Shoulder tap bear crawl\n10/side Ipsilateral deadbug\n8/side Side bridge (3\" hold)\nRest 1 min",
+     "info": "2 rounds\n20 Shoulder tap bear crawl\n10/side Ipsilateral deadbug\n8/side Side bridge (3 sec hold)\nRest 1 min",
      "is_circuit": true,
      "matched_by_name": false,
      "exercises": [
@@ -2399,7 +2399,7 @@ window.WORKOUTS = {
     {
      "letter": "C",
      "name": "BB sumo deadlift + Pass simulation side lunges",
-     "info": "3 rounds\n10 BB sumo deadlfit\n16 Pass simulation side lunges\nRest 1,5 minute",
+     "info": "3 rounds\n10 BB sumo deadlfit\n16 Pass simulation side lunges\nRest 1:30 min",
      "is_circuit": true,
      "matched_by_name": false,
      "exercises": [
@@ -2410,7 +2410,7 @@ window.WORKOUTS = {
     {
      "letter": "D",
      "name": "DB cross over + Rhomboids openings",
-     "info": "3 rounds\n10 DB cross over \n10 Rhomboids openings\nRest 1,5 minute",
+     "info": "3 rounds\n10 DB cross over \n10 Rhomboids openings\nRest 1:30 min",
      "is_circuit": true,
      "matched_by_name": false,
      "exercises": [
@@ -2421,7 +2421,7 @@ window.WORKOUTS = {
     {
      "letter": "E",
      "name": "DB walking lunges + DB half kneeling shoulder press",
-     "info": "3 rounds\n16 DB waking lunges\n8/side DB half kneeling shoulder press\nRest 1,5 minute",
+     "info": "3 rounds\n16 DB waking lunges\n8/side DB half kneeling shoulder press\nRest 1:30 min",
      "is_circuit": true,
      "matched_by_name": false,
      "exercises": [
@@ -2431,7 +2431,7 @@ window.WORKOUTS = {
     },
     {
      "letter": "F",
-     "name": "Tabata: 20\" work - 10\" rest x 8 cycles",
+     "name": "Tabata: 20 sec work - 10 sec rest x 8 cycles",
      "info": "Lateral run back and fourth\nSide plank",
      "is_circuit": true,
      "matched_by_name": false,
@@ -2480,7 +2480,7 @@ window.WORKOUTS = {
     {
      "letter": "B",
      "name": "Core stability",
-     "info": "3 rounds\n30\" Front to side plank\n20 Core activation deadbug\n10/side Single leg bridge \nNo rest",
+     "info": "3 rounds\n30 sec Front to side plank\n20 Core activation deadbug\n10/side Single leg bridge \nNo rest",
      "is_circuit": true,
      "matched_by_name": false,
      "exercises": [
@@ -2492,7 +2492,7 @@ window.WORKOUTS = {
     {
      "letter": "C",
      "name": "BB bench press + DB lower row",
-     "info": "3 rounds\n10 BB bench press\n10/side DB lower row\nRest 1,5 minute",
+     "info": "3 rounds\n10 BB bench press\n10/side DB lower row\nRest 1:30 min",
      "is_circuit": true,
      "matched_by_name": false,
      "exercises": [
@@ -2503,7 +2503,7 @@ window.WORKOUTS = {
     {
      "letter": "D",
      "name": "DB Cossack squat + Band lateral walk",
-     "info": "3 rounds\n16 DB Cossack squat\n12/side Band lateral walk\nRest 1,5 minute",
+     "info": "3 rounds\n16 DB Cossack squat\n12/side Band lateral walk\nRest 1:30 min",
      "is_circuit": true,
      "matched_by_name": false,
      "exercises": [
@@ -2514,7 +2514,7 @@ window.WORKOUTS = {
     {
      "letter": "E",
      "name": "Single leg press + Band Pallof press",
-     "info": "3 rounds \n10/side Single leg press\n10/side Band Pallof press\nRest 1,5 minute",
+     "info": "3 rounds \n10/side Single leg press\n10/side Band Pallof press\nRest 1:30 min",
      "is_circuit": true,
      "matched_by_name": false,
      "exercises": [
@@ -2524,7 +2524,7 @@ window.WORKOUTS = {
     },
     {
      "letter": "F",
-     "name": "Tabata: 20\" work - 10\" rest x 8 cycles",
+     "name": "Tabata: 20 sec work - 10 sec rest x 8 cycles",
      "info": "2 in 2 out\nPlank",
      "is_circuit": true,
      "matched_by_name": false,
@@ -2573,7 +2573,7 @@ window.WORKOUTS = {
     {
      "letter": "B",
      "name": "Core stability",
-     "info": "3 rounds\n20 Plank arm raise\n4 x 5\" isometric deadbug\n12 Fitball leg curl",
+     "info": "3 rounds\n20 Plank arm raise\n4 x 5 sec isometric deadbug\n12 Fitball leg curl",
      "is_circuit": true,
      "matched_by_name": false,
      "exercises": [
@@ -2585,7 +2585,7 @@ window.WORKOUTS = {
     {
      "letter": "C",
      "name": "BB back squat + DB step up",
-     "info": "3 rounds\n10 BB back squat \n8/side DB step up \nRest 1 minute",
+     "info": "3 rounds\n10 BB back squat \n8/side DB step up \nRest 1 min",
      "is_circuit": true,
      "matched_by_name": false,
      "exercises": [
@@ -2596,7 +2596,7 @@ window.WORKOUTS = {
     {
      "letter": "D",
      "name": "TRX push up + TRX upper row",
-     "info": "3 rounds\n10 TRX push up\n10 TRX upper row\nRest 1 minute",
+     "info": "3 rounds\n10 TRX push up\n10 TRX upper row\nRest 1 min",
      "is_circuit": true,
      "matched_by_name": false,
      "exercises": [
@@ -2607,7 +2607,7 @@ window.WORKOUTS = {
     {
      "letter": "E",
      "name": "DB walking lunges + Cable rope pull down",
-     "info": "3 rounds\n16 DB walking lunges\n10 Cable rope pull down\nRest 1 minute",
+     "info": "3 rounds\n16 DB walking lunges\n10 Cable rope pull down\nRest 1 min",
      "is_circuit": true,
      "matched_by_name": false,
      "exercises": [
@@ -2617,7 +2617,7 @@ window.WORKOUTS = {
     },
     {
      "letter": "F",
-     "name": "Tabata: 20\" work - 10\" rest x 8 cycles",
+     "name": "Tabata: 20 sec work - 10 sec rest x 8 cycles",
      "info": "3 in 3 out\nSide plank",
      "is_circuit": true,
      "matched_by_name": false,
@@ -2679,7 +2679,7 @@ window.WORKOUTS = {
     {
      "letter": "C",
      "name": "DB bench press + TRX lower row",
-     "info": "3 rounds\n10 DB bench press\n10 TRX lower row\nRest 1 minute",
+     "info": "3 rounds\n10 DB bench press\n10 TRX lower row\nRest 1 min",
      "is_circuit": true,
      "matched_by_name": false,
      "exercises": [
@@ -2690,7 +2690,7 @@ window.WORKOUTS = {
     {
      "letter": "D",
      "name": "BB rack deadlift + Pass simulation reverse lunges",
-     "info": "3 rounds\n10 BB rack deadlift (3\" hold)\n16 Pass simultion reverse lunges *CONTROL RODILLA\nRest 1 minute",
+     "info": "3 rounds\n10 BB rack deadlift (3 sec hold)\n16 Pass simultion reverse lunges *CONTROL RODILLA\nRest 1 min",
      "is_circuit": true,
      "matched_by_name": false,
      "exercises": [
@@ -2701,7 +2701,7 @@ window.WORKOUTS = {
     {
      "letter": "E",
      "name": "DB side lunges + Half kneeling high to low chop",
-     "info": "3 rounds \n16 DB side lunges\n8/side Half kneeling high to low chop\nRest 1 minute",
+     "info": "3 rounds \n16 DB side lunges\n8/side Half kneeling high to low chop\nRest 1 min",
      "is_circuit": true,
      "matched_by_name": false,
      "exercises": [
@@ -2711,7 +2711,7 @@ window.WORKOUTS = {
     },
     {
      "letter": "F",
-     "name": "Tabata: 20\" work - 10\" rest x 8 cycles",
+     "name": "Tabata: 20 sec work - 10 sec rest x 8 cycles",
      "info": "Obstacle run back and fourth\nPlank shoulder tap",
      "is_circuit": true,
      "matched_by_name": false,
@@ -2773,7 +2773,7 @@ window.WORKOUTS = {
     {
      "letter": "C",
      "name": "Multipower split squat + Pass simulation lunge forward",
-     "info": "3 rounds\n8/side Multipower split squat *RIR 3\n16 Pass simulation lunge forward \nRest 1 minute",
+     "info": "3 rounds\n8/side Multipower split squat *RIR 3\n16 Pass simulation lunge forward \nRest 1 min",
      "is_circuit": true,
      "matched_by_name": false,
      "exercises": [
@@ -2784,7 +2784,7 @@ window.WORKOUTS = {
     {
      "letter": "D",
      "name": "Row machine + Supinated grip shoulder blade depression",
-     "info": "3 rounds\n10 Row machine\n10 Supinated grip shoulder blade depression\nRest 1 minute",
+     "info": "3 rounds\n10 Row machine\n10 Supinated grip shoulder blade depression\nRest 1 min",
      "is_circuit": true,
      "matched_by_name": false,
      "exercises": [
@@ -2795,7 +2795,7 @@ window.WORKOUTS = {
     {
      "letter": "E",
      "name": "Hip trust + Band standing Pallof press",
-     "info": "3 rounds\n10 Hip trust *RIR 3\n8/side Band standing Pallof press\nRest 1 minute",
+     "info": "3 rounds\n10 Hip trust *RIR 3\n8/side Band standing Pallof press\nRest 1 min",
      "is_circuit": true,
      "matched_by_name": false,
      "exercises": [
@@ -2805,7 +2805,7 @@ window.WORKOUTS = {
     },
     {
      "letter": "F",
-     "name": "Tabata: 20\" work - 10\" rest x 8 cycles",
+     "name": "Tabata: 20 sec work - 10 sec rest x 8 cycles",
      "info": "Obstacle lateral run back and fourth\nSide plank raises",
      "is_circuit": true,
      "matched_by_name": false,
@@ -2854,7 +2854,7 @@ window.WORKOUTS = {
     {
      "letter": "B",
      "name": "Core stability",
-     "info": "3 rounds\n30\" Hollow body flutter kicks\n20 Elbows lateral climbers\n20 Plank shoulder tap",
+     "info": "3 rounds\n30 sec Hollow body flutter kicks\n20 Elbows lateral climbers\n20 Plank shoulder tap",
      "is_circuit": true,
      "matched_by_name": false,
      "exercises": [
@@ -2866,7 +2866,7 @@ window.WORKOUTS = {
     {
      "letter": "C",
      "name": "BB bench press",
-     "info": "3 sets of 10-8-6\nRest 2 minute",
+     "info": "3 sets of 10-8-6\nRest 2 min",
      "is_circuit": false,
      "matched_by_name": true,
      "exercises": [
@@ -2876,7 +2876,7 @@ window.WORKOUTS = {
     {
      "letter": "D",
      "name": "DB incline bench press",
-     "info": "3 sets of 10-8-6\nRest 2 minute",
+     "info": "3 sets of 10-8-6\nRest 2 min",
      "is_circuit": false,
      "matched_by_name": true,
      "exercises": [
@@ -2886,7 +2886,7 @@ window.WORKOUTS = {
     {
      "letter": "E",
      "name": "Band tall kneeling pull down + Standing BB shoulder blade depression",
-     "info": "3 rounds:\n10 Band tall kneeling pull down\n10 Standing BB shoulder blade depression\nRest 1,5 min",
+     "info": "3 rounds:\n10 Band tall kneeling pull down\n10 Standing BB shoulder blade depression\nRest 1:30 min",
      "is_circuit": true,
      "matched_by_name": false,
      "exercises": [
@@ -2897,7 +2897,7 @@ window.WORKOUTS = {
     {
      "letter": "F",
      "name": "Row machine",
-     "info": "3 sets of 10-8-6\nRest 2 minute",
+     "info": "3 sets of 10-8-6\nRest 2 min",
      "is_circuit": false,
      "matched_by_name": true,
      "exercises": [
@@ -2907,7 +2907,7 @@ window.WORKOUTS = {
     {
      "letter": "G",
      "name": "Cable rope pull down",
-     "info": "3 sets of 10-8-6\nRest 1 minute",
+     "info": "3 sets of 10-8-6\nRest 1 min",
      "is_circuit": false,
      "matched_by_name": true,
      "exercises": [
@@ -2954,7 +2954,7 @@ window.WORKOUTS = {
     {
      "letter": "B",
      "name": "Core stabiliy",
-     "info": "3 rounds\n30\" Bent hollow flutter kicks\n20 Cross body mountain climbers\n20 Plank shoulder tap\nNo rest",
+     "info": "3 rounds\n30 sec Bent hollow flutter kicks\n20 Cross body mountain climbers\n20 Plank shoulder tap\nNo rest",
      "is_circuit": true,
      "matched_by_name": false,
      "exercises": [
@@ -2966,7 +2966,7 @@ window.WORKOUTS = {
     {
      "letter": "C",
      "name": "DB knee banded split squat",
-     "info": "3 sets of 8/side\nRest 1,5 minute",
+     "info": "3 sets of 8/side\nRest 1:30 min",
      "is_circuit": false,
      "matched_by_name": true,
      "exercises": [
@@ -2976,7 +2976,7 @@ window.WORKOUTS = {
     {
      "letter": "D",
      "name": "Multipower hip trust",
-     "info": "3 sets of 8-6-6\nRest 2 minute",
+     "info": "3 sets of 8-6-6\nRest 2 min",
      "is_circuit": false,
      "matched_by_name": true,
      "exercises": [
@@ -2997,7 +2997,7 @@ window.WORKOUTS = {
     {
      "letter": "F",
      "name": "TRX shoulder depression and row",
-     "info": "3 sets of 10\nRest 1,5 minute",
+     "info": "3 sets of 10\nRest 1:30 min",
      "is_circuit": false,
      "matched_by_name": true,
      "exercises": [
@@ -3007,7 +3007,7 @@ window.WORKOUTS = {
     {
      "letter": "G",
      "name": "TRX single arm row",
-     "info": "3 sets of 8/side\nRest 1,5 minute",
+     "info": "3 sets of 8/side\nRest 1:30 min",
      "is_circuit": false,
      "matched_by_name": true,
      "exercises": [
@@ -3054,7 +3054,7 @@ window.WORKOUTS = {
     {
      "letter": "B",
      "name": "Core stability",
-     "info": "3 rounds\n30\" Fitball plank \n20 Modified tuck up\n10/side Single arm KB swing",
+     "info": "3 rounds\n30 sec Fitball plank \n20 Modified tuck up\n10/side Single arm KB swing",
      "is_circuit": true,
      "matched_by_name": false,
      "exercises": [
@@ -3076,7 +3076,7 @@ window.WORKOUTS = {
     {
      "letter": "D",
      "name": "Single arm floor press",
-     "info": "3 sets of 10-8-6/side *RIR 2\nRest 1,5 minute",
+     "info": "3 sets of 10-8-6/side *RIR 2\nRest 1:30 min",
      "is_circuit": false,
      "matched_by_name": true,
      "exercises": [
@@ -3086,7 +3086,7 @@ window.WORKOUTS = {
     {
      "letter": "E",
      "name": "DB bench cross over + DB bench rhomboids openings",
-     "info": "3 rounds:\n8 DB bench cross over *RIR 1\n12 DB bench rhomboids openings\nRest 1,5 min",
+     "info": "3 rounds:\n8 DB bench cross over *RIR 1\n12 DB bench rhomboids openings\nRest 1:30 min",
      "is_circuit": true,
      "matched_by_name": false,
      "exercises": [
@@ -3097,7 +3097,7 @@ window.WORKOUTS = {
     {
      "letter": "F",
      "name": "Chin up",
-     "info": "3 sets *MAX REPS - RIR 0 \nRest 1,5 minute",
+     "info": "3 sets *MAX REPS - RIR 0 \nRest 1:30 min",
      "is_circuit": false,
      "matched_by_name": true,
      "exercises": [
@@ -3107,7 +3107,7 @@ window.WORKOUTS = {
     {
      "letter": "G",
      "name": "DB bench lower row",
-     "info": "3 sets of 10-8-6/side *RIR 1\nRest 1,5 minute",
+     "info": "3 sets of 10-8-6/side *RIR 1\nRest 1:30 min",
      "is_circuit": false,
      "matched_by_name": true,
      "exercises": [
@@ -3154,7 +3154,7 @@ window.WORKOUTS = {
     {
      "letter": "B",
      "name": "Core stability",
-     "info": "3 rounds\n30\" Fitball crunch\n20 Cross wallet\n10/side Single arm KB swing\nNo rest",
+     "info": "3 rounds\n30 sec Fitball crunch\n20 Cross wallet\n10/side Single arm KB swing\nNo rest",
      "is_circuit": true,
      "matched_by_name": false,
      "exercises": [
@@ -3166,7 +3166,7 @@ window.WORKOUTS = {
     {
      "letter": "C",
      "name": "BB back squat with miniband",
-     "info": "3 sets of 8 \nRest 1,5 minute",
+     "info": "3 sets of 8 \nRest 1:30 min",
      "is_circuit": false,
      "matched_by_name": true,
      "exercises": [
@@ -3176,7 +3176,7 @@ window.WORKOUTS = {
     {
      "letter": "D",
      "name": "BB reverse lunge",
-     "info": "3 sets of 6/side\nRest 1,5 minute",
+     "info": "3 sets of 6/side\nRest 1:30 min",
      "is_circuit": false,
      "matched_by_name": true,
      "exercises": [
@@ -3186,7 +3186,7 @@ window.WORKOUTS = {
     {
      "letter": "E",
      "name": "KB cross side lunges + TRX shoulder openings",
-     "info": "3 rounds:\n8/side KB cross side lunges\n10 TRX shoulders openings\nRest 1,5 min",
+     "info": "3 rounds:\n8/side KB cross side lunges\n10 TRX shoulders openings\nRest 1:30 min",
      "is_circuit": true,
      "matched_by_name": false,
      "exercises": [
@@ -3197,7 +3197,7 @@ window.WORKOUTS = {
     {
      "letter": "F",
      "name": "Half kneeling DB shoulder press",
-     "info": "3 sets of 8/side\nRest 1,5 minute",
+     "info": "3 sets of 8/side\nRest 1:30 min",
      "is_circuit": false,
      "matched_by_name": true,
      "exercises": [
@@ -3207,7 +3207,7 @@ window.WORKOUTS = {
     {
      "letter": "G",
      "name": "Supinated grip shoulder blade depression",
-     "info": "3 sets of 10\nRest 1,5 minute",
+     "info": "3 sets of 10\nRest 1:30 min",
      "is_circuit": false,
      "matched_by_name": true,
      "exercises": [
@@ -3266,7 +3266,7 @@ window.WORKOUTS = {
     {
      "letter": "C",
      "name": "BB bench press",
-     "info": "3 sets of 6 *RIR 1\nRest 1,5 minute",
+     "info": "3 sets of 6 *RIR 1\nRest 1:30 min",
      "is_circuit": false,
      "matched_by_name": true,
      "exercises": [
@@ -3276,7 +3276,7 @@ window.WORKOUTS = {
     {
      "letter": "D",
      "name": "Single arm floor press",
-     "info": "3 sets of 6/side\nRest 1,5 minute",
+     "info": "3 sets of 6/side\nRest 1:30 min",
      "is_circuit": false,
      "matched_by_name": true,
      "exercises": [
@@ -3286,7 +3286,7 @@ window.WORKOUTS = {
     {
      "letter": "E",
      "name": "Australian pull up + Push up",
-     "info": "3 rounds:\n12 Australian pull up\nMax reps full range push up *RIR 0\nRest 1,5 min",
+     "info": "3 rounds:\n12 Australian pull up\nMax reps full range push up *RIR 0\nRest 1:30 min",
      "is_circuit": true,
      "matched_by_name": false,
      "exercises": [
@@ -3297,7 +3297,7 @@ window.WORKOUTS = {
     {
      "letter": "F",
      "name": "Pull up",
-     "info": "3 sets of MAX \nRest 2 minute",
+     "info": "3 sets of MAX \nRest 2 min",
      "is_circuit": false,
      "matched_by_name": true,
      "exercises": [
@@ -3307,7 +3307,7 @@ window.WORKOUTS = {
     {
      "letter": "G",
      "name": "DB bench lower row",
-     "info": "3 sets of 6/side *RIR 1\nRest 1,5 minute",
+     "info": "3 sets of 6/side *RIR 1\nRest 1:30 min",
      "is_circuit": false,
      "matched_by_name": true,
      "exercises": [
@@ -3354,7 +3354,7 @@ window.WORKOUTS = {
     {
      "letter": "B",
      "name": "Core stabiliy",
-     "info": "3 rounds\n30\"/side DB side plank\n12 Band twist\n10/side Half kneeling DB chop",
+     "info": "3 rounds\n30 sec/side DB side plank\n12 Band twist\n10/side Half kneeling DB chop",
      "is_circuit": true,
      "matched_by_name": false,
      "exercises": [
@@ -3366,7 +3366,7 @@ window.WORKOUTS = {
     {
      "letter": "C",
      "name": "DB Bulgarian squat",
-     "info": "3/4 sets of 6/side\nRest 1,5 minute",
+     "info": "3/4 sets of 6/side\nRest 1:30 min",
      "is_circuit": false,
      "matched_by_name": true,
      "exercises": [
@@ -3376,7 +3376,7 @@ window.WORKOUTS = {
     {
      "letter": "D",
      "name": "Heels elevated back squat",
-     "info": "3 sets of 6 reps\nRest 1 minute",
+     "info": "3 sets of 6 reps\nRest 1 min",
      "is_circuit": false,
      "matched_by_name": true,
      "exercises": [
@@ -3386,7 +3386,7 @@ window.WORKOUTS = {
     {
      "letter": "E",
      "name": "BB rack deadlift + DB lateral raises",
-     "info": "3 rounds:\n10 BB rack deadlift\n10 DB lateral raises\nRest 1,5 min",
+     "info": "3 rounds:\n10 BB rack deadlift\n10 DB lateral raises\nRest 1:30 min",
      "is_circuit": true,
      "matched_by_name": false,
      "exercises": [
@@ -3397,7 +3397,7 @@ window.WORKOUTS = {
     {
      "letter": "F",
      "name": "BB shoulder press",
-     "info": "3 sets of 6 *RIR 1\nRest 2 minute",
+     "info": "3 sets of 6 *RIR 1\nRest 2 min",
      "is_circuit": false,
      "matched_by_name": true,
      "exercises": [
@@ -3407,7 +3407,7 @@ window.WORKOUTS = {
     {
      "letter": "G",
      "name": "Half kneeling DB shoulder press",
-     "info": "3 sets of 6/side *RIR 1\nRest 1,5 minute",
+     "info": "3 sets of 6/side *RIR 1\nRest 1:30 min",
      "is_circuit": false,
      "matched_by_name": true,
      "exercises": [
@@ -3468,7 +3468,7 @@ window.WORKOUTS = {
     {
      "letter": "C",
      "name": "BB deadlift + DB swing",
-     "info": "4 rounds:\n5 BB deadlift *RIR 1\n10 DB swing *Controlado en bajada, pero subida rápida\nRest 1,5 minutes",
+     "info": "4 rounds:\n5 BB deadlift *RIR 1\n10 DB swing *Controlado en bajada, pero subida rápida\nRest 1:30 min",
      "is_circuit": true,
      "matched_by_name": false,
      "exercises": [
@@ -3479,7 +3479,7 @@ window.WORKOUTS = {
     {
      "letter": "D",
      "name": "BB bench press + Plyo push up",
-     "info": "4 rounds:\n5 BB bench press *RIR 1\n10 Plyo push up *EXPLOSIVO\nRest 1,5 minutes",
+     "info": "4 rounds:\n5 BB bench press *RIR 1\n10 Plyo push up *EXPLOSIVO\nRest 1:30 min",
      "is_circuit": true,
      "matched_by_name": false,
      "exercises": [
@@ -3491,7 +3491,7 @@ window.WORKOUTS = {
     {
      "letter": "E",
      "name": "DB lunge forward + Split jump",
-     "info": "4 rounds:\n6/side Lunge forward *RIR 2\n12 Split jump *EXPLOSIVO\nRest 1,5 minutes",
+     "info": "4 rounds:\n6/side Lunge forward *RIR 2\n12 Split jump *EXPLOSIVO\nRest 1:30 min",
      "is_circuit": true,
      "matched_by_name": false,
      "exercises": [
@@ -3502,7 +3502,7 @@ window.WORKOUTS = {
     {
      "letter": "F",
      "name": "DB pull over + Half kneeling band pull down",
-     "info": "4 rounds:\n6 DB pull over *RIR 1\n6/side Half kneeling band pull down *RIR 3\nRest 1,5 minutes",
+     "info": "4 rounds:\n6 DB pull over *RIR 1\n6/side Half kneeling band pull down *RIR 3\nRest 1:30 min",
      "is_circuit": true,
      "matched_by_name": false,
      "exercises": [
@@ -3538,7 +3538,7 @@ window.WORKOUTS = {
     {
      "letter": "A",
      "name": "Core stability",
-     "info": "3 rounds:\n30\" Isometric dead bug\n10/side Half kneeling KB chop (push pull)\n16 Standing plate twist\nRest as ittle as possible",
+     "info": "3 rounds:\n30 sec Isometric dead bug\n10/side Half kneeling KB chop (push pull)\n16 Standing plate twist\nRest as ittle as possible",
      "is_circuit": true,
      "matched_by_name": false,
      "exercises": [
@@ -3550,7 +3550,7 @@ window.WORKOUTS = {
     {
      "letter": "B",
      "name": "BB back squat *TAP THE BENCH + No arms consecutive squat jumps",
-     "info": "4 rounds:\n5 BB back squat *TAP THE BENCH RIR 3\n8 No arms consecutive squat jumps *EXPLOSIVO\nRest 1,5 minutes",
+     "info": "4 rounds:\n5 BB back squat *TAP THE BENCH RIR 3\n8 No arms consecutive squat jumps *EXPLOSIVO\nRest 1:30 min",
      "is_circuit": true,
      "matched_by_name": false,
      "exercises": [
@@ -3561,7 +3561,7 @@ window.WORKOUTS = {
     {
      "letter": "C",
      "name": "DB half kneeling shoulder press + BB push press",
-     "info": "4 rounds:\n5/side DB half kneeling shoulder press *Control bajada, subida fuerte\n6 BB push press *RIR 3\nRest 1,5 minutes",
+     "info": "4 rounds:\n5/side DB half kneeling shoulder press *Control bajada, subida fuerte\n6 BB push press *RIR 3\nRest 1:30 min",
      "is_circuit": true,
      "matched_by_name": false,
      "exercises": [
@@ -3572,7 +3572,7 @@ window.WORKOUTS = {
     {
      "letter": "D",
      "name": "Landmine side lunge + Single leg alternating lateral jump",
-     "info": "4 rounds:\n10 Landmine side lunge *CONTROL\n12 Single leg alternating lateral jump\nRest 1,5 minutes",
+     "info": "4 rounds:\n10 Landmine side lunge *CONTROL\n12 Single leg alternating lateral jump\nRest 1:30 min",
      "is_circuit": true,
      "matched_by_name": false,
      "exercises": [
@@ -3583,7 +3583,7 @@ window.WORKOUTS = {
     {
      "letter": "E",
      "name": "TRX upper row + Single arm pulley",
-     "info": "4 rounds:\n12 TRX upper row *EXPLOSIVO\n6/side Single arm pulley *RIR 3\nRest 1,5 minutes",
+     "info": "4 rounds:\n12 TRX upper row *EXPLOSIVO\n6/side Single arm pulley *RIR 3\nRest 1:30 min",
      "is_circuit": true,
      "matched_by_name": false,
      "exercises": [
@@ -3642,7 +3642,7 @@ window.WORKOUTS = {
     {
      "letter": "C",
      "name": "BB reverse lunge + High knees switches",
-     "info": "4 rounds:\n5/side BB reverse lunges *Control\n8/side High knees switches\nRest 1,5 minutes",
+     "info": "4 rounds:\n5/side BB reverse lunges *Control\n8/side High knees switches\nRest 1:30 min",
      "is_circuit": true,
      "matched_by_name": false,
      "exercises": [
@@ -3653,7 +3653,7 @@ window.WORKOUTS = {
     {
      "letter": "D",
      "name": "DB incline bench press + Full range push up",
-     "info": "4 rounds:\n5 DB incline bench press *RIR 1\n8 Full range push up (explosive)\nRest 1,5 minutes",
+     "info": "4 rounds:\n5 DB incline bench press *RIR 1\n8 Full range push up (explosive)\nRest 1:30 min",
      "is_circuit": true,
      "matched_by_name": false,
      "exercises": [
@@ -3664,7 +3664,7 @@ window.WORKOUTS = {
     {
      "letter": "E",
      "name": "DB deadlift + Plyo lateral jump",
-     "info": "4 rounds:\n6 DB deadift *RIR 1\n10/side Plyo lateral jump\nRest 1,5 minutes",
+     "info": "4 rounds:\n6 DB deadift *RIR 1\n10/side Plyo lateral jump\nRest 1:30 min",
      "is_circuit": true,
      "matched_by_name": false,
      "exercises": [
@@ -3675,7 +3675,7 @@ window.WORKOUTS = {
     {
      "letter": "F",
      "name": "TRX overhead extension + Overhead slam ball",
-     "info": "4 rounds:\n6 TRX overhead extension\n6 Overhead slam ball (explosive)\nRest 1,5 minutes",
+     "info": "4 rounds:\n6 TRX overhead extension\n6 Overhead slam ball (explosive)\nRest 1:30 min",
      "is_circuit": true,
      "matched_by_name": false,
      "exercises": [
@@ -3723,7 +3723,7 @@ window.WORKOUTS = {
     {
      "letter": "B",
      "name": "BB back squat + Plyometric depth jump",
-     "info": "4 rounds:\n5 BB back squat *Control\n8 Plyometric depth jump\nRest 1,5 minutes",
+     "info": "4 rounds:\n5 BB back squat *Control\n8 Plyometric depth jump\nRest 1:30 min",
      "is_circuit": true,
      "matched_by_name": false,
      "exercises": [
@@ -3735,7 +3735,7 @@ window.WORKOUTS = {
     {
      "letter": "C",
      "name": "BB shoulder press + Single arm KB push press",
-     "info": "4 rounds:\n5 BB shoulder press\n6/side Single arm KB push press (explosive)\nRest 1,5 minutes",
+     "info": "4 rounds:\n5 BB shoulder press\n6/side Single arm KB push press (explosive)\nRest 1:30 min",
      "is_circuit": true,
      "matched_by_name": false,
      "exercises": [
@@ -3746,7 +3746,7 @@ window.WORKOUTS = {
     {
      "letter": "D",
      "name": "Cross side lunge + Landmine angled reverse lunge",
-     "info": "4 rounds:\n5/side Cross side lunge *CONTROL\n6/side Landmine angled reverse lunge *CONTROL\nRest 1,5 minutes",
+     "info": "4 rounds:\n5/side Cross side lunge *CONTROL\n6/side Landmine angled reverse lunge *CONTROL\nRest 1:30 min",
      "is_circuit": true,
      "matched_by_name": false,
      "exercises": [
@@ -3757,7 +3757,7 @@ window.WORKOUTS = {
     {
      "letter": "E",
      "name": "Cable rope high pull + Half kneeling DB chop",
-     "info": "4 rounds:\n10 Cable rope high pull *RIR 1\n8/side DB chop *Explosivo\nRest 1,5 minutes",
+     "info": "4 rounds:\n10 Cable rope high pull *RIR 1\n8/side DB chop *Explosivo\nRest 1:30 min",
      "is_circuit": true,
      "matched_by_name": false,
      "exercises": [
@@ -3815,7 +3815,7 @@ window.WORKOUTS = {
     {
      "letter": "C",
      "name": "Hip trust machine + Floor row",
-     "info": "3 rounds:\n10 Hip trust machine\n10 Floor row *3 SEC HOLD\nRest 1 minute",
+     "info": "3 rounds:\n10 Hip trust machine\n10 Floor row *3 SEC HOLD\nRest 1 min",
      "is_circuit": true,
      "matched_by_name": false,
      "exercises": [
@@ -3836,7 +3836,7 @@ window.WORKOUTS = {
     },
     {
      "letter": "E",
-     "name": "Tabata: 20\" work - 10\" rest x 8 cycles",
+     "name": "Tabata: 20 sec work - 10 sec rest x 8 cycles",
      "info": "Run back and fourth\nPlank",
      "is_circuit": true,
      "matched_by_name": false,
@@ -3873,7 +3873,7 @@ window.WORKOUTS = {
     {
      "letter": "A",
      "name": "Leg curl 2 up 1 down + Cable rope high pull",
-     "info": "3 rounds:\n8/side Single leg leg curl \n10 Cable rope high pull \nRest 1 minute",
+     "info": "3 rounds:\n8/side Single leg leg curl \n10 Cable rope high pull \nRest 1 min",
      "is_circuit": true,
      "matched_by_name": false,
      "exercises": [
@@ -3884,7 +3884,7 @@ window.WORKOUTS = {
     {
      "letter": "B",
      "name": "DB step up + DB bench cross over",
-     "info": "3 rounds:\n8/side DB step up *RIR 3 subida explosiva\n10 DB bench cross over\nRest 1 minute",
+     "info": "3 rounds:\n8/side DB step up *RIR 3 subida explosiva\n10 DB bench cross over\nRest 1 min",
      "is_circuit": true,
      "matched_by_name": false,
      "exercises": [
@@ -3895,7 +3895,7 @@ window.WORKOUTS = {
     {
      "letter": "C",
      "name": "Heels elevated goblet squat + TRX scapular row",
-     "info": "3 rounds:\n10 Heels elevated goblet squat\n8 TRX scapular row\nRest 1 minute",
+     "info": "3 rounds:\n10 Heels elevated goblet squat\n8 TRX scapular row\nRest 1 min",
      "is_circuit": true,
      "matched_by_name": false,
      "exercises": [
@@ -3916,7 +3916,7 @@ window.WORKOUTS = {
     },
     {
      "letter": "E",
-     "name": "Tabata: 20\" work - 10\" rest x 8 cycles",
+     "name": "Tabata: 20 sec work - 10 sec rest x 8 cycles",
      "info": "Lateral run back and fourth\nSide plank",
      "is_circuit": true,
      "matched_by_name": false,

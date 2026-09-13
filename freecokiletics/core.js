@@ -89,19 +89,37 @@ window.App = (function () {
     return P.exercises[id] && P.exercises[id].has_preview ? "../previews/" + id + ".webp" : "";
   }
   function repsLabel(e) {
-    if (e.seconds) return e.seconds + '"' + (e.per_side ? " / side" : "");
+    if (e.holds && e.seconds) return e.holds + " × " + dur(e.seconds);
+    if (e.seconds) return dur(e.seconds) + (e.per_side ? " / side" : "");
     if (e.reps != null) return e.reps + (e.per_side ? " / side" : "");
     return "";
   }
-  function restLabel(sec) {
-    if (!sec) return "";
-    if (sec === 90) return "1½ min rest";
-    if (sec % 60 === 0) return sec / 60 + " min rest";
-    if (sec < 60) return sec + " s rest";
-    return Math.floor(sec / 60) + ":" + String(sec % 60).padStart(2, "0") + " rest";
+  /* Time as the app writes it (Javier, 14 Sep 2026): under a minute "45 sec",
+     whole minutes "2 min", anything else "1:30 min" — never 90 sec, 1.5 min,
+     1½ min or a quote mark. The coach's text gets the same rule at build time
+     (scripts/units.py). Running clocks stay digital with no unit. */
+  function dur(sec) {
+    sec = Math.round(+sec || 0);
+    if (sec < 60) return sec + " sec";
+    if (sec % 60 === 0) return sec / 60 + " min";
+    return Math.floor(sec / 60) + ":" + pad2(sec % 60) + " min";
   }
+  // What a screen reader says instead of "1:30 min": "1 minute 30 seconds".
+  function durSpoken(sec) {
+    sec = Math.round(+sec || 0);
+    var m = Math.floor(sec / 60), s = sec % 60, out = [];
+    if (m) out.push(m + (m === 1 ? " minute" : " minutes"));
+    if (s || !m) out.push(s + (s === 1 ? " second" : " seconds"));
+    return out.join(" ");
+  }
+  // Markup: the short form on screen, the spoken form for a screen reader.
+  function durHTML(sec) {
+    return '<span aria-hidden="true">' + UI.esc(dur(sec)) + '</span><span class="sr-only">' + UI.esc(durSpoken(sec)) + "</span>";
+  }
+  function restLabel(sec) { return sec ? "Rest " + dur(sec) : ""; }
+  function restHTML(sec) { return sec ? "Rest " + durHTML(sec) : ""; }
   function blockCount(b) {
-    return b.kind === "tabata" ? b.cycles + " × " + b.work_seconds + '"' : b.rounds + " rounds";
+    return b.kind === "tabata" ? b.cycles + " × " + dur(b.work_seconds) : b.rounds + " rounds";
   }
 
   // ---------------------------------------------------------------- dates
@@ -327,7 +345,8 @@ window.App = (function () {
     route: null,               // set by app.js
     programmeBlocks: programmeBlocks, planBlocks: planBlocks, buildWeeks: buildWeeks, planEnd: planEnd,
     ticket: ticket, stale: stale,
-    previewUrl: previewUrl, repsLabel: repsLabel, restLabel: restLabel, blockCount: blockCount,
+    previewUrl: previewUrl, repsLabel: repsLabel, restLabel: restLabel, restHTML: restHTML, blockCount: blockCount,
+    dur: dur, durSpoken: durSpoken, durHTML: durHTML,
     fmt: fmt, fmtRange: fmtRange, dateVal: dateVal, timeVal: timeVal, hhmm: hhmm, longDate: longDate,
     dayDate: dayDate, today: today, isoDate: isoDate, mondayOf: mondayOf, nextMonday: nextMonday, timesFrom: timesFrom,
     weekFor: weekFor, sessionsFor: sessionsFor, sessionByKey: sessionByKey,

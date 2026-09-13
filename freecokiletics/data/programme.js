@@ -398,7 +398,7 @@ window.PROGRAMME = {
   },
   "11307787": {
    "id": "11307787",
-   "name": "Band glute bridge (3\" hold)",
+   "name": "Band glute bridge (3 sec hold)",
    "youtube_id": "pm3Ge7deNCc",
    "has_preview": true,
    "no_weight": true
@@ -1197,11 +1197,11 @@ window.PROGRAMME = {
        "reps": 10,
        "note": "3 SEC HOLD",
        "id": "11307787",
-       "name": "Band glute bridge (3\" hold)",
+       "name": "Band glute bridge (3 sec hold)",
        "no_weight": true
       }
      ],
-     "raw": "2 rounds\n30\" Dynamic plank\n10/side Medball contralateral deadbug\n10 Band bridge *3 SEC HOLD\nRest 1 min",
+     "raw": "2 rounds\n30 sec Dynamic plank\n10/side Medball contralateral deadbug\n10 Band bridge *3 SEC HOLD\nRest 1 min",
      "overridden": true
     },
     {
@@ -1227,7 +1227,7 @@ window.PROGRAMME = {
        "no_weight": true
       }
      ],
-     "raw": "3 rounds\n10/side Floor press\n12 Band half kneeling pull down \nRest 1 minute"
+     "raw": "3 rounds\n10/side Floor press\n12 Band half kneeling pull down \nRest 1 min"
     },
     {
      "letter": "D",
@@ -1252,7 +1252,7 @@ window.PROGRAMME = {
        "name": "KB single leg deadlift"
       }
      ],
-     "raw": "3 rounds\n8/side Reverse lunge to high knee\n8/side Single leg deadlift\nRest 1 minute"
+     "raw": "3 rounds\n8/side Reverse lunge to high knee\n8/side Single leg deadlift\nRest 1 min"
     },
     {
      "letter": "E",
@@ -1275,11 +1275,11 @@ window.PROGRAMME = {
        "name": "Pulley"
       }
      ],
-     "raw": "3 rounds \n10 DB deadlift\n10 Pulley\nRest 1 minute"
+     "raw": "3 rounds \n10 DB deadlift\n10 Pulley\nRest 1 min"
     },
     {
      "letter": "F",
-     "name": "Tabata: 20\" work - 10\" rest x 8 cycles",
+     "name": "Tabata: 20 sec work - 10 sec rest x 8 cycles",
      "kind": "tabata",
      "work_seconds": 20,
      "rest_seconds": 10,
@@ -1411,13 +1411,13 @@ window.PROGRAMME = {
       {
        "reps": 8,
        "per_side": true,
-       "note": "3\" hold",
+       "note": "3 sec hold",
        "id": "11292345",
        "name": "Side bridge",
        "no_weight": true
       }
      ],
-     "raw": "2 rounds\n20 Shoulder tap bear crawl\n10/side Ipsilateral deadbug\n8/side Side bridge (3\" hold)\nRest 1 min",
+     "raw": "2 rounds\n20 Shoulder tap bear crawl\n10/side Ipsilateral deadbug\n8/side Side bridge (3 sec hold)\nRest 1 min",
      "overridden": true
     },
     {
@@ -1442,7 +1442,7 @@ window.PROGRAMME = {
        "no_weight": true
       }
      ],
-     "raw": "3 rounds\n10 BB sumo deadlfit\n16 Pass simulation side lunges\nRest 1,5 minute"
+     "raw": "3 rounds\n10 BB sumo deadlfit\n16 Pass simulation side lunges\nRest 1:30 min"
     },
     {
      "letter": "D",
@@ -1466,7 +1466,7 @@ window.PROGRAMME = {
        "no_weight": true
       }
      ],
-     "raw": "3 rounds\n10 DB cross over \n10 Rhomboids openings\nRest 1,5 minute"
+     "raw": "3 rounds\n10 DB cross over \n10 Rhomboids openings\nRest 1:30 min"
     },
     {
      "letter": "E",
@@ -1490,11 +1490,11 @@ window.PROGRAMME = {
        "name": "Half kneeling DB shoulder press"
       }
      ],
-     "raw": "3 rounds\n16 DB waking lunges\n8/side DB half kneeling shoulder press\nRest 1,5 minute"
+     "raw": "3 rounds\n16 DB waking lunges\n8/side DB half kneeling shoulder press\nRest 1:30 min"
     },
     {
      "letter": "F",
-     "name": "Tabata: 20\" work - 10\" rest x 8 cycles",
+     "name": "Tabata: 20 sec work - 10 sec rest x 8 cycles",
      "kind": "tabata",
      "work_seconds": 20,
      "rest_seconds": 10,
@@ -1623,7 +1623,7 @@ window.PROGRAMME = {
        "no_weight": true
       }
      ],
-     "raw": "3 rounds\n30\" Front to side plank\n20 Core activation deadbug\n10/side Single leg bridge \nNo rest",
+     "raw": "3 rounds\n30 sec Front to side plank\n20 Core activation deadbug\n10/side Single leg bridge \nNo rest",
      "overridden": true
     },
     {
@@ -1648,7 +1648,7 @@ window.PROGRAMME = {
        "name": "DB bench lower row"
       }
      ],
-     "raw": "3 rounds\n10 BB bench press\n10/side DB lower row\nRest 1,5 minute"
+     "raw": "3 rounds\n10 BB bench press\n10/side DB lower row\nRest 1:30 min"
     },
     {
      "letter": "D",
@@ -1673,7 +1673,7 @@ window.PROGRAMME = {
        "no_weight": true
       }
      ],
-     "raw": "3 rounds\n16 DB Cossack squat\n12/side Band lateral walk\nRest 1,5 minute"
+     "raw": "3 rounds\n16 DB Cossack squat\n12/side Band lateral walk\nRest 1:30 min"
     },
     {
      "letter": "E",
@@ -1699,11 +1699,11 @@ window.PROGRAMME = {
        "no_weight": true
       }
      ],
-     "raw": "3 rounds \n10/side Single leg press\n10/side Band Pallof press\nRest 1,5 minute"
+     "raw": "3 rounds \n10/side Single leg press\n10/side Band Pallof press\nRest 1:30 min"
     },
     {
      "letter": "F",
-     "name": "Tabata: 20\" work - 10\" rest x 8 cycles",
+     "name": "Tabata: 20 sec work - 10 sec rest x 8 cycles",
      "kind": "tabata",
      "work_seconds": 20,
      "rest_seconds": 10,
@@ -1832,7 +1832,7 @@ window.PROGRAMME = {
        "no_weight": true
       }
      ],
-     "raw": "3 rounds\n20 Plank arm raise\n4 x 5\" isometric deadbug\n12 Fitball leg curl",
+     "raw": "3 rounds\n20 Plank arm raise\n4 x 5 sec isometric deadbug\n12 Fitball leg curl",
      "overridden": true
     },
     {
@@ -1857,7 +1857,7 @@ window.PROGRAMME = {
        "name": "Step up"
       }
      ],
-     "raw": "3 rounds\n10 BB back squat \n8/side DB step up \nRest 1 minute"
+     "raw": "3 rounds\n10 BB back squat \n8/side DB step up \nRest 1 min"
     },
     {
      "letter": "D",
@@ -1882,7 +1882,7 @@ window.PROGRAMME = {
        "no_weight": true
       }
      ],
-     "raw": "3 rounds\n10 TRX push up\n10 TRX upper row\nRest 1 minute"
+     "raw": "3 rounds\n10 TRX push up\n10 TRX upper row\nRest 1 min"
     },
     {
      "letter": "E",
@@ -1905,11 +1905,11 @@ window.PROGRAMME = {
        "name": "Cable rope pull down"
       }
      ],
-     "raw": "3 rounds\n16 DB walking lunges\n10 Cable rope pull down\nRest 1 minute"
+     "raw": "3 rounds\n16 DB walking lunges\n10 Cable rope pull down\nRest 1 min"
     },
     {
      "letter": "F",
-     "name": "Tabata: 20\" work - 10\" rest x 8 cycles",
+     "name": "Tabata: 20 sec work - 10 sec rest x 8 cycles",
      "kind": "tabata",
      "work_seconds": 20,
      "rest_seconds": 10,
@@ -2066,7 +2066,7 @@ window.PROGRAMME = {
        "no_weight": true
       }
      ],
-     "raw": "3 rounds\n10 DB bench press\n10 TRX lower row\nRest 1 minute"
+     "raw": "3 rounds\n10 DB bench press\n10 TRX lower row\nRest 1 min"
     },
     {
      "letter": "D",
@@ -2080,7 +2080,7 @@ window.PROGRAMME = {
      "exercises": [
       {
        "reps": 10,
-       "note": "3\" hold",
+       "note": "3 sec hold",
        "id": "11242555",
        "name": "Barbell rack deadlift"
       },
@@ -2092,7 +2092,7 @@ window.PROGRAMME = {
        "no_weight": true
       }
      ],
-     "raw": "3 rounds\n10 BB rack deadlift (3\" hold)\n16 Pass simultion reverse lunges *CONTROL RODILLA\nRest 1 minute"
+     "raw": "3 rounds\n10 BB rack deadlift (3 sec hold)\n16 Pass simultion reverse lunges *CONTROL RODILLA\nRest 1 min"
     },
     {
      "letter": "E",
@@ -2117,11 +2117,11 @@ window.PROGRAMME = {
        "no_weight": true
       }
      ],
-     "raw": "3 rounds \n16 DB side lunges\n8/side Half kneeling high to low chop\nRest 1 minute"
+     "raw": "3 rounds \n16 DB side lunges\n8/side Half kneeling high to low chop\nRest 1 min"
     },
     {
      "letter": "F",
-     "name": "Tabata: 20\" work - 10\" rest x 8 cycles",
+     "name": "Tabata: 20 sec work - 10 sec rest x 8 cycles",
      "kind": "tabata",
      "work_seconds": 20,
      "rest_seconds": 10,
@@ -2281,7 +2281,7 @@ window.PROGRAMME = {
        "no_weight": true
       }
      ],
-     "raw": "3 rounds\n8/side Multipower split squat *RIR 3\n16 Pass simulation lunge forward \nRest 1 minute"
+     "raw": "3 rounds\n8/side Multipower split squat *RIR 3\n16 Pass simulation lunge forward \nRest 1 min"
     },
     {
      "letter": "D",
@@ -2305,7 +2305,7 @@ window.PROGRAMME = {
        "no_weight": true
       }
      ],
-     "raw": "3 rounds\n10 Row machine\n10 Supinated grip shoulder blade depression\nRest 1 minute"
+     "raw": "3 rounds\n10 Row machine\n10 Supinated grip shoulder blade depression\nRest 1 min"
     },
     {
      "letter": "E",
@@ -2331,11 +2331,11 @@ window.PROGRAMME = {
        "no_weight": true
       }
      ],
-     "raw": "3 rounds\n10 Hip trust *RIR 3\n8/side Band standing Pallof press\nRest 1 minute"
+     "raw": "3 rounds\n10 Hip trust *RIR 3\n8/side Band standing Pallof press\nRest 1 min"
     },
     {
      "letter": "F",
-     "name": "Tabata: 20\" work - 10\" rest x 8 cycles",
+     "name": "Tabata: 20 sec work - 10 sec rest x 8 cycles",
      "kind": "tabata",
      "work_seconds": 20,
      "rest_seconds": 10,
@@ -2461,7 +2461,7 @@ window.PROGRAMME = {
        "no_weight": true
       }
      ],
-     "raw": "3 rounds\n30\" Hollow body flutter kicks\n20 Elbows lateral climbers\n20 Plank shoulder tap",
+     "raw": "3 rounds\n30 sec Hollow body flutter kicks\n20 Elbows lateral climbers\n20 Plank shoulder tap",
      "overridden": true
     },
     {
@@ -2484,7 +2484,7 @@ window.PROGRAMME = {
        "name": "BB bench press"
       }
      ],
-     "raw": "3 sets of 10-8-6\nRest 2 minute"
+     "raw": "3 sets of 10-8-6\nRest 2 min"
     },
     {
      "letter": "D",
@@ -2506,7 +2506,7 @@ window.PROGRAMME = {
        "name": "DB incline bench press"
       }
      ],
-     "raw": "3 sets of 10-8-6\nRest 2 minute"
+     "raw": "3 sets of 10-8-6\nRest 2 min"
     },
     {
      "letter": "E",
@@ -2530,7 +2530,7 @@ window.PROGRAMME = {
        "name": "Standing BB shoulder blade depression"
       }
      ],
-     "raw": "3 rounds:\n10 Band tall kneeling pull down\n10 Standing BB shoulder blade depression\nRest 1,5 min"
+     "raw": "3 rounds:\n10 Band tall kneeling pull down\n10 Standing BB shoulder blade depression\nRest 1:30 min"
     },
     {
      "letter": "F",
@@ -2552,7 +2552,7 @@ window.PROGRAMME = {
        "name": "Row machine"
       }
      ],
-     "raw": "3 sets of 10-8-6\nRest 2 minute"
+     "raw": "3 sets of 10-8-6\nRest 2 min"
     },
     {
      "letter": "G",
@@ -2574,7 +2574,7 @@ window.PROGRAMME = {
        "name": "Cable rope pull down"
       }
      ],
-     "raw": "3 sets of 10-8-6\nRest 1 minute"
+     "raw": "3 sets of 10-8-6\nRest 1 min"
     }
    ]
   },
@@ -2685,7 +2685,7 @@ window.PROGRAMME = {
        "no_weight": true
       }
      ],
-     "raw": "3 rounds\n30\" Bent hollow flutter kicks\n20 Cross body mountain climbers\n20 Plank shoulder tap\nNo rest",
+     "raw": "3 rounds\n30 sec Bent hollow flutter kicks\n20 Cross body mountain climbers\n20 Plank shoulder tap\nNo rest",
      "overridden": true
     },
     {
@@ -2705,7 +2705,7 @@ window.PROGRAMME = {
        "name": "DB knee banded split squat"
       }
      ],
-     "raw": "3 sets of 8/side\nRest 1,5 minute"
+     "raw": "3 sets of 8/side\nRest 1:30 min"
     },
     {
      "letter": "D",
@@ -2727,7 +2727,7 @@ window.PROGRAMME = {
        "name": "Multipower hip trust"
       }
      ],
-     "raw": "3 sets of 8-6-6\nRest 2 minute"
+     "raw": "3 sets of 8-6-6\nRest 2 min"
     },
     {
      "letter": "E",
@@ -2773,7 +2773,7 @@ window.PROGRAMME = {
        "no_weight": true
       }
      ],
-     "raw": "3 sets of 10\nRest 1,5 minute"
+     "raw": "3 sets of 10\nRest 1:30 min"
     },
     {
      "letter": "G",
@@ -2793,7 +2793,7 @@ window.PROGRAMME = {
        "no_weight": true
       }
      ],
-     "raw": "3 sets of 8/side\nRest 1,5 minute"
+     "raw": "3 sets of 8/side\nRest 1:30 min"
     }
    ]
   },
@@ -2903,7 +2903,7 @@ window.PROGRAMME = {
        "name": "Single arm KB swing"
       }
      ],
-     "raw": "3 rounds\n30\" Fitball plank \n20 Modified tuck up\n10/side Single arm KB swing",
+     "raw": "3 rounds\n30 sec Fitball plank \n20 Modified tuck up\n10/side Single arm KB swing",
      "overridden": true
     },
     {
@@ -2949,7 +2949,7 @@ window.PROGRAMME = {
        "name": "Single arm floor press"
       }
      ],
-     "raw": "3 sets of 10-8-6/side *RIR 2\nRest 1,5 minute"
+     "raw": "3 sets of 10-8-6/side *RIR 2\nRest 1:30 min"
     },
     {
      "letter": "E",
@@ -2973,7 +2973,7 @@ window.PROGRAMME = {
        "name": "Bench rhomboids openings"
       }
      ],
-     "raw": "3 rounds:\n8 DB bench cross over *RIR 1\n12 DB bench rhomboids openings\nRest 1,5 min"
+     "raw": "3 rounds:\n8 DB bench cross over *RIR 1\n12 DB bench rhomboids openings\nRest 1:30 min"
     },
     {
      "letter": "F",
@@ -2993,7 +2993,7 @@ window.PROGRAMME = {
        "no_weight": true
       }
      ],
-     "raw": "3 sets *MAX REPS - RIR 0 \nRest 1,5 minute"
+     "raw": "3 sets *MAX REPS - RIR 0 \nRest 1:30 min"
     },
     {
      "letter": "G",
@@ -3016,7 +3016,7 @@ window.PROGRAMME = {
        "name": "DB bench lower row"
       }
      ],
-     "raw": "3 sets of 10-8-6/side *RIR 1\nRest 1,5 minute"
+     "raw": "3 sets of 10-8-6/side *RIR 1\nRest 1:30 min"
     }
    ]
   },
@@ -3126,7 +3126,7 @@ window.PROGRAMME = {
        "name": "Single arm KB swing"
       }
      ],
-     "raw": "3 rounds\n30\" Fitball crunch\n20 Cross wallet\n10/side Single arm KB swing\nNo rest",
+     "raw": "3 rounds\n30 sec Fitball crunch\n20 Cross wallet\n10/side Single arm KB swing\nNo rest",
      "overridden": true
     },
     {
@@ -3145,7 +3145,7 @@ window.PROGRAMME = {
        "name": "BB back squat with miniband"
       }
      ],
-     "raw": "3 sets of 8 \nRest 1,5 minute"
+     "raw": "3 sets of 8 \nRest 1:30 min"
     },
     {
      "letter": "D",
@@ -3164,7 +3164,7 @@ window.PROGRAMME = {
        "name": "BB reverse lunge"
       }
      ],
-     "raw": "3 sets of 6/side\nRest 1,5 minute"
+     "raw": "3 sets of 6/side\nRest 1:30 min"
     },
     {
      "letter": "E",
@@ -3189,7 +3189,7 @@ window.PROGRAMME = {
        "no_weight": true
       }
      ],
-     "raw": "3 rounds:\n8/side KB cross side lunges\n10 TRX shoulders openings\nRest 1,5 min"
+     "raw": "3 rounds:\n8/side KB cross side lunges\n10 TRX shoulders openings\nRest 1:30 min"
     },
     {
      "letter": "F",
@@ -3208,7 +3208,7 @@ window.PROGRAMME = {
        "name": "Half kneeling DB shoulder press"
       }
      ],
-     "raw": "3 sets of 8/side\nRest 1,5 minute"
+     "raw": "3 sets of 8/side\nRest 1:30 min"
     },
     {
      "letter": "G",
@@ -3227,7 +3227,7 @@ window.PROGRAMME = {
        "no_weight": true
       }
      ],
-     "raw": "3 sets of 10\nRest 1,5 minute"
+     "raw": "3 sets of 10\nRest 1:30 min"
     }
    ]
   },
@@ -3355,7 +3355,7 @@ window.PROGRAMME = {
        "name": "BB bench press"
       }
      ],
-     "raw": "3 sets of 6 *RIR 1\nRest 1,5 minute"
+     "raw": "3 sets of 6 *RIR 1\nRest 1:30 min"
     },
     {
      "letter": "D",
@@ -3374,7 +3374,7 @@ window.PROGRAMME = {
        "name": "Single arm floor press"
       }
      ],
-     "raw": "3 sets of 6/side\nRest 1,5 minute"
+     "raw": "3 sets of 6/side\nRest 1:30 min"
     },
     {
      "letter": "E",
@@ -3400,7 +3400,7 @@ window.PROGRAMME = {
        "no_weight": true
       }
      ],
-     "raw": "3 rounds:\n12 Australian pull up\nMax reps full range push up *RIR 0\nRest 1,5 min"
+     "raw": "3 rounds:\n12 Australian pull up\nMax reps full range push up *RIR 0\nRest 1:30 min"
     },
     {
      "letter": "F",
@@ -3419,7 +3419,7 @@ window.PROGRAMME = {
        "no_weight": true
       }
      ],
-     "raw": "3 sets of MAX \nRest 2 minute"
+     "raw": "3 sets of MAX \nRest 2 min"
     },
     {
      "letter": "G",
@@ -3438,7 +3438,7 @@ window.PROGRAMME = {
        "name": "DB bench lower row"
       }
      ],
-     "raw": "3 sets of 6/side *RIR 1\nRest 1,5 minute"
+     "raw": "3 sets of 6/side *RIR 1\nRest 1:30 min"
     }
    ]
   },
@@ -3547,7 +3547,7 @@ window.PROGRAMME = {
        "name": "Half kneeling DB chop"
       }
      ],
-     "raw": "3 rounds\n30\"/side DB side plank\n12 Band twist\n10/side Half kneeling DB chop",
+     "raw": "3 rounds\n30 sec/side DB side plank\n12 Band twist\n10/side Half kneeling DB chop",
      "overridden": true
     },
     {
@@ -3567,7 +3567,7 @@ window.PROGRAMME = {
        "name": "DB Bulgarian squat"
       }
      ],
-     "raw": "3/4 sets of 6/side\nRest 1,5 minute"
+     "raw": "3/4 sets of 6/side\nRest 1:30 min"
     },
     {
      "letter": "D",
@@ -3585,7 +3585,7 @@ window.PROGRAMME = {
        "name": "Heels elevated back squat"
       }
      ],
-     "raw": "3 sets of 6 reps\nRest 1 minute"
+     "raw": "3 sets of 6 reps\nRest 1 min"
     },
     {
      "letter": "E",
@@ -3608,7 +3608,7 @@ window.PROGRAMME = {
        "name": "DB standing lateral raises"
       }
      ],
-     "raw": "3 rounds:\n10 BB rack deadlift\n10 DB lateral raises\nRest 1,5 min"
+     "raw": "3 rounds:\n10 BB rack deadlift\n10 DB lateral raises\nRest 1:30 min"
     },
     {
      "letter": "F",
@@ -3626,7 +3626,7 @@ window.PROGRAMME = {
        "name": "BB shoulder press"
       }
      ],
-     "raw": "3 sets of 6 *RIR 1\nRest 2 minute"
+     "raw": "3 sets of 6 *RIR 1\nRest 2 min"
     },
     {
      "letter": "G",
@@ -3645,7 +3645,7 @@ window.PROGRAMME = {
        "name": "Half kneeling DB shoulder press"
       }
      ],
-     "raw": "3 sets of 6/side *RIR 1\nRest 1,5 minute"
+     "raw": "3 sets of 6/side *RIR 1\nRest 1:30 min"
     }
    ]
   },
@@ -3790,7 +3790,7 @@ window.PROGRAMME = {
        "name": "DB swing"
       }
      ],
-     "raw": "4 rounds:\n5 BB deadlift *RIR 1\n10 DB swing *Controlado en bajada, pero subida rápida\nRest 1,5 minutes"
+     "raw": "4 rounds:\n5 BB deadlift *RIR 1\n10 DB swing *Controlado en bajada, pero subida rápida\nRest 1:30 min"
     },
     {
      "letter": "D",
@@ -3816,7 +3816,7 @@ window.PROGRAMME = {
        "no_weight": true
       }
      ],
-     "raw": "4 rounds:\n5 BB bench press *RIR 1\n10 Plyo push up *EXPLOSIVO\nRest 1,5 minutes"
+     "raw": "4 rounds:\n5 BB bench press *RIR 1\n10 Plyo push up *EXPLOSIVO\nRest 1:30 min"
     },
     {
      "letter": "E",
@@ -3843,7 +3843,7 @@ window.PROGRAMME = {
        "no_weight": true
       }
      ],
-     "raw": "4 rounds:\n6/side Lunge forward *RIR 2\n12 Split jump *EXPLOSIVO\nRest 1,5 minutes"
+     "raw": "4 rounds:\n6/side Lunge forward *RIR 2\n12 Split jump *EXPLOSIVO\nRest 1:30 min"
     },
     {
      "letter": "F",
@@ -3870,7 +3870,7 @@ window.PROGRAMME = {
        "no_weight": true
       }
      ],
-     "raw": "4 rounds:\n6 DB pull over *RIR 1\n6/side Half kneeling band pull down *RIR 3\nRest 1,5 minutes"
+     "raw": "4 rounds:\n6 DB pull over *RIR 1\n6/side Half kneeling band pull down *RIR 3\nRest 1:30 min"
     }
    ]
   },
@@ -3950,7 +3950,7 @@ window.PROGRAMME = {
        "name": "Standing plate twist"
       }
      ],
-     "raw": "3 rounds:\n30\" Isometric dead bug\n10/side Half kneeling KB chop (push pull)\n16 Standing plate twist\nRest as ittle as possible",
+     "raw": "3 rounds:\n30 sec Isometric dead bug\n10/side Half kneeling KB chop (push pull)\n16 Standing plate twist\nRest as ittle as possible",
      "overridden": true
     },
     {
@@ -3977,7 +3977,7 @@ window.PROGRAMME = {
        "no_weight": true
       }
      ],
-     "raw": "4 rounds:\n5 BB back squat *TAP THE BENCH RIR 3\n8 No arms consecutive squat jumps *EXPLOSIVO\nRest 1,5 minutes"
+     "raw": "4 rounds:\n5 BB back squat *TAP THE BENCH RIR 3\n8 No arms consecutive squat jumps *EXPLOSIVO\nRest 1:30 min"
     },
     {
      "letter": "C",
@@ -4003,7 +4003,7 @@ window.PROGRAMME = {
        "name": "BB push press"
       }
      ],
-     "raw": "4 rounds:\n5/side DB half kneeling shoulder press *Control bajada, subida fuerte\n6 BB push press *RIR 3\nRest 1,5 minutes"
+     "raw": "4 rounds:\n5/side DB half kneeling shoulder press *Control bajada, subida fuerte\n6 BB push press *RIR 3\nRest 1:30 min"
     },
     {
      "letter": "D",
@@ -4028,7 +4028,7 @@ window.PROGRAMME = {
        "no_weight": true
       }
      ],
-     "raw": "4 rounds:\n10 Landmine side lunge *CONTROL\n12 Single leg alternating lateral jump\nRest 1,5 minutes"
+     "raw": "4 rounds:\n10 Landmine side lunge *CONTROL\n12 Single leg alternating lateral jump\nRest 1:30 min"
     },
     {
      "letter": "E",
@@ -4055,7 +4055,7 @@ window.PROGRAMME = {
        "name": "Single arm pulley"
       }
      ],
-     "raw": "4 rounds:\n12 TRX upper row *EXPLOSIVO\n6/side Single arm pulley *RIR 3\nRest 1,5 minutes"
+     "raw": "4 rounds:\n12 TRX upper row *EXPLOSIVO\n6/side Single arm pulley *RIR 3\nRest 1:30 min"
     }
    ]
   },
@@ -4189,7 +4189,7 @@ window.PROGRAMME = {
        "no_weight": true
       }
      ],
-     "raw": "4 rounds:\n5/side BB reverse lunges *Control\n8/side High knees switches\nRest 1,5 minutes"
+     "raw": "4 rounds:\n5/side BB reverse lunges *Control\n8/side High knees switches\nRest 1:30 min"
     },
     {
      "letter": "D",
@@ -4215,7 +4215,7 @@ window.PROGRAMME = {
        "no_weight": true
       }
      ],
-     "raw": "4 rounds:\n5 DB incline bench press *RIR 1\n8 Full range push up (explosive)\nRest 1,5 minutes"
+     "raw": "4 rounds:\n5 DB incline bench press *RIR 1\n8 Full range push up (explosive)\nRest 1:30 min"
     },
     {
      "letter": "E",
@@ -4241,7 +4241,7 @@ window.PROGRAMME = {
        "no_weight": true
       }
      ],
-     "raw": "4 rounds:\n6 DB deadift *RIR 1\n10/side Plyo lateral jump\nRest 1,5 minutes"
+     "raw": "4 rounds:\n6 DB deadift *RIR 1\n10/side Plyo lateral jump\nRest 1:30 min"
     },
     {
      "letter": "F",
@@ -4266,7 +4266,7 @@ window.PROGRAMME = {
        "name": "Overhead slam ball"
       }
      ],
-     "raw": "4 rounds:\n6 TRX overhead extension\n6 Overhead slam ball (explosive)\nRest 1,5 minutes"
+     "raw": "4 rounds:\n6 TRX overhead extension\n6 Overhead slam ball (explosive)\nRest 1:30 min"
     }
    ]
   },
@@ -4369,7 +4369,7 @@ window.PROGRAMME = {
        "no_weight": true
       }
      ],
-     "raw": "4 rounds:\n5 BB back squat *Control\n8 Plyometric depth jump\nRest 1,5 minutes"
+     "raw": "4 rounds:\n5 BB back squat *Control\n8 Plyometric depth jump\nRest 1:30 min"
     },
     {
      "letter": "C",
@@ -4394,7 +4394,7 @@ window.PROGRAMME = {
        "name": "Single arm KB push press"
       }
      ],
-     "raw": "4 rounds:\n5 BB shoulder press\n6/side Single arm KB push press (explosive)\nRest 1,5 minutes"
+     "raw": "4 rounds:\n5 BB shoulder press\n6/side Single arm KB push press (explosive)\nRest 1:30 min"
     },
     {
      "letter": "D",
@@ -4421,7 +4421,7 @@ window.PROGRAMME = {
        "name": "Landmine angled reverse lunge"
       }
      ],
-     "raw": "4 rounds:\n5/side Cross side lunge *CONTROL\n6/side Landmine angled reverse lunge *CONTROL\nRest 1,5 minutes"
+     "raw": "4 rounds:\n5/side Cross side lunge *CONTROL\n6/side Landmine angled reverse lunge *CONTROL\nRest 1:30 min"
     },
     {
      "letter": "E",
@@ -4447,7 +4447,7 @@ window.PROGRAMME = {
        "name": "Half kneeling DB chop"
       }
      ],
-     "raw": "4 rounds:\n10 Cable rope high pull *RIR 1\n8/side DB chop *Explosivo\nRest 1,5 minutes"
+     "raw": "4 rounds:\n10 Cable rope high pull *RIR 1\n8/side DB chop *Explosivo\nRest 1:30 min"
     }
    ]
   },
@@ -4571,7 +4571,7 @@ window.PROGRAMME = {
        "no_weight": true
       }
      ],
-     "raw": "3 rounds:\n10 Hip trust machine\n10 Floor row *3 SEC HOLD\nRest 1 minute"
+     "raw": "3 rounds:\n10 Hip trust machine\n10 Floor row *3 SEC HOLD\nRest 1 min"
     },
     {
      "letter": "D",
@@ -4603,7 +4603,7 @@ window.PROGRAMME = {
     },
     {
      "letter": "E",
-     "name": "Tabata: 20\" work - 10\" rest x 8 cycles",
+     "name": "Tabata: 20 sec work - 10 sec rest x 8 cycles",
      "kind": "tabata",
      "work_seconds": 20,
      "rest_seconds": 10,
@@ -4691,7 +4691,7 @@ window.PROGRAMME = {
        "name": "Cable rope high pull"
       }
      ],
-     "raw": "3 rounds:\n8/side Single leg leg curl \n10 Cable rope high pull \nRest 1 minute"
+     "raw": "3 rounds:\n8/side Single leg leg curl \n10 Cable rope high pull \nRest 1 min"
     },
     {
      "letter": "B",
@@ -4716,7 +4716,7 @@ window.PROGRAMME = {
        "name": "DB bench cross over"
       }
      ],
-     "raw": "3 rounds:\n8/side DB step up *RIR 3 subida explosiva\n10 DB bench cross over\nRest 1 minute"
+     "raw": "3 rounds:\n8/side DB step up *RIR 3 subida explosiva\n10 DB bench cross over\nRest 1 min"
     },
     {
      "letter": "C",
@@ -4740,7 +4740,7 @@ window.PROGRAMME = {
        "no_weight": true
       }
      ],
-     "raw": "3 rounds:\n10 Heels elevated goblet squat\n8 TRX scapular row\nRest 1 minute"
+     "raw": "3 rounds:\n10 Heels elevated goblet squat\n8 TRX scapular row\nRest 1 min"
     },
     {
      "letter": "D",
@@ -4770,7 +4770,7 @@ window.PROGRAMME = {
     },
     {
      "letter": "E",
-     "name": "Tabata: 20\" work - 10\" rest x 8 cycles",
+     "name": "Tabata: 20 sec work - 10 sec rest x 8 cycles",
      "kind": "tabata",
      "work_seconds": 20,
      "rest_seconds": 10,

@@ -32,19 +32,13 @@ window.Runner = (function () {
   // ---------------------------------------------------------------- steps
   function targetFor(e, round) {
     if (e.reps_per_round) return { n: e.reps_per_round[round - 1], unit: "reps" };
-    if (e.holds) return { n: e.holds, unit: "× " + e.seconds + "″ hold" };
+    if (e.holds) return { n: e.holds, unit: "× " + e.seconds + " sec hold" };
     if (e.seconds) return { n: e.seconds, unit: e.per_side ? "sec / side" : "sec", timed: true };
     if (e.reps === "MAX") return { n: "MAX", unit: "reps" };
     if (e.reps != null) return { n: e.reps, unit: e.per_side ? "/ side" : "reps" };
     return { n: "", unit: "" };
   }
 
-  function restLabel(sec) {
-    if (sec === 90) return "Rest 1½ min";
-    if (sec % 60 === 0) return "Rest " + sec / 60 + " min";
-    if (sec < 60) return "Rest " + sec + " s";
-    return "Rest " + Math.floor(sec / 60) + ":" + String(sec % 60).padStart(2, "0") + " min";
-  }
 
   function buildSteps(session) {
     var steps = [], segments = [];
@@ -60,7 +54,10 @@ window.Runner = (function () {
         steps.push({ kind: "round", seg: seg, block: b.letter, blockName: b.name, round: r, rounds: rounds,
           // The block's rest, shown on every round as a reference so you
           // always know what follows the swipe. Same on the last round.
-          restRef: b.rest_seconds > 0 ? restLabel(b.rest_seconds) : (b.rest_note || "No rest"),
+          // One time format for the whole app: App.dur (core.js). restSeconds
+          // lets the badge carry the spoken form; restRef is the text fallback.
+          restRef: b.rest_seconds > 0 ? window.App.restLabel(b.rest_seconds) : (b.rest_note || "No rest"),
+          restSeconds: b.rest_seconds > 0 ? b.rest_seconds : 0,
           items: b.exercises.map(function (e, ix) {
             return { exercise: e, round: r, label: b.exercises.length > 1 ? b.letter + (ix + 1) : b.letter,
                      target: targetFor(e, r), note: e.note || null, setId: Store.uuid() };
@@ -302,7 +299,8 @@ window.Runner = (function () {
     container.innerHTML = header(step, sub) +
       '<section class="screen" id="scr">' +
         '<div class="round-head"><h2>' + esc(step.blockName) + "</h2>" +
-          (step.restRef ? '<span class="badge badge--cool">' + esc(step.restRef) + "</span>" : "") + "</div>" +
+          (step.restRef ? '<span class="badge badge--cool">' +
+            (step.restSeconds ? window.App.restHTML(step.restSeconds) : esc(step.restRef)) + "</span>" : "") + "</div>" +
         // Three or more movements (the core circuits) get a denser card so the
         // whole round — and the Done button — still fits one phone screen.
         '<div class="ex-list' + (step.items.length >= 3 ? " ex-list--dense" : "") + '">' +
@@ -398,7 +396,7 @@ window.Runner = (function () {
         "</div>" +
       "</div>" +
         (timed ? '<button class="btn btn--hold" data-hold="' + ix + '" data-side="1">' + ICONS.play +
-          '<span class="hold__long">Start </span>' + esc(it.target.n) + ' s<span class="hold__long"> timer</span>' +
+          '<span class="hold__long">Start </span>' + esc(it.target.n) + ' sec<span class="hold__long"> timer</span>' +
           (e.per_side ? " · side 1" : "") + "</button>" : "") +
         (it.note ? '<div class="ex-card__cue">' + esc(it.note) + "</div>" : "") +
       "</div>" +
@@ -758,7 +756,7 @@ window.Runner = (function () {
         '<circle class="arc" id="arc" cx="50" cy="50" r="' + R + '" stroke-dasharray="' + C + '" stroke-dashoffset="0"/></svg>' +
         '<div class="rest__time" id="t" role="timer"></div></div>' +
         '<div class="rest__next">Next · round ' + step.nextRound + " of " + step.rounds + "<br><b>" + step.next.map(esc).join(" + ") + "</b></div>" +
-        '<div class="rest__actions"><button class="btn btn--ghost" data-act="extend">+30″</button>' +
+        '<div class="rest__actions"><button class="btn btn--ghost" data-act="extend" aria-label="Add 30 seconds">+30 sec</button>' +
         '<button class="btn btn--primary" data-act="skip">Skip →</button></div>' +
       "</section>";
     bind(step);
