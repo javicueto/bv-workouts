@@ -53,7 +53,7 @@
     if (d.length === 1) return d[0] + " kg";
     return vals.map(function (v) { return v != null ? String(v) : "–"; }).join(" · ") + " kg";
   }
-  var BY_ROUND = "Weights by round", SAME_ALL = "Same weight all rounds";
+  var BY_ROUND = "Weights by round";
   function minutesLabel(seconds) { return seconds ? Math.round(seconds / 60) + " min" : ""; }
 
   /* The three buttons every editable piece has, in one place: Edit while
@@ -98,7 +98,9 @@
   /* Under a rounds block: each movement's weights. Edit opens ONE box per
      movement holding the heaviest, and saving it sets every round (Javier,
      13 Sep 2026: “I usually add the heaviest weight … that’s my reference”).
-     “Weights by round” swaps it for a box per round. A movement whose rounds
+     “Weights by round” swaps it for a box per round — one way only: there is
+     no “same weight all rounds” back (dropped, 13 Sep 2026 — typing one number
+     is already that, and Cancel undoes a wrong tap). A movement whose rounds
      already differ opens by round, so nothing typed before is flattened
      unseen. Tabata blocks have no weights. */
   function weightsBox(b, byKey) {
@@ -129,8 +131,8 @@
                 }).join("") + "</span>"
               : "") +
           "</span>" +
-          (rounds > 1
-            ? '<span class="vweights__more re"><button class="vweights__toggle" type="button" data-toggle>' + (byRound ? SAME_ALL : BY_ROUND) + "</button></span>"
+          (rounds > 1 && !byRound
+            ? '<span class="vweights__more re"><button class="vweights__toggle" type="button" data-toggle>' + BY_ROUND + "</button></span>"
             : "") +
           "</li>";
       }).join("") + "</ul></form>";
@@ -290,21 +292,14 @@
 
     app.querySelectorAll(".vweights").forEach(function (wf) {
       var b = ctx.s.blocks.find(function (bb) { return bb.letter === wf.getAttribute("data-b"); });
-      function setMode(li, byRound) {
-        li.classList.toggle("is-by-round", byRound);
-        var t = li.querySelector("[data-toggle]");
-        if (t) t.textContent = byRound ? SAME_ALL : BY_ROUND;
-      }
       wf.querySelectorAll("[data-toggle]").forEach(function (t) {
         t.addEventListener("click", function () {
           var li = t.closest("li"), one = li.querySelector("[data-one]"), each = li.querySelectorAll("[data-round]");
-          var byRound = !li.classList.contains("is-by-round");
-          // To rounds: every box starts from the one weight, so only the rounds
-          // that differ need typing. Back to one: the heaviest is kept.
-          if (byRound) each.forEach(function (i) { i.value = one.value; });
-          else { var top = heaviest(Array.from(each, function (i) { return kg(i.value); })); one.value = top != null ? top : ""; }
-          setMode(li, byRound);
-          (byRound ? each[0] : one).focus();
+          // Every round box starts from the one weight, so only the rounds that
+          // differ need typing. The link hides once used (CSS).
+          each.forEach(function (i) { i.value = one.value; });
+          li.classList.add("is-by-round");
+          each[0].focus();
         });
       });
       editable(wf, function () {
@@ -318,8 +313,7 @@
             var one = li.querySelector("[data-one]");
             // Untouched, the box changes nothing: it shows the heaviest, and a
             // plain Save must not quietly fill rounds that were left empty.
-            // (Rounds that differed and were switched to one weight DO get it.)
-            if (li.getAttribute("data-by-round") === "false" && one.value === one.defaultValue) return;
+            if (one.value === one.defaultValue) return;
             want = Array.from({ length: b.rounds || 1 }, function () { return kg(one.value); });
           }
           want.forEach(function (v, i) { if (writeRound(b, e, i + 1, v)) changed++; });
@@ -327,7 +321,7 @@
         UI.toast(changed ? "Weights saved" : "Nothing changed");
         redraw(ctx);
       }, function () {
-        wf.querySelectorAll("li[data-e]").forEach(function (li) { setMode(li, li.getAttribute("data-by-round") === "true"); });
+        wf.querySelectorAll("li[data-e]").forEach(function (li) { li.classList.toggle("is-by-round", li.getAttribute("data-by-round") === "true"); });
       });
     });
 
