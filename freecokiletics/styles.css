@@ -435,6 +435,7 @@ p  { margin: 0; }
   display: flex; flex-direction: column; align-items: center; justify-content: center; gap: var(--space-4);
   padding: calc(var(--safe-top) + var(--space-6)) var(--space-4) calc(var(--safe-bottom) + var(--space-6));
   background: var(--accent); color: var(--accent-ink); text-align: center;
+  box-shadow: 0 0 0 100vmax var(--accent);    /* --overlay-bleed, see .hold-screen */
 }
 .countin:focus { outline: none; }
 .countin__title { font-size: 14px; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; }
@@ -482,6 +483,7 @@ body.is-counting::before { background: var(--accent); }   /* the status-bar band
   display: flex; flex-direction: column; align-items: center; justify-content: center; gap: var(--space-3);
   padding: calc(var(--safe-top) + var(--space-4)) var(--space-4) calc(var(--safe-bottom) + var(--space-4));
   background: color-mix(in srgb, var(--bg) 95%, transparent); text-align: center;
+  box-shadow: 0 0 0 100vmax color-mix(in srgb, var(--bg) 95%, transparent);   /* bleed, see .hold-screen */
 }
 .zoom img { width: 100%; max-width: 560px; aspect-ratio: 16 / 9; object-fit: cover; border-radius: var(--radius); }
 .zoom__name { font-size: 20px; font-weight: 700; }
@@ -669,6 +671,7 @@ body.is-resting :where(a, button, input, [tabindex]):focus-visible { outline-col
   display: flex; align-items: flex-end; justify-content: center;
   padding: var(--space-4) var(--space-4) calc(var(--safe-bottom) + var(--space-4));
   background: #0008; opacity: 0; transition: opacity .16s var(--ease-out);
+  box-shadow: 0 0 0 100vmax #0008;             /* bleed, see .hold-screen */
 }
 .sheet-back.in { opacity: 1; }
 .sheet {
@@ -820,6 +823,13 @@ input[type="time"].input--inline { width: 6em; }
   display: flex; flex-direction: column; align-items: center; justify-content: center; gap: var(--space-5);
   padding: calc(var(--safe-top) + var(--space-6)) var(--space-4) calc(var(--safe-bottom) + var(--space-6));
   background: var(--bg); text-align: center;
+  /* Full-screen layers bleed their own colour past their edges (Javier,
+     14 Sep 2026: the 3-2-1 looked cut at the bottom when opened from the home
+     screen icon). iOS can stop a `position: fixed; inset: 0` box short of the
+     bottom in that mode, and the gap showed the page behind. A spread shadow
+     paints the same colour beyond the box without moving anything inside it.
+     Same line on .countin, .zoom and .sheet-back. */
+  box-shadow: 0 0 0 100vmax var(--bg);
 }
 .hold-screen__name { font-size: 24px; font-weight: 700; letter-spacing: -.01em; }
 .hold-screen__side { color: var(--text-dim); min-height: 1.2em; }
