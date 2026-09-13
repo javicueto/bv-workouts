@@ -284,7 +284,7 @@ window.Runner = (function () {
           var img = preview(e.id);
           return '<button class="thumb" data-zoom="' + esc(e.id) + '">' +
             (img ? '<img src="' + img + '" alt="" loading="lazy">' : '<span class="thumb__none"></span>') +
-            '<span class="thumb__name">' + esc(e.name) + "</span></button>";
+            '<span class="thumb__name">' + window.App.cueHTML(e.name) + "</span></button>";
         }).join("") + "</div>" +
         footer("Warm-up done ✓") +
         // Under the button, never above it: at 320px it pushed Done off the screen.
@@ -298,7 +298,7 @@ window.Runner = (function () {
     var sub = "Block " + step.block + " · round " + step.round + " of " + step.rounds;
     container.innerHTML = header(step, sub) +
       '<section class="screen" id="scr">' +
-        '<div class="round-head"><h2>' + esc(step.blockName) + "</h2>" +
+        '<div class="round-head"><h2>' + window.App.cueHTML(step.blockName) + "</h2>" +
           (step.restRef ? '<span class="badge badge--cool">' +
             (step.restSeconds ? window.App.restHTML(step.restSeconds) : esc(step.restRef)) + "</span>" : "") + "</div>" +
         // Three or more movements (the core circuits) get a denser card so the
@@ -366,11 +366,11 @@ window.Runner = (function () {
     var carried = logged ? null : (today != null ? "last round" : "last time");
     var rLabel = repsEdited ? chip(r, "edited") : "";
     return '<article class="ex-card">' +
-      '<button class="ex-card__thumb" data-zoom="' + esc(id) + '" aria-label="Show ' + esc(e.name) + ' larger">' +
+      '<button class="ex-card__thumb" data-zoom="' + esc(id) + '" aria-label="Show ' + esc(window.App.cueText(e.name)) + ' larger">' +
         (img ? '<img src="' + img + '" alt="">' : "") + "</button>" +
       '<div class="ex-card__body">' +
         '<div class="ex-card__label">' + esc(it.label) + "</div>" +
-        '<div class="ex-card__name">' + esc(e.name) + "</div>" +
+        '<div class="ex-card__name">' + window.App.cueHTML(e.name) + "</div>" +
         '<div class="ex-card__target' + (repsEdited ? " is-edited" : "") + '" data-target-for="' + ix + '"' +
           (target != null ? ' data-target="' + esc(target) + '"' : "") + ">" +
           '<span data-target-n="' + ix + '">' + esc(repsEdited ? r : it.target.n) + "</span> <small>" + esc(it.target.unit) + "</small>" +
@@ -599,7 +599,7 @@ window.Runner = (function () {
     if (scr) bindSwipe(scr, step);
   }
 
-  function zoom(id) { UI.zoomImage(preview(id), (P.exercises[id] || {}).name || ""); }
+  function zoom(id) { UI.zoomImage(preview(id), window.App.cueText((P.exercises[id] || {}).name || "")); }
 
   /* Timed hold (30″ plank…): takes over the whole screen, like the rest timer
      but orange — you can't read a small button face-down in a plank. A 3-2-1
@@ -613,7 +613,7 @@ window.Runner = (function () {
     var ov = document.createElement("div");
     ov.className = "hold-screen";
     ov.innerHTML =
-      '<div class="hold-screen__name">' + esc(it.exercise.name) + "</div>" +
+      '<div class="hold-screen__name">' + window.App.cueHTML(it.exercise.name) + "</div>" +
       '<div class="hold-screen__side" id="hsd"></div>' +
       '<div class="rest__ring hold-screen__ring"><svg viewBox="0 0 100 100" aria-hidden="true"><circle class="track" cx="50" cy="50" r="' + R + '"/>' +
       '<circle class="arc" id="harc" cx="50" cy="50" r="' + R + '" stroke-dasharray="' + C + '" stroke-dashoffset="0"/></svg>' +
@@ -755,7 +755,7 @@ window.Runner = (function () {
         '<div class="rest__ring"><svg viewBox="0 0 100 100" aria-hidden="true"><circle class="track" cx="50" cy="50" r="' + R + '"/>' +
         '<circle class="arc" id="arc" cx="50" cy="50" r="' + R + '" stroke-dasharray="' + C + '" stroke-dashoffset="0"/></svg>' +
         '<div class="rest__time" id="t" role="timer"></div></div>' +
-        '<div class="rest__next">Next · round ' + step.nextRound + " of " + step.rounds + "<br><b>" + step.next.map(esc).join(" + ") + "</b></div>" +
+        '<div class="rest__next">Next · round ' + step.nextRound + " of " + step.rounds + "<br><b>" + step.next.map(window.App.cueHTML).join(" + ") + "</b></div>" +
         '<div class="rest__actions"><button class="btn btn--ghost" data-act="extend" aria-label="Add 30 seconds">+30 sec</button>' +
         '<button class="btn btn--primary" data-act="skip">Skip →</button></div>' +
       "</section>";
@@ -781,7 +781,7 @@ window.Runner = (function () {
         '<div class="thumb-grid thumb-grid--2">' + moves.map(function (m) {
           var img = preview(m.id);
           return '<button class="thumb" data-zoom="' + esc(m.id) + '">' + (img ? '<img src="' + img + '" alt="">' : "") +
-            '<span class="thumb__name">' + esc(m.name) + "</span></button>"; }).join("") + "</div>" +
+            '<span class="thumb__name">' + window.App.cueHTML(m.name) + "</span></button>"; }).join("") + "</div>" +
         '<div class="tabata__phase">Ready</div>' +
         '<div class="tabata__time">' + tb.work_seconds + "/" + tb.rest_seconds + "</div>" +
         '<div class="tabata__cycle">' + cycles + " cycles · 4 min · alternating</div>" +
@@ -810,7 +810,7 @@ window.Runner = (function () {
       if (phase === "work") {
         var img = preview(m.id);
         gif.innerHTML = img ? '<img src="' + img + '" alt="">' : ""; gif.hidden = !img;
-        mv.textContent = m.name || "";
+        mv.textContent = window.App.cueText(m.name || "");
       } else {
         gif.hidden = true; gif.innerHTML = "";
         mv.textContent = "Next: " + (next.name || "");

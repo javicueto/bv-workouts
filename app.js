@@ -93,6 +93,23 @@
      offline; anything served over http(s) goes to YouTube. */
   var HAS_LOCAL_VIDEOS = location.protocol === 'file:';
 
+  /* A coach's cue — the text after "*" in a name or note, up to the next
+     " + " movement — in orange without the "*" (Javier, 14 Sep 2026: "orange
+     on both sites, no italic"). Same rule as Cokiletics' App.cueHTML. cueText
+     is for attributes and plain text, where the "*" is simply dropped. */
+  function cueHTML(text) {
+    return String(text == null ? '' : text).split('\n').map(function (line) {
+      var i = line.indexOf('*');
+      if (i === -1) return esc(line);
+      var before = line.slice(0, i).replace(/\s+$/, ''), rest = line.slice(i + 1);
+      var j = rest.indexOf(' + ');
+      var cue = (j === -1 ? rest : rest.slice(0, j)).trim();
+      return esc(before) + (before ? ' ' : '') + '<span class="cue">' + esc(cue) + '</span>' +
+        (j === -1 ? '' : cueHTML(rest.slice(j)));
+    }).join('\n');
+  }
+  function cueText(text) { return String(text == null ? '' : text).replace(/\s*\*\s*/g, ' ').trim(); }
+
   function ytPoster(e) {
     return e.youtube_id ? 'https://i.ytimg.com/vi/' + e.youtube_id + '/hqdefault.jpg' : '';
   }
@@ -100,7 +117,7 @@
   function videoCard(id, extra) {
     var e = ex(id);
     if (!e) return '';
-    var name = esc(e.name);
+    var name = cueHTML(e.name), label = esc(cueText(e.name));
     var attrs = ' data-id="' + esc(e.id) + '"';
     if (!e.has_preview && !e.youtube_id && !e.has_local_video) {
       return '<div class="vid"' + attrs + '><div class="vid__frame vid__frame--empty">' +
@@ -117,7 +134,7 @@
       : '';
     return '<div class="vid"' + attrs + '>' +
       '<button class="vid__frame" data-ex="' + esc(e.id) + '" ' +
-        'aria-label="Play ' + name + '">' + img +
+        'aria-label="Play ' + label + '">' + img +
       '</button>' +
       '<p class="vid__name">' + name + '</p>' + (extra || '') + '</div>';
   }
@@ -170,7 +187,7 @@
     var close = document.createElement('button');
     close.type = 'button';
     close.className = 'vid__close';
-    close.setAttribute('aria-label', 'Close ' + e.name);
+    close.setAttribute('aria-label', 'Close ' + cueText(e.name));
     close.textContent = '×';
     close.addEventListener('click', function (evt) {
       evt.stopPropagation();
@@ -216,7 +233,7 @@
           '<ul class="card__list">' +
             w.items.map(function (it) {
               return '<li><span class="card__letter">' + esc(it.letter) + '</span>' +
-                '<span>' + esc(it.name) + '</span></li>';
+                '<span>' + cueHTML(it.name) + '</span></li>';
             }).join('') +
           '</ul>' +
           '<div class="card__foot"><span>' + w.items.length + ' blocks</span>' +
@@ -260,7 +277,7 @@
             '<span class="section__sub">' + w.warmup_exercises.length + ' mobility exercises</span></span>' +
           '<span class="chev"></span>' +
         '</summary><div class="section__body">' +
-          (w.warmup ? '<p class="info">' + esc(w.warmup) + '</p>' : '') +
+          (w.warmup ? '<p class="info">' + cueHTML(w.warmup) + '</p>' : '') +
           '<div class="vids">' + w.warmup_exercises.map(function (id) { return videoCard(id); }).join('') + '</div>' +
         '</div></details>';
     }
@@ -269,11 +286,11 @@
       html += '<details class="section" open>' +
         '<summary class="section__head">' +
           '<span class="letter">' + esc(it.letter) + '</span>' +
-          '<span><span class="section__name">' + esc(it.name) + '</span>' +
+          '<span><span class="section__name">' + cueHTML(it.name) + '</span>' +
             (it.is_circuit ? '<span class="section__sub">Circuit</span>' : '') +
           '</span><span class="chev"></span>' +
         '</summary><div class="section__body">' +
-          (it.info ? '<p class="info">' + esc(it.info) + '</p>' : '') +
+          (it.info ? '<p class="info">' + cueHTML(it.info) + '</p>' : '') +
           '<div class="vids">' + it.exercises.map(function (id) { return videoCard(id); }).join('') + '</div>' +
         '</div></details>';
     });
@@ -283,7 +300,7 @@
         '<summary class="section__head"><span class="letter">C</span>' +
         '<span><span class="section__name">Cool-down</span></span>' +
         '<span class="chev"></span></summary><div class="section__body">' +
-        (w.cooldown ? '<p class="info">' + esc(w.cooldown) + '</p>' : '') +
+        (w.cooldown ? '<p class="info">' + cueHTML(w.cooldown) + '</p>' : '') +
         '<div class="vids">' + w.cooldown_exercises.map(function (id) { return videoCard(id); }).join('') + '</div>' +
         '</div></details>';
     }

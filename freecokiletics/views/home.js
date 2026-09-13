@@ -73,6 +73,8 @@
         : (wf.status === "upcoming" ? "Starts " + A.fmt(w.start) : "Week of " + A.fmtRange(w.start));
       var wq = "?w=" + encodeURIComponent(w.start);        // carried into run / log links
 
+      // Everything about the week swipes sideways to the next or previous one.
+      html += '<div class="week-swipe" id="week-swipe">';
       if (open.length) {
         var shown = open.slice(0, 4);
         html += '<div class="card backlog"><div class="eyebrow">Still open</div>' +
@@ -133,7 +135,7 @@
             // without having to open anything.
             (d ? "" : '<ul class="day-card__blocks">' + s.blocks.map(function (b) {
               return "<li><span class=\"letter\">" + esc(b.letter) + "</span>" +
-                '<span class="grow">' + esc(b.name) + "</span>" +
+                '<span class="grow">' + A.cueHTML(b.name) + "</span>" +
                 '<span class="faint">' + esc(A.blockCount(b)) + "</span></li>";
             }).join("") + "</ul>") +
             "</a>" +
@@ -157,13 +159,25 @@
                   '<a href="#/log/' + esc(s.key) + wq + '">Mark as done</a>') +
             "</div>" +
             "</div>";
-        }).join("") + "</div></div>";
+        }).join("") + "</div></div>" +
+        "</div>";                                   // .week-swipe
     }
 
     app.innerHTML = html;
     A.syncBadge();
     A.bindInstall();
     A.bindRetry(function () { renderHome(weekStart); });
+    /* Swipe left / right = the › / ‹ arrows (Javier, 14 Sep 2026). The new
+       week slides in from the side it came from; S.weekSwipe carries that
+       across the re-render and is cleared at once. */
+    var swipeEl = document.getElementById("week-swipe");
+    if (swipeEl) {
+      if (S.weekSwipe) { swipeEl.classList.add(S.weekSwipe > 0 ? "is-in-next" : "is-in-prev"); S.weekSwipe = 0; }
+      var toWeek = function (target) {
+        return target ? function (dir) { S.weekSwipe = dir; location.hash = "#/week/" + target.start; } : null;
+      };
+      UI.swipePages(swipeEl, { prev: toWeek(prevW), next: toWeek(nextW) });
+    }
     document.getElementById("out").addEventListener("click", V.signOutFlow);
     document.getElementById("cp").addEventListener("click", function () { V.renderSetPassword(null, { cancel: true }); });
     if (pendingRun) {

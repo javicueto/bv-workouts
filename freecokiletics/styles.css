@@ -730,6 +730,18 @@ input[type="date"].input, input[type="time"].input {
 .week-nav__icon svg { width: 18px; height: 18px; display: block; }
 .week-nav__btn:active .week-nav__icon { transform: scale(.97); }
 .week-nav__word { font-size: 12px; color: var(--text-dim); }
+/* The week swipes sideways (UI.swipePages): vertical scrolling stays the
+   browser's, the drag follows the finger, the new week slides in. */
+.week-swipe { touch-action: pan-y; transition: transform .16s var(--ease-out), opacity .16s var(--ease-out); }
+.week-swipe.is-swiping { transition: none; }
+.week-swipe.is-in-next { animation: week-in-next .22s var(--ease-out) both; }
+.week-swipe.is-in-prev { animation: week-in-prev .22s var(--ease-out) both; }
+@keyframes week-in-next { from { transform: translateX(32px); opacity: 0; } to { transform: none; opacity: 1; } }
+@keyframes week-in-prev { from { transform: translateX(-32px); opacity: 0; } to { transform: none; opacity: 1; } }
+@media (prefers-reduced-motion: reduce) {
+  .week-swipe { transition: none; }
+  .week-swipe.is-in-next, .week-swipe.is-in-prev { animation: none; }
+}
 .week-nav__label { display: grid; text-align: center; }
 .week-nav__label b { font-size: 17px; }
 .week-nav__label span { font-size: 13px; color: var(--text-dim); }
@@ -910,3 +922,6 @@ input[type="time"].input--inline { width: 6em; }
 .menu__item--icon { display: flex; align-items: center; gap: var(--space-3); }
 .menu__icon { display: inline-grid; place-items: center; color: var(--text-dim); }
 .menu__icon svg { width: 16px; height: 16px; display: block; }
+
+/* A coach's cue (the text after "*"): orange, no "*", no italic (Javier, 14 Sep 2026). */
+.cue { color: var(--accent); }

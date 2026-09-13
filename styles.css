@@ -518,3 +518,6 @@ body.is-locked .foot { display: none; }
   box-shadow: 0 10px 30px var(--shadow);
 }
 .block__label .when__pop { left: -8px; }
+
+/* A coach's cue (the text after "*"): orange, no "*", no italic (Javier, 14 Sep 2026). */
+.cue { color: var(--accent); }

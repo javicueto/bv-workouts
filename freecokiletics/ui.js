@@ -134,5 +134,48 @@ window.UI = (function () {
     toastTimer = setTimeout(function () { toastEl.classList.remove("in"); }, ms || 3200);
   }
 
-  return { esc: esc, confirm: confirm, info: info, toast: toast, announce: announce, overlay: overlay, zoomImage: zoomImage };
+  /* Swipe sideways between pages (Javier, 14 Sep 2026 — the week screen):
+     left = next, right = previous, the same way a session's swipe moves on.
+     Only a clearly horizontal drag counts, so scrolling is untouched (the
+     element is touch-action: pan-y). The page follows the finger; short of the
+     threshold, or with no page that way, it settles back (with resistance).
+     A drag never also taps the card it started on.
+       opts: { prev, next }  — functions, or null where there is no page */
+  function swipePages(el, opts) {
+    var THRESHOLD = 80;                  // px, as in the session swipe
+    var x0 = 0, y0 = 0, dx = 0, active = false, horizontal = null;
+    function settle() { el.classList.remove("is-swiping"); el.style.transform = ""; el.style.opacity = ""; }
+    el.addEventListener("touchstart", function (e) {
+      horizontal = null; dx = 0;
+      if (e.touches.length !== 1 || e.target.closest("input, textarea, select")) { active = false; return; }
+      x0 = e.touches[0].clientX; y0 = e.touches[0].clientY; active = true;
+    }, { passive: true });
+    el.addEventListener("touchmove", function (e) {
+      if (!active) return;
+      var mx = e.touches[0].clientX - x0, my = e.touches[0].clientY - y0;
+      if (horizontal === null && (Math.abs(mx) > 8 || Math.abs(my) > 8)) horizontal = Math.abs(mx) > Math.abs(my) * 1.3;
+      if (!horizontal) return;
+      dx = (mx < 0 ? opts.next : opts.prev) ? mx : mx / 4;    // resistance where there's nowhere to go
+      el.classList.add("is-swiping");
+      el.style.transform = "translateX(" + dx + "px)";
+    }, { passive: true });
+    el.addEventListener("touchend", function () {
+      if (!active) return;
+      active = false;
+      if (!horizontal) return;
+      var go = Math.abs(dx) >= THRESHOLD ? (dx < 0 ? opts.next : opts.prev) : null;
+      if (!go) { settle(); return; }
+      el.classList.remove("is-swiping");
+      el.style.transform = "translateX(" + (dx < 0 ? -40 : 40) + "%)";
+      el.style.opacity = "0";
+      setTimeout(function () { go(dx < 0 ? 1 : -1); }, 160);
+    });
+    el.addEventListener("touchcancel", function () { active = false; settle(); });
+    el.addEventListener("click", function (e) {
+      if (horizontal) { e.preventDefault(); e.stopPropagation(); }
+    }, true);
+  }
+
+  return { esc: esc, confirm: confirm, info: info, toast: toast, announce: announce, overlay: overlay, zoomImage: zoomImage,
+           swipePages: swipePages };
 })();

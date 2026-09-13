@@ -24,7 +24,7 @@
   function thumb(e, caption) {
     var u = A.previewUrl(e.id);
     return '<figure class="vthumb">' +
-      (u ? '<button class="vthumb__open" type="button" data-zoom="' + esc(e.id) + '" aria-label="Show ' + esc(e.name) + ' larger">' +
+      (u ? '<button class="vthumb__open" type="button" data-zoom="' + esc(e.id) + '" aria-label="Show ' + esc(A.cueText(e.name)) + ' larger">' +
              '<img src="' + u + '" alt="" loading="lazy"></button>'
          : '<div class="vthumb__none"></div>') +
       "<figcaption>" + caption + "</figcaption></figure>";
@@ -115,7 +115,7 @@
     var rounds = b.rounds || 1;
     function box(e, attr, label, v) {
       return '<input class="input input--inline input--kg" inputmode="decimal" placeholder="–" ' + attr +
-        ' aria-label="' + esc(e.name) + label + ', kg" value="' + (v != null ? esc(v) : "") + '">';
+        ' aria-label="' + esc(A.cueText(e.name)) + label + ', kg" value="' + (v != null ? esc(v) : "") + '">';
     }
     return '<form class="vweights editable" id="wt-' + esc(b.letter) + '" data-b="' + esc(b.letter) + '" novalidate>' +
       '<div class="vweights__head"><span class="vweights__title">' + ICONS.dumbbell + "Your weights</span>" +
@@ -125,7 +125,7 @@
         var byRound = rounds > 1 && distinct(vals).length > 1;
         var unit = '<span class="vweights__unit">kg</span>';
         return '<li data-e="' + esc(e.id) + '" data-by-round="' + byRound + '"' + (byRound ? ' class="is-by-round"' : "") + ">" +
-          '<span class="vweights__ex">' + esc(e.name) + "</span>" +
+          '<span class="vweights__ex">' + A.cueHTML(e.name) + "</span>" +
           '<span class="vweights__v rv">' + esc(weightsLine(vals)) + "</span>" +
           '<span class="vweights__v re">' +
             '<span class="vw-one">' + box(e, "data-one", rounds > 1 ? ", all rounds" : "", heaviest(vals)) + unit + "</span>" +
@@ -171,14 +171,14 @@
       html += '<section class="vsec"><h2 class="vsec__h">Warm-up</h2>' +
         (wText ? '<p class="note">' + esc(wText) + "</p>" : "") +
         '<div class="vgrid">' + (s.warmup.exercises || []).map(function (e) {
-          return thumb(e, esc(e.name));
+          return thumb(e, A.cueHTML(e.name));
         }).join("") + "</div></section>";
     }
 
     (s ? s.blocks : []).forEach(function (b) {
       html += '<section class="vsec"><div class="vsec__head">' +
         '<span class="letter">' + esc(b.letter) + "</span>" +
-        '<h2 class="vsec__h grow">' + esc(b.name) + "</h2>" +
+        '<h2 class="vsec__h grow">' + A.cueHTML(b.name) + "</h2>" +
         '<span class="badge">' + esc(A.blockCount(b)) + "</span></div>" +
         (b.kind === "tabata"
           ? '<p class="dim">' + A.durHTML(b.work_seconds) + " work · " + A.durHTML(b.rest_seconds) + " rest · " + b.cycles + " cycles</p>"
@@ -186,7 +186,7 @@
                                                 : esc(b.rest_note || "No rest")) + "</p>") +
         '<div class="vgrid">' + (b.exercises || []).map(function (e) {
           var reps = A.repsLabel(e);
-          return thumb(e, (reps ? "<b>" + esc(reps) + "</b> " : "") + esc(e.name));
+          return thumb(e, (reps ? "<b>" + esc(reps) + "</b> " : "") + A.cueHTML(e.name));
         }).join("") + "</div>" +
         // No box at all when nothing in the block takes a weight (a core circuit).
         (rec && b.kind === "rounds" && weighable(b, rec.byKey).length ? weightsBox(b, rec.byKey) : "") +
@@ -213,7 +213,7 @@
     app.querySelectorAll("[data-zoom]").forEach(function (btn) {
       btn.addEventListener("click", function () {
         var id = btn.getAttribute("data-zoom");
-        UI.zoomImage(A.previewUrl(id), (A.P.exercises[id] || {}).name || "");
+        UI.zoomImage(A.previewUrl(id), A.cueText((A.P.exercises[id] || {}).name || ""));
       });
     });
     if (rec) bindRecord(ctx);

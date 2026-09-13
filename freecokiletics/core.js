@@ -116,6 +116,23 @@ window.App = (function () {
   function durHTML(sec) {
     return '<span aria-hidden="true">' + UI.esc(dur(sec)) + '</span><span class="sr-only">' + UI.esc(durSpoken(sec)) + "</span>";
   }
+  /* A coach's cue — the text after "*" in a name or note, up to the next
+     " + " movement — shown in orange without the "*" (Javier, 14 Sep 2026:
+     "orange on both sites, no italic"). cueHTML is for markup; cueText is for
+     attributes and plain text (aria-label, the preview's name), where the
+     "*" is simply dropped. The reference site's app.js has the same rule. */
+  function cueHTML(text) {
+    return String(text == null ? "" : text).split("\n").map(function (line) {
+      var i = line.indexOf("*");
+      if (i === -1) return UI.esc(line);
+      var before = line.slice(0, i).replace(/\s+$/, ""), rest = line.slice(i + 1);
+      var j = rest.indexOf(" + ");
+      var cue = (j === -1 ? rest : rest.slice(0, j)).trim();
+      return UI.esc(before) + (before ? " " : "") + '<span class="cue">' + UI.esc(cue) + "</span>" +
+        (j === -1 ? "" : cueHTML(rest.slice(j)));
+    }).join("\n");
+  }
+  function cueText(text) { return String(text == null ? "" : text).replace(/\s*\*\s*/g, " ").trim(); }
   function restLabel(sec) { return sec ? "Rest " + dur(sec) : ""; }
   function restHTML(sec) { return sec ? "Rest " + durHTML(sec) : ""; }
   function blockCount(b) {
@@ -346,7 +363,7 @@ window.App = (function () {
     programmeBlocks: programmeBlocks, planBlocks: planBlocks, buildWeeks: buildWeeks, planEnd: planEnd,
     ticket: ticket, stale: stale,
     previewUrl: previewUrl, repsLabel: repsLabel, restLabel: restLabel, restHTML: restHTML, blockCount: blockCount,
-    dur: dur, durSpoken: durSpoken, durHTML: durHTML,
+    dur: dur, durSpoken: durSpoken, durHTML: durHTML, cueHTML: cueHTML, cueText: cueText,
     fmt: fmt, fmtRange: fmtRange, dateVal: dateVal, timeVal: timeVal, hhmm: hhmm, longDate: longDate,
     dayDate: dayDate, today: today, isoDate: isoDate, mondayOf: mondayOf, nextMonday: nextMonday, timesFrom: timesFrom,
     weekFor: weekFor, sessionsFor: sessionsFor, sessionByKey: sessionByKey,
