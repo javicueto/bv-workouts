@@ -450,6 +450,12 @@ p  { margin: 0; }
 @keyframes countin-pop { from { transform: scale(1.4); opacity: 0; } 30% { opacity: 1; } to { transform: scale(1); opacity: 1; } }
 @media (prefers-reduced-motion: reduce) { .countin__n.pop { animation: none; } }
 body.is-counting::before { background: var(--accent); }   /* the status-bar band turns with it */
+/* …and so does the page itself. On an installed iPhone the strip under the
+   home indicator is painted by the PAGE, not by any fixed layer — the 3-2-1
+   kept a dark bar at the bottom even with the bleed shadow (Javier's
+   screenshot, 14 Sep 2026). Rest mode never had it because it colours the
+   body blue; this does the same in orange while the intro plays. */
+body.is-counting { background: var(--accent); }
 
 /* Dense variant for 3+ movement rounds: tighter padding, smaller numbers and
    inputs, and the narrow preview at every width. Measured at 375×812 — the
