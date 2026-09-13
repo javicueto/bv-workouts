@@ -117,8 +117,8 @@
                   ? "Done " + d.times + " times this week"
                   : s.blocks.length + " blocks · " + s.blocks.map(function (b) { return b.letter; }).join(" ")) + "</p></div>") +
             (d
-              ? '<span class="badge badge--good">done ✓' + (d.times > 1 ? " ×" + d.times : "") + "</span>"
-              : '<span class="badge">start ›</span>') + "</div>" +
+              ? '<span class="badge badge--good">Done ✓' + (d.times > 1 ? " ×" + d.times : "") + "</span>"
+              : '<span class="badge">Start ›</span>') + "</div>" +
             // What you are about to do, so the card answers "what is today?"
             // without having to open anything.
             (d ? "" : '<ul class="day-card__blocks">' + s.blocks.map(function (b) {

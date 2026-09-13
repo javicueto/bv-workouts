@@ -197,7 +197,7 @@
 
     var html = '<div class="page-head">' +
       '<span class="eyebrow">' + DATA.workout_count + ' workouts · ' + DATA.exercise_count + ' exercises</span>' +
-      '<h1>Francesco’s Beach Volleyball Workouts</h1>' +
+      '<h1>Francesco’s beach volleyball workouts</h1>' +
       '<p class="page-head__lede">Every workout from block 1 onwards, newest first. Two sessions per block.</p>' +
       '</div>';
 
@@ -247,9 +247,9 @@
         '</p></div>' +
       '<div class="pager">' +
         (prev ? '<a href="#/w/' + esc(prev) + '">← ' + esc(prev) + '</a>'
-              : '<span>← prev</span>') +
+              : '<span>← Prev</span>') +
         (next ? '<a href="#/w/' + esc(next) + '">' + esc(next) + ' →</a>'
-              : '<span>next →</span>') +
+              : '<span>Next →</span>') +
       '</div></div>';
 
     if (w.warmup || w.warmup_exercises.length) {
@@ -270,7 +270,7 @@
         '<summary class="section__head">' +
           '<span class="letter">' + esc(it.letter) + '</span>' +
           '<span><span class="section__name">' + esc(it.name) + '</span>' +
-            (it.is_circuit ? '<span class="section__sub">circuit</span>' : '') +
+            (it.is_circuit ? '<span class="section__sub">Circuit</span>' : '') +
           '</span><span class="chev"></span>' +
         '</summary><div class="section__body">' +
           (it.info ? '<p class="info">' + esc(it.info) + '</p>' : '') +
@@ -308,7 +308,7 @@
       '<div class="ex-grid" id="ex-grid">' +
         all.map(function (e) {
           return videoCard(e.id, '<p class="ex-used">' +
-            (e.used_in.length ? esc(e.used_in.join(' · ')) : 'warm-up only') + '</p>');
+            (e.used_in.length ? esc(e.used_in.join(' · ')) : 'Warm-up only') + '</p>');
         }).join('') +
       '</div>' +
       '<p class="empty" id="ex-empty" hidden></p>';

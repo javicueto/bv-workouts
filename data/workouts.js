@@ -8,7 +8,7 @@ window.WORKOUTS = {
  "exercises": {
   "389847": {
    "id": "389847",
-   "name": "Barbell Bench Press",
+   "name": "Barbell bench press",
    "url": "https://www.youtube.com/watch?v=iBdF89xBAxA",
    "youtube_id": "iBdF89xBAxA",
    "has_local_video": true,
@@ -20,7 +20,7 @@ window.WORKOUTS = {
   },
   "11242555": {
    "id": "11242555",
-   "name": "Barbell Rack Deadlift",
+   "name": "Barbell rack deadlift",
    "url": "https://youtu.be/TYjI-zzOVzc",
    "youtube_id": "TYjI-zzOVzc",
    "has_local_video": true,
@@ -93,7 +93,7 @@ window.WORKOUTS = {
   },
   "11249249": {
    "id": "11249249",
-   "name": "BB Back squat",
+   "name": "BB back squat",
    "url": "https://youtu.be/YS8LFxWXJ8A",
    "youtube_id": "YS8LFxWXJ8A",
    "has_local_video": true,
@@ -106,7 +106,7 @@ window.WORKOUTS = {
   },
   "11249258": {
    "id": "11249258",
-   "name": "plyo push up",
+   "name": "Plyo push up",
    "url": "https://youtu.be/ovr_OX8NmSM",
    "youtube_id": "ovr_OX8NmSM",
    "has_local_video": true,
@@ -171,7 +171,7 @@ window.WORKOUTS = {
   },
   "11250441": {
    "id": "11250441",
-   "name": "Trx shoulders openings",
+   "name": "TRX shoulders openings",
    "url": "https://youtu.be/YQdw9EfQa8Q",
    "youtube_id": "YQdw9EfQa8Q",
    "has_local_video": true,
@@ -183,7 +183,7 @@ window.WORKOUTS = {
   },
   "11250646": {
    "id": "11250646",
-   "name": "BB Deadlift",
+   "name": "BB deadlift",
    "url": "https://youtu.be/4RBc77kXeQo",
    "youtube_id": "4RBc77kXeQo",
    "has_local_video": true,
@@ -195,7 +195,7 @@ window.WORKOUTS = {
   },
   "11250686": {
    "id": "11250686",
-   "name": "DB Side lunges",
+   "name": "DB side lunges",
    "url": "https://youtu.be/y7TZbxzIz6w",
    "youtube_id": "y7TZbxzIz6w",
    "has_local_video": true,
@@ -220,7 +220,7 @@ window.WORKOUTS = {
   },
   "11250730": {
    "id": "11250730",
-   "name": "DB Bench press",
+   "name": "DB bench press",
    "url": "https://youtu.be/qkyC1Bhl9lE",
    "youtube_id": "qkyC1Bhl9lE",
    "has_local_video": true,
@@ -282,7 +282,7 @@ window.WORKOUTS = {
   },
   "11259664": {
    "id": "11259664",
-   "name": "plank twist",
+   "name": "Plank twist",
    "url": "https://youtu.be/OozLkbgXFMw",
    "youtube_id": "OozLkbgXFMw",
    "has_local_video": true,
@@ -306,7 +306,7 @@ window.WORKOUTS = {
   },
   "11279373": {
    "id": "11279373",
-   "name": "Half kneeling DB Chop",
+   "name": "Half kneeling DB chop",
    "url": "https://youtu.be/6p4awUFphhw",
    "youtube_id": "6p4awUFphhw",
    "has_local_video": true,
@@ -331,7 +331,7 @@ window.WORKOUTS = {
   },
   "11279401": {
    "id": "11279401",
-   "name": "hands to elbows plank",
+   "name": "Hands to elbows plank",
    "url": "https://youtu.be/Rg0D3lTjOwQ",
    "youtube_id": "Rg0D3lTjOwQ",
    "has_local_video": true,
@@ -343,7 +343,7 @@ window.WORKOUTS = {
   },
   "11279404": {
    "id": "11279404",
-   "name": "band tall kneeling shoulder press",
+   "name": "Band tall kneeling shoulder press",
    "url": "https://youtu.be/DgzZEJ6ebWc",
    "youtube_id": "DgzZEJ6ebWc",
    "has_local_video": true,
@@ -355,7 +355,7 @@ window.WORKOUTS = {
   },
   "11279407": {
    "id": "11279407",
-   "name": "TRX Push up",
+   "name": "TRX push up",
    "url": "https://youtu.be/CNtRXSK0wIQ",
    "youtube_id": "CNtRXSK0wIQ",
    "has_local_video": true,
@@ -367,7 +367,7 @@ window.WORKOUTS = {
   },
   "11279419": {
    "id": "11279419",
-   "name": "Trx upper row",
+   "name": "TRX upper row",
    "url": "https://youtu.be/vmgUYLeJb1g",
    "youtube_id": "vmgUYLeJb1g",
    "has_local_video": true,
@@ -392,7 +392,7 @@ window.WORKOUTS = {
   },
   "11279970": {
    "id": "11279970",
-   "name": "single leg alternated lateral jump",
+   "name": "Single leg alternated lateral jump",
    "url": "https://youtu.be/XyoQf9Sarfg",
    "youtube_id": "XyoQf9Sarfg",
    "has_local_video": true,
@@ -404,7 +404,7 @@ window.WORKOUTS = {
   },
   "11280034": {
    "id": "11280034",
-   "name": "high knee switches",
+   "name": "High knee switches",
    "url": "https://youtu.be/eZwpUPhv9KU",
    "youtube_id": "eZwpUPhv9KU",
    "has_local_video": true,
@@ -416,7 +416,7 @@ window.WORKOUTS = {
   },
   "11280043": {
    "id": "11280043",
-   "name": "elbows lateral climbers",
+   "name": "Elbows lateral climbers",
    "url": "https://youtu.be/4lotc9HdHrs",
    "youtube_id": "4lotc9HdHrs",
    "has_local_video": true,
@@ -428,7 +428,7 @@ window.WORKOUTS = {
   },
   "11288950": {
    "id": "11288950",
-   "name": "modified tuck up",
+   "name": "Modified tuck up",
    "url": "https://youtu.be/3IdtQ1mi-ks",
    "youtube_id": "3IdtQ1mi-ks",
    "has_local_video": true,
@@ -440,7 +440,7 @@ window.WORKOUTS = {
   },
   "11288954": {
    "id": "11288954",
-   "name": "db swing",
+   "name": "DB swing",
    "url": "https://youtu.be/3rc_lBOp4CM",
    "youtube_id": "3rc_lBOp4CM",
    "has_local_video": true,
@@ -452,7 +452,7 @@ window.WORKOUTS = {
   },
   "11288959": {
    "id": "11288959",
-   "name": "lunge forward",
+   "name": "Lunge forward",
    "url": "https://youtu.be/t7DBjlOTwAk",
    "youtube_id": "t7DBjlOTwAk",
    "has_local_video": true,
@@ -464,7 +464,7 @@ window.WORKOUTS = {
   },
   "11288963": {
    "id": "11288963",
-   "name": "half kneeling band pull down",
+   "name": "Half kneeling band pull down",
    "url": "https://youtu.be/hLl6zMNtTBQ",
    "youtube_id": "hLl6zMNtTBQ",
    "has_local_video": true,
@@ -477,7 +477,7 @@ window.WORKOUTS = {
   },
   "11288977": {
    "id": "11288977",
-   "name": "isometric deadbug",
+   "name": "Isometric deadbug",
    "url": "https://youtu.be/56Q87MgptgY",
    "youtube_id": "56Q87MgptgY",
    "has_local_video": true,
@@ -490,7 +490,7 @@ window.WORKOUTS = {
   },
   "11291128": {
    "id": "11291128",
-   "name": "half kneeling kb chop push/pull",
+   "name": "Half kneeling KB chop push/pull",
    "url": "https://youtu.be/QUntC0WmNeI",
    "youtube_id": "QUntC0WmNeI",
    "has_local_video": true,
@@ -502,7 +502,7 @@ window.WORKOUTS = {
   },
   "11291140": {
    "id": "11291140",
-   "name": "standing plate twist",
+   "name": "Standing plate twist",
    "url": "https://youtu.be/79x5n12wWkA",
    "youtube_id": "79x5n12wWkA",
    "has_local_video": true,
@@ -514,7 +514,7 @@ window.WORKOUTS = {
   },
   "11291184": {
    "id": "11291184",
-   "name": "half kneeling db shoulder press",
+   "name": "Half kneeling DB shoulder press",
    "url": "https://youtu.be/4DSPCknhUP4",
    "youtube_id": "4DSPCknhUP4",
    "has_local_video": true,
@@ -529,7 +529,7 @@ window.WORKOUTS = {
   },
   "11292207": {
    "id": "11292207",
-   "name": "band core activation dead bug",
+   "name": "Band core activation dead bug",
    "url": "https://youtu.be/EpYCmA4huKY",
    "youtube_id": "EpYCmA4huKY",
    "has_local_video": true,
@@ -541,7 +541,7 @@ window.WORKOUTS = {
   },
   "11292212": {
    "id": "11292212",
-   "name": "single leg bridge",
+   "name": "Single leg bridge",
    "url": "https://youtu.be/Y6i0IhzklZ4",
    "youtube_id": "Y6i0IhzklZ4",
    "has_local_video": true,
@@ -554,7 +554,7 @@ window.WORKOUTS = {
   },
   "11292256": {
    "id": "11292256",
-   "name": "band lateral walk",
+   "name": "Band lateral walk",
    "url": "https://youtu.be/wXZX7CApku8",
    "youtube_id": "wXZX7CApku8",
    "has_local_video": true,
@@ -566,7 +566,7 @@ window.WORKOUTS = {
   },
   "11292305": {
    "id": "11292305",
-   "name": "DB cossack squat",
+   "name": "DB Cossack squat",
    "url": "https://youtu.be/Zn8pf_y1PRM",
    "youtube_id": "Zn8pf_y1PRM",
    "has_local_video": true,
@@ -592,7 +592,7 @@ window.WORKOUTS = {
   },
   "11292342": {
    "id": "11292342",
-   "name": "plank arm raise",
+   "name": "Plank arm raise",
    "url": "https://youtu.be/s-DxL0hy-v4",
    "youtube_id": "s-DxL0hy-v4",
    "has_local_video": true,
@@ -604,7 +604,7 @@ window.WORKOUTS = {
   },
   "11292345": {
    "id": "11292345",
-   "name": "side bridge",
+   "name": "Side bridge",
    "url": "https://youtu.be/c0leGbP-bfA",
    "youtube_id": "c0leGbP-bfA",
    "has_local_video": true,
@@ -617,7 +617,7 @@ window.WORKOUTS = {
   },
   "11292356": {
    "id": "11292356",
-   "name": "step up",
+   "name": "Step up",
    "url": "https://youtu.be/2DPzuklKffk",
    "youtube_id": "2DPzuklKffk",
    "has_local_video": true,
@@ -630,7 +630,7 @@ window.WORKOUTS = {
   },
   "11292367": {
    "id": "11292367",
-   "name": "DB Walking lunges",
+   "name": "DB walking lunges",
    "url": "https://youtu.be/acIWrL52r4k",
    "youtube_id": "acIWrL52r4k",
    "has_local_video": true,
@@ -643,7 +643,7 @@ window.WORKOUTS = {
   },
   "11292370": {
    "id": "11292370",
-   "name": "cable rope pull down",
+   "name": "Cable rope pull down",
    "url": "https://youtu.be/9E4igjdp1co",
    "youtube_id": "9E4igjdp1co",
    "has_local_video": true,
@@ -656,7 +656,7 @@ window.WORKOUTS = {
   },
   "11292707": {
    "id": "11292707",
-   "name": "band internal rotation",
+   "name": "Band internal rotation",
    "url": "https://youtu.be/iDT6mOuBjTY",
    "youtube_id": "iDT6mOuBjTY",
    "has_local_video": true,
@@ -671,7 +671,7 @@ window.WORKOUTS = {
   },
   "11292710": {
    "id": "11292710",
-   "name": "band external rotation",
+   "name": "Band external rotation",
    "url": "https://youtu.be/Ogwx6y96rHI",
    "youtube_id": "Ogwx6y96rHI",
    "has_local_video": true,
@@ -686,7 +686,7 @@ window.WORKOUTS = {
   },
   "11292942": {
    "id": "11292942",
-   "name": "plank leg raise",
+   "name": "Plank leg raise",
    "url": "https://youtu.be/1yDIOmzqco0",
    "youtube_id": "1yDIOmzqco0",
    "has_local_video": true,
@@ -698,7 +698,7 @@ window.WORKOUTS = {
   },
   "11293149": {
    "id": "11293149",
-   "name": "fitball leg curl",
+   "name": "Fitball leg curl",
    "url": "https://youtu.be/ISD-dNCGkvM",
    "youtube_id": "ISD-dNCGkvM",
    "has_local_video": true,
@@ -710,7 +710,7 @@ window.WORKOUTS = {
   },
   "11293295": {
    "id": "11293295",
-   "name": "hip trust machine",
+   "name": "Hip trust machine",
    "url": "https://youtu.be/Tmla65GUNkQ",
    "youtube_id": "Tmla65GUNkQ",
    "has_local_video": true,
@@ -722,7 +722,7 @@ window.WORKOUTS = {
   },
   "11297983": {
    "id": "11297983",
-   "name": "DB Deadlift",
+   "name": "DB deadlift",
    "url": "https://youtu.be/ytEf8IZW1tk",
    "youtube_id": "ytEf8IZW1tk",
    "has_local_video": true,
@@ -748,7 +748,7 @@ window.WORKOUTS = {
   },
   "11307746": {
    "id": "11307746",
-   "name": "active straight leg raise",
+   "name": "Active straight leg raise",
    "url": "https://youtu.be/6VMeYPqVq4k",
    "youtube_id": "6VMeYPqVq4k",
    "has_local_video": true,
@@ -775,7 +775,7 @@ window.WORKOUTS = {
   },
   "11307749": {
    "id": "11307749",
-   "name": "cat cow",
+   "name": "Cat cow",
    "url": "https://youtu.be/BGMsqVeTMb0",
    "youtube_id": "BGMsqVeTMb0",
    "has_local_video": true,
@@ -804,7 +804,7 @@ window.WORKOUTS = {
   },
   "11307759": {
    "id": "11307759",
-   "name": "adductor dynamic stretch",
+   "name": "Adductor dynamic stretch",
    "url": "https://youtu.be/4qEFjdMs1os",
    "youtube_id": "4qEFjdMs1os",
    "has_local_video": true,
@@ -833,7 +833,7 @@ window.WORKOUTS = {
   },
   "11307787": {
    "id": "11307787",
-   "name": "band glute bridge (3\" hold)",
+   "name": "Band glute bridge (3\" hold)",
    "url": "https://youtu.be/pm3Ge7deNCc",
    "youtube_id": "pm3Ge7deNCc",
    "has_local_video": true,
@@ -845,7 +845,7 @@ window.WORKOUTS = {
   },
   "11307805": {
    "id": "11307805",
-   "name": "single arm floor press",
+   "name": "Single arm floor press",
    "url": "https://youtu.be/ZeHDXjQfpW0",
    "youtube_id": "ZeHDXjQfpW0",
    "has_local_video": true,
@@ -859,7 +859,7 @@ window.WORKOUTS = {
   },
   "11307824": {
    "id": "11307824",
-   "name": "ipsilateral deadbug",
+   "name": "Ipsilateral deadbug",
    "url": "https://youtu.be/I7ijDnXU0H8",
    "youtube_id": "I7ijDnXU0H8",
    "has_local_video": true,
@@ -871,7 +871,7 @@ window.WORKOUTS = {
   },
   "11307835": {
    "id": "11307835",
-   "name": "push up",
+   "name": "Push up",
    "url": "https://youtu.be/Rv51wbddtqg",
    "youtube_id": "Rv51wbddtqg",
    "has_local_video": true,
@@ -883,7 +883,7 @@ window.WORKOUTS = {
   },
   "11326763": {
    "id": "11326763",
-   "name": "side plank raises",
+   "name": "Side plank raises",
    "url": "https://youtu.be/QnEnZB03QwI",
    "youtube_id": "QnEnZB03QwI",
    "has_local_video": true,
@@ -895,7 +895,7 @@ window.WORKOUTS = {
   },
   "11326909": {
    "id": "11326909",
-   "name": "bb sumo deadlift",
+   "name": "BB sumo deadlift",
    "url": "https://youtu.be/Gtu1ihjZgds",
    "youtube_id": "Gtu1ihjZgds",
    "has_local_video": true,
@@ -907,7 +907,7 @@ window.WORKOUTS = {
   },
   "11326944": {
    "id": "11326944",
-   "name": "plank",
+   "name": "Plank",
    "url": "https://youtu.be/3NQ2oN6J6hc",
    "youtube_id": "3NQ2oN6J6hc",
    "has_local_video": true,
@@ -921,7 +921,7 @@ window.WORKOUTS = {
   },
   "11326993": {
    "id": "11326993",
-   "name": "side plank",
+   "name": "Side plank",
    "url": "https://youtu.be/kx434sFuAXE",
    "youtube_id": "kx434sFuAXE",
    "has_local_video": true,
@@ -935,7 +935,7 @@ window.WORKOUTS = {
   },
   "11327019": {
    "id": "11327019",
-   "name": "trx lower row",
+   "name": "TRX lower row",
    "url": "https://youtu.be/u5rJWjYKNXc",
    "youtube_id": "u5rJWjYKNXc",
    "has_local_video": true,
@@ -947,7 +947,7 @@ window.WORKOUTS = {
   },
   "11329531": {
    "id": "11329531",
-   "name": "wide grip lat machine",
+   "name": "Wide grip lat machine",
    "url": "https://youtu.be/A7DmwfteykY",
    "youtube_id": "A7DmwfteykY",
    "has_local_video": true,
@@ -959,7 +959,7 @@ window.WORKOUTS = {
   },
   "11329535": {
    "id": "11329535",
-   "name": "sit up",
+   "name": "Sit up",
    "url": "https://youtu.be/AXNM3JlBQQU",
    "youtube_id": "AXNM3JlBQQU",
    "has_local_video": true,
@@ -971,7 +971,7 @@ window.WORKOUTS = {
   },
   "11329545": {
    "id": "11329545",
-   "name": "cross side lunges",
+   "name": "Cross side lunges",
    "url": "https://youtu.be/luQFXB4oGiM",
    "youtube_id": "luQFXB4oGiM",
    "has_local_video": true,
@@ -984,7 +984,7 @@ window.WORKOUTS = {
   },
   "11330193": {
    "id": "11330193",
-   "name": "single arm kb swing",
+   "name": "Single arm KB swing",
    "url": "https://youtu.be/Af7PAxkoq1A",
    "youtube_id": "Af7PAxkoq1A",
    "has_local_video": true,
@@ -997,7 +997,7 @@ window.WORKOUTS = {
   },
   "11331922": {
    "id": "11331922",
-   "name": "fitball plank",
+   "name": "Fitball plank",
    "url": "https://youtu.be/ivowFa_F6go",
    "youtube_id": "ivowFa_F6go",
    "has_local_video": true,
@@ -1009,7 +1009,7 @@ window.WORKOUTS = {
   },
   "11355605": {
    "id": "11355605",
-   "name": "DB Incline Bench Press",
+   "name": "DB incline bench press",
    "url": "https://youtu.be/ARh8hD2mwFI",
    "youtube_id": "ARh8hD2mwFI",
    "has_local_video": true,
@@ -1022,7 +1022,7 @@ window.WORKOUTS = {
   },
   "11372777": {
    "id": "11372777",
-   "name": "supinated grip shoulder blade depression",
+   "name": "Supinated grip shoulder blade depression",
    "url": "https://youtu.be/nE7dKMK6nOY",
    "youtube_id": "nE7dKMK6nOY",
    "has_local_video": true,
@@ -1035,7 +1035,7 @@ window.WORKOUTS = {
   },
   "11372781": {
    "id": "11372781",
-   "name": "band half kneeling high to low chop",
+   "name": "Band half kneeling high to low chop",
    "url": "https://youtu.be/-_VSPjyWpTE",
    "youtube_id": "-_VSPjyWpTE",
    "has_local_video": true,
@@ -1047,7 +1047,7 @@ window.WORKOUTS = {
   },
   "11372794": {
    "id": "11372794",
-   "name": "contralateral leg arm raise plank",
+   "name": "Contralateral leg arm raise plank",
    "url": "https://youtu.be/fDfiChcxW14",
    "youtube_id": "fDfiChcxW14",
    "has_local_video": true,
@@ -1059,7 +1059,7 @@ window.WORKOUTS = {
   },
   "11372937": {
    "id": "11372937",
-   "name": "tall kneeling half moon",
+   "name": "Tall kneeling half moon",
    "url": "https://youtu.be/0YfjGonqIKE",
    "youtube_id": "0YfjGonqIKE",
    "has_local_video": true,
@@ -1071,7 +1071,7 @@ window.WORKOUTS = {
   },
   "11372945": {
    "id": "11372945",
-   "name": "l-sit shoulder press rotation",
+   "name": "L-sit shoulder press rotation",
    "url": "https://youtu.be/HYNvTKeFfTk",
    "youtube_id": "HYNvTKeFfTk",
    "has_local_video": true,
@@ -1083,7 +1083,7 @@ window.WORKOUTS = {
   },
   "11372962": {
    "id": "11372962",
-   "name": "plank move the kb",
+   "name": "Plank move the KB",
    "url": "https://youtu.be/Df7zMGgK9iQ",
    "youtube_id": "Df7zMGgK9iQ",
    "has_local_video": true,
@@ -1095,7 +1095,7 @@ window.WORKOUTS = {
   },
   "11372964": {
    "id": "11372964",
-   "name": "alternating single arm db plank row",
+   "name": "Alternating single arm DB plank row",
    "url": "https://youtu.be/xOhJb5F3SPQ",
    "youtube_id": "xOhJb5F3SPQ",
    "has_local_video": true,
@@ -1107,7 +1107,7 @@ window.WORKOUTS = {
   },
   "11372994": {
    "id": "11372994",
-   "name": "hyper extension",
+   "name": "Hyper extension",
    "url": "https://youtu.be/-uA4lWEY6IU",
    "youtube_id": "-uA4lWEY6IU",
    "has_local_video": true,
@@ -1119,7 +1119,7 @@ window.WORKOUTS = {
   },
   "11373004": {
    "id": "11373004",
-   "name": "bb reverse lunge",
+   "name": "BB reverse lunge",
    "url": "https://youtu.be/gELwiofKM5Y",
    "youtube_id": "gELwiofKM5Y",
    "has_local_video": true,
@@ -1132,7 +1132,7 @@ window.WORKOUTS = {
   },
   "11373047": {
    "id": "11373047",
-   "name": "overhead slam ball",
+   "name": "Overhead slam ball",
    "url": "https://youtu.be/6XLqr8cjhOw",
    "youtube_id": "6XLqr8cjhOw",
    "has_local_video": true,
@@ -1144,7 +1144,7 @@ window.WORKOUTS = {
   },
   "11373085": {
    "id": "11373085",
-   "name": "plyometric depth jump",
+   "name": "Plyometric depth jump",
    "url": "https://youtu.be/AzPJZHOmGEg",
    "youtube_id": "AzPJZHOmGEg",
    "has_local_video": true,
@@ -1156,7 +1156,7 @@ window.WORKOUTS = {
   },
   "11373099": {
    "id": "11373099",
-   "name": "landmine angled reverse lunge",
+   "name": "Landmine angled reverse lunge",
    "url": "https://youtu.be/EXmJQC2gl2M",
    "youtube_id": "EXmJQC2gl2M",
    "has_local_video": true,
@@ -1168,7 +1168,7 @@ window.WORKOUTS = {
   },
   "11373111": {
    "id": "11373111",
-   "name": "cable rope high pull",
+   "name": "Cable rope high pull",
    "url": "https://youtu.be/isStslEGqvU",
    "youtube_id": "isStslEGqvU",
    "has_local_video": true,
@@ -1181,7 +1181,7 @@ window.WORKOUTS = {
   },
   "11379991": {
    "id": "11379991",
-   "name": "row machine",
+   "name": "Row machine",
    "url": "https://youtu.be/sK9zqQGIwkY",
    "youtube_id": "sK9zqQGIwkY",
    "has_local_video": true,
@@ -1193,7 +1193,7 @@ window.WORKOUTS = {
   },
   "11407364": {
    "id": "11407364",
-   "name": "floor rhomboids openings",
+   "name": "Floor rhomboids openings",
    "url": "https://youtu.be/NqquZu3cr-k",
    "youtube_id": "NqquZu3cr-k",
    "has_local_video": true,
@@ -1206,7 +1206,7 @@ window.WORKOUTS = {
   },
   "11425178": {
    "id": "11425178",
-   "name": "australian pull up",
+   "name": "Australian pull up",
    "url": "https://youtu.be/bHO0A4ZF_Zg",
    "youtube_id": "bHO0A4ZF_Zg",
    "has_local_video": true,
@@ -1218,7 +1218,7 @@ window.WORKOUTS = {
   },
   "11473108": {
    "id": "11473108",
-   "name": "trx single arm row",
+   "name": "TRX single arm row",
    "url": "https://youtu.be/2lFpz7UpjHc",
    "youtube_id": "2lFpz7UpjHc",
    "has_local_video": true,
@@ -1230,7 +1230,7 @@ window.WORKOUTS = {
   },
   "11473269": {
    "id": "11473269",
-   "name": "medball contralateral deadbug",
+   "name": "Medball contralateral deadbug",
    "url": "https://youtu.be/VNx73hYcR5k",
    "youtube_id": "VNx73hYcR5k",
    "has_local_video": true,
@@ -1242,7 +1242,7 @@ window.WORKOUTS = {
   },
   "11473288": {
    "id": "11473288",
-   "name": "dual kb reverse lunge to high knee",
+   "name": "Dual KB reverse lunge to high knee",
    "url": "https://youtu.be/TgDNW7_q03A",
    "youtube_id": "TgDNW7_q03A",
    "has_local_video": true,
@@ -1254,7 +1254,7 @@ window.WORKOUTS = {
   },
   "11473301": {
    "id": "11473301",
-   "name": "pass simulation side lunges",
+   "name": "Pass simulation side lunges",
    "url": "https://youtu.be/QoTbBkg07tM",
    "youtube_id": "QoTbBkg07tM",
    "has_local_video": true,
@@ -1266,7 +1266,7 @@ window.WORKOUTS = {
   },
   "11473304": {
    "id": "11473304",
-   "name": "db bench cross over",
+   "name": "DB bench cross over",
    "url": "https://youtu.be/zQePlMKO7cg",
    "youtube_id": "zQePlMKO7cg",
    "has_local_video": true,
@@ -1280,7 +1280,7 @@ window.WORKOUTS = {
   },
   "11479416": {
    "id": "11479416",
-   "name": "bent hollow flutter kicks",
+   "name": "Bent hollow flutter kicks",
    "url": "https://youtu.be/DxFZz8mVLrA",
    "youtube_id": "DxFZz8mVLrA",
    "has_local_video": true,
@@ -1292,7 +1292,7 @@ window.WORKOUTS = {
   },
   "11479463": {
    "id": "11479463",
-   "name": "lateral run back and fourth",
+   "name": "Lateral run back and fourth",
    "url": "https://youtu.be/Co7KYZl806I",
    "youtube_id": "Co7KYZl806I",
    "has_local_video": true,
@@ -1305,7 +1305,7 @@ window.WORKOUTS = {
   },
   "11479471": {
    "id": "11479471",
-   "name": "run back and fourth",
+   "name": "Run back and fourth",
    "url": "https://youtu.be/JjdtrtD5e0g",
    "youtube_id": "JjdtrtD5e0g",
    "has_local_video": true,
@@ -1318,7 +1318,7 @@ window.WORKOUTS = {
   },
   "11493541": {
    "id": "11493541",
-   "name": "shoulder tap bear crawl",
+   "name": "Shoulder tap bear crawl",
    "url": "https://youtu.be/HCcJ7yNfAAk",
    "youtube_id": "HCcJ7yNfAAk",
    "has_local_video": true,
@@ -1330,7 +1330,7 @@ window.WORKOUTS = {
   },
   "11494648": {
    "id": "11494648",
-   "name": "scissor crunch",
+   "name": "Scissor crunch",
    "url": "https://youtu.be/fposjY4kmqA",
    "youtube_id": "fposjY4kmqA",
    "has_local_video": true,
@@ -1342,7 +1342,7 @@ window.WORKOUTS = {
   },
   "11494918": {
    "id": "11494918",
-   "name": "trx shoulder depression and row",
+   "name": "TRX shoulder depression and row",
    "url": "https://youtu.be/XT6O63xPYy4",
    "youtube_id": "XT6O63xPYy4",
    "has_local_video": true,
@@ -1355,7 +1355,7 @@ window.WORKOUTS = {
   },
   "11497501": {
    "id": "11497501",
-   "name": "pulley",
+   "name": "Pulley",
    "url": "https://youtu.be/juqMyHuYcz8",
    "youtube_id": "juqMyHuYcz8",
    "has_local_video": true,
@@ -1367,7 +1367,7 @@ window.WORKOUTS = {
   },
   "11497789": {
    "id": "11497789",
-   "name": "db standing lateral raises",
+   "name": "DB standing lateral raises",
    "url": "https://youtu.be/DunDV91iB2A",
    "youtube_id": "DunDV91iB2A",
    "has_local_video": true,
@@ -1380,7 +1380,7 @@ window.WORKOUTS = {
   },
   "11521897": {
    "id": "11521897",
-   "name": "fitball crunch",
+   "name": "Fitball crunch",
    "url": "https://youtu.be/q-z5KR5gxFo",
    "youtube_id": "q-z5KR5gxFo",
    "has_local_video": true,
@@ -1392,7 +1392,7 @@ window.WORKOUTS = {
   },
   "11521901": {
    "id": "11521901",
-   "name": "cross wallet",
+   "name": "Cross wallet",
    "url": "https://youtu.be/QZcbQ2FDZ8I",
    "youtube_id": "QZcbQ2FDZ8I",
    "has_local_video": true,
@@ -1404,7 +1404,7 @@ window.WORKOUTS = {
   },
   "11570004": {
    "id": "11570004",
-   "name": "no arms consecutive vertical jumps",
+   "name": "No arms consecutive vertical jumps",
    "url": "https://youtu.be/gdRkJ9ndGQM",
    "youtube_id": "gdRkJ9ndGQM",
    "has_local_video": true,
@@ -1416,7 +1416,7 @@ window.WORKOUTS = {
   },
   "11577511": {
    "id": "11577511",
-   "name": "three points db row",
+   "name": "Three points DB row",
    "url": "https://youtu.be/xeJMDUC5nck",
    "youtube_id": "xeJMDUC5nck",
    "has_local_video": true,
@@ -1440,7 +1440,7 @@ window.WORKOUTS = {
   },
   "11611402": {
    "id": "11611402",
-   "name": "BB Bench press",
+   "name": "BB bench press",
    "url": "https://youtu.be/fECDepX8PBg",
    "youtube_id": "fECDepX8PBg",
    "has_local_video": true,
@@ -1456,7 +1456,7 @@ window.WORKOUTS = {
   },
   "11611416": {
    "id": "11611416",
-   "name": "band half kneeling pallof press",
+   "name": "Band half kneeling Pallof press",
    "url": "https://youtu.be/I59jOsDWgqw",
    "youtube_id": "I59jOsDWgqw",
    "has_local_video": true,
@@ -1480,7 +1480,7 @@ window.WORKOUTS = {
   },
   "11684653": {
    "id": "11684653",
-   "name": "cross body mountain climbers",
+   "name": "Cross body mountain climbers",
    "url": "https://youtu.be/GTlzRwL2WHw",
    "youtube_id": "GTlzRwL2WHw",
    "has_local_video": true,
@@ -1492,7 +1492,7 @@ window.WORKOUTS = {
   },
   "12378571": {
    "id": "12378571",
-   "name": "band standing pallof press",
+   "name": "Band standing Pallof press",
    "url": "https://youtu.be/f_D0GByfZh0?feature=shared",
    "youtube_id": "f_D0GByfZh0",
    "has_local_video": true,
@@ -1504,7 +1504,7 @@ window.WORKOUTS = {
   },
   "12417679": {
    "id": "12417679",
-   "name": "glute dynamic stretch",
+   "name": "Glute dynamic stretch",
    "url": "https://youtu.be/8rmzW7qn84I",
    "youtube_id": "8rmzW7qn84I",
    "has_local_video": true,
@@ -1531,7 +1531,7 @@ window.WORKOUTS = {
   },
   "12457695": {
    "id": "12457695",
-   "name": "db single arm deadug",
+   "name": "DB single arm deadug",
    "url": "https://youtu.be/8yDSBVZA4FE",
    "youtube_id": "8yDSBVZA4FE",
    "has_local_video": true,
@@ -1543,7 +1543,7 @@ window.WORKOUTS = {
   },
   "12457696": {
    "id": "12457696",
-   "name": "leg raise side plank",
+   "name": "Leg raise side plank",
    "url": "https://youtu.be/9Yw2uZxRilw",
    "youtube_id": "9Yw2uZxRilw",
    "has_local_video": true,
@@ -1555,7 +1555,7 @@ window.WORKOUTS = {
   },
   "12457698": {
    "id": "12457698",
-   "name": "bear hug band internal rotation",
+   "name": "Bear hug band internal rotation",
    "url": "https://youtu.be/cv42v77Gkuo",
    "youtube_id": "cv42v77Gkuo",
    "has_local_video": true,
@@ -1569,7 +1569,7 @@ window.WORKOUTS = {
   },
   "12457699": {
    "id": "12457699",
-   "name": "bear hug band external rotation",
+   "name": "Bear hug band external rotation",
    "url": "https://youtu.be/UGqB2NGvkok",
    "youtube_id": "UGqB2NGvkok",
    "has_local_video": true,
@@ -1583,7 +1583,7 @@ window.WORKOUTS = {
   },
   "12457757": {
    "id": "12457757",
-   "name": "BB Hip trust",
+   "name": "BB hip trust",
    "url": "https://youtu.be/VgmW8pKwR-w",
    "youtube_id": "VgmW8pKwR-w",
    "has_local_video": true,
@@ -1595,7 +1595,7 @@ window.WORKOUTS = {
   },
   "12478227": {
    "id": "12478227",
-   "name": "leg twist",
+   "name": "Leg twist",
    "url": "https://youtu.be/VpiKQACd8Nk",
    "youtube_id": "VpiKQACd8Nk",
    "has_local_video": true,
@@ -1624,7 +1624,7 @@ window.WORKOUTS = {
   },
   "12479502": {
    "id": "12479502",
-   "name": "high elbow band internal rotation",
+   "name": "High elbow band internal rotation",
    "url": "https://youtu.be/sKNux4DQD-Q",
    "youtube_id": "sKNux4DQD-Q",
    "has_local_video": true,
@@ -1652,7 +1652,7 @@ window.WORKOUTS = {
   },
   "12503061": {
    "id": "12503061",
-   "name": "t-spine rotation with reach",
+   "name": "T-spine rotation with reach",
    "url": "https://youtu.be/BNOsiKXyBQ4",
    "youtube_id": "BNOsiKXyBQ4",
    "has_local_video": true,
@@ -1681,7 +1681,7 @@ window.WORKOUTS = {
   },
   "12503065": {
    "id": "12503065",
-   "name": "ileopsoas dynamic stretch",
+   "name": "Ileopsoas dynamic stretch",
    "url": "https://youtu.be/x5nH_idvqN4",
    "youtube_id": "x5nH_idvqN4",
    "has_local_video": true,
@@ -1710,7 +1710,7 @@ window.WORKOUTS = {
   },
   "12626046": {
    "id": "12626046",
-   "name": "hollow body flutter kicks",
+   "name": "Hollow body flutter kicks",
    "url": "https://youtu.be/V_Pa5y5cJYg",
    "youtube_id": "V_Pa5y5cJYg",
    "has_local_video": true,
@@ -1722,7 +1722,7 @@ window.WORKOUTS = {
   },
   "12651865": {
    "id": "12651865",
-   "name": "foam roller miniband press",
+   "name": "Foam roller miniband press",
    "url": "https://youtu.be/bDGrBQZ3w7g",
    "youtube_id": "bDGrBQZ3w7g",
    "has_local_video": true,
@@ -1735,7 +1735,7 @@ window.WORKOUTS = {
   },
   "12690832": {
    "id": "12690832",
-   "name": "pass simulation reverse lunges",
+   "name": "Pass simulation reverse lunges",
    "url": "https://youtu.be/gecOK43Dsu8",
    "youtube_id": "gecOK43Dsu8",
    "has_local_video": true,
@@ -1759,7 +1759,7 @@ window.WORKOUTS = {
   },
   "12695626": {
    "id": "12695626",
-   "name": "DB External rotation",
+   "name": "DB external rotation",
    "url": "https://youtu.be/sRMKxukPW64",
    "youtube_id": "sRMKxukPW64",
    "has_local_video": true,
@@ -1772,7 +1772,7 @@ window.WORKOUTS = {
   },
   "12711639": {
    "id": "12711639",
-   "name": "plyo lateral jump",
+   "name": "Plyo lateral jump",
    "url": "https://youtu.be/91-e4OVXfBg?si=rcQeZKZRANX_Ndn9",
    "youtube_id": "91-e4OVXfBg",
    "has_local_video": true,
@@ -1808,7 +1808,7 @@ window.WORKOUTS = {
   },
   "12755748": {
    "id": "12755748",
-   "name": "bw squat",
+   "name": "Bw squat",
    "url": "https://youtu.be/l83R5PblSMA?si=Nu4hfowxA_joHEXh",
    "youtube_id": "l83R5PblSMA",
    "has_local_video": true,
@@ -1837,7 +1837,7 @@ window.WORKOUTS = {
   },
   "12778078": {
    "id": "12778078",
-   "name": "heels elevated goblet squat",
+   "name": "Heels elevated goblet squat",
    "url": "https://youtu.be/AdfMPEDpUHI?si=wvA6dC1leZirxCZs",
    "youtube_id": "AdfMPEDpUHI",
    "has_local_video": true,
@@ -1849,7 +1849,7 @@ window.WORKOUTS = {
   },
   "12816779": {
    "id": "12816779",
-   "name": "foam roller db internal rotation",
+   "name": "Foam roller DB internal rotation",
    "url": "https://youtu.be/AptNVKCebkU",
    "youtube_id": "AptNVKCebkU",
    "has_local_video": true,
@@ -1863,7 +1863,7 @@ window.WORKOUTS = {
   },
   "14310937": {
    "id": "14310937",
-   "name": "trx wallet crunch",
+   "name": "TRX wallet crunch",
    "url": "https://youtu.be/jR-Dl_yb3t4",
    "youtube_id": "jR-Dl_yb3t4",
    "has_local_video": true,
@@ -1875,7 +1875,7 @@ window.WORKOUTS = {
   },
   "14360341": {
    "id": "14360341",
-   "name": "floor db shoulder blade depression",
+   "name": "Floor DB shoulder blade depression",
    "url": "https://youtu.be/gp-M9I6PGEo",
    "youtube_id": "gp-M9I6PGEo",
    "has_local_video": true,
@@ -1888,7 +1888,7 @@ window.WORKOUTS = {
   },
   "14374824": {
    "id": "14374824",
-   "name": "floor db rhomboids openings",
+   "name": "Floor DB rhomboids openings",
    "url": "https://youtu.be/sWaIbtvf7pI",
    "youtube_id": "sWaIbtvf7pI",
    "has_local_video": true,
@@ -1901,7 +1901,7 @@ window.WORKOUTS = {
   },
   "14483186": {
    "id": "14483186",
-   "name": "calf release",
+   "name": "Calf release",
    "url": "https://youtu.be/AGPXayvcMUw",
    "youtube_id": "AGPXayvcMUw",
    "has_local_video": true,
@@ -1914,7 +1914,7 @@ window.WORKOUTS = {
   },
   "14509496": {
    "id": "14509496",
-   "name": "obstacle lateral run back and fourth",
+   "name": "Obstacle lateral run back and fourth",
    "url": "https://youtu.be/MXNrEcShm0w",
    "youtube_id": "MXNrEcShm0w",
    "has_local_video": true,
@@ -1926,7 +1926,7 @@ window.WORKOUTS = {
   },
   "14575471": {
    "id": "14575471",
-   "name": "bench rhomboids openings",
+   "name": "Bench rhomboids openings",
    "url": "https://youtu.be/r6-27MiUIfY",
    "youtube_id": "r6-27MiUIfY",
    "has_local_video": true,
@@ -1938,7 +1938,7 @@ window.WORKOUTS = {
   },
   "14585796": {
    "id": "14585796",
-   "name": "bw banded split squat",
+   "name": "Bw banded split squat",
    "url": "https://youtu.be/TxAj4UOinSk",
    "youtube_id": "TxAj4UOinSk",
    "has_local_video": true,
@@ -1951,7 +1951,7 @@ window.WORKOUTS = {
   },
   "14595477": {
    "id": "14595477",
-   "name": "db knee banded split squat",
+   "name": "DB knee banded split squat",
    "url": "https://youtu.be/hsOnxW_rm8s",
    "youtube_id": "hsOnxW_rm8s",
    "has_local_video": true,
@@ -1963,7 +1963,7 @@ window.WORKOUTS = {
   },
   "14602077": {
    "id": "14602077",
-   "name": "floor seated trunk twist",
+   "name": "Floor seated trunk twist",
    "url": "https://youtu.be/5lU5Vqdlus8",
    "youtube_id": "5lU5Vqdlus8",
    "has_local_video": true,
@@ -2004,7 +2004,7 @@ window.WORKOUTS = {
   },
   "14695037": {
    "id": "14695037",
-   "name": "multipower hip trust",
+   "name": "Multipower hip trust",
    "url": "https://youtu.be/AQH-q9AquAQ",
    "youtube_id": "AQH-q9AquAQ",
    "has_local_video": true,
@@ -2016,7 +2016,7 @@ window.WORKOUTS = {
   },
   "15545314": {
    "id": "15545314",
-   "name": "heels elevated back squat",
+   "name": "Heels elevated back squat",
    "url": "https://youtu.be/o5WxCJfT6WM?si=9g6syVF_Rz6adk1k",
    "youtube_id": "o5WxCJfT6WM",
    "has_local_video": true,
@@ -2040,7 +2040,7 @@ window.WORKOUTS = {
   },
   "15680324": {
    "id": "15680324",
-   "name": "trx overhead extension",
+   "name": "TRX overhead extension",
    "url": "https://youtu.be/Z5Moa78y_gI",
    "youtube_id": "Z5Moa78y_gI",
    "has_local_video": true,
@@ -2052,7 +2052,7 @@ window.WORKOUTS = {
   },
   "15711087": {
    "id": "15711087",
-   "name": "half kneeling hip raise",
+   "name": "Half kneeling hip raise",
    "url": "https://youtu.be/VxJQT4MMXc8",
    "youtube_id": "VxJQT4MMXc8",
    "has_local_video": true,
@@ -2090,7 +2090,7 @@ window.WORKOUTS = {
   },
   "16049563": {
    "id": "16049563",
-   "name": "Single Leg Press",
+   "name": "Single leg press",
    "url": "https://youtu.be/MtQLdMhXy4U",
    "youtube_id": "MtQLdMhXy4U",
    "has_local_video": true,
@@ -2128,7 +2128,7 @@ window.WORKOUTS = {
   },
   "16130107": {
    "id": "16130107",
-   "name": "2 In 2 Out",
+   "name": "2 in 2 out",
    "url": "https://youtu.be/kadXqIGPDW4",
    "youtube_id": "kadXqIGPDW4",
    "has_local_video": true,
@@ -2140,7 +2140,7 @@ window.WORKOUTS = {
   },
   "16256970": {
    "id": "16256970",
-   "name": "Leg Extension 2 Up 1 Down",
+   "name": "Leg extension 2 up 1 down",
    "url": "https://youtu.be/RhNu_qJAHV8",
    "youtube_id": "RhNu_qJAHV8",
    "has_local_video": true,
@@ -2152,7 +2152,7 @@ window.WORKOUTS = {
   },
   "16540198": {
    "id": "16540198",
-   "name": "standing bb shoulder blade depression",
+   "name": "Standing BB shoulder blade depression",
    "url": "https://youtu.be/E_kfYBcMX6c",
    "youtube_id": "E_kfYBcMX6c",
    "has_local_video": true,
@@ -2164,7 +2164,7 @@ window.WORKOUTS = {
   },
   "17363186": {
    "id": "17363186",
-   "name": "lying leg curl 2 up 1 down",
+   "name": "Lying leg curl 2 up 1 down",
    "url": "https://youtu.be/cvnkhSwu2lo",
    "youtube_id": "cvnkhSwu2lo",
    "has_local_video": true,
@@ -2176,7 +2176,7 @@ window.WORKOUTS = {
   },
   "17383107": {
    "id": "17383107",
-   "name": "banded ankle mobility",
+   "name": "Banded ankle mobility",
    "url": "https://youtu.be/ILSbK8RnGdI?si=7v6ZdlV3PNN37wdN",
    "youtube_id": "ILSbK8RnGdI",
    "has_local_video": true,
@@ -2190,7 +2190,7 @@ window.WORKOUTS = {
   },
   "17594422": {
    "id": "17594422",
-   "name": "BB Squat *TAP THE BENCH",
+   "name": "BB squat *TAP THE BENCH",
    "url": "https://youtu.be/PSCa07-YmyM",
    "youtube_id": "PSCa07-YmyM",
    "has_local_video": true,
@@ -2215,7 +2215,7 @@ window.WORKOUTS = {
   },
   "17664164": {
    "id": "17664164",
-   "name": "miniband external rotation",
+   "name": "Miniband external rotation",
    "url": "https://youtu.be/iEA_KlzRoyQ",
    "youtube_id": "iEA_KlzRoyQ",
    "has_local_video": true,
@@ -2240,7 +2240,7 @@ window.WORKOUTS = {
   },
   "20100237": {
    "id": "20100237",
-   "name": "BB Back squat with miniband",
+   "name": "BB back squat with miniband",
    "url": "https://youtu.be/W9WFQpUyB-k?si=ubftqYEr9ux8bN7t",
    "youtube_id": "W9WFQpUyB-k",
    "has_local_video": true,
@@ -2260,7 +2260,7 @@ window.WORKOUTS = {
    "assigned_count": 6,
    "first_date": "2025-09-29",
    "last_date": "2025-11-03",
-   "warmup": "Mobility routine\n1 round, 8/10 reps each exercise:\nt-spine rotation with reach\nside lying rotation\nleg twist\nfloor seated trunk twist\ncat cow\ntall to half kneeling hip rotation\nhalf kneeling hip raise\nileopsoas dynamic stretch\nadductor dynamic stretch\ncalf release \nbanded ankle mobility",
+   "warmup": "Mobility routine\n1 round, 8/10 reps each exercise:\nT-spine rotation with reach\nSide lying rotation\nLeg twist\nFloor seated trunk twist\nCat cow\nTall to half kneeling hip rotation\nHalf kneeling hip raise\nIleopsoas dynamic stretch\nAdductor dynamic stretch\nCalf release \nBanded ankle mobility",
    "warmup_exercises": [
     "12503061",
     "11249387",
@@ -2280,7 +2280,7 @@ window.WORKOUTS = {
     {
      "letter": "A",
      "name": "Shoulder stability",
-     "info": "2 round\n8/side band internal rotation\n8/side band external rotation\n12 Floor db shoulder blade depression",
+     "info": "2 round\n8/side Band internal rotation\n8/side Band external rotation\n12 Floor DB shoulder blade depression",
      "is_circuit": true,
      "matched_by_name": false,
      "exercises": [
@@ -2292,7 +2292,7 @@ window.WORKOUTS = {
     {
      "letter": "B",
      "name": "Core stability",
-     "info": "2 rounds\n30\" Dynamic plank\n10/side Medball contralateral deadbug\n10 band bridge *3 SEC HOLD\nrest 1 min",
+     "info": "2 rounds\n30\" Dynamic plank\n10/side Medball contralateral deadbug\n10 Band bridge *3 SEC HOLD\nRest 1 min",
      "is_circuit": true,
      "matched_by_name": false,
      "exercises": [
@@ -2304,7 +2304,7 @@ window.WORKOUTS = {
     {
      "letter": "C",
      "name": "Floor press + Band half kneeling pull down",
-     "info": "3 rounds\n10/side floor press\n12 band half kneeling pull down \nrest 1 minute",
+     "info": "3 rounds\n10/side Floor press\n12 Band half kneeling pull down \nRest 1 minute",
      "is_circuit": true,
      "matched_by_name": false,
      "exercises": [
@@ -2315,7 +2315,7 @@ window.WORKOUTS = {
     {
      "letter": "D",
      "name": "Reverse lunge to high knee + Single leg deadlift",
-     "info": "3 rounds\n8/side Reverse lunge to high knee\n8/side Single leg deadlift\nrest 1 minute",
+     "info": "3 rounds\n8/side Reverse lunge to high knee\n8/side Single leg deadlift\nRest 1 minute",
      "is_circuit": true,
      "matched_by_name": false,
      "exercises": [
@@ -2325,8 +2325,8 @@ window.WORKOUTS = {
     },
     {
      "letter": "E",
-     "name": "DB Deadlift + Pulley",
-     "info": "3 rounds \n10 DB Deadlift\n10 Pulley\nrest 1 minute",
+     "name": "DB deadlift + Pulley",
+     "info": "3 rounds \n10 DB deadlift\n10 Pulley\nRest 1 minute",
      "is_circuit": true,
      "matched_by_name": false,
      "exercises": [
@@ -2355,7 +2355,7 @@ window.WORKOUTS = {
    "assigned_count": 6,
    "first_date": "2025-10-01",
    "last_date": "2025-11-05",
-   "warmup": "Mobility routine\n1 round, 8/10 reps each exercise:\nt-spine rotation with reach\nside lying rotation\nleg twist\nfloor seated trunk twist\ncat cow\ntall to half kneeling hip rotation\nhalf kneeling hip raise\nileopsoas dynamic stretch\nadductor dynamic stretch\ncalf release \nbanded ankle mobility",
+   "warmup": "Mobility routine\n1 round, 8/10 reps each exercise:\nT-spine rotation with reach\nSide lying rotation\nLeg twist\nFloor seated trunk twist\nCat cow\nTall to half kneeling hip rotation\nHalf kneeling hip raise\nIleopsoas dynamic stretch\nAdductor dynamic stretch\nCalf release \nBanded ankle mobility",
    "warmup_exercises": [
     "12503061",
     "11249387",
@@ -2375,7 +2375,7 @@ window.WORKOUTS = {
     {
      "letter": "A",
      "name": "Shoulder stability",
-     "info": "2 rounds\n8/side internal rotation\n8/side external rotation\n12 Floor db shoulder blade depression",
+     "info": "2 rounds\n8/side Internal rotation\n8/side External rotation\n12 Floor DB shoulder blade depression",
      "is_circuit": true,
      "matched_by_name": false,
      "exercises": [
@@ -2387,7 +2387,7 @@ window.WORKOUTS = {
     {
      "letter": "B",
      "name": "Core stability",
-     "info": "2 rounds\n20 Shoulder tap bear crawl\n10/side ipsilateral deadbug\n8/side Side bridge (3\" hold)\nrest 1 min",
+     "info": "2 rounds\n20 Shoulder tap bear crawl\n10/side Ipsilateral deadbug\n8/side Side bridge (3\" hold)\nRest 1 min",
      "is_circuit": true,
      "matched_by_name": false,
      "exercises": [
@@ -2398,8 +2398,8 @@ window.WORKOUTS = {
     },
     {
      "letter": "C",
-     "name": "BB Sumo deadlift + Pass simulation side lunges",
-     "info": "3 rounds\n10 BB Sumo deadlfit\n16 Pass simulation side lunges\nrest 1,5 minute",
+     "name": "BB sumo deadlift + Pass simulation side lunges",
+     "info": "3 rounds\n10 BB sumo deadlfit\n16 Pass simulation side lunges\nRest 1,5 minute",
      "is_circuit": true,
      "matched_by_name": false,
      "exercises": [
@@ -2409,8 +2409,8 @@ window.WORKOUTS = {
     },
     {
      "letter": "D",
-     "name": "DB Cross over + Rhomboids openings",
-     "info": "3 rounds\n10 db cross over \n10 rhomboids openings\nrest 1,5 minute",
+     "name": "DB cross over + Rhomboids openings",
+     "info": "3 rounds\n10 DB cross over \n10 Rhomboids openings\nRest 1,5 minute",
      "is_circuit": true,
      "matched_by_name": false,
      "exercises": [
@@ -2420,8 +2420,8 @@ window.WORKOUTS = {
     },
     {
      "letter": "E",
-     "name": "DB Walking lunges + DB Half kneeling shoulder press",
-     "info": "3 rounds\n16 DB Waking lunges\n8/side DB Half kneeling shoulder press\nrest 1,5 minute",
+     "name": "DB walking lunges + DB half kneeling shoulder press",
+     "info": "3 rounds\n16 DB waking lunges\n8/side DB half kneeling shoulder press\nRest 1,5 minute",
      "is_circuit": true,
      "matched_by_name": false,
      "exercises": [
@@ -2450,7 +2450,7 @@ window.WORKOUTS = {
    "assigned_count": 6,
    "first_date": "2025-11-10",
    "last_date": "2025-12-15",
-   "warmup": "Back routine mobility\n1 round, 8/10 reps each exercise:\nt-spine rotation with reach\nside lying rotation\nleg twist \nfloor seated trunk twist\ncat cow\nactive straight leg raise\nileopsoas dynamic stretch\nadductor dynamic stretch\nglute dynamic stretch",
+   "warmup": "Back routine mobility\n1 round, 8/10 reps each exercise:\nT-spine rotation with reach\nSide lying rotation\nLeg twist \nFloor seated trunk twist\nCat cow\nActive straight leg raise\nIleopsoas dynamic stretch\nAdductor dynamic stretch\nGlute dynamic stretch",
    "warmup_exercises": [
     "12503061",
     "11249387",
@@ -2468,7 +2468,7 @@ window.WORKOUTS = {
     {
      "letter": "A",
      "name": "Shoulder stability",
-     "info": "2 round\n8/side bear hug band internal rotation \n8/side bear hug band external rotation \n12 Floor db rhomboids openings",
+     "info": "2 round\n8/side Bear hug band internal rotation \n8/side Bear hug band external rotation \n12 Floor DB rhomboids openings",
      "is_circuit": true,
      "matched_by_name": false,
      "exercises": [
@@ -2480,7 +2480,7 @@ window.WORKOUTS = {
     {
      "letter": "B",
      "name": "Core stability",
-     "info": "3 rounds\n30\" Front to side plank\n20 core activation deadbug\n10/side single leg bridge \nno rest",
+     "info": "3 rounds\n30\" Front to side plank\n20 Core activation deadbug\n10/side Single leg bridge \nNo rest",
      "is_circuit": true,
      "matched_by_name": false,
      "exercises": [
@@ -2491,8 +2491,8 @@ window.WORKOUTS = {
     },
     {
      "letter": "C",
-     "name": "BB Bench press + DB Lower row",
-     "info": "3 rounds\n10 BB Bench press\n10/side DB Lower row\nrest 1,5 minute",
+     "name": "BB bench press + DB lower row",
+     "info": "3 rounds\n10 BB bench press\n10/side DB lower row\nRest 1,5 minute",
      "is_circuit": true,
      "matched_by_name": false,
      "exercises": [
@@ -2503,7 +2503,7 @@ window.WORKOUTS = {
     {
      "letter": "D",
      "name": "DB Cossack squat + Band lateral walk",
-     "info": "3 rounds\n16 DB Cossack squat\n12/side Band lateral walk\nrest 1,5 minute",
+     "info": "3 rounds\n16 DB Cossack squat\n12/side Band lateral walk\nRest 1,5 minute",
      "is_circuit": true,
      "matched_by_name": false,
      "exercises": [
@@ -2513,8 +2513,8 @@ window.WORKOUTS = {
     },
     {
      "letter": "E",
-     "name": "Single leg press + Band pallof press",
-     "info": "3 rounds \n10/side Single leg press\n10/side Band Pallof press\nrest 1,5 minute",
+     "name": "Single leg press + Band Pallof press",
+     "info": "3 rounds \n10/side Single leg press\n10/side Band Pallof press\nRest 1,5 minute",
      "is_circuit": true,
      "matched_by_name": false,
      "exercises": [
@@ -2525,7 +2525,7 @@ window.WORKOUTS = {
     {
      "letter": "F",
      "name": "Tabata: 20\" work - 10\" rest x 8 cycles",
-     "info": "2 in 2 out\nplank",
+     "info": "2 in 2 out\nPlank",
      "is_circuit": true,
      "matched_by_name": false,
      "exercises": [
@@ -2543,7 +2543,7 @@ window.WORKOUTS = {
    "assigned_count": 6,
    "first_date": "2025-11-12",
    "last_date": "2025-12-17",
-   "warmup": "Back routine mobility\n1 round, 8/10 reps each exercise:\nt-spine rotation with reach\nside lying rotation\nleg twist \nfloor seated trunk twist\ncat cow\nactive straight leg raise\nileopsoas dynamic stretch\nadductor dynamic stretch\nglute dynamic stretch",
+   "warmup": "Back routine mobility\n1 round, 8/10 reps each exercise:\nT-spine rotation with reach\nSide lying rotation\nLeg twist \nFloor seated trunk twist\nCat cow\nActive straight leg raise\nIleopsoas dynamic stretch\nAdductor dynamic stretch\nGlute dynamic stretch",
    "warmup_exercises": [
     "12503061",
     "11249387",
@@ -2561,7 +2561,7 @@ window.WORKOUTS = {
     {
      "letter": "A",
      "name": "Shoulder stability",
-     "info": "2 round\n8/side bear hug band internal rotation \n8/side bear hug band external rotation \n12 Floor db rhomboids openings",
+     "info": "2 round\n8/side Bear hug band internal rotation \n8/side Bear hug band external rotation \n12 Floor DB rhomboids openings",
      "is_circuit": true,
      "matched_by_name": false,
      "exercises": [
@@ -2584,8 +2584,8 @@ window.WORKOUTS = {
     },
     {
      "letter": "C",
-     "name": "BB Back squat + DB Step up",
-     "info": "3 rounds\n10 BB Back squat \n8/side DB Step up \nrest 1 minute",
+     "name": "BB back squat + DB step up",
+     "info": "3 rounds\n10 BB back squat \n8/side DB step up \nRest 1 minute",
      "is_circuit": true,
      "matched_by_name": false,
      "exercises": [
@@ -2595,8 +2595,8 @@ window.WORKOUTS = {
     },
     {
      "letter": "D",
-     "name": "TRX Push up + TRX Upper row",
-     "info": "3 rounds\n10 Trx push up\n10 trx upper row\nrest 1 minute",
+     "name": "TRX push up + TRX upper row",
+     "info": "3 rounds\n10 TRX push up\n10 TRX upper row\nRest 1 minute",
      "is_circuit": true,
      "matched_by_name": false,
      "exercises": [
@@ -2606,8 +2606,8 @@ window.WORKOUTS = {
     },
     {
      "letter": "E",
-     "name": "DB Walking lunges + Cable rope pull down",
-     "info": "3 rounds\n16 DB Walking lunges\n10 Cable rope pull down\nrest 1 minute",
+     "name": "DB walking lunges + Cable rope pull down",
+     "info": "3 rounds\n16 DB walking lunges\n10 Cable rope pull down\nRest 1 minute",
      "is_circuit": true,
      "matched_by_name": false,
      "exercises": [
@@ -2618,7 +2618,7 @@ window.WORKOUTS = {
     {
      "letter": "F",
      "name": "Tabata: 20\" work - 10\" rest x 8 cycles",
-     "info": "3 in 3 out\nside plank",
+     "info": "3 in 3 out\nSide plank",
      "is_circuit": true,
      "matched_by_name": false,
      "exercises": [
@@ -2636,7 +2636,7 @@ window.WORKOUTS = {
    "assigned_count": 6,
    "first_date": "2025-12-22",
    "last_date": "2026-01-26",
-   "warmup": "Back routine mobility\n1 round, 8/10 reps each exercise:\nt-spine rotation with reach\nside lying rotation\nleg twist \nfloor seated trunk twist\ncat cow\nactive straight leg raise\nileopsoas dynamic stretch\nadductor dynamic stretch\nglute dynamic stretch\nbw banded split squat",
+   "warmup": "Back routine mobility\n1 round, 8/10 reps each exercise:\nT-spine rotation with reach\nSide lying rotation\nLeg twist \nFloor seated trunk twist\nCat cow\nActive straight leg raise\nIleopsoas dynamic stretch\nAdductor dynamic stretch\nGlute dynamic stretch\nBw banded split squat",
    "warmup_exercises": [
     "12503061",
     "11249387",
@@ -2655,7 +2655,7 @@ window.WORKOUTS = {
     {
      "letter": "A",
      "name": "Shoulder stability",
-     "info": "2 round\n8/side high elbow band internal rotation \n8/side high elbow band external rotation \n12 Floor db rhomboids openings",
+     "info": "2 round\n8/side High elbow band internal rotation \n8/side High elbow band external rotation \n12 Floor DB rhomboids openings",
      "is_circuit": true,
      "matched_by_name": false,
      "exercises": [
@@ -2667,7 +2667,7 @@ window.WORKOUTS = {
     {
      "letter": "B",
      "name": "Core stability",
-     "info": "3 rounds\n20 Plank leg raise\n10/side DB Single arm deadbug \n10/side Leg raise side plank\nno rest",
+     "info": "3 rounds\n20 Plank leg raise\n10/side DB single arm deadbug \n10/side Leg raise side plank\nNo rest",
      "is_circuit": true,
      "matched_by_name": false,
      "exercises": [
@@ -2678,8 +2678,8 @@ window.WORKOUTS = {
     },
     {
      "letter": "C",
-     "name": "DB Bench press + TRX Lower row",
-     "info": "3 rounds\n10 DB Bench press\n10 trx lower row\nrest 1 minute",
+     "name": "DB bench press + TRX lower row",
+     "info": "3 rounds\n10 DB bench press\n10 TRX lower row\nRest 1 minute",
      "is_circuit": true,
      "matched_by_name": false,
      "exercises": [
@@ -2689,8 +2689,8 @@ window.WORKOUTS = {
     },
     {
      "letter": "D",
-     "name": "BB Rack deadlift + Pass simulation reverse lunges",
-     "info": "3 rounds\n10 BB rack Deadlift (3\" hold)\n16 Pass simultion Reverse lunges *CONTROL RODILLA\nrest 1 minute",
+     "name": "BB rack deadlift + Pass simulation reverse lunges",
+     "info": "3 rounds\n10 BB rack deadlift (3\" hold)\n16 Pass simultion reverse lunges *CONTROL RODILLA\nRest 1 minute",
      "is_circuit": true,
      "matched_by_name": false,
      "exercises": [
@@ -2700,8 +2700,8 @@ window.WORKOUTS = {
     },
     {
      "letter": "E",
-     "name": "DB Side lunges + Half kneeling high to low chop",
-     "info": "3 rounds \n16 DB Side lunges\n8/side Half kneeling high to low chop\nrest 1 minute",
+     "name": "DB side lunges + Half kneeling high to low chop",
+     "info": "3 rounds \n16 DB side lunges\n8/side Half kneeling high to low chop\nRest 1 minute",
      "is_circuit": true,
      "matched_by_name": false,
      "exercises": [
@@ -2711,8 +2711,8 @@ window.WORKOUTS = {
     },
     {
      "letter": "F",
-     "name": "Tabata: 20\" work - 10\" rest X 8 cycles",
-     "info": "obstacle run back and fourth\nplank shoulder tap",
+     "name": "Tabata: 20\" work - 10\" rest x 8 cycles",
+     "info": "Obstacle run back and fourth\nPlank shoulder tap",
      "is_circuit": true,
      "matched_by_name": false,
      "exercises": [
@@ -2730,7 +2730,7 @@ window.WORKOUTS = {
    "assigned_count": 6,
    "first_date": "2025-12-24",
    "last_date": "2026-01-28",
-   "warmup": "Back routine mobility\n1 round, 8/10 reps each exercise:\nt-spine rotation with reach\nside lying rotation\nleg twist \nfloor seated trunk twist\ncat cow\nactive straight leg raise\nileopsoas dynamic stretch\nadductor dynamic stretch\nglute dynamic stretch\nbw banded split squat",
+   "warmup": "Back routine mobility\n1 round, 8/10 reps each exercise:\nT-spine rotation with reach\nSide lying rotation\nLeg twist \nFloor seated trunk twist\nCat cow\nActive straight leg raise\nIleopsoas dynamic stretch\nAdductor dynamic stretch\nGlute dynamic stretch\nBw banded split squat",
    "warmup_exercises": [
     "12503061",
     "11249387",
@@ -2749,7 +2749,7 @@ window.WORKOUTS = {
     {
      "letter": "A",
      "name": "Shoulder stability",
-     "info": "2 round\n8/side high elbow band internal rotation \n8/side high elbow band external rotation \n12 Floor db rhomboids openings",
+     "info": "2 round\n8/side High elbow band internal rotation \n8/side High elbow band external rotation \n12 Floor DB rhomboids openings",
      "is_circuit": true,
      "matched_by_name": false,
      "exercises": [
@@ -2761,7 +2761,7 @@ window.WORKOUTS = {
     {
      "letter": "B",
      "name": "Core stability",
-     "info": "3 rounds\n10 sit up\n12 Leg/arm raise plank\n10/side lateral climbers",
+     "info": "3 rounds\n10 Sit up\n12 Leg/arm raise plank\n10/side Lateral climbers",
      "is_circuit": true,
      "matched_by_name": false,
      "exercises": [
@@ -2773,7 +2773,7 @@ window.WORKOUTS = {
     {
      "letter": "C",
      "name": "Multipower split squat + Pass simulation lunge forward",
-     "info": "3 rounds\n8/side Multipower split squat *RIR 3\n16 Pass simulation Lunge forward \nrest 1 minute",
+     "info": "3 rounds\n8/side Multipower split squat *RIR 3\n16 Pass simulation lunge forward \nRest 1 minute",
      "is_circuit": true,
      "matched_by_name": false,
      "exercises": [
@@ -2783,8 +2783,8 @@ window.WORKOUTS = {
     },
     {
      "letter": "D",
-     "name": "Row machine + supinated grip shoulder blade depression",
-     "info": "3 rounds\n10 Row machine\n10 supinated grip shoulder blade depression\nrest 1 minute",
+     "name": "Row machine + Supinated grip shoulder blade depression",
+     "info": "3 rounds\n10 Row machine\n10 Supinated grip shoulder blade depression\nRest 1 minute",
      "is_circuit": true,
      "matched_by_name": false,
      "exercises": [
@@ -2794,8 +2794,8 @@ window.WORKOUTS = {
     },
     {
      "letter": "E",
-     "name": "Hip trust + band standing pallof press",
-     "info": "3 rounds\n10 Hip trust *RIR 3\n8/side band standing pallof press\nrest 1 minute",
+     "name": "Hip trust + Band standing Pallof press",
+     "info": "3 rounds\n10 Hip trust *RIR 3\n8/side Band standing Pallof press\nRest 1 minute",
      "is_circuit": true,
      "matched_by_name": false,
      "exercises": [
@@ -2805,8 +2805,8 @@ window.WORKOUTS = {
     },
     {
      "letter": "F",
-     "name": "Tabata: 20\" work - 10\" rest X 8 cycles",
-     "info": "obstacle lateral run back and fourth\nside plank raises",
+     "name": "Tabata: 20\" work - 10\" rest x 8 cycles",
+     "info": "Obstacle lateral run back and fourth\nSide plank raises",
      "is_circuit": true,
      "matched_by_name": false,
      "exercises": [
@@ -2824,7 +2824,7 @@ window.WORKOUTS = {
    "assigned_count": 8,
    "first_date": "2026-02-02",
    "last_date": "2026-03-23",
-   "warmup": "Back routine mobility\n1 round, 8/10 reps each exercise:\nt-spine rotation with reach\nside lying rotation\nleg twist \nfloor seated trunk twist\ncat cow\nactive straight leg raise\nileopsoas dynamic stretch\nadductor dynamic stretch\nglute dynamic stretch\nbw squat",
+   "warmup": "Back routine mobility\n1 round, 8/10 reps each exercise:\nT-spine rotation with reach\nSide lying rotation\nLeg twist \nFloor seated trunk twist\nCat cow\nActive straight leg raise\nIleopsoas dynamic stretch\nAdductor dynamic stretch\nGlute dynamic stretch\nBw squat",
    "warmup_exercises": [
     "12503061",
     "11249387",
@@ -2843,7 +2843,7 @@ window.WORKOUTS = {
     {
      "letter": "A",
      "name": "Rotator cuff",
-     "info": "2 rounds\n8/side band internal rotation \n8/side band external rotation",
+     "info": "2 rounds\n8/side Band internal rotation \n8/side Band external rotation",
      "is_circuit": true,
      "matched_by_name": false,
      "exercises": [
@@ -2854,7 +2854,7 @@ window.WORKOUTS = {
     {
      "letter": "B",
      "name": "Core stability",
-     "info": "3 rounds\n30\" Hollow body flutter kicks\n20 Elbows lateral climbers\n20 plank shoulder tap",
+     "info": "3 rounds\n30\" Hollow body flutter kicks\n20 Elbows lateral climbers\n20 Plank shoulder tap",
      "is_circuit": true,
      "matched_by_name": false,
      "exercises": [
@@ -2865,8 +2865,8 @@ window.WORKOUTS = {
     },
     {
      "letter": "C",
-     "name": "BB Bench press",
-     "info": "3 sets of 10-8-6\nrest 2 minute",
+     "name": "BB bench press",
+     "info": "3 sets of 10-8-6\nRest 2 minute",
      "is_circuit": false,
      "matched_by_name": true,
      "exercises": [
@@ -2875,8 +2875,8 @@ window.WORKOUTS = {
     },
     {
      "letter": "D",
-     "name": "DB Incline Bench Press",
-     "info": "3 sets of 10-8-6\nrest 2 minute",
+     "name": "DB incline bench press",
+     "info": "3 sets of 10-8-6\nRest 2 minute",
      "is_circuit": false,
      "matched_by_name": true,
      "exercises": [
@@ -2885,8 +2885,8 @@ window.WORKOUTS = {
     },
     {
      "letter": "E",
-     "name": "Band tall kneeling pull down + standing bb shoulder blade depression",
-     "info": "3 rounds:\n10 band tall kneeling pull down\n10 standing bb shoulder blade depression\nrest 1,5 min",
+     "name": "Band tall kneeling pull down + Standing BB shoulder blade depression",
+     "info": "3 rounds:\n10 Band tall kneeling pull down\n10 Standing BB shoulder blade depression\nRest 1,5 min",
      "is_circuit": true,
      "matched_by_name": false,
      "exercises": [
@@ -2896,8 +2896,8 @@ window.WORKOUTS = {
     },
     {
      "letter": "F",
-     "name": "row machine",
-     "info": "3 sets of 10-8-6\nrest 2 minute",
+     "name": "Row machine",
+     "info": "3 sets of 10-8-6\nRest 2 minute",
      "is_circuit": false,
      "matched_by_name": true,
      "exercises": [
@@ -2906,8 +2906,8 @@ window.WORKOUTS = {
     },
     {
      "letter": "G",
-     "name": "cable rope pull down",
-     "info": "3 sets of 10-8-6\nrest 1 minute",
+     "name": "Cable rope pull down",
+     "info": "3 sets of 10-8-6\nRest 1 minute",
      "is_circuit": false,
      "matched_by_name": true,
      "exercises": [
@@ -2924,7 +2924,7 @@ window.WORKOUTS = {
    "assigned_count": 8,
    "first_date": "2026-02-04",
    "last_date": "2026-03-25",
-   "warmup": "Back routine mobility\n1 round, 8/10 reps each exercise:\nt-spine rotation with reach\nside lying rotation\nleg twist \nfloor seated trunk twist\ncat cow\nactive straight leg raise\nileopsoas dynamic stretch\nadductor dynamic stretch\nglute dynamic stretch\nbw squat",
+   "warmup": "Back routine mobility\n1 round, 8/10 reps each exercise:\nT-spine rotation with reach\nSide lying rotation\nLeg twist \nFloor seated trunk twist\nCat cow\nActive straight leg raise\nIleopsoas dynamic stretch\nAdductor dynamic stretch\nGlute dynamic stretch\nBw squat",
    "warmup_exercises": [
     "12503061",
     "11249387",
@@ -2943,7 +2943,7 @@ window.WORKOUTS = {
     {
      "letter": "A",
      "name": "Rotator cuff",
-     "info": "2 round\n8/side band internal rotation \n8/side band external rotation",
+     "info": "2 round\n8/side Band internal rotation \n8/side Band external rotation",
      "is_circuit": true,
      "matched_by_name": false,
      "exercises": [
@@ -2954,7 +2954,7 @@ window.WORKOUTS = {
     {
      "letter": "B",
      "name": "Core stabiliy",
-     "info": "3 rounds\n30\" Bent hollow flutter kicks\n20 Cross body mountain climbers\n20 plank shoulder tap\nno rest",
+     "info": "3 rounds\n30\" Bent hollow flutter kicks\n20 Cross body mountain climbers\n20 Plank shoulder tap\nNo rest",
      "is_circuit": true,
      "matched_by_name": false,
      "exercises": [
@@ -2965,8 +2965,8 @@ window.WORKOUTS = {
     },
     {
      "letter": "C",
-     "name": "db knee banded split squat",
-     "info": "3 sets of 8/side\nrest 1,5 minute",
+     "name": "DB knee banded split squat",
+     "info": "3 sets of 8/side\nRest 1,5 minute",
      "is_circuit": false,
      "matched_by_name": true,
      "exercises": [
@@ -2975,8 +2975,8 @@ window.WORKOUTS = {
     },
     {
      "letter": "D",
-     "name": "multipower hip trust",
-     "info": "3 sets of 8-6-6\nrest 2 minute",
+     "name": "Multipower hip trust",
+     "info": "3 sets of 8-6-6\nRest 2 minute",
      "is_circuit": false,
      "matched_by_name": true,
      "exercises": [
@@ -2985,8 +2985,8 @@ window.WORKOUTS = {
     },
     {
      "letter": "E",
-     "name": "BB Squat + DB Standing lateral raises",
-     "info": "3 rounds:\n8-6-6 BB Squat\n10 db standing lateral raises\nrest 2 min",
+     "name": "BB squat + DB standing lateral raises",
+     "info": "3 rounds:\n8-6-6 BB squat\n10 DB standing lateral raises\nRest 2 min",
      "is_circuit": true,
      "matched_by_name": false,
      "exercises": [
@@ -2996,8 +2996,8 @@ window.WORKOUTS = {
     },
     {
      "letter": "F",
-     "name": "trx shoulder depression and row",
-     "info": "3 sets of 10\nrest 1,5 minute",
+     "name": "TRX shoulder depression and row",
+     "info": "3 sets of 10\nRest 1,5 minute",
      "is_circuit": false,
      "matched_by_name": true,
      "exercises": [
@@ -3006,8 +3006,8 @@ window.WORKOUTS = {
     },
     {
      "letter": "G",
-     "name": "trx single arm row",
-     "info": "3 sets of 8/side\nrest 1,5 minute",
+     "name": "TRX single arm row",
+     "info": "3 sets of 8/side\nRest 1,5 minute",
      "is_circuit": false,
      "matched_by_name": true,
      "exercises": [
@@ -3024,7 +3024,7 @@ window.WORKOUTS = {
    "assigned_count": 6,
    "first_date": "2026-03-30",
    "last_date": "2026-05-04",
-   "warmup": "Back routine mobility\n1 round, 8/10 reps each exercise:\nt-spine rotation with reach\nside lying rotation\nleg twist \nfloor seated trunk twist\ncat cow\nactive straight leg raise\nileopsoas dynamic stretch\nadductor dynamic stretch\nglute dynamic stretch",
+   "warmup": "Back routine mobility\n1 round, 8/10 reps each exercise:\nT-spine rotation with reach\nSide lying rotation\nLeg twist \nFloor seated trunk twist\nCat cow\nActive straight leg raise\nIleopsoas dynamic stretch\nAdductor dynamic stretch\nGlute dynamic stretch",
    "warmup_exercises": [
     "12503061",
     "11249387",
@@ -3043,7 +3043,7 @@ window.WORKOUTS = {
     {
      "letter": "A",
      "name": "Rotator cuff",
-     "info": "2 rounds\n8/side DB external rotation \n8 miniband press (lento)",
+     "info": "2 rounds\n8/side DB external rotation \n8 Miniband press (lento)",
      "is_circuit": true,
      "matched_by_name": false,
      "exercises": [
@@ -3054,7 +3054,7 @@ window.WORKOUTS = {
     {
      "letter": "B",
      "name": "Core stability",
-     "info": "3 rounds\n30\" Fitball plank \n20 Modified tuck up\n10/side single arm KB Swing",
+     "info": "3 rounds\n30\" Fitball plank \n20 Modified tuck up\n10/side Single arm KB swing",
      "is_circuit": true,
      "matched_by_name": false,
      "exercises": [
@@ -3065,8 +3065,8 @@ window.WORKOUTS = {
     },
     {
      "letter": "C",
-     "name": "BB Bench press",
-     "info": "3 sets of 8-6-6\nrest 2 min",
+     "name": "BB bench press",
+     "info": "3 sets of 8-6-6\nRest 2 min",
      "is_circuit": false,
      "matched_by_name": true,
      "exercises": [
@@ -3075,8 +3075,8 @@ window.WORKOUTS = {
     },
     {
      "letter": "D",
-     "name": "single arm floor press",
-     "info": "3 sets of 10-8-6/side *RIR 2\nrest 1,5 minute",
+     "name": "Single arm floor press",
+     "info": "3 sets of 10-8-6/side *RIR 2\nRest 1,5 minute",
      "is_circuit": false,
      "matched_by_name": true,
      "exercises": [
@@ -3085,8 +3085,8 @@ window.WORKOUTS = {
     },
     {
      "letter": "E",
-     "name": "DB Bench cross over + DB Bench rhomboids openings",
-     "info": "3 rounds:\n8 db bench cross over *RIR 1\n12 db bench rhomboids openings\nrest 1,5 min",
+     "name": "DB bench cross over + DB bench rhomboids openings",
+     "info": "3 rounds:\n8 DB bench cross over *RIR 1\n12 DB bench rhomboids openings\nRest 1,5 min",
      "is_circuit": true,
      "matched_by_name": false,
      "exercises": [
@@ -3097,7 +3097,7 @@ window.WORKOUTS = {
     {
      "letter": "F",
      "name": "Chin up",
-     "info": "3 sets *MAX REPS - RIR 0 \nrest 1,5 minute",
+     "info": "3 sets *MAX REPS - RIR 0 \nRest 1,5 minute",
      "is_circuit": false,
      "matched_by_name": true,
      "exercises": [
@@ -3107,7 +3107,7 @@ window.WORKOUTS = {
     {
      "letter": "G",
      "name": "DB bench lower row",
-     "info": "3 sets of 10-8-6/side *RIR 1\nrest 1,5 minute",
+     "info": "3 sets of 10-8-6/side *RIR 1\nRest 1,5 minute",
      "is_circuit": false,
      "matched_by_name": true,
      "exercises": [
@@ -3124,7 +3124,7 @@ window.WORKOUTS = {
    "assigned_count": 6,
    "first_date": "2026-04-01",
    "last_date": "2026-05-06",
-   "warmup": "Back routine mobility\n1 round, 8/10 reps each exercise:\nt-spine rotation with reach\nside lying rotation\nleg twist \nfloor seated trunk twist\ncat cow\nactive straight leg raise\nileopsoas dynamic stretch\nadductor dynamic stretch\nglute dynamic stretch",
+   "warmup": "Back routine mobility\n1 round, 8/10 reps each exercise:\nT-spine rotation with reach\nSide lying rotation\nLeg twist \nFloor seated trunk twist\nCat cow\nActive straight leg raise\nIleopsoas dynamic stretch\nAdductor dynamic stretch\nGlute dynamic stretch",
    "warmup_exercises": [
     "12503061",
     "11249387",
@@ -3143,7 +3143,7 @@ window.WORKOUTS = {
     {
      "letter": "A",
      "name": "Rotator cuff",
-     "info": "2 rounds\n8/side DB external rotation \n8 miniband press (lento)",
+     "info": "2 rounds\n8/side DB external rotation \n8 Miniband press (lento)",
      "is_circuit": true,
      "matched_by_name": false,
      "exercises": [
@@ -3154,7 +3154,7 @@ window.WORKOUTS = {
     {
      "letter": "B",
      "name": "Core stability",
-     "info": "3 rounds\n30\" Fitball crunch\n20 Cross wallet\n10/side Single arm KB swing\nno rest",
+     "info": "3 rounds\n30\" Fitball crunch\n20 Cross wallet\n10/side Single arm KB swing\nNo rest",
      "is_circuit": true,
      "matched_by_name": false,
      "exercises": [
@@ -3165,8 +3165,8 @@ window.WORKOUTS = {
     },
     {
      "letter": "C",
-     "name": "BB Back squat with miniband",
-     "info": "3 sets of 8 \nrest 1,5 minute",
+     "name": "BB back squat with miniband",
+     "info": "3 sets of 8 \nRest 1,5 minute",
      "is_circuit": false,
      "matched_by_name": true,
      "exercises": [
@@ -3175,8 +3175,8 @@ window.WORKOUTS = {
     },
     {
      "letter": "D",
-     "name": "bb reverse lunge",
-     "info": "3 sets of 6/side\nrest 1,5 minute",
+     "name": "BB reverse lunge",
+     "info": "3 sets of 6/side\nRest 1,5 minute",
      "is_circuit": false,
      "matched_by_name": true,
      "exercises": [
@@ -3185,8 +3185,8 @@ window.WORKOUTS = {
     },
     {
      "letter": "E",
-     "name": "KB Cross Side lunges + Trx shoulder openings",
-     "info": "3 rounds:\n8/side kb cross side lunges\n10 trx shoulders openings\nrest 1,5 min",
+     "name": "KB cross side lunges + TRX shoulder openings",
+     "info": "3 rounds:\n8/side KB cross side lunges\n10 TRX shoulders openings\nRest 1,5 min",
      "is_circuit": true,
      "matched_by_name": false,
      "exercises": [
@@ -3196,8 +3196,8 @@ window.WORKOUTS = {
     },
     {
      "letter": "F",
-     "name": "half kneeling db shoulder press",
-     "info": "3 sets of 8/side\nrest 1,5 minute",
+     "name": "Half kneeling DB shoulder press",
+     "info": "3 sets of 8/side\nRest 1,5 minute",
      "is_circuit": false,
      "matched_by_name": true,
      "exercises": [
@@ -3206,8 +3206,8 @@ window.WORKOUTS = {
     },
     {
      "letter": "G",
-     "name": "supinated grip shoulder blade depression",
-     "info": "3 sets of 10\nrest 1,5 minute",
+     "name": "Supinated grip shoulder blade depression",
+     "info": "3 sets of 10\nRest 1,5 minute",
      "is_circuit": false,
      "matched_by_name": true,
      "exercises": [
@@ -3224,7 +3224,7 @@ window.WORKOUTS = {
    "assigned_count": 6,
    "first_date": "2026-05-11",
    "last_date": "2026-06-15",
-   "warmup": "Back routine mobility\n1 round, 8/10 reps each exercise:\nt-spine rotation with reach\nside lying rotation\nleg twist \nfloor seated trunk twist\ncat cow\nactive straight leg raise\nileopsoas dynamic stretch\nadductor dynamic stretch\nglute dynamic stretch",
+   "warmup": "Back routine mobility\n1 round, 8/10 reps each exercise:\nT-spine rotation with reach\nSide lying rotation\nLeg twist \nFloor seated trunk twist\nCat cow\nActive straight leg raise\nIleopsoas dynamic stretch\nAdductor dynamic stretch\nGlute dynamic stretch",
    "warmup_exercises": [
     "12503061",
     "11249387",
@@ -3243,7 +3243,7 @@ window.WORKOUTS = {
     {
      "letter": "A",
      "name": "Rotator cuff",
-     "info": "2 rounds\n8/side miniband external rotation\n8 foam roller db internal rotation",
+     "info": "2 rounds\n8/side Miniband external rotation\n8 Foam roller DB internal rotation",
      "is_circuit": true,
      "matched_by_name": false,
      "exercises": [
@@ -3254,7 +3254,7 @@ window.WORKOUTS = {
     {
      "letter": "B",
      "name": "Core stability",
-     "info": "3 rounds\n10 Hands to elbows plank \n12 Band tall kneeling shoulder press\n12 trx wallet crunch",
+     "info": "3 rounds\n10 Hands to elbows plank \n12 Band tall kneeling shoulder press\n12 TRX wallet crunch",
      "is_circuit": true,
      "matched_by_name": false,
      "exercises": [
@@ -3265,8 +3265,8 @@ window.WORKOUTS = {
     },
     {
      "letter": "C",
-     "name": "BB Bench press",
-     "info": "3 sets of 6 *RIR 1\nrest 1,5 minute",
+     "name": "BB bench press",
+     "info": "3 sets of 6 *RIR 1\nRest 1,5 minute",
      "is_circuit": false,
      "matched_by_name": true,
      "exercises": [
@@ -3275,8 +3275,8 @@ window.WORKOUTS = {
     },
     {
      "letter": "D",
-     "name": "single arm floor press",
-     "info": "3 sets of 6/side\nrest 1,5 minute",
+     "name": "Single arm floor press",
+     "info": "3 sets of 6/side\nRest 1,5 minute",
      "is_circuit": false,
      "matched_by_name": true,
      "exercises": [
@@ -3286,7 +3286,7 @@ window.WORKOUTS = {
     {
      "letter": "E",
      "name": "Australian pull up + Push up",
-     "info": "3 rounds:\n12 Australian pull up\nMax reps full range push up *RIR 0\nrest 1,5 min",
+     "info": "3 rounds:\n12 Australian pull up\nMax reps full range push up *RIR 0\nRest 1,5 min",
      "is_circuit": true,
      "matched_by_name": false,
      "exercises": [
@@ -3297,7 +3297,7 @@ window.WORKOUTS = {
     {
      "letter": "F",
      "name": "Pull up",
-     "info": "3 sets of MAX \nrest 2 minute",
+     "info": "3 sets of MAX \nRest 2 minute",
      "is_circuit": false,
      "matched_by_name": true,
      "exercises": [
@@ -3307,7 +3307,7 @@ window.WORKOUTS = {
     {
      "letter": "G",
      "name": "DB bench lower row",
-     "info": "3 sets of 6/side *RIR 1\nrest 1,5 minute",
+     "info": "3 sets of 6/side *RIR 1\nRest 1,5 minute",
      "is_circuit": false,
      "matched_by_name": true,
      "exercises": [
@@ -3324,7 +3324,7 @@ window.WORKOUTS = {
    "assigned_count": 6,
    "first_date": "2026-05-13",
    "last_date": "2026-06-17",
-   "warmup": "Back routine mobility\n1 round, 8/10 reps each exercise:\nt-spine rotation with reach\nside lying rotation\nleg twist \nfloor seated trunk twist\ncat cow\nactive straight leg raise\nileopsoas dynamic stretch\nadductor dynamic stretch\nglute dynamic stretch",
+   "warmup": "Back routine mobility\n1 round, 8/10 reps each exercise:\nT-spine rotation with reach\nSide lying rotation\nLeg twist \nFloor seated trunk twist\nCat cow\nActive straight leg raise\nIleopsoas dynamic stretch\nAdductor dynamic stretch\nGlute dynamic stretch",
    "warmup_exercises": [
     "12503061",
     "11249387",
@@ -3343,7 +3343,7 @@ window.WORKOUTS = {
     {
      "letter": "A",
      "name": "Rotator cuff",
-     "info": "2 rounds\n8/side miniband external rotation\n8 foam roller db internal rotation",
+     "info": "2 rounds\n8/side Miniband external rotation\n8 Foam roller DB internal rotation",
      "is_circuit": true,
      "matched_by_name": false,
      "exercises": [
@@ -3354,7 +3354,7 @@ window.WORKOUTS = {
     {
      "letter": "B",
      "name": "Core stabiliy",
-     "info": "3 rounds\n30\"/side DB Side plank\n12 Band twist\n10/side Half kneeling DB Chop",
+     "info": "3 rounds\n30\"/side DB side plank\n12 Band twist\n10/side Half kneeling DB chop",
      "is_circuit": true,
      "matched_by_name": false,
      "exercises": [
@@ -3366,7 +3366,7 @@ window.WORKOUTS = {
     {
      "letter": "C",
      "name": "DB Bulgarian squat",
-     "info": "3/4 sets of 6/side\nrest 1,5 minute",
+     "info": "3/4 sets of 6/side\nRest 1,5 minute",
      "is_circuit": false,
      "matched_by_name": true,
      "exercises": [
@@ -3375,8 +3375,8 @@ window.WORKOUTS = {
     },
     {
      "letter": "D",
-     "name": "heels elevated back squat",
-     "info": "3 sets of 6 reps\nrest 1 minute",
+     "name": "Heels elevated back squat",
+     "info": "3 sets of 6 reps\nRest 1 minute",
      "is_circuit": false,
      "matched_by_name": true,
      "exercises": [
@@ -3385,8 +3385,8 @@ window.WORKOUTS = {
     },
     {
      "letter": "E",
-     "name": "BB Rack deadlift + DB Lateral raises",
-     "info": "3 rounds:\n10 BB Rack deadlift\n10 db lateral raises\nrest 1,5 min",
+     "name": "BB rack deadlift + DB lateral raises",
+     "info": "3 rounds:\n10 BB rack deadlift\n10 DB lateral raises\nRest 1,5 min",
      "is_circuit": true,
      "matched_by_name": false,
      "exercises": [
@@ -3397,7 +3397,7 @@ window.WORKOUTS = {
     {
      "letter": "F",
      "name": "BB shoulder press",
-     "info": "3 sets of 6 *RIR 1\nrest 2 minute",
+     "info": "3 sets of 6 *RIR 1\nRest 2 minute",
      "is_circuit": false,
      "matched_by_name": true,
      "exercises": [
@@ -3406,8 +3406,8 @@ window.WORKOUTS = {
     },
     {
      "letter": "G",
-     "name": "half kneeling db shoulder press",
-     "info": "3 sets of 6/side *RIR 1\nrest 1,5 minute",
+     "name": "Half kneeling DB shoulder press",
+     "info": "3 sets of 6/side *RIR 1\nRest 1,5 minute",
      "is_circuit": false,
      "matched_by_name": true,
      "exercises": [
@@ -3424,7 +3424,7 @@ window.WORKOUTS = {
    "assigned_count": 6,
    "first_date": "2026-06-22",
    "last_date": "2026-07-27",
-   "warmup": "Back routine mobility\n1 round, 8/10 reps each exercise:\nt-spine rotation with reach\nside lying rotation\nleg twist \nfloor seated trunk twist\ncat cow\nactive straight leg raise\nileopsoas dynamic stretch\nadductor dynamic stretch\nglute dynamic stretch",
+   "warmup": "Back routine mobility\n1 round, 8/10 reps each exercise:\nT-spine rotation with reach\nSide lying rotation\nLeg twist \nFloor seated trunk twist\nCat cow\nActive straight leg raise\nIleopsoas dynamic stretch\nAdductor dynamic stretch\nGlute dynamic stretch",
    "warmup_exercises": [
     "12503061",
     "11249387",
@@ -3445,7 +3445,7 @@ window.WORKOUTS = {
     {
      "letter": "A",
      "name": "Rotator cuff",
-     "info": "2 rounds\n10/side bear hug band internal rotation\n10/side bear hug band external rotation",
+     "info": "2 rounds\n10/side Bear hug band internal rotation\n10/side Bear hug band external rotation",
      "is_circuit": true,
      "matched_by_name": false,
      "exercises": [
@@ -3456,7 +3456,7 @@ window.WORKOUTS = {
     {
      "letter": "B",
      "name": "Core stability",
-     "info": "3 rounds:\n8/side TK windmill press\n12/side Split stance plate twist\n20 scissor crunch\nrest as little as possible",
+     "info": "3 rounds:\n8/side TK windmill press\n12/side Split stance plate twist\n20 Scissor crunch\nRest as little as possible",
      "is_circuit": true,
      "matched_by_name": false,
      "exercises": [
@@ -3467,8 +3467,8 @@ window.WORKOUTS = {
     },
     {
      "letter": "C",
-     "name": "BB Deadlift + DB Swing",
-     "info": "4 rounds:\n5 BB Deadlift *RIR 1\n10 DB Swing *controlado en bajada, pero subida rápida\nrest 1,5 minutes",
+     "name": "BB deadlift + DB swing",
+     "info": "4 rounds:\n5 BB deadlift *RIR 1\n10 DB swing *Controlado en bajada, pero subida rápida\nRest 1,5 minutes",
      "is_circuit": true,
      "matched_by_name": false,
      "exercises": [
@@ -3478,8 +3478,8 @@ window.WORKOUTS = {
     },
     {
      "letter": "D",
-     "name": "BB Bench press + Plyo push up",
-     "info": "4 rounds:\n5 BB Bench press *RIR 1\n10 Plyo push up *EXPLOSIVO\nrest 1,5 minutes",
+     "name": "BB bench press + Plyo push up",
+     "info": "4 rounds:\n5 BB bench press *RIR 1\n10 Plyo push up *EXPLOSIVO\nRest 1,5 minutes",
      "is_circuit": true,
      "matched_by_name": false,
      "exercises": [
@@ -3490,8 +3490,8 @@ window.WORKOUTS = {
     },
     {
      "letter": "E",
-     "name": "DB Lunge forward + Split jump",
-     "info": "4 rounds:\n6/side lunge forward *RIR 2\n12 split jump *EXPLOSIVO\nrest 1,5 minutes",
+     "name": "DB lunge forward + Split jump",
+     "info": "4 rounds:\n6/side Lunge forward *RIR 2\n12 Split jump *EXPLOSIVO\nRest 1,5 minutes",
      "is_circuit": true,
      "matched_by_name": false,
      "exercises": [
@@ -3501,8 +3501,8 @@ window.WORKOUTS = {
     },
     {
      "letter": "F",
-     "name": "DB Pull over + Half kneeling band pull down",
-     "info": "4 rounds:\n6 DB pull over *RIR 1\n6/side half kneeling band pull down *RIR 3\nrest 1,5 minutes",
+     "name": "DB pull over + Half kneeling band pull down",
+     "info": "4 rounds:\n6 DB pull over *RIR 1\n6/side Half kneeling band pull down *RIR 3\nRest 1,5 minutes",
      "is_circuit": true,
      "matched_by_name": false,
      "exercises": [
@@ -3520,7 +3520,7 @@ window.WORKOUTS = {
    "assigned_count": 6,
    "first_date": "2026-06-24",
    "last_date": "2026-07-29",
-   "warmup": "Back routine mobility\n1 round, 8/10 reps each exercise:\nt-spine rotation with reach\nside lying rotation\nleg twist \nfloor seated trunk twist\ncat cow\nactive straight leg raise\nileopsoas dynamic stretch\nadductor dynamic stretch\nglute dynamic stretch",
+   "warmup": "Back routine mobility\n1 round, 8/10 reps each exercise:\nT-spine rotation with reach\nSide lying rotation\nLeg twist \nFloor seated trunk twist\nCat cow\nActive straight leg raise\nIleopsoas dynamic stretch\nAdductor dynamic stretch\nGlute dynamic stretch",
    "warmup_exercises": [
     "12503061",
     "11249387",
@@ -3538,7 +3538,7 @@ window.WORKOUTS = {
     {
      "letter": "A",
      "name": "Core stability",
-     "info": "3 rounds:\n30\" Isometric dead bug\n10/side Half kneeling KB chop (push pull)\n16 standing plate twist\nrest as ittle as possible",
+     "info": "3 rounds:\n30\" Isometric dead bug\n10/side Half kneeling KB chop (push pull)\n16 Standing plate twist\nRest as ittle as possible",
      "is_circuit": true,
      "matched_by_name": false,
      "exercises": [
@@ -3549,8 +3549,8 @@ window.WORKOUTS = {
     },
     {
      "letter": "B",
-     "name": "BB Back squat *TAP THE BENCH + No arms consecutive squat jumps",
-     "info": "4 rounds:\n5 BB Back squat *TAP THE BENCH RIR 3\n8 No arms consecutive squat jumps *EXPLOSIVO\nrest 1,5 minutes",
+     "name": "BB back squat *TAP THE BENCH + No arms consecutive squat jumps",
+     "info": "4 rounds:\n5 BB back squat *TAP THE BENCH RIR 3\n8 No arms consecutive squat jumps *EXPLOSIVO\nRest 1,5 minutes",
      "is_circuit": true,
      "matched_by_name": false,
      "exercises": [
@@ -3560,8 +3560,8 @@ window.WORKOUTS = {
     },
     {
      "letter": "C",
-     "name": "DB Half kneeling shoulder press + BB Push press",
-     "info": "4 rounds:\n5/side DB half kneeling shoulder press *control bajada, subida fuerte\n6 BB push press *RIR 3\nrest 1,5 minutes",
+     "name": "DB half kneeling shoulder press + BB push press",
+     "info": "4 rounds:\n5/side DB half kneeling shoulder press *Control bajada, subida fuerte\n6 BB push press *RIR 3\nRest 1,5 minutes",
      "is_circuit": true,
      "matched_by_name": false,
      "exercises": [
@@ -3572,7 +3572,7 @@ window.WORKOUTS = {
     {
      "letter": "D",
      "name": "Landmine side lunge + Single leg alternating lateral jump",
-     "info": "4 rounds:\n10 landmine side lunge *CONTROL\n12 single leg alternating lateral jump\nrest 1,5 minutes",
+     "info": "4 rounds:\n10 Landmine side lunge *CONTROL\n12 Single leg alternating lateral jump\nRest 1,5 minutes",
      "is_circuit": true,
      "matched_by_name": false,
      "exercises": [
@@ -3582,8 +3582,8 @@ window.WORKOUTS = {
     },
     {
      "letter": "E",
-     "name": "Trx upper row + Single arm pulley",
-     "info": "4 rounds:\n12 Trx upper row *EXPLOSIVO\n6/side single arm pulley *RIR 3\nrest 1,5 minutes",
+     "name": "TRX upper row + Single arm pulley",
+     "info": "4 rounds:\n12 TRX upper row *EXPLOSIVO\n6/side Single arm pulley *RIR 3\nRest 1,5 minutes",
      "is_circuit": true,
      "matched_by_name": false,
      "exercises": [
@@ -3601,7 +3601,7 @@ window.WORKOUTS = {
    "assigned_count": 6,
    "first_date": "2026-08-03",
    "last_date": "2026-09-07",
-   "warmup": "Back routine mobility\n1 round, 8/10 reps each exercise:\nt-spine rotation with reach\nside lying rotation\nleg twist \nfloor seated trunk twist\ncat cow\nactive straight leg raise\nileopsoas dynamic stretch\nadductor dynamic stretch\nglute dynamic stretch",
+   "warmup": "Back routine mobility\n1 round, 8/10 reps each exercise:\nT-spine rotation with reach\nSide lying rotation\nLeg twist \nFloor seated trunk twist\nCat cow\nActive straight leg raise\nIleopsoas dynamic stretch\nAdductor dynamic stretch\nGlute dynamic stretch",
    "warmup_exercises": [
     "12503061",
     "11249387",
@@ -3619,7 +3619,7 @@ window.WORKOUTS = {
     {
      "letter": "A",
      "name": "Rotator cuff",
-     "info": "2 rounds\n10/side high elbow band internal rotation\n10/side high elbow band external rotation",
+     "info": "2 rounds\n10/side High elbow band internal rotation\n10/side High elbow band external rotation",
      "is_circuit": true,
      "matched_by_name": false,
      "exercises": [
@@ -3630,7 +3630,7 @@ window.WORKOUTS = {
     {
      "letter": "B",
      "name": "Core stability",
-     "info": "3 rounds:\n12 tall kneeling plate half moon\n8/side L-sit shoulder press rotation\n20 Plank twist\nrest as little as possible",
+     "info": "3 rounds:\n12 Tall kneeling plate half moon\n8/side L-sit shoulder press rotation\n20 Plank twist\nRest as little as possible",
      "is_circuit": true,
      "matched_by_name": false,
      "exercises": [
@@ -3641,8 +3641,8 @@ window.WORKOUTS = {
     },
     {
      "letter": "C",
-     "name": "BB Reverse lunge + High knees switches",
-     "info": "4 rounds:\n5/side BB Reverse lunges *control\n8/side high knees switches\nrest 1,5 minutes",
+     "name": "BB reverse lunge + High knees switches",
+     "info": "4 rounds:\n5/side BB reverse lunges *Control\n8/side High knees switches\nRest 1,5 minutes",
      "is_circuit": true,
      "matched_by_name": false,
      "exercises": [
@@ -3652,8 +3652,8 @@ window.WORKOUTS = {
     },
     {
      "letter": "D",
-     "name": "DB Incline bench press + Full range push up",
-     "info": "4 rounds:\n5 DB incline Bench press *RIR 1\n8 full range push up (explosive)\nrest 1,5 minutes",
+     "name": "DB incline bench press + Full range push up",
+     "info": "4 rounds:\n5 DB incline bench press *RIR 1\n8 Full range push up (explosive)\nRest 1,5 minutes",
      "is_circuit": true,
      "matched_by_name": false,
      "exercises": [
@@ -3663,8 +3663,8 @@ window.WORKOUTS = {
     },
     {
      "letter": "E",
-     "name": "DB Deadlift + Plyo lateral jump",
-     "info": "4 rounds:\n6 DB deadift *RIR 1\n10/side plyo lateral jump\nrest 1,5 minutes",
+     "name": "DB deadlift + Plyo lateral jump",
+     "info": "4 rounds:\n6 DB deadift *RIR 1\n10/side Plyo lateral jump\nRest 1,5 minutes",
      "is_circuit": true,
      "matched_by_name": false,
      "exercises": [
@@ -3674,8 +3674,8 @@ window.WORKOUTS = {
     },
     {
      "letter": "F",
-     "name": "Trx overhead extension + Overhead slam ball",
-     "info": "4 rounds:\n6 Trx overhead extension\n6 Overhead slam ball (explosive)\nrest 1,5 minutes",
+     "name": "TRX overhead extension + Overhead slam ball",
+     "info": "4 rounds:\n6 TRX overhead extension\n6 Overhead slam ball (explosive)\nRest 1,5 minutes",
      "is_circuit": true,
      "matched_by_name": false,
      "exercises": [
@@ -3693,7 +3693,7 @@ window.WORKOUTS = {
    "assigned_count": 6,
    "first_date": "2026-08-05",
    "last_date": "2026-09-09",
-   "warmup": "Back routine mobility\n1 round, 8/10 reps each exercise:\nt-spine rotation with reach\nside lying rotation\nleg twist \nfloor seated trunk twist\ncat cow\nactive straight leg raise\nileopsoas dynamic stretch\nadductor dynamic stretch\nglute dynamic stretch",
+   "warmup": "Back routine mobility\n1 round, 8/10 reps each exercise:\nT-spine rotation with reach\nSide lying rotation\nLeg twist \nFloor seated trunk twist\nCat cow\nActive straight leg raise\nIleopsoas dynamic stretch\nAdductor dynamic stretch\nGlute dynamic stretch",
    "warmup_exercises": [
     "12503061",
     "11249387",
@@ -3711,7 +3711,7 @@ window.WORKOUTS = {
     {
      "letter": "A",
      "name": "Core stability",
-     "info": "3 rounds:\n20 plank move the kb\n16 alternating single arm db plank row\n20 hyperextension\nrest as ittle as possible",
+     "info": "3 rounds:\n20 Plank move the KB\n16 Alternating single arm DB plank row\n20 Hyperextension\nRest as ittle as possible",
      "is_circuit": true,
      "matched_by_name": false,
      "exercises": [
@@ -3722,8 +3722,8 @@ window.WORKOUTS = {
     },
     {
      "letter": "B",
-     "name": "BB Back squat + Plyometric depth jump",
-     "info": "4 rounds:\n5 BB Back squat *control\n8 Plyometric depth jump\nrest 1,5 minutes",
+     "name": "BB back squat + Plyometric depth jump",
+     "info": "4 rounds:\n5 BB back squat *Control\n8 Plyometric depth jump\nRest 1,5 minutes",
      "is_circuit": true,
      "matched_by_name": false,
      "exercises": [
@@ -3734,8 +3734,8 @@ window.WORKOUTS = {
     },
     {
      "letter": "C",
-     "name": "BB Shoulder press + single arm KB push press",
-     "info": "4 rounds:\n5 BB shoulder press\n6/side single arm KB push press (explosive)\nrest 1,5 minutes",
+     "name": "BB shoulder press + Single arm KB push press",
+     "info": "4 rounds:\n5 BB shoulder press\n6/side Single arm KB push press (explosive)\nRest 1,5 minutes",
      "is_circuit": true,
      "matched_by_name": false,
      "exercises": [
@@ -3746,7 +3746,7 @@ window.WORKOUTS = {
     {
      "letter": "D",
      "name": "Cross side lunge + Landmine angled reverse lunge",
-     "info": "4 rounds:\n5/side cross side lunge *CONTROL\n6/side landmine angled reverse lunge *CONTROL\nrest 1,5 minutes",
+     "info": "4 rounds:\n5/side Cross side lunge *CONTROL\n6/side Landmine angled reverse lunge *CONTROL\nRest 1,5 minutes",
      "is_circuit": true,
      "matched_by_name": false,
      "exercises": [
@@ -3756,8 +3756,8 @@ window.WORKOUTS = {
     },
     {
      "letter": "E",
-     "name": "Cable rope high pull + Half kneeling DB Chop",
-     "info": "4 rounds:\n10 Cable rope high pull *RIR 1\n8/side db chop *explosivo\nrest 1,5 minutes",
+     "name": "Cable rope high pull + Half kneeling DB chop",
+     "info": "4 rounds:\n10 Cable rope high pull *RIR 1\n8/side DB chop *Explosivo\nRest 1,5 minutes",
      "is_circuit": true,
      "matched_by_name": false,
      "exercises": [
@@ -3775,7 +3775,7 @@ window.WORKOUTS = {
    "assigned_count": 6,
    "first_date": "2026-09-14",
    "last_date": "2026-10-19",
-   "warmup": "Back routine mobility\n1 round, 8/10 reps each exercise:\nt-spine rotation with reach\nside lying rotation\nleg twist \nfloor seated trunk twist\ncat cow\nactive straight leg raise\nileopsoas dynamic stretch\nadductor dynamic stretch\nglute dynamic stretch",
+   "warmup": "Back routine mobility\n1 round, 8/10 reps each exercise:\nT-spine rotation with reach\nSide lying rotation\nLeg twist \nFloor seated trunk twist\nCat cow\nActive straight leg raise\nIleopsoas dynamic stretch\nAdductor dynamic stretch\nGlute dynamic stretch",
    "warmup_exercises": [
     "12503061",
     "11249387",
@@ -3792,8 +3792,8 @@ window.WORKOUTS = {
    "items": [
     {
      "letter": "A",
-     "name": "Leg extension 2 up 1 down + Three points db row",
-     "info": "3 rounds:\n8/side Leg extension 2 up 1 down\n10/side three points db row\nrest 1 min",
+     "name": "Leg extension 2 up 1 down + Three points DB row",
+     "info": "3 rounds:\n8/side Leg extension 2 up 1 down\n10/side Three points DB row\nRest 1 min",
      "is_circuit": true,
      "matched_by_name": false,
      "exercises": [
@@ -3804,7 +3804,7 @@ window.WORKOUTS = {
     {
      "letter": "B",
      "name": "DB Bulgarian squat + DB bench press",
-     "info": "3 rounds:\n8/side db bulgarian squat\n10 db bench press *RIR 3 explosivo\nrest 1 min",
+     "info": "3 rounds:\n8/side DB Bulgarian squat\n10 DB bench press *RIR 3 explosivo\nRest 1 min",
      "is_circuit": true,
      "matched_by_name": false,
      "exercises": [
@@ -3815,7 +3815,7 @@ window.WORKOUTS = {
     {
      "letter": "C",
      "name": "Hip trust machine + Floor row",
-     "info": "3 rounds:\n10 Hip trust machine\n10 Floor row *3 SEC HOLD\nrest 1 minute",
+     "info": "3 rounds:\n10 Hip trust machine\n10 Floor row *3 SEC HOLD\nRest 1 minute",
      "is_circuit": true,
      "matched_by_name": false,
      "exercises": [
@@ -3825,8 +3825,8 @@ window.WORKOUTS = {
     },
     {
      "letter": "D",
-     "name": "Side bridge + band hip to shoulder half moon",
-     "info": "3 rounds:\n8/side Side bridge *3 SEC HOLD\n8 front band hip to shoulder half moon *LENTO\nrest as little as possible",
+     "name": "Side bridge + Band hip to shoulder half moon",
+     "info": "3 rounds:\n8/side Side bridge *3 SEC HOLD\n8 Front band hip to shoulder half moon *LENTO\nRest as little as possible",
      "is_circuit": true,
      "matched_by_name": false,
      "exercises": [
@@ -3855,7 +3855,7 @@ window.WORKOUTS = {
    "assigned_count": 6,
    "first_date": "2026-09-16",
    "last_date": "2026-10-21",
-   "warmup": "Back routine mobility\n1 round, 8/10 reps each exercise:\nt-spine rotation with reach\nside lying rotation\nleg twist \nfloor seated trunk twist\ncat cow\nactive straight leg raise\nileopsoas dynamic stretch\nadductor dynamic stretch\nglute dynamic stretch",
+   "warmup": "Back routine mobility\n1 round, 8/10 reps each exercise:\nT-spine rotation with reach\nSide lying rotation\nLeg twist \nFloor seated trunk twist\nCat cow\nActive straight leg raise\nIleopsoas dynamic stretch\nAdductor dynamic stretch\nGlute dynamic stretch",
    "warmup_exercises": [
     "12503061",
     "11249387",
@@ -3873,7 +3873,7 @@ window.WORKOUTS = {
     {
      "letter": "A",
      "name": "Leg curl 2 up 1 down + Cable rope high pull",
-     "info": "3 rounds:\n8/side single leg leg curl \n10 Cable rope high pull \nrest 1 minute",
+     "info": "3 rounds:\n8/side Single leg leg curl \n10 Cable rope high pull \nRest 1 minute",
      "is_circuit": true,
      "matched_by_name": false,
      "exercises": [
@@ -3883,8 +3883,8 @@ window.WORKOUTS = {
     },
     {
      "letter": "B",
-     "name": "DB Step up + DB bench cross over",
-     "info": "3 rounds:\n8/side DB step up *RIR 3 subida explosiva\n10 db bench cross over\nrest 1 minute",
+     "name": "DB step up + DB bench cross over",
+     "info": "3 rounds:\n8/side DB step up *RIR 3 subida explosiva\n10 DB bench cross over\nRest 1 minute",
      "is_circuit": true,
      "matched_by_name": false,
      "exercises": [
@@ -3894,8 +3894,8 @@ window.WORKOUTS = {
     },
     {
      "letter": "C",
-     "name": "Heels elevated goblet squat + Trx scapular row",
-     "info": "3 rounds:\n10 heels elevated goblet squat\n8 trx scapular row\nrest 1 minute",
+     "name": "Heels elevated goblet squat + TRX scapular row",
+     "info": "3 rounds:\n10 Heels elevated goblet squat\n8 TRX scapular row\nRest 1 minute",
      "is_circuit": true,
      "matched_by_name": false,
      "exercises": [
@@ -3905,8 +3905,8 @@ window.WORKOUTS = {
     },
     {
      "letter": "D",
-     "name": "Single leg bridge + band rhomboids openings",
-     "info": "3 rounds:\n10/side single leg bridge\n10 band rhomboids openings",
+     "name": "Single leg bridge + Band rhomboids openings",
+     "info": "3 rounds:\n10/side Single leg bridge\n10 Band rhomboids openings",
      "is_circuit": true,
      "matched_by_name": false,
      "exercises": [

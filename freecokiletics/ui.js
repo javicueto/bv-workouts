@@ -110,7 +110,7 @@ window.UI = (function () {
     ov.innerHTML = (src ? '<img src="' + esc(src) + '" alt="">' : "") +
       '<div class="zoom__name">' + esc(name || "") + "</div>" +
       '<button class="btn btn--ghost zoom__close" type="button">Close</button>' +
-      '<div class="faint" style="font-size:13px">or tap anywhere</div>';
+      '<div class="faint" style="font-size:13px">Or tap anywhere</div>';
     var release;
     function close() { release(); ov.remove(); }
     ov.addEventListener("click", close);

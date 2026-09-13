@@ -300,7 +300,7 @@ window.App = (function () {
   function syncBadge() {
     var el = document.getElementById("sync"); if (!el) return;
     var n = Store.pending();
-    el.textContent = !navigator.onLine ? "offline · " + n + " to sync" : n ? n + " to sync…" : "";
+    el.textContent = !navigator.onLine ? "Offline · " + n + " to sync" : n ? n + " to sync…" : "";
   }
   Store.onQueue(syncBadge);
   window.addEventListener("online", syncBadge);

@@ -4,13 +4,13 @@ window.PROGRAMME = {
  "exercises": {
   "389847": {
    "id": "389847",
-   "name": "Barbell Bench Press",
+   "name": "Barbell bench press",
    "youtube_id": "iBdF89xBAxA",
    "has_preview": true
   },
   "11242555": {
    "id": "11242555",
-   "name": "Barbell Rack Deadlift",
+   "name": "Barbell rack deadlift",
    "youtube_id": "TYjI-zzOVzc",
    "has_preview": true
   },
@@ -46,13 +46,13 @@ window.PROGRAMME = {
   },
   "11249249": {
    "id": "11249249",
-   "name": "BB Back squat",
+   "name": "BB back squat",
    "youtube_id": "YS8LFxWXJ8A",
    "has_preview": true
   },
   "11249258": {
    "id": "11249258",
-   "name": "plyo push up",
+   "name": "Plyo push up",
    "youtube_id": "ovr_OX8NmSM",
    "has_preview": true
   },
@@ -76,19 +76,19 @@ window.PROGRAMME = {
   },
   "11250441": {
    "id": "11250441",
-   "name": "Trx shoulders openings",
+   "name": "TRX shoulders openings",
    "youtube_id": "YQdw9EfQa8Q",
    "has_preview": true
   },
   "11250646": {
    "id": "11250646",
-   "name": "BB Deadlift",
+   "name": "BB deadlift",
    "youtube_id": "4RBc77kXeQo",
    "has_preview": true
   },
   "11250686": {
    "id": "11250686",
-   "name": "DB Side lunges",
+   "name": "DB side lunges",
    "youtube_id": "y7TZbxzIz6w",
    "has_preview": true
   },
@@ -100,7 +100,7 @@ window.PROGRAMME = {
   },
   "11250730": {
    "id": "11250730",
-   "name": "DB Bench press",
+   "name": "DB bench press",
    "youtube_id": "qkyC1Bhl9lE",
    "has_preview": true
   },
@@ -130,7 +130,7 @@ window.PROGRAMME = {
   },
   "11259664": {
    "id": "11259664",
-   "name": "plank twist",
+   "name": "Plank twist",
    "youtube_id": "OozLkbgXFMw",
    "has_preview": true
   },
@@ -142,7 +142,7 @@ window.PROGRAMME = {
   },
   "11279373": {
    "id": "11279373",
-   "name": "Half kneeling DB Chop",
+   "name": "Half kneeling DB chop",
    "youtube_id": "6p4awUFphhw",
    "has_preview": true
   },
@@ -154,25 +154,25 @@ window.PROGRAMME = {
   },
   "11279401": {
    "id": "11279401",
-   "name": "hands to elbows plank",
+   "name": "Hands to elbows plank",
    "youtube_id": "Rg0D3lTjOwQ",
    "has_preview": true
   },
   "11279404": {
    "id": "11279404",
-   "name": "band tall kneeling shoulder press",
+   "name": "Band tall kneeling shoulder press",
    "youtube_id": "DgzZEJ6ebWc",
    "has_preview": true
   },
   "11279407": {
    "id": "11279407",
-   "name": "TRX Push up",
+   "name": "TRX push up",
    "youtube_id": "CNtRXSK0wIQ",
    "has_preview": true
   },
   "11279419": {
    "id": "11279419",
-   "name": "Trx upper row",
+   "name": "TRX upper row",
    "youtube_id": "vmgUYLeJb1g",
    "has_preview": true
   },
@@ -184,91 +184,91 @@ window.PROGRAMME = {
   },
   "11279970": {
    "id": "11279970",
-   "name": "single leg alternated lateral jump",
+   "name": "Single leg alternated lateral jump",
    "youtube_id": "XyoQf9Sarfg",
    "has_preview": true
   },
   "11280034": {
    "id": "11280034",
-   "name": "high knee switches",
+   "name": "High knee switches",
    "youtube_id": "eZwpUPhv9KU",
    "has_preview": true
   },
   "11280043": {
    "id": "11280043",
-   "name": "elbows lateral climbers",
+   "name": "Elbows lateral climbers",
    "youtube_id": "4lotc9HdHrs",
    "has_preview": true
   },
   "11288950": {
    "id": "11288950",
-   "name": "modified tuck up",
+   "name": "Modified tuck up",
    "youtube_id": "3IdtQ1mi-ks",
    "has_preview": true
   },
   "11288954": {
    "id": "11288954",
-   "name": "db swing",
+   "name": "DB swing",
    "youtube_id": "3rc_lBOp4CM",
    "has_preview": true
   },
   "11288959": {
    "id": "11288959",
-   "name": "lunge forward",
+   "name": "Lunge forward",
    "youtube_id": "t7DBjlOTwAk",
    "has_preview": true
   },
   "11288963": {
    "id": "11288963",
-   "name": "half kneeling band pull down",
+   "name": "Half kneeling band pull down",
    "youtube_id": "hLl6zMNtTBQ",
    "has_preview": true
   },
   "11288977": {
    "id": "11288977",
-   "name": "isometric deadbug",
+   "name": "Isometric deadbug",
    "youtube_id": "56Q87MgptgY",
    "has_preview": true
   },
   "11291128": {
    "id": "11291128",
-   "name": "half kneeling kb chop push/pull",
+   "name": "Half kneeling KB chop push/pull",
    "youtube_id": "QUntC0WmNeI",
    "has_preview": true
   },
   "11291140": {
    "id": "11291140",
-   "name": "standing plate twist",
+   "name": "Standing plate twist",
    "youtube_id": "79x5n12wWkA",
    "has_preview": true
   },
   "11291184": {
    "id": "11291184",
-   "name": "half kneeling db shoulder press",
+   "name": "Half kneeling DB shoulder press",
    "youtube_id": "4DSPCknhUP4",
    "has_preview": true
   },
   "11292207": {
    "id": "11292207",
-   "name": "band core activation dead bug",
+   "name": "Band core activation dead bug",
    "youtube_id": "EpYCmA4huKY",
    "has_preview": true
   },
   "11292212": {
    "id": "11292212",
-   "name": "single leg bridge",
+   "name": "Single leg bridge",
    "youtube_id": "Y6i0IhzklZ4",
    "has_preview": true
   },
   "11292256": {
    "id": "11292256",
-   "name": "band lateral walk",
+   "name": "Band lateral walk",
    "youtube_id": "wXZX7CApku8",
    "has_preview": true
   },
   "11292305": {
    "id": "11292305",
-   "name": "DB cossack squat",
+   "name": "DB Cossack squat",
    "youtube_id": "Zn8pf_y1PRM",
    "has_preview": true
   },
@@ -280,67 +280,67 @@ window.PROGRAMME = {
   },
   "11292342": {
    "id": "11292342",
-   "name": "plank arm raise",
+   "name": "Plank arm raise",
    "youtube_id": "s-DxL0hy-v4",
    "has_preview": true
   },
   "11292345": {
    "id": "11292345",
-   "name": "side bridge",
+   "name": "Side bridge",
    "youtube_id": "c0leGbP-bfA",
    "has_preview": true
   },
   "11292356": {
    "id": "11292356",
-   "name": "step up",
+   "name": "Step up",
    "youtube_id": "2DPzuklKffk",
    "has_preview": true
   },
   "11292367": {
    "id": "11292367",
-   "name": "DB Walking lunges",
+   "name": "DB walking lunges",
    "youtube_id": "acIWrL52r4k",
    "has_preview": true
   },
   "11292370": {
    "id": "11292370",
-   "name": "cable rope pull down",
+   "name": "Cable rope pull down",
    "youtube_id": "9E4igjdp1co",
    "has_preview": true
   },
   "11292707": {
    "id": "11292707",
-   "name": "band internal rotation",
+   "name": "Band internal rotation",
    "youtube_id": "iDT6mOuBjTY",
    "has_preview": true
   },
   "11292710": {
    "id": "11292710",
-   "name": "band external rotation",
+   "name": "Band external rotation",
    "youtube_id": "Ogwx6y96rHI",
    "has_preview": true
   },
   "11292942": {
    "id": "11292942",
-   "name": "plank leg raise",
+   "name": "Plank leg raise",
    "youtube_id": "1yDIOmzqco0",
    "has_preview": true
   },
   "11293149": {
    "id": "11293149",
-   "name": "fitball leg curl",
+   "name": "Fitball leg curl",
    "youtube_id": "ISD-dNCGkvM",
    "has_preview": true
   },
   "11293295": {
    "id": "11293295",
-   "name": "hip trust machine",
+   "name": "Hip trust machine",
    "youtube_id": "Tmla65GUNkQ",
    "has_preview": true
   },
   "11297983": {
    "id": "11297983",
-   "name": "DB Deadlift",
+   "name": "DB deadlift",
    "youtube_id": "ytEf8IZW1tk",
    "has_preview": true
   },
@@ -352,307 +352,307 @@ window.PROGRAMME = {
   },
   "11307746": {
    "id": "11307746",
-   "name": "active straight leg raise",
+   "name": "Active straight leg raise",
    "youtube_id": "6VMeYPqVq4k",
    "has_preview": true
   },
   "11307749": {
    "id": "11307749",
-   "name": "cat cow",
+   "name": "Cat cow",
    "youtube_id": "BGMsqVeTMb0",
    "has_preview": true
   },
   "11307759": {
    "id": "11307759",
-   "name": "adductor dynamic stretch",
+   "name": "Adductor dynamic stretch",
    "youtube_id": "4qEFjdMs1os",
    "has_preview": true
   },
   "11307787": {
    "id": "11307787",
-   "name": "band glute bridge (3\" hold)",
+   "name": "Band glute bridge (3\" hold)",
    "youtube_id": "pm3Ge7deNCc",
    "has_preview": true
   },
   "11307805": {
    "id": "11307805",
-   "name": "single arm floor press",
+   "name": "Single arm floor press",
    "youtube_id": "ZeHDXjQfpW0",
    "has_preview": true
   },
   "11307824": {
    "id": "11307824",
-   "name": "ipsilateral deadbug",
+   "name": "Ipsilateral deadbug",
    "youtube_id": "I7ijDnXU0H8",
    "has_preview": true
   },
   "11307835": {
    "id": "11307835",
-   "name": "push up",
+   "name": "Push up",
    "youtube_id": "Rv51wbddtqg",
    "has_preview": true
   },
   "11326763": {
    "id": "11326763",
-   "name": "side plank raises",
+   "name": "Side plank raises",
    "youtube_id": "QnEnZB03QwI",
    "has_preview": true
   },
   "11326909": {
    "id": "11326909",
-   "name": "bb sumo deadlift",
+   "name": "BB sumo deadlift",
    "youtube_id": "Gtu1ihjZgds",
    "has_preview": true
   },
   "11326944": {
    "id": "11326944",
-   "name": "plank",
+   "name": "Plank",
    "youtube_id": "3NQ2oN6J6hc",
    "has_preview": true
   },
   "11326993": {
    "id": "11326993",
-   "name": "side plank",
+   "name": "Side plank",
    "youtube_id": "kx434sFuAXE",
    "has_preview": true
   },
   "11327019": {
    "id": "11327019",
-   "name": "trx lower row",
+   "name": "TRX lower row",
    "youtube_id": "u5rJWjYKNXc",
    "has_preview": true
   },
   "11329531": {
    "id": "11329531",
-   "name": "wide grip lat machine",
+   "name": "Wide grip lat machine",
    "youtube_id": "A7DmwfteykY",
    "has_preview": true
   },
   "11329535": {
    "id": "11329535",
-   "name": "sit up",
+   "name": "Sit up",
    "youtube_id": "AXNM3JlBQQU",
    "has_preview": true
   },
   "11329545": {
    "id": "11329545",
-   "name": "cross side lunges",
+   "name": "Cross side lunges",
    "youtube_id": "luQFXB4oGiM",
    "has_preview": true
   },
   "11330193": {
    "id": "11330193",
-   "name": "single arm kb swing",
+   "name": "Single arm KB swing",
    "youtube_id": "Af7PAxkoq1A",
    "has_preview": true
   },
   "11331922": {
    "id": "11331922",
-   "name": "fitball plank",
+   "name": "Fitball plank",
    "youtube_id": "ivowFa_F6go",
    "has_preview": true
   },
   "11355605": {
    "id": "11355605",
-   "name": "DB Incline Bench Press",
+   "name": "DB incline bench press",
    "youtube_id": "ARh8hD2mwFI",
    "has_preview": true
   },
   "11372777": {
    "id": "11372777",
-   "name": "supinated grip shoulder blade depression",
+   "name": "Supinated grip shoulder blade depression",
    "youtube_id": "nE7dKMK6nOY",
    "has_preview": true
   },
   "11372781": {
    "id": "11372781",
-   "name": "band half kneeling high to low chop",
+   "name": "Band half kneeling high to low chop",
    "youtube_id": "-_VSPjyWpTE",
    "has_preview": true
   },
   "11372794": {
    "id": "11372794",
-   "name": "contralateral leg arm raise plank",
+   "name": "Contralateral leg arm raise plank",
    "youtube_id": "fDfiChcxW14",
    "has_preview": true
   },
   "11372937": {
    "id": "11372937",
-   "name": "tall kneeling half moon",
+   "name": "Tall kneeling half moon",
    "youtube_id": "0YfjGonqIKE",
    "has_preview": true
   },
   "11372945": {
    "id": "11372945",
-   "name": "l-sit shoulder press rotation",
+   "name": "L-sit shoulder press rotation",
    "youtube_id": "HYNvTKeFfTk",
    "has_preview": true
   },
   "11372962": {
    "id": "11372962",
-   "name": "plank move the kb",
+   "name": "Plank move the KB",
    "youtube_id": "Df7zMGgK9iQ",
    "has_preview": true
   },
   "11372964": {
    "id": "11372964",
-   "name": "alternating single arm db plank row",
+   "name": "Alternating single arm DB plank row",
    "youtube_id": "xOhJb5F3SPQ",
    "has_preview": true
   },
   "11372994": {
    "id": "11372994",
-   "name": "hyper extension",
+   "name": "Hyper extension",
    "youtube_id": "-uA4lWEY6IU",
    "has_preview": true
   },
   "11373004": {
    "id": "11373004",
-   "name": "bb reverse lunge",
+   "name": "BB reverse lunge",
    "youtube_id": "gELwiofKM5Y",
    "has_preview": true
   },
   "11373047": {
    "id": "11373047",
-   "name": "overhead slam ball",
+   "name": "Overhead slam ball",
    "youtube_id": "6XLqr8cjhOw",
    "has_preview": true
   },
   "11373085": {
    "id": "11373085",
-   "name": "plyometric depth jump",
+   "name": "Plyometric depth jump",
    "youtube_id": "AzPJZHOmGEg",
    "has_preview": true
   },
   "11373099": {
    "id": "11373099",
-   "name": "landmine angled reverse lunge",
+   "name": "Landmine angled reverse lunge",
    "youtube_id": "EXmJQC2gl2M",
    "has_preview": true
   },
   "11373111": {
    "id": "11373111",
-   "name": "cable rope high pull",
+   "name": "Cable rope high pull",
    "youtube_id": "isStslEGqvU",
    "has_preview": true
   },
   "11379991": {
    "id": "11379991",
-   "name": "row machine",
+   "name": "Row machine",
    "youtube_id": "sK9zqQGIwkY",
    "has_preview": true
   },
   "11407364": {
    "id": "11407364",
-   "name": "floor rhomboids openings",
+   "name": "Floor rhomboids openings",
    "youtube_id": "NqquZu3cr-k",
    "has_preview": true
   },
   "11425178": {
    "id": "11425178",
-   "name": "australian pull up",
+   "name": "Australian pull up",
    "youtube_id": "bHO0A4ZF_Zg",
    "has_preview": true
   },
   "11473108": {
    "id": "11473108",
-   "name": "trx single arm row",
+   "name": "TRX single arm row",
    "youtube_id": "2lFpz7UpjHc",
    "has_preview": true
   },
   "11473269": {
    "id": "11473269",
-   "name": "medball contralateral deadbug",
+   "name": "Medball contralateral deadbug",
    "youtube_id": "VNx73hYcR5k",
    "has_preview": true
   },
   "11473288": {
    "id": "11473288",
-   "name": "dual kb reverse lunge to high knee",
+   "name": "Dual KB reverse lunge to high knee",
    "youtube_id": "TgDNW7_q03A",
    "has_preview": true
   },
   "11473301": {
    "id": "11473301",
-   "name": "pass simulation side lunges",
+   "name": "Pass simulation side lunges",
    "youtube_id": "QoTbBkg07tM",
    "has_preview": true
   },
   "11473304": {
    "id": "11473304",
-   "name": "db bench cross over",
+   "name": "DB bench cross over",
    "youtube_id": "zQePlMKO7cg",
    "has_preview": true
   },
   "11479416": {
    "id": "11479416",
-   "name": "bent hollow flutter kicks",
+   "name": "Bent hollow flutter kicks",
    "youtube_id": "DxFZz8mVLrA",
    "has_preview": true
   },
   "11479463": {
    "id": "11479463",
-   "name": "lateral run back and fourth",
+   "name": "Lateral run back and fourth",
    "youtube_id": "Co7KYZl806I",
    "has_preview": true
   },
   "11479471": {
    "id": "11479471",
-   "name": "run back and fourth",
+   "name": "Run back and fourth",
    "youtube_id": "JjdtrtD5e0g",
    "has_preview": true
   },
   "11493541": {
    "id": "11493541",
-   "name": "shoulder tap bear crawl",
+   "name": "Shoulder tap bear crawl",
    "youtube_id": "HCcJ7yNfAAk",
    "has_preview": true
   },
   "11494648": {
    "id": "11494648",
-   "name": "scissor crunch",
+   "name": "Scissor crunch",
    "youtube_id": "fposjY4kmqA",
    "has_preview": true
   },
   "11494918": {
    "id": "11494918",
-   "name": "trx shoulder depression and row",
+   "name": "TRX shoulder depression and row",
    "youtube_id": "XT6O63xPYy4",
    "has_preview": true
   },
   "11497501": {
    "id": "11497501",
-   "name": "pulley",
+   "name": "Pulley",
    "youtube_id": "juqMyHuYcz8",
    "has_preview": true
   },
   "11497789": {
    "id": "11497789",
-   "name": "db standing lateral raises",
+   "name": "DB standing lateral raises",
    "youtube_id": "DunDV91iB2A",
    "has_preview": true
   },
   "11521897": {
    "id": "11521897",
-   "name": "fitball crunch",
+   "name": "Fitball crunch",
    "youtube_id": "q-z5KR5gxFo",
    "has_preview": true
   },
   "11521901": {
    "id": "11521901",
-   "name": "cross wallet",
+   "name": "Cross wallet",
    "youtube_id": "QZcbQ2FDZ8I",
    "has_preview": true
   },
   "11570004": {
    "id": "11570004",
-   "name": "no arms consecutive vertical jumps",
+   "name": "No arms consecutive vertical jumps",
    "youtube_id": "gdRkJ9ndGQM",
    "has_preview": true
   },
   "11577511": {
    "id": "11577511",
-   "name": "three points db row",
+   "name": "Three points DB row",
    "youtube_id": "xeJMDUC5nck",
    "has_preview": true
   },
@@ -664,13 +664,13 @@ window.PROGRAMME = {
   },
   "11611402": {
    "id": "11611402",
-   "name": "BB Bench press",
+   "name": "BB bench press",
    "youtube_id": "fECDepX8PBg",
    "has_preview": true
   },
   "11611416": {
    "id": "11611416",
-   "name": "band half kneeling pallof press",
+   "name": "Band half kneeling Pallof press",
    "youtube_id": "I59jOsDWgqw",
    "has_preview": true
   },
@@ -682,61 +682,61 @@ window.PROGRAMME = {
   },
   "11684653": {
    "id": "11684653",
-   "name": "cross body mountain climbers",
+   "name": "Cross body mountain climbers",
    "youtube_id": "GTlzRwL2WHw",
    "has_preview": true
   },
   "12378571": {
    "id": "12378571",
-   "name": "band standing pallof press",
+   "name": "Band standing Pallof press",
    "youtube_id": "f_D0GByfZh0",
    "has_preview": true
   },
   "12417679": {
    "id": "12417679",
-   "name": "glute dynamic stretch",
+   "name": "Glute dynamic stretch",
    "youtube_id": "8rmzW7qn84I",
    "has_preview": true
   },
   "12457695": {
    "id": "12457695",
-   "name": "db single arm deadug",
+   "name": "DB single arm deadug",
    "youtube_id": "8yDSBVZA4FE",
    "has_preview": true
   },
   "12457696": {
    "id": "12457696",
-   "name": "leg raise side plank",
+   "name": "Leg raise side plank",
    "youtube_id": "9Yw2uZxRilw",
    "has_preview": true
   },
   "12457698": {
    "id": "12457698",
-   "name": "bear hug band internal rotation",
+   "name": "Bear hug band internal rotation",
    "youtube_id": "cv42v77Gkuo",
    "has_preview": true
   },
   "12457699": {
    "id": "12457699",
-   "name": "bear hug band external rotation",
+   "name": "Bear hug band external rotation",
    "youtube_id": "UGqB2NGvkok",
    "has_preview": true
   },
   "12457757": {
    "id": "12457757",
-   "name": "BB Hip trust",
+   "name": "BB hip trust",
    "youtube_id": "VgmW8pKwR-w",
    "has_preview": true
   },
   "12478227": {
    "id": "12478227",
-   "name": "leg twist",
+   "name": "Leg twist",
    "youtube_id": "VpiKQACd8Nk",
    "has_preview": true
   },
   "12479502": {
    "id": "12479502",
-   "name": "high elbow band internal rotation",
+   "name": "High elbow band internal rotation",
    "youtube_id": "sKNux4DQD-Q",
    "has_preview": true
   },
@@ -748,31 +748,31 @@ window.PROGRAMME = {
   },
   "12503061": {
    "id": "12503061",
-   "name": "t-spine rotation with reach",
+   "name": "T-spine rotation with reach",
    "youtube_id": "BNOsiKXyBQ4",
    "has_preview": true
   },
   "12503065": {
    "id": "12503065",
-   "name": "ileopsoas dynamic stretch",
+   "name": "Ileopsoas dynamic stretch",
    "youtube_id": "x5nH_idvqN4",
    "has_preview": true
   },
   "12626046": {
    "id": "12626046",
-   "name": "hollow body flutter kicks",
+   "name": "Hollow body flutter kicks",
    "youtube_id": "V_Pa5y5cJYg",
    "has_preview": true
   },
   "12651865": {
    "id": "12651865",
-   "name": "foam roller miniband press",
+   "name": "Foam roller miniband press",
    "youtube_id": "bDGrBQZ3w7g",
    "has_preview": true
   },
   "12690832": {
    "id": "12690832",
-   "name": "pass simulation reverse lunges",
+   "name": "Pass simulation reverse lunges",
    "youtube_id": "gecOK43Dsu8",
    "has_preview": true
   },
@@ -784,13 +784,13 @@ window.PROGRAMME = {
   },
   "12695626": {
    "id": "12695626",
-   "name": "DB External rotation",
+   "name": "DB external rotation",
    "youtube_id": "sRMKxukPW64",
    "has_preview": true
   },
   "12711639": {
    "id": "12711639",
-   "name": "plyo lateral jump",
+   "name": "Plyo lateral jump",
    "youtube_id": "91-e4OVXfBg",
    "has_preview": true
   },
@@ -808,7 +808,7 @@ window.PROGRAMME = {
   },
   "12755748": {
    "id": "12755748",
-   "name": "bw squat",
+   "name": "Bw squat",
    "youtube_id": "l83R5PblSMA",
    "has_preview": true
   },
@@ -820,67 +820,67 @@ window.PROGRAMME = {
   },
   "12778078": {
    "id": "12778078",
-   "name": "heels elevated goblet squat",
+   "name": "Heels elevated goblet squat",
    "youtube_id": "AdfMPEDpUHI",
    "has_preview": true
   },
   "12816779": {
    "id": "12816779",
-   "name": "foam roller db internal rotation",
+   "name": "Foam roller DB internal rotation",
    "youtube_id": "AptNVKCebkU",
    "has_preview": true
   },
   "14310937": {
    "id": "14310937",
-   "name": "trx wallet crunch",
+   "name": "TRX wallet crunch",
    "youtube_id": "jR-Dl_yb3t4",
    "has_preview": true
   },
   "14360341": {
    "id": "14360341",
-   "name": "floor db shoulder blade depression",
+   "name": "Floor DB shoulder blade depression",
    "youtube_id": "gp-M9I6PGEo",
    "has_preview": true
   },
   "14374824": {
    "id": "14374824",
-   "name": "floor db rhomboids openings",
+   "name": "Floor DB rhomboids openings",
    "youtube_id": "sWaIbtvf7pI",
    "has_preview": true
   },
   "14483186": {
    "id": "14483186",
-   "name": "calf release",
+   "name": "Calf release",
    "youtube_id": "AGPXayvcMUw",
    "has_preview": true
   },
   "14509496": {
    "id": "14509496",
-   "name": "obstacle lateral run back and fourth",
+   "name": "Obstacle lateral run back and fourth",
    "youtube_id": "MXNrEcShm0w",
    "has_preview": true
   },
   "14575471": {
    "id": "14575471",
-   "name": "bench rhomboids openings",
+   "name": "Bench rhomboids openings",
    "youtube_id": "r6-27MiUIfY",
    "has_preview": true
   },
   "14585796": {
    "id": "14585796",
-   "name": "bw banded split squat",
+   "name": "Bw banded split squat",
    "youtube_id": "TxAj4UOinSk",
    "has_preview": true
   },
   "14595477": {
    "id": "14595477",
-   "name": "db knee banded split squat",
+   "name": "DB knee banded split squat",
    "youtube_id": "hsOnxW_rm8s",
    "has_preview": true
   },
   "14602077": {
    "id": "14602077",
-   "name": "floor seated trunk twist",
+   "name": "Floor seated trunk twist",
    "youtube_id": "5lU5Vqdlus8",
    "has_preview": true
   },
@@ -892,13 +892,13 @@ window.PROGRAMME = {
   },
   "14695037": {
    "id": "14695037",
-   "name": "multipower hip trust",
+   "name": "Multipower hip trust",
    "youtube_id": "AQH-q9AquAQ",
    "has_preview": true
   },
   "15545314": {
    "id": "15545314",
-   "name": "heels elevated back squat",
+   "name": "Heels elevated back squat",
    "youtube_id": "o5WxCJfT6WM",
    "has_preview": true
   },
@@ -910,13 +910,13 @@ window.PROGRAMME = {
   },
   "15680324": {
    "id": "15680324",
-   "name": "trx overhead extension",
+   "name": "TRX overhead extension",
    "youtube_id": "Z5Moa78y_gI",
    "has_preview": true
   },
   "15711087": {
    "id": "15711087",
-   "name": "half kneeling hip raise",
+   "name": "Half kneeling hip raise",
    "youtube_id": "VxJQT4MMXc8",
    "has_preview": true
   },
@@ -934,7 +934,7 @@ window.PROGRAMME = {
   },
   "16049563": {
    "id": "16049563",
-   "name": "Single Leg Press",
+   "name": "Single leg press",
    "youtube_id": "MtQLdMhXy4U",
    "has_preview": true
   },
@@ -952,37 +952,37 @@ window.PROGRAMME = {
   },
   "16130107": {
    "id": "16130107",
-   "name": "2 In 2 Out",
+   "name": "2 in 2 out",
    "youtube_id": "kadXqIGPDW4",
    "has_preview": true
   },
   "16256970": {
    "id": "16256970",
-   "name": "Leg Extension 2 Up 1 Down",
+   "name": "Leg extension 2 up 1 down",
    "youtube_id": "RhNu_qJAHV8",
    "has_preview": true
   },
   "16540198": {
    "id": "16540198",
-   "name": "standing bb shoulder blade depression",
+   "name": "Standing BB shoulder blade depression",
    "youtube_id": "E_kfYBcMX6c",
    "has_preview": true
   },
   "17363186": {
    "id": "17363186",
-   "name": "lying leg curl 2 up 1 down",
+   "name": "Lying leg curl 2 up 1 down",
    "youtube_id": "cvnkhSwu2lo",
    "has_preview": true
   },
   "17383107": {
    "id": "17383107",
-   "name": "banded ankle mobility",
+   "name": "Banded ankle mobility",
    "youtube_id": "ILSbK8RnGdI",
    "has_preview": true
   },
   "17594422": {
    "id": "17594422",
-   "name": "BB Squat *TAP THE BENCH",
+   "name": "BB squat *TAP THE BENCH",
    "youtube_id": "PSCa07-YmyM",
    "has_preview": true
   },
@@ -994,7 +994,7 @@ window.PROGRAMME = {
   },
   "17664164": {
    "id": "17664164",
-   "name": "miniband external rotation",
+   "name": "Miniband external rotation",
    "youtube_id": "iEA_KlzRoyQ",
    "has_preview": true
   },
@@ -1006,7 +1006,7 @@ window.PROGRAMME = {
   },
   "20100237": {
    "id": "20100237",
-   "name": "BB Back squat with miniband",
+   "name": "BB back squat with miniband",
    "youtube_id": "W9WFQpUyB-k",
    "has_preview": true
   }
@@ -1018,11 +1018,11 @@ window.PROGRAMME = {
    "variant": 1,
    "title": "Workout 1.1",
    "warmup": {
-    "text": "Mobility routine\n1 round, 8/10 reps each exercise:\nt-spine rotation with reach\nside lying rotation\nleg twist\nfloor seated trunk twist\ncat cow\ntall to half kneeling hip rotation\nhalf kneeling hip raise\nileopsoas dynamic stretch\nadductor dynamic stretch\ncalf release \nbanded ankle mobility",
+    "text": "Mobility routine\n1 round, 8/10 reps each exercise:\nT-spine rotation with reach\nSide lying rotation\nLeg twist\nFloor seated trunk twist\nCat cow\nTall to half kneeling hip rotation\nHalf kneeling hip raise\nIleopsoas dynamic stretch\nAdductor dynamic stretch\nCalf release \nBanded ankle mobility",
     "exercises": [
      {
       "id": "12503061",
-      "name": "t-spine rotation with reach"
+      "name": "T-spine rotation with reach"
      },
      {
       "id": "11249387",
@@ -1030,15 +1030,15 @@ window.PROGRAMME = {
      },
      {
       "id": "12478227",
-      "name": "leg twist"
+      "name": "Leg twist"
      },
      {
       "id": "14602077",
-      "name": "floor seated trunk twist"
+      "name": "Floor seated trunk twist"
      },
      {
       "id": "11307749",
-      "name": "cat cow"
+      "name": "Cat cow"
      },
      {
       "id": "15788247",
@@ -1046,23 +1046,23 @@ window.PROGRAMME = {
      },
      {
       "id": "15711087",
-      "name": "half kneeling hip raise"
+      "name": "Half kneeling hip raise"
      },
      {
       "id": "12503065",
-      "name": "ileopsoas dynamic stretch"
+      "name": "Ileopsoas dynamic stretch"
      },
      {
       "id": "11307759",
-      "name": "adductor dynamic stretch"
+      "name": "Adductor dynamic stretch"
      },
      {
       "id": "14483186",
-      "name": "calf release"
+      "name": "Calf release"
      },
      {
       "id": "17383107",
-      "name": "banded ankle mobility"
+      "name": "Banded ankle mobility"
      }
     ]
    },
@@ -1081,21 +1081,21 @@ window.PROGRAMME = {
        "reps": 8,
        "per_side": true,
        "id": "11292707",
-       "name": "band internal rotation"
+       "name": "Band internal rotation"
       },
       {
        "reps": 8,
        "per_side": true,
        "id": "11292710",
-       "name": "band external rotation"
+       "name": "Band external rotation"
       },
       {
        "reps": 12,
        "id": "14360341",
-       "name": "floor db shoulder blade depression"
+       "name": "Floor DB shoulder blade depression"
       }
      ],
-     "raw": "2 round\n8/side band internal rotation\n8/side band external rotation\n12 Floor db shoulder blade depression"
+     "raw": "2 round\n8/side Band internal rotation\n8/side Band external rotation\n12 Floor DB shoulder blade depression"
     },
     {
      "letter": "B",
@@ -1116,16 +1116,16 @@ window.PROGRAMME = {
        "reps": 10,
        "per_side": true,
        "id": "11473269",
-       "name": "medball contralateral deadbug"
+       "name": "Medball contralateral deadbug"
       },
       {
        "reps": 10,
        "note": "3 SEC HOLD",
        "id": "11307787",
-       "name": "band glute bridge (3\" hold)"
+       "name": "Band glute bridge (3\" hold)"
       }
      ],
-     "raw": "2 rounds\n30\" Dynamic plank\n10/side Medball contralateral deadbug\n10 band bridge *3 SEC HOLD\nrest 1 min",
+     "raw": "2 rounds\n30\" Dynamic plank\n10/side Medball contralateral deadbug\n10 Band bridge *3 SEC HOLD\nRest 1 min",
      "overridden": true
     },
     {
@@ -1142,15 +1142,15 @@ window.PROGRAMME = {
        "reps": 10,
        "per_side": true,
        "id": "11307805",
-       "name": "single arm floor press"
+       "name": "Single arm floor press"
       },
       {
        "reps": 12,
        "id": "11288963",
-       "name": "half kneeling band pull down"
+       "name": "Half kneeling band pull down"
       }
      ],
-     "raw": "3 rounds\n10/side floor press\n12 band half kneeling pull down \nrest 1 minute"
+     "raw": "3 rounds\n10/side Floor press\n12 Band half kneeling pull down \nRest 1 minute"
     },
     {
      "letter": "D",
@@ -1166,7 +1166,7 @@ window.PROGRAMME = {
        "reps": 8,
        "per_side": true,
        "id": "11473288",
-       "name": "dual kb reverse lunge to high knee"
+       "name": "Dual KB reverse lunge to high knee"
       },
       {
        "reps": 8,
@@ -1175,11 +1175,11 @@ window.PROGRAMME = {
        "name": "KB single leg deadlift"
       }
      ],
-     "raw": "3 rounds\n8/side Reverse lunge to high knee\n8/side Single leg deadlift\nrest 1 minute"
+     "raw": "3 rounds\n8/side Reverse lunge to high knee\n8/side Single leg deadlift\nRest 1 minute"
     },
     {
      "letter": "E",
-     "name": "DB Deadlift + Pulley",
+     "name": "DB deadlift + Pulley",
      "kind": "rounds",
      "rounds": 3,
      "rounds_note": null,
@@ -1190,15 +1190,15 @@ window.PROGRAMME = {
       {
        "reps": 10,
        "id": "11297983",
-       "name": "DB Deadlift"
+       "name": "DB deadlift"
       },
       {
        "reps": 10,
        "id": "11497501",
-       "name": "pulley"
+       "name": "Pulley"
       }
      ],
-     "raw": "3 rounds \n10 DB Deadlift\n10 Pulley\nrest 1 minute"
+     "raw": "3 rounds \n10 DB deadlift\n10 Pulley\nRest 1 minute"
     },
     {
      "letter": "F",
@@ -1210,11 +1210,11 @@ window.PROGRAMME = {
      "exercises": [
       {
        "id": "11479471",
-       "name": "run back and fourth"
+       "name": "Run back and fourth"
       },
       {
        "id": "11326944",
-       "name": "plank"
+       "name": "Plank"
       }
      ],
      "raw": "Run back and fourth\nPlank"
@@ -1227,11 +1227,11 @@ window.PROGRAMME = {
    "variant": 2,
    "title": "Workout 1.2",
    "warmup": {
-    "text": "Mobility routine\n1 round, 8/10 reps each exercise:\nt-spine rotation with reach\nside lying rotation\nleg twist\nfloor seated trunk twist\ncat cow\ntall to half kneeling hip rotation\nhalf kneeling hip raise\nileopsoas dynamic stretch\nadductor dynamic stretch\ncalf release \nbanded ankle mobility",
+    "text": "Mobility routine\n1 round, 8/10 reps each exercise:\nT-spine rotation with reach\nSide lying rotation\nLeg twist\nFloor seated trunk twist\nCat cow\nTall to half kneeling hip rotation\nHalf kneeling hip raise\nIleopsoas dynamic stretch\nAdductor dynamic stretch\nCalf release \nBanded ankle mobility",
     "exercises": [
      {
       "id": "12503061",
-      "name": "t-spine rotation with reach"
+      "name": "T-spine rotation with reach"
      },
      {
       "id": "11249387",
@@ -1239,15 +1239,15 @@ window.PROGRAMME = {
      },
      {
       "id": "12478227",
-      "name": "leg twist"
+      "name": "Leg twist"
      },
      {
       "id": "14602077",
-      "name": "floor seated trunk twist"
+      "name": "Floor seated trunk twist"
      },
      {
       "id": "11307749",
-      "name": "cat cow"
+      "name": "Cat cow"
      },
      {
       "id": "15788247",
@@ -1255,23 +1255,23 @@ window.PROGRAMME = {
      },
      {
       "id": "15711087",
-      "name": "half kneeling hip raise"
+      "name": "Half kneeling hip raise"
      },
      {
       "id": "12503065",
-      "name": "ileopsoas dynamic stretch"
+      "name": "Ileopsoas dynamic stretch"
      },
      {
       "id": "11307759",
-      "name": "adductor dynamic stretch"
+      "name": "Adductor dynamic stretch"
      },
      {
       "id": "14483186",
-      "name": "calf release"
+      "name": "Calf release"
      },
      {
       "id": "17383107",
-      "name": "banded ankle mobility"
+      "name": "Banded ankle mobility"
      }
     ]
    },
@@ -1290,21 +1290,21 @@ window.PROGRAMME = {
        "reps": 8,
        "per_side": true,
        "id": "11292707",
-       "name": "band internal rotation"
+       "name": "Band internal rotation"
       },
       {
        "reps": 8,
        "per_side": true,
        "id": "11292710",
-       "name": "band external rotation"
+       "name": "Band external rotation"
       },
       {
        "reps": 12,
        "id": "14360341",
-       "name": "floor db shoulder blade depression"
+       "name": "Floor DB shoulder blade depression"
       }
      ],
-     "raw": "2 rounds\n8/side internal rotation\n8/side external rotation\n12 Floor db shoulder blade depression"
+     "raw": "2 rounds\n8/side Internal rotation\n8/side External rotation\n12 Floor DB shoulder blade depression"
     },
     {
      "letter": "B",
@@ -1319,28 +1319,28 @@ window.PROGRAMME = {
       {
        "reps": 20,
        "id": "11493541",
-       "name": "shoulder tap bear crawl"
+       "name": "Shoulder tap bear crawl"
       },
       {
        "reps": 10,
        "per_side": true,
        "id": "11307824",
-       "name": "ipsilateral deadbug"
+       "name": "Ipsilateral deadbug"
       },
       {
        "reps": 8,
        "per_side": true,
        "note": "3\" hold",
        "id": "11292345",
-       "name": "side bridge"
+       "name": "Side bridge"
       }
      ],
-     "raw": "2 rounds\n20 Shoulder tap bear crawl\n10/side ipsilateral deadbug\n8/side Side bridge (3\" hold)\nrest 1 min",
+     "raw": "2 rounds\n20 Shoulder tap bear crawl\n10/side Ipsilateral deadbug\n8/side Side bridge (3\" hold)\nRest 1 min",
      "overridden": true
     },
     {
      "letter": "C",
-     "name": "BB Sumo deadlift + Pass simulation side lunges",
+     "name": "BB sumo deadlift + Pass simulation side lunges",
      "kind": "rounds",
      "rounds": 3,
      "rounds_note": null,
@@ -1351,19 +1351,19 @@ window.PROGRAMME = {
       {
        "reps": 10,
        "id": "11326909",
-       "name": "bb sumo deadlift"
+       "name": "BB sumo deadlift"
       },
       {
        "reps": 16,
        "id": "11473301",
-       "name": "pass simulation side lunges"
+       "name": "Pass simulation side lunges"
       }
      ],
-     "raw": "3 rounds\n10 BB Sumo deadlfit\n16 Pass simulation side lunges\nrest 1,5 minute"
+     "raw": "3 rounds\n10 BB sumo deadlfit\n16 Pass simulation side lunges\nRest 1,5 minute"
     },
     {
      "letter": "D",
-     "name": "DB Cross over + Rhomboids openings",
+     "name": "DB cross over + Rhomboids openings",
      "kind": "rounds",
      "rounds": 3,
      "rounds_note": null,
@@ -1374,7 +1374,7 @@ window.PROGRAMME = {
       {
        "reps": 10,
        "id": "11473304",
-       "name": "db bench cross over"
+       "name": "DB bench cross over"
       },
       {
        "reps": 10,
@@ -1382,11 +1382,11 @@ window.PROGRAMME = {
        "name": "Band rhomboids openings"
       }
      ],
-     "raw": "3 rounds\n10 db cross over \n10 rhomboids openings\nrest 1,5 minute"
+     "raw": "3 rounds\n10 DB cross over \n10 Rhomboids openings\nRest 1,5 minute"
     },
     {
      "letter": "E",
-     "name": "DB Walking lunges + DB Half kneeling shoulder press",
+     "name": "DB walking lunges + DB half kneeling shoulder press",
      "kind": "rounds",
      "rounds": 3,
      "rounds_note": null,
@@ -1397,16 +1397,16 @@ window.PROGRAMME = {
       {
        "reps": 16,
        "id": "11292367",
-       "name": "DB Walking lunges"
+       "name": "DB walking lunges"
       },
       {
        "reps": 8,
        "per_side": true,
        "id": "11291184",
-       "name": "half kneeling db shoulder press"
+       "name": "Half kneeling DB shoulder press"
       }
      ],
-     "raw": "3 rounds\n16 DB Waking lunges\n8/side DB Half kneeling shoulder press\nrest 1,5 minute"
+     "raw": "3 rounds\n16 DB waking lunges\n8/side DB half kneeling shoulder press\nRest 1,5 minute"
     },
     {
      "letter": "F",
@@ -1418,11 +1418,11 @@ window.PROGRAMME = {
      "exercises": [
       {
        "id": "11479463",
-       "name": "lateral run back and fourth"
+       "name": "Lateral run back and fourth"
       },
       {
        "id": "11326993",
-       "name": "side plank"
+       "name": "Side plank"
       }
      ],
      "raw": "Lateral run back and fourth\nSide plank"
@@ -1435,11 +1435,11 @@ window.PROGRAMME = {
    "variant": 1,
    "title": "Workout 2.1",
    "warmup": {
-    "text": "Back routine mobility\n1 round, 8/10 reps each exercise:\nt-spine rotation with reach\nside lying rotation\nleg twist \nfloor seated trunk twist\ncat cow\nactive straight leg raise\nileopsoas dynamic stretch\nadductor dynamic stretch\nglute dynamic stretch",
+    "text": "Back routine mobility\n1 round, 8/10 reps each exercise:\nT-spine rotation with reach\nSide lying rotation\nLeg twist \nFloor seated trunk twist\nCat cow\nActive straight leg raise\nIleopsoas dynamic stretch\nAdductor dynamic stretch\nGlute dynamic stretch",
     "exercises": [
      {
       "id": "12503061",
-      "name": "t-spine rotation with reach"
+      "name": "T-spine rotation with reach"
      },
      {
       "id": "11249387",
@@ -1447,31 +1447,31 @@ window.PROGRAMME = {
      },
      {
       "id": "11307746",
-      "name": "active straight leg raise"
+      "name": "Active straight leg raise"
      },
      {
       "id": "11307749",
-      "name": "cat cow"
+      "name": "Cat cow"
      },
      {
       "id": "12503065",
-      "name": "ileopsoas dynamic stretch"
+      "name": "Ileopsoas dynamic stretch"
      },
      {
       "id": "11307759",
-      "name": "adductor dynamic stretch"
+      "name": "Adductor dynamic stretch"
      },
      {
       "id": "12478227",
-      "name": "leg twist"
+      "name": "Leg twist"
      },
      {
       "id": "14602077",
-      "name": "floor seated trunk twist"
+      "name": "Floor seated trunk twist"
      },
      {
       "id": "12417679",
-      "name": "glute dynamic stretch"
+      "name": "Glute dynamic stretch"
      }
     ]
    },
@@ -1490,21 +1490,21 @@ window.PROGRAMME = {
        "reps": 8,
        "per_side": true,
        "id": "12457698",
-       "name": "bear hug band internal rotation"
+       "name": "Bear hug band internal rotation"
       },
       {
        "reps": 8,
        "per_side": true,
        "id": "12457699",
-       "name": "bear hug band external rotation"
+       "name": "Bear hug band external rotation"
       },
       {
        "reps": 12,
        "id": "11407364",
-       "name": "floor rhomboids openings"
+       "name": "Floor rhomboids openings"
       }
      ],
-     "raw": "2 round\n8/side bear hug band internal rotation \n8/side bear hug band external rotation \n12 Floor db rhomboids openings"
+     "raw": "2 round\n8/side Bear hug band internal rotation \n8/side Bear hug band external rotation \n12 Floor DB rhomboids openings"
     },
     {
      "letter": "B",
@@ -1524,21 +1524,21 @@ window.PROGRAMME = {
       {
        "reps": 20,
        "id": "11292207",
-       "name": "band core activation dead bug"
+       "name": "Band core activation dead bug"
       },
       {
        "reps": 10,
        "per_side": true,
        "id": "11292212",
-       "name": "single leg bridge"
+       "name": "Single leg bridge"
       }
      ],
-     "raw": "3 rounds\n30\" Front to side plank\n20 core activation deadbug\n10/side single leg bridge \nno rest",
+     "raw": "3 rounds\n30\" Front to side plank\n20 Core activation deadbug\n10/side Single leg bridge \nNo rest",
      "overridden": true
     },
     {
      "letter": "C",
-     "name": "BB Bench press + DB Lower row",
+     "name": "BB bench press + DB lower row",
      "kind": "rounds",
      "rounds": 3,
      "rounds_note": null,
@@ -1549,7 +1549,7 @@ window.PROGRAMME = {
       {
        "reps": 10,
        "id": "11611402",
-       "name": "BB Bench press"
+       "name": "BB bench press"
       },
       {
        "reps": 10,
@@ -1558,7 +1558,7 @@ window.PROGRAMME = {
        "name": "DB bench lower row"
       }
      ],
-     "raw": "3 rounds\n10 BB Bench press\n10/side DB Lower row\nrest 1,5 minute"
+     "raw": "3 rounds\n10 BB bench press\n10/side DB lower row\nRest 1,5 minute"
     },
     {
      "letter": "D",
@@ -1573,20 +1573,20 @@ window.PROGRAMME = {
       {
        "reps": 16,
        "id": "11292305",
-       "name": "DB cossack squat"
+       "name": "DB Cossack squat"
       },
       {
        "reps": 12,
        "per_side": true,
        "id": "11292256",
-       "name": "band lateral walk"
+       "name": "Band lateral walk"
       }
      ],
-     "raw": "3 rounds\n16 DB Cossack squat\n12/side Band lateral walk\nrest 1,5 minute"
+     "raw": "3 rounds\n16 DB Cossack squat\n12/side Band lateral walk\nRest 1,5 minute"
     },
     {
      "letter": "E",
-     "name": "Single leg press + Band pallof press",
+     "name": "Single leg press + Band Pallof press",
      "kind": "rounds",
      "rounds": 3,
      "rounds_note": null,
@@ -1598,16 +1598,16 @@ window.PROGRAMME = {
        "reps": 10,
        "per_side": true,
        "id": "16049563",
-       "name": "Single Leg Press"
+       "name": "Single leg press"
       },
       {
        "reps": 10,
        "per_side": true,
        "id": "11611416",
-       "name": "band half kneeling pallof press"
+       "name": "Band half kneeling Pallof press"
       }
      ],
-     "raw": "3 rounds \n10/side Single leg press\n10/side Band Pallof press\nrest 1,5 minute"
+     "raw": "3 rounds \n10/side Single leg press\n10/side Band Pallof press\nRest 1,5 minute"
     },
     {
      "letter": "F",
@@ -1619,14 +1619,14 @@ window.PROGRAMME = {
      "exercises": [
       {
        "id": "16130107",
-       "name": "2 In 2 Out"
+       "name": "2 in 2 out"
       },
       {
        "id": "11326944",
-       "name": "plank"
+       "name": "Plank"
       }
      ],
-     "raw": "2 in 2 out\nplank"
+     "raw": "2 in 2 out\nPlank"
     }
    ]
   },
@@ -1636,11 +1636,11 @@ window.PROGRAMME = {
    "variant": 2,
    "title": "Workout 2.2",
    "warmup": {
-    "text": "Back routine mobility\n1 round, 8/10 reps each exercise:\nt-spine rotation with reach\nside lying rotation\nleg twist \nfloor seated trunk twist\ncat cow\nactive straight leg raise\nileopsoas dynamic stretch\nadductor dynamic stretch\nglute dynamic stretch",
+    "text": "Back routine mobility\n1 round, 8/10 reps each exercise:\nT-spine rotation with reach\nSide lying rotation\nLeg twist \nFloor seated trunk twist\nCat cow\nActive straight leg raise\nIleopsoas dynamic stretch\nAdductor dynamic stretch\nGlute dynamic stretch",
     "exercises": [
      {
       "id": "12503061",
-      "name": "t-spine rotation with reach"
+      "name": "T-spine rotation with reach"
      },
      {
       "id": "11249387",
@@ -1648,31 +1648,31 @@ window.PROGRAMME = {
      },
      {
       "id": "11307746",
-      "name": "active straight leg raise"
+      "name": "Active straight leg raise"
      },
      {
       "id": "11307749",
-      "name": "cat cow"
+      "name": "Cat cow"
      },
      {
       "id": "12503065",
-      "name": "ileopsoas dynamic stretch"
+      "name": "Ileopsoas dynamic stretch"
      },
      {
       "id": "11307759",
-      "name": "adductor dynamic stretch"
+      "name": "Adductor dynamic stretch"
      },
      {
       "id": "12478227",
-      "name": "leg twist"
+      "name": "Leg twist"
      },
      {
       "id": "14602077",
-      "name": "floor seated trunk twist"
+      "name": "Floor seated trunk twist"
      },
      {
       "id": "12417679",
-      "name": "glute dynamic stretch"
+      "name": "Glute dynamic stretch"
      }
     ]
    },
@@ -1691,21 +1691,21 @@ window.PROGRAMME = {
        "reps": 8,
        "per_side": true,
        "id": "12457698",
-       "name": "bear hug band internal rotation"
+       "name": "Bear hug band internal rotation"
       },
       {
        "reps": 8,
        "per_side": true,
        "id": "12457699",
-       "name": "bear hug band external rotation"
+       "name": "Bear hug band external rotation"
       },
       {
        "reps": 12,
        "id": "11407364",
-       "name": "floor rhomboids openings"
+       "name": "Floor rhomboids openings"
       }
      ],
-     "raw": "2 round\n8/side bear hug band internal rotation \n8/side bear hug band external rotation \n12 Floor db rhomboids openings"
+     "raw": "2 round\n8/side Bear hug band internal rotation \n8/side Bear hug band external rotation \n12 Floor DB rhomboids openings"
     },
     {
      "letter": "B",
@@ -1720,18 +1720,18 @@ window.PROGRAMME = {
       {
        "reps": 20,
        "id": "11292342",
-       "name": "plank arm raise"
+       "name": "Plank arm raise"
       },
       {
        "seconds": 5,
        "holds": 4,
        "id": "11288977",
-       "name": "isometric deadbug"
+       "name": "Isometric deadbug"
       },
       {
        "reps": 12,
        "id": "11293149",
-       "name": "fitball leg curl"
+       "name": "Fitball leg curl"
       }
      ],
      "raw": "3 rounds\n20 Plank arm raise\n4 x 5\" isometric deadbug\n12 Fitball leg curl",
@@ -1739,7 +1739,7 @@ window.PROGRAMME = {
     },
     {
      "letter": "C",
-     "name": "BB Back squat + DB Step up",
+     "name": "BB back squat + DB step up",
      "kind": "rounds",
      "rounds": 3,
      "rounds_note": null,
@@ -1750,20 +1750,20 @@ window.PROGRAMME = {
       {
        "reps": 10,
        "id": "11249249",
-       "name": "BB Back squat"
+       "name": "BB back squat"
       },
       {
        "reps": 8,
        "per_side": true,
        "id": "11292356",
-       "name": "step up"
+       "name": "Step up"
       }
      ],
-     "raw": "3 rounds\n10 BB Back squat \n8/side DB Step up \nrest 1 minute"
+     "raw": "3 rounds\n10 BB back squat \n8/side DB step up \nRest 1 minute"
     },
     {
      "letter": "D",
-     "name": "TRX Push up + TRX Upper row",
+     "name": "TRX push up + TRX upper row",
      "kind": "rounds",
      "rounds": 3,
      "rounds_note": null,
@@ -1774,19 +1774,19 @@ window.PROGRAMME = {
       {
        "reps": 10,
        "id": "11279407",
-       "name": "TRX Push up"
+       "name": "TRX push up"
       },
       {
        "reps": 10,
        "id": "11279419",
-       "name": "Trx upper row"
+       "name": "TRX upper row"
       }
      ],
-     "raw": "3 rounds\n10 Trx push up\n10 trx upper row\nrest 1 minute"
+     "raw": "3 rounds\n10 TRX push up\n10 TRX upper row\nRest 1 minute"
     },
     {
      "letter": "E",
-     "name": "DB Walking lunges + Cable rope pull down",
+     "name": "DB walking lunges + Cable rope pull down",
      "kind": "rounds",
      "rounds": 3,
      "rounds_note": null,
@@ -1797,15 +1797,15 @@ window.PROGRAMME = {
       {
        "reps": 16,
        "id": "11292367",
-       "name": "DB Walking lunges"
+       "name": "DB walking lunges"
       },
       {
        "reps": 10,
        "id": "11292370",
-       "name": "cable rope pull down"
+       "name": "Cable rope pull down"
       }
      ],
-     "raw": "3 rounds\n16 DB Walking lunges\n10 Cable rope pull down\nrest 1 minute"
+     "raw": "3 rounds\n16 DB walking lunges\n10 Cable rope pull down\nRest 1 minute"
     },
     {
      "letter": "F",
@@ -1821,10 +1821,10 @@ window.PROGRAMME = {
       },
       {
        "id": "11326993",
-       "name": "side plank"
+       "name": "Side plank"
       }
      ],
-     "raw": "3 in 3 out\nside plank"
+     "raw": "3 in 3 out\nSide plank"
     }
    ]
   },
@@ -1834,11 +1834,11 @@ window.PROGRAMME = {
    "variant": 1,
    "title": "Workout 3.1",
    "warmup": {
-    "text": "Back routine mobility\n1 round, 8/10 reps each exercise:\nt-spine rotation with reach\nside lying rotation\nleg twist \nfloor seated trunk twist\ncat cow\nactive straight leg raise\nileopsoas dynamic stretch\nadductor dynamic stretch\nglute dynamic stretch\nbw banded split squat",
+    "text": "Back routine mobility\n1 round, 8/10 reps each exercise:\nT-spine rotation with reach\nSide lying rotation\nLeg twist \nFloor seated trunk twist\nCat cow\nActive straight leg raise\nIleopsoas dynamic stretch\nAdductor dynamic stretch\nGlute dynamic stretch\nBw banded split squat",
     "exercises": [
      {
       "id": "12503061",
-      "name": "t-spine rotation with reach"
+      "name": "T-spine rotation with reach"
      },
      {
       "id": "11249387",
@@ -1846,35 +1846,35 @@ window.PROGRAMME = {
      },
      {
       "id": "12478227",
-      "name": "leg twist"
+      "name": "Leg twist"
      },
      {
       "id": "14602077",
-      "name": "floor seated trunk twist"
+      "name": "Floor seated trunk twist"
      },
      {
       "id": "11307749",
-      "name": "cat cow"
+      "name": "Cat cow"
      },
      {
       "id": "11307746",
-      "name": "active straight leg raise"
+      "name": "Active straight leg raise"
      },
      {
       "id": "12503065",
-      "name": "ileopsoas dynamic stretch"
+      "name": "Ileopsoas dynamic stretch"
      },
      {
       "id": "11307759",
-      "name": "adductor dynamic stretch"
+      "name": "Adductor dynamic stretch"
      },
      {
       "id": "12417679",
-      "name": "glute dynamic stretch"
+      "name": "Glute dynamic stretch"
      },
      {
       "id": "14585796",
-      "name": "bw banded split squat"
+      "name": "Bw banded split squat"
      }
     ]
    },
@@ -1893,7 +1893,7 @@ window.PROGRAMME = {
        "reps": 8,
        "per_side": true,
        "id": "12479502",
-       "name": "high elbow band internal rotation"
+       "name": "High elbow band internal rotation"
       },
       {
        "reps": 8,
@@ -1904,10 +1904,10 @@ window.PROGRAMME = {
       {
        "reps": 12,
        "id": "14374824",
-       "name": "floor db rhomboids openings"
+       "name": "Floor DB rhomboids openings"
       }
      ],
-     "raw": "2 round\n8/side high elbow band internal rotation \n8/side high elbow band external rotation \n12 Floor db rhomboids openings"
+     "raw": "2 round\n8/side High elbow band internal rotation \n8/side High elbow band external rotation \n12 Floor DB rhomboids openings"
     },
     {
      "letter": "B",
@@ -1922,27 +1922,27 @@ window.PROGRAMME = {
       {
        "reps": 20,
        "id": "11292942",
-       "name": "plank leg raise"
+       "name": "Plank leg raise"
       },
       {
        "reps": 10,
        "per_side": true,
        "id": "12457695",
-       "name": "db single arm deadug"
+       "name": "DB single arm deadug"
       },
       {
        "reps": 10,
        "per_side": true,
        "id": "12457696",
-       "name": "leg raise side plank"
+       "name": "Leg raise side plank"
       }
      ],
-     "raw": "3 rounds\n20 Plank leg raise\n10/side DB Single arm deadbug \n10/side Leg raise side plank\nno rest",
+     "raw": "3 rounds\n20 Plank leg raise\n10/side DB single arm deadbug \n10/side Leg raise side plank\nNo rest",
      "overridden": true
     },
     {
      "letter": "C",
-     "name": "DB Bench press + TRX Lower row",
+     "name": "DB bench press + TRX lower row",
      "kind": "rounds",
      "rounds": 3,
      "rounds_note": null,
@@ -1953,19 +1953,19 @@ window.PROGRAMME = {
       {
        "reps": 10,
        "id": "11250730",
-       "name": "DB Bench press"
+       "name": "DB bench press"
       },
       {
        "reps": 10,
        "id": "11327019",
-       "name": "trx lower row"
+       "name": "TRX lower row"
       }
      ],
-     "raw": "3 rounds\n10 DB Bench press\n10 trx lower row\nrest 1 minute"
+     "raw": "3 rounds\n10 DB bench press\n10 TRX lower row\nRest 1 minute"
     },
     {
      "letter": "D",
-     "name": "BB Rack deadlift + Pass simulation reverse lunges",
+     "name": "BB rack deadlift + Pass simulation reverse lunges",
      "kind": "rounds",
      "rounds": 3,
      "rounds_note": null,
@@ -1977,20 +1977,20 @@ window.PROGRAMME = {
        "reps": 10,
        "note": "3\" hold",
        "id": "11242555",
-       "name": "Barbell Rack Deadlift"
+       "name": "Barbell rack deadlift"
       },
       {
        "reps": 16,
        "note": "CONTROL RODILLA",
        "id": "12690832",
-       "name": "pass simulation reverse lunges"
+       "name": "Pass simulation reverse lunges"
       }
      ],
-     "raw": "3 rounds\n10 BB rack Deadlift (3\" hold)\n16 Pass simultion Reverse lunges *CONTROL RODILLA\nrest 1 minute"
+     "raw": "3 rounds\n10 BB rack deadlift (3\" hold)\n16 Pass simultion reverse lunges *CONTROL RODILLA\nRest 1 minute"
     },
     {
      "letter": "E",
-     "name": "DB Side lunges + Half kneeling high to low chop",
+     "name": "DB side lunges + Half kneeling high to low chop",
      "kind": "rounds",
      "rounds": 3,
      "rounds_note": null,
@@ -2001,20 +2001,20 @@ window.PROGRAMME = {
       {
        "reps": 16,
        "id": "11250686",
-       "name": "DB Side lunges"
+       "name": "DB side lunges"
       },
       {
        "reps": 8,
        "per_side": true,
        "id": "11372781",
-       "name": "band half kneeling high to low chop"
+       "name": "Band half kneeling high to low chop"
       }
      ],
-     "raw": "3 rounds \n16 DB Side lunges\n8/side Half kneeling high to low chop\nrest 1 minute"
+     "raw": "3 rounds \n16 DB side lunges\n8/side Half kneeling high to low chop\nRest 1 minute"
     },
     {
      "letter": "F",
-     "name": "Tabata: 20\" work - 10\" rest X 8 cycles",
+     "name": "Tabata: 20\" work - 10\" rest x 8 cycles",
      "kind": "tabata",
      "work_seconds": 20,
      "rest_seconds": 10,
@@ -2029,7 +2029,7 @@ window.PROGRAMME = {
        "name": "Plank shoulder tap"
       }
      ],
-     "raw": "obstacle run back and fourth\nplank shoulder tap"
+     "raw": "Obstacle run back and fourth\nPlank shoulder tap"
     }
    ]
   },
@@ -2039,11 +2039,11 @@ window.PROGRAMME = {
    "variant": 2,
    "title": "Workout 3.2",
    "warmup": {
-    "text": "Back routine mobility\n1 round, 8/10 reps each exercise:\nt-spine rotation with reach\nside lying rotation\nleg twist \nfloor seated trunk twist\ncat cow\nactive straight leg raise\nileopsoas dynamic stretch\nadductor dynamic stretch\nglute dynamic stretch\nbw banded split squat",
+    "text": "Back routine mobility\n1 round, 8/10 reps each exercise:\nT-spine rotation with reach\nSide lying rotation\nLeg twist \nFloor seated trunk twist\nCat cow\nActive straight leg raise\nIleopsoas dynamic stretch\nAdductor dynamic stretch\nGlute dynamic stretch\nBw banded split squat",
     "exercises": [
      {
       "id": "12503061",
-      "name": "t-spine rotation with reach"
+      "name": "T-spine rotation with reach"
      },
      {
       "id": "11249387",
@@ -2051,35 +2051,35 @@ window.PROGRAMME = {
      },
      {
       "id": "12478227",
-      "name": "leg twist"
+      "name": "Leg twist"
      },
      {
       "id": "14602077",
-      "name": "floor seated trunk twist"
+      "name": "Floor seated trunk twist"
      },
      {
       "id": "11307749",
-      "name": "cat cow"
+      "name": "Cat cow"
      },
      {
       "id": "11307746",
-      "name": "active straight leg raise"
+      "name": "Active straight leg raise"
      },
      {
       "id": "12503065",
-      "name": "ileopsoas dynamic stretch"
+      "name": "Ileopsoas dynamic stretch"
      },
      {
       "id": "11307759",
-      "name": "adductor dynamic stretch"
+      "name": "Adductor dynamic stretch"
      },
      {
       "id": "12417679",
-      "name": "glute dynamic stretch"
+      "name": "Glute dynamic stretch"
      },
      {
       "id": "14585796",
-      "name": "bw banded split squat"
+      "name": "Bw banded split squat"
      }
     ]
    },
@@ -2098,7 +2098,7 @@ window.PROGRAMME = {
        "reps": 8,
        "per_side": true,
        "id": "12479502",
-       "name": "high elbow band internal rotation"
+       "name": "High elbow band internal rotation"
       },
       {
        "reps": 8,
@@ -2109,10 +2109,10 @@ window.PROGRAMME = {
       {
        "reps": 12,
        "id": "14374824",
-       "name": "floor db rhomboids openings"
+       "name": "Floor DB rhomboids openings"
       }
      ],
-     "raw": "2 round\n8/side high elbow band internal rotation \n8/side high elbow band external rotation \n12 Floor db rhomboids openings"
+     "raw": "2 round\n8/side High elbow band internal rotation \n8/side High elbow band external rotation \n12 Floor DB rhomboids openings"
     },
     {
      "letter": "B",
@@ -2127,12 +2127,12 @@ window.PROGRAMME = {
       {
        "reps": 10,
        "id": "11329535",
-       "name": "sit up"
+       "name": "Sit up"
       },
       {
        "reps": 12,
        "id": "11372794",
-       "name": "contralateral leg arm raise plank"
+       "name": "Contralateral leg arm raise plank"
       },
       {
        "reps": 10,
@@ -2141,7 +2141,7 @@ window.PROGRAMME = {
        "name": "Lateral climbers"
       }
      ],
-     "raw": "3 rounds\n10 sit up\n12 Leg/arm raise plank\n10/side lateral climbers",
+     "raw": "3 rounds\n10 Sit up\n12 Leg/arm raise plank\n10/side Lateral climbers",
      "overridden": true
     },
     {
@@ -2167,11 +2167,11 @@ window.PROGRAMME = {
        "name": "Pass simulation lunge forward"
       }
      ],
-     "raw": "3 rounds\n8/side Multipower split squat *RIR 3\n16 Pass simulation Lunge forward \nrest 1 minute"
+     "raw": "3 rounds\n8/side Multipower split squat *RIR 3\n16 Pass simulation lunge forward \nRest 1 minute"
     },
     {
      "letter": "D",
-     "name": "Row machine + supinated grip shoulder blade depression",
+     "name": "Row machine + Supinated grip shoulder blade depression",
      "kind": "rounds",
      "rounds": 3,
      "rounds_note": null,
@@ -2182,19 +2182,19 @@ window.PROGRAMME = {
       {
        "reps": 10,
        "id": "11329531",
-       "name": "wide grip lat machine"
+       "name": "Wide grip lat machine"
       },
       {
        "reps": 10,
        "id": "11372777",
-       "name": "supinated grip shoulder blade depression"
+       "name": "Supinated grip shoulder blade depression"
       }
      ],
-     "raw": "3 rounds\n10 Row machine\n10 supinated grip shoulder blade depression\nrest 1 minute"
+     "raw": "3 rounds\n10 Row machine\n10 Supinated grip shoulder blade depression\nRest 1 minute"
     },
     {
      "letter": "E",
-     "name": "Hip trust + band standing pallof press",
+     "name": "Hip trust + Band standing Pallof press",
      "kind": "rounds",
      "rounds": 3,
      "rounds_note": null,
@@ -2206,20 +2206,20 @@ window.PROGRAMME = {
        "reps": 10,
        "note": "RIR 3",
        "id": "12457757",
-       "name": "BB Hip trust"
+       "name": "BB hip trust"
       },
       {
        "reps": 8,
        "per_side": true,
        "id": "12378571",
-       "name": "band standing pallof press"
+       "name": "Band standing Pallof press"
       }
      ],
-     "raw": "3 rounds\n10 Hip trust *RIR 3\n8/side band standing pallof press\nrest 1 minute"
+     "raw": "3 rounds\n10 Hip trust *RIR 3\n8/side Band standing Pallof press\nRest 1 minute"
     },
     {
      "letter": "F",
-     "name": "Tabata: 20\" work - 10\" rest X 8 cycles",
+     "name": "Tabata: 20\" work - 10\" rest x 8 cycles",
      "kind": "tabata",
      "work_seconds": 20,
      "rest_seconds": 10,
@@ -2227,14 +2227,14 @@ window.PROGRAMME = {
      "exercises": [
       {
        "id": "14509496",
-       "name": "obstacle lateral run back and fourth"
+       "name": "Obstacle lateral run back and fourth"
       },
       {
        "id": "11326763",
-       "name": "side plank raises"
+       "name": "Side plank raises"
       }
      ],
-     "raw": "obstacle lateral run back and fourth\nside plank raises"
+     "raw": "Obstacle lateral run back and fourth\nSide plank raises"
     }
    ]
   },
@@ -2244,11 +2244,11 @@ window.PROGRAMME = {
    "variant": 1,
    "title": "Workout 4.1",
    "warmup": {
-    "text": "Back routine mobility\n1 round, 8/10 reps each exercise:\nt-spine rotation with reach\nside lying rotation\nleg twist \nfloor seated trunk twist\ncat cow\nactive straight leg raise\nileopsoas dynamic stretch\nadductor dynamic stretch\nglute dynamic stretch\nbw squat",
+    "text": "Back routine mobility\n1 round, 8/10 reps each exercise:\nT-spine rotation with reach\nSide lying rotation\nLeg twist \nFloor seated trunk twist\nCat cow\nActive straight leg raise\nIleopsoas dynamic stretch\nAdductor dynamic stretch\nGlute dynamic stretch\nBw squat",
     "exercises": [
      {
       "id": "12503061",
-      "name": "t-spine rotation with reach"
+      "name": "T-spine rotation with reach"
      },
      {
       "id": "11249387",
@@ -2256,35 +2256,35 @@ window.PROGRAMME = {
      },
      {
       "id": "12478227",
-      "name": "leg twist"
+      "name": "Leg twist"
      },
      {
       "id": "14602077",
-      "name": "floor seated trunk twist"
+      "name": "Floor seated trunk twist"
      },
      {
       "id": "11307749",
-      "name": "cat cow"
+      "name": "Cat cow"
      },
      {
       "id": "11307746",
-      "name": "active straight leg raise"
+      "name": "Active straight leg raise"
      },
      {
       "id": "12503065",
-      "name": "ileopsoas dynamic stretch"
+      "name": "Ileopsoas dynamic stretch"
      },
      {
       "id": "11307759",
-      "name": "adductor dynamic stretch"
+      "name": "Adductor dynamic stretch"
      },
      {
       "id": "12417679",
-      "name": "glute dynamic stretch"
+      "name": "Glute dynamic stretch"
      },
      {
       "id": "12755748",
-      "name": "bw squat"
+      "name": "Bw squat"
      }
     ]
    },
@@ -2303,16 +2303,16 @@ window.PROGRAMME = {
        "reps": 8,
        "per_side": true,
        "id": "11292707",
-       "name": "band internal rotation"
+       "name": "Band internal rotation"
       },
       {
        "reps": 8,
        "per_side": true,
        "id": "11292710",
-       "name": "band external rotation"
+       "name": "Band external rotation"
       }
      ],
-     "raw": "2 rounds\n8/side band internal rotation \n8/side band external rotation"
+     "raw": "2 rounds\n8/side Band internal rotation \n8/side Band external rotation"
     },
     {
      "letter": "B",
@@ -2327,12 +2327,12 @@ window.PROGRAMME = {
       {
        "seconds": 30,
        "id": "12626046",
-       "name": "hollow body flutter kicks"
+       "name": "Hollow body flutter kicks"
       },
       {
        "reps": 20,
        "id": "11280043",
-       "name": "elbows lateral climbers"
+       "name": "Elbows lateral climbers"
       },
       {
        "reps": 20,
@@ -2340,12 +2340,12 @@ window.PROGRAMME = {
        "name": "Plank shoulder tap"
       }
      ],
-     "raw": "3 rounds\n30\" Hollow body flutter kicks\n20 Elbows lateral climbers\n20 plank shoulder tap",
+     "raw": "3 rounds\n30\" Hollow body flutter kicks\n20 Elbows lateral climbers\n20 Plank shoulder tap",
      "overridden": true
     },
     {
      "letter": "C",
-     "name": "BB Bench press",
+     "name": "BB bench press",
      "kind": "rounds",
      "rounds": 3,
      "rounds_note": null,
@@ -2360,14 +2360,14 @@ window.PROGRAMME = {
         6
        ],
        "id": "11611402",
-       "name": "BB Bench press"
+       "name": "BB bench press"
       }
      ],
-     "raw": "3 sets of 10-8-6\nrest 2 minute"
+     "raw": "3 sets of 10-8-6\nRest 2 minute"
     },
     {
      "letter": "D",
-     "name": "DB Incline Bench Press",
+     "name": "DB incline bench press",
      "kind": "rounds",
      "rounds": 3,
      "rounds_note": null,
@@ -2382,14 +2382,14 @@ window.PROGRAMME = {
         6
        ],
        "id": "11355605",
-       "name": "DB Incline Bench Press"
+       "name": "DB incline bench press"
       }
      ],
-     "raw": "3 sets of 10-8-6\nrest 2 minute"
+     "raw": "3 sets of 10-8-6\nRest 2 minute"
     },
     {
      "letter": "E",
-     "name": "Band tall kneeling pull down + standing bb shoulder blade depression",
+     "name": "Band tall kneeling pull down + Standing BB shoulder blade depression",
      "kind": "rounds",
      "rounds": 3,
      "rounds_note": null,
@@ -2405,14 +2405,14 @@ window.PROGRAMME = {
       {
        "reps": 10,
        "id": "16540198",
-       "name": "standing bb shoulder blade depression"
+       "name": "Standing BB shoulder blade depression"
       }
      ],
-     "raw": "3 rounds:\n10 band tall kneeling pull down\n10 standing bb shoulder blade depression\nrest 1,5 min"
+     "raw": "3 rounds:\n10 Band tall kneeling pull down\n10 Standing BB shoulder blade depression\nRest 1,5 min"
     },
     {
      "letter": "F",
-     "name": "row machine",
+     "name": "Row machine",
      "kind": "rounds",
      "rounds": 3,
      "rounds_note": null,
@@ -2427,14 +2427,14 @@ window.PROGRAMME = {
         6
        ],
        "id": "11379991",
-       "name": "row machine"
+       "name": "Row machine"
       }
      ],
-     "raw": "3 sets of 10-8-6\nrest 2 minute"
+     "raw": "3 sets of 10-8-6\nRest 2 minute"
     },
     {
      "letter": "G",
-     "name": "cable rope pull down",
+     "name": "Cable rope pull down",
      "kind": "rounds",
      "rounds": 3,
      "rounds_note": null,
@@ -2449,10 +2449,10 @@ window.PROGRAMME = {
         6
        ],
        "id": "11292370",
-       "name": "cable rope pull down"
+       "name": "Cable rope pull down"
       }
      ],
-     "raw": "3 sets of 10-8-6\nrest 1 minute"
+     "raw": "3 sets of 10-8-6\nRest 1 minute"
     }
    ]
   },
@@ -2462,11 +2462,11 @@ window.PROGRAMME = {
    "variant": 2,
    "title": "Workout 4.2",
    "warmup": {
-    "text": "Back routine mobility\n1 round, 8/10 reps each exercise:\nt-spine rotation with reach\nside lying rotation\nleg twist \nfloor seated trunk twist\ncat cow\nactive straight leg raise\nileopsoas dynamic stretch\nadductor dynamic stretch\nglute dynamic stretch\nbw squat",
+    "text": "Back routine mobility\n1 round, 8/10 reps each exercise:\nT-spine rotation with reach\nSide lying rotation\nLeg twist \nFloor seated trunk twist\nCat cow\nActive straight leg raise\nIleopsoas dynamic stretch\nAdductor dynamic stretch\nGlute dynamic stretch\nBw squat",
     "exercises": [
      {
       "id": "12503061",
-      "name": "t-spine rotation with reach"
+      "name": "T-spine rotation with reach"
      },
      {
       "id": "11249387",
@@ -2474,35 +2474,35 @@ window.PROGRAMME = {
      },
      {
       "id": "12478227",
-      "name": "leg twist"
+      "name": "Leg twist"
      },
      {
       "id": "14602077",
-      "name": "floor seated trunk twist"
+      "name": "Floor seated trunk twist"
      },
      {
       "id": "11307749",
-      "name": "cat cow"
+      "name": "Cat cow"
      },
      {
       "id": "11307746",
-      "name": "active straight leg raise"
+      "name": "Active straight leg raise"
      },
      {
       "id": "12503065",
-      "name": "ileopsoas dynamic stretch"
+      "name": "Ileopsoas dynamic stretch"
      },
      {
       "id": "11307759",
-      "name": "adductor dynamic stretch"
+      "name": "Adductor dynamic stretch"
      },
      {
       "id": "12417679",
-      "name": "glute dynamic stretch"
+      "name": "Glute dynamic stretch"
      },
      {
       "id": "12755748",
-      "name": "bw squat"
+      "name": "Bw squat"
      }
     ]
    },
@@ -2521,16 +2521,16 @@ window.PROGRAMME = {
        "reps": 8,
        "per_side": true,
        "id": "11292707",
-       "name": "band internal rotation"
+       "name": "Band internal rotation"
       },
       {
        "reps": 8,
        "per_side": true,
        "id": "11292710",
-       "name": "band external rotation"
+       "name": "Band external rotation"
       }
      ],
-     "raw": "2 round\n8/side band internal rotation \n8/side band external rotation"
+     "raw": "2 round\n8/side Band internal rotation \n8/side Band external rotation"
     },
     {
      "letter": "B",
@@ -2545,12 +2545,12 @@ window.PROGRAMME = {
       {
        "seconds": 30,
        "id": "11479416",
-       "name": "bent hollow flutter kicks"
+       "name": "Bent hollow flutter kicks"
       },
       {
        "reps": 20,
        "id": "11684653",
-       "name": "cross body mountain climbers"
+       "name": "Cross body mountain climbers"
       },
       {
        "reps": 20,
@@ -2558,12 +2558,12 @@ window.PROGRAMME = {
        "name": "Plank shoulder tap"
       }
      ],
-     "raw": "3 rounds\n30\" Bent hollow flutter kicks\n20 Cross body mountain climbers\n20 plank shoulder tap\nno rest",
+     "raw": "3 rounds\n30\" Bent hollow flutter kicks\n20 Cross body mountain climbers\n20 Plank shoulder tap\nNo rest",
      "overridden": true
     },
     {
      "letter": "C",
-     "name": "db knee banded split squat",
+     "name": "DB knee banded split squat",
      "kind": "rounds",
      "rounds": 3,
      "rounds_note": null,
@@ -2575,14 +2575,14 @@ window.PROGRAMME = {
        "reps": 8,
        "per_side": true,
        "id": "14595477",
-       "name": "db knee banded split squat"
+       "name": "DB knee banded split squat"
       }
      ],
-     "raw": "3 sets of 8/side\nrest 1,5 minute"
+     "raw": "3 sets of 8/side\nRest 1,5 minute"
     },
     {
      "letter": "D",
-     "name": "multipower hip trust",
+     "name": "Multipower hip trust",
      "kind": "rounds",
      "rounds": 3,
      "rounds_note": null,
@@ -2597,14 +2597,14 @@ window.PROGRAMME = {
         6
        ],
        "id": "14695037",
-       "name": "multipower hip trust"
+       "name": "Multipower hip trust"
       }
      ],
-     "raw": "3 sets of 8-6-6\nrest 2 minute"
+     "raw": "3 sets of 8-6-6\nRest 2 minute"
     },
     {
      "letter": "E",
-     "name": "BB Squat + DB Standing lateral raises",
+     "name": "BB squat + DB standing lateral raises",
      "kind": "rounds",
      "rounds": 3,
      "rounds_note": null,
@@ -2619,19 +2619,19 @@ window.PROGRAMME = {
         6
        ],
        "id": "17594422",
-       "name": "BB Squat *TAP THE BENCH"
+       "name": "BB squat *TAP THE BENCH"
       },
       {
        "reps": 10,
        "id": "11497789",
-       "name": "db standing lateral raises"
+       "name": "DB standing lateral raises"
       }
      ],
-     "raw": "3 rounds:\n8-6-6 BB Squat\n10 db standing lateral raises\nrest 2 min"
+     "raw": "3 rounds:\n8-6-6 BB squat\n10 DB standing lateral raises\nRest 2 min"
     },
     {
      "letter": "F",
-     "name": "trx shoulder depression and row",
+     "name": "TRX shoulder depression and row",
      "kind": "rounds",
      "rounds": 3,
      "rounds_note": null,
@@ -2642,14 +2642,14 @@ window.PROGRAMME = {
       {
        "reps": 10,
        "id": "11494918",
-       "name": "trx shoulder depression and row"
+       "name": "TRX shoulder depression and row"
       }
      ],
-     "raw": "3 sets of 10\nrest 1,5 minute"
+     "raw": "3 sets of 10\nRest 1,5 minute"
     },
     {
      "letter": "G",
-     "name": "trx single arm row",
+     "name": "TRX single arm row",
      "kind": "rounds",
      "rounds": 3,
      "rounds_note": null,
@@ -2661,10 +2661,10 @@ window.PROGRAMME = {
        "reps": 8,
        "per_side": true,
        "id": "11473108",
-       "name": "trx single arm row"
+       "name": "TRX single arm row"
       }
      ],
-     "raw": "3 sets of 8/side\nrest 1,5 minute"
+     "raw": "3 sets of 8/side\nRest 1,5 minute"
     }
    ]
   },
@@ -2674,11 +2674,11 @@ window.PROGRAMME = {
    "variant": 1,
    "title": "Workout 5.1",
    "warmup": {
-    "text": "Back routine mobility\n1 round, 8/10 reps each exercise:\nt-spine rotation with reach\nside lying rotation\nleg twist \nfloor seated trunk twist\ncat cow\nactive straight leg raise\nileopsoas dynamic stretch\nadductor dynamic stretch\nglute dynamic stretch",
+    "text": "Back routine mobility\n1 round, 8/10 reps each exercise:\nT-spine rotation with reach\nSide lying rotation\nLeg twist \nFloor seated trunk twist\nCat cow\nActive straight leg raise\nIleopsoas dynamic stretch\nAdductor dynamic stretch\nGlute dynamic stretch",
     "exercises": [
      {
       "id": "12503061",
-      "name": "t-spine rotation with reach"
+      "name": "T-spine rotation with reach"
      },
      {
       "id": "11249387",
@@ -2686,35 +2686,35 @@ window.PROGRAMME = {
      },
      {
       "id": "12478227",
-      "name": "leg twist"
+      "name": "Leg twist"
      },
      {
       "id": "14602077",
-      "name": "floor seated trunk twist"
+      "name": "Floor seated trunk twist"
      },
      {
       "id": "11307749",
-      "name": "cat cow"
+      "name": "Cat cow"
      },
      {
       "id": "11307746",
-      "name": "active straight leg raise"
+      "name": "Active straight leg raise"
      },
      {
       "id": "12503065",
-      "name": "ileopsoas dynamic stretch"
+      "name": "Ileopsoas dynamic stretch"
      },
      {
       "id": "11307759",
-      "name": "adductor dynamic stretch"
+      "name": "Adductor dynamic stretch"
      },
      {
       "id": "12417679",
-      "name": "glute dynamic stretch"
+      "name": "Glute dynamic stretch"
      },
      {
       "id": "12755748",
-      "name": "bw squat"
+      "name": "Bw squat"
      }
     ]
    },
@@ -2733,16 +2733,16 @@ window.PROGRAMME = {
        "reps": 8,
        "per_side": true,
        "id": "12695626",
-       "name": "DB External rotation"
+       "name": "DB external rotation"
       },
       {
        "reps": 8,
        "note": "lento",
        "id": "12651865",
-       "name": "foam roller miniband press"
+       "name": "Foam roller miniband press"
       }
      ],
-     "raw": "2 rounds\n8/side DB external rotation \n8 miniband press (lento)"
+     "raw": "2 rounds\n8/side DB external rotation \n8 Miniband press (lento)"
     },
     {
      "letter": "B",
@@ -2757,26 +2757,26 @@ window.PROGRAMME = {
       {
        "seconds": 30,
        "id": "11331922",
-       "name": "fitball plank"
+       "name": "Fitball plank"
       },
       {
        "reps": 20,
        "id": "11288950",
-       "name": "modified tuck up"
+       "name": "Modified tuck up"
       },
       {
        "reps": 10,
        "per_side": true,
        "id": "11330193",
-       "name": "single arm kb swing"
+       "name": "Single arm KB swing"
       }
      ],
-     "raw": "3 rounds\n30\" Fitball plank \n20 Modified tuck up\n10/side single arm KB Swing",
+     "raw": "3 rounds\n30\" Fitball plank \n20 Modified tuck up\n10/side Single arm KB swing",
      "overridden": true
     },
     {
      "letter": "C",
-     "name": "BB Bench press",
+     "name": "BB bench press",
      "kind": "rounds",
      "rounds": 3,
      "rounds_note": null,
@@ -2791,14 +2791,14 @@ window.PROGRAMME = {
         6
        ],
        "id": "11611402",
-       "name": "BB Bench press"
+       "name": "BB bench press"
       }
      ],
-     "raw": "3 sets of 8-6-6\nrest 2 min"
+     "raw": "3 sets of 8-6-6\nRest 2 min"
     },
     {
      "letter": "D",
-     "name": "single arm floor press",
+     "name": "Single arm floor press",
      "kind": "rounds",
      "rounds": 3,
      "rounds_note": null,
@@ -2814,14 +2814,14 @@ window.PROGRAMME = {
        ],
        "per_side": true,
        "id": "11307805",
-       "name": "single arm floor press"
+       "name": "Single arm floor press"
       }
      ],
-     "raw": "3 sets of 10-8-6/side *RIR 2\nrest 1,5 minute"
+     "raw": "3 sets of 10-8-6/side *RIR 2\nRest 1,5 minute"
     },
     {
      "letter": "E",
-     "name": "DB Bench cross over + DB Bench rhomboids openings",
+     "name": "DB bench cross over + DB bench rhomboids openings",
      "kind": "rounds",
      "rounds": 3,
      "rounds_note": null,
@@ -2833,15 +2833,15 @@ window.PROGRAMME = {
        "reps": 8,
        "note": "RIR 1",
        "id": "11473304",
-       "name": "db bench cross over"
+       "name": "DB bench cross over"
       },
       {
        "reps": 12,
        "id": "14575471",
-       "name": "bench rhomboids openings"
+       "name": "Bench rhomboids openings"
       }
      ],
-     "raw": "3 rounds:\n8 db bench cross over *RIR 1\n12 db bench rhomboids openings\nrest 1,5 min"
+     "raw": "3 rounds:\n8 DB bench cross over *RIR 1\n12 DB bench rhomboids openings\nRest 1,5 min"
     },
     {
      "letter": "F",
@@ -2860,7 +2860,7 @@ window.PROGRAMME = {
        "name": "Chin up"
       }
      ],
-     "raw": "3 sets *MAX REPS - RIR 0 \nrest 1,5 minute"
+     "raw": "3 sets *MAX REPS - RIR 0 \nRest 1,5 minute"
     },
     {
      "letter": "G",
@@ -2883,7 +2883,7 @@ window.PROGRAMME = {
        "name": "DB bench lower row"
       }
      ],
-     "raw": "3 sets of 10-8-6/side *RIR 1\nrest 1,5 minute"
+     "raw": "3 sets of 10-8-6/side *RIR 1\nRest 1,5 minute"
     }
    ]
   },
@@ -2893,11 +2893,11 @@ window.PROGRAMME = {
    "variant": 2,
    "title": "Workout 5.2",
    "warmup": {
-    "text": "Back routine mobility\n1 round, 8/10 reps each exercise:\nt-spine rotation with reach\nside lying rotation\nleg twist \nfloor seated trunk twist\ncat cow\nactive straight leg raise\nileopsoas dynamic stretch\nadductor dynamic stretch\nglute dynamic stretch",
+    "text": "Back routine mobility\n1 round, 8/10 reps each exercise:\nT-spine rotation with reach\nSide lying rotation\nLeg twist \nFloor seated trunk twist\nCat cow\nActive straight leg raise\nIleopsoas dynamic stretch\nAdductor dynamic stretch\nGlute dynamic stretch",
     "exercises": [
      {
       "id": "12503061",
-      "name": "t-spine rotation with reach"
+      "name": "T-spine rotation with reach"
      },
      {
       "id": "11249387",
@@ -2905,35 +2905,35 @@ window.PROGRAMME = {
      },
      {
       "id": "12478227",
-      "name": "leg twist"
+      "name": "Leg twist"
      },
      {
       "id": "14602077",
-      "name": "floor seated trunk twist"
+      "name": "Floor seated trunk twist"
      },
      {
       "id": "11307749",
-      "name": "cat cow"
+      "name": "Cat cow"
      },
      {
       "id": "11307746",
-      "name": "active straight leg raise"
+      "name": "Active straight leg raise"
      },
      {
       "id": "12503065",
-      "name": "ileopsoas dynamic stretch"
+      "name": "Ileopsoas dynamic stretch"
      },
      {
       "id": "11307759",
-      "name": "adductor dynamic stretch"
+      "name": "Adductor dynamic stretch"
      },
      {
       "id": "12417679",
-      "name": "glute dynamic stretch"
+      "name": "Glute dynamic stretch"
      },
      {
       "id": "12755748",
-      "name": "bw squat"
+      "name": "Bw squat"
      }
     ]
    },
@@ -2952,16 +2952,16 @@ window.PROGRAMME = {
        "reps": 8,
        "per_side": true,
        "id": "12695626",
-       "name": "DB External rotation"
+       "name": "DB external rotation"
       },
       {
        "reps": 8,
        "note": "lento",
        "id": "12651865",
-       "name": "foam roller miniband press"
+       "name": "Foam roller miniband press"
       }
      ],
-     "raw": "2 rounds\n8/side DB external rotation \n8 miniband press (lento)"
+     "raw": "2 rounds\n8/side DB external rotation \n8 Miniband press (lento)"
     },
     {
      "letter": "B",
@@ -2976,26 +2976,26 @@ window.PROGRAMME = {
       {
        "seconds": 30,
        "id": "11521897",
-       "name": "fitball crunch"
+       "name": "Fitball crunch"
       },
       {
        "reps": 20,
        "id": "11521901",
-       "name": "cross wallet"
+       "name": "Cross wallet"
       },
       {
        "reps": 10,
        "per_side": true,
        "id": "11330193",
-       "name": "single arm kb swing"
+       "name": "Single arm KB swing"
       }
      ],
-     "raw": "3 rounds\n30\" Fitball crunch\n20 Cross wallet\n10/side Single arm KB swing\nno rest",
+     "raw": "3 rounds\n30\" Fitball crunch\n20 Cross wallet\n10/side Single arm KB swing\nNo rest",
      "overridden": true
     },
     {
      "letter": "C",
-     "name": "BB Back squat with miniband",
+     "name": "BB back squat with miniband",
      "kind": "rounds",
      "rounds": 3,
      "rounds_note": null,
@@ -3006,14 +3006,14 @@ window.PROGRAMME = {
       {
        "reps": 8,
        "id": "20100237",
-       "name": "BB Back squat with miniband"
+       "name": "BB back squat with miniband"
       }
      ],
-     "raw": "3 sets of 8 \nrest 1,5 minute"
+     "raw": "3 sets of 8 \nRest 1,5 minute"
     },
     {
      "letter": "D",
-     "name": "bb reverse lunge",
+     "name": "BB reverse lunge",
      "kind": "rounds",
      "rounds": 3,
      "rounds_note": null,
@@ -3025,14 +3025,14 @@ window.PROGRAMME = {
        "reps": 6,
        "per_side": true,
        "id": "11373004",
-       "name": "bb reverse lunge"
+       "name": "BB reverse lunge"
       }
      ],
-     "raw": "3 sets of 6/side\nrest 1,5 minute"
+     "raw": "3 sets of 6/side\nRest 1,5 minute"
     },
     {
      "letter": "E",
-     "name": "KB Cross Side lunges + Trx shoulder openings",
+     "name": "KB cross side lunges + TRX shoulder openings",
      "kind": "rounds",
      "rounds": 3,
      "rounds_note": null,
@@ -3044,19 +3044,19 @@ window.PROGRAMME = {
        "reps": 8,
        "per_side": true,
        "id": "11329545",
-       "name": "cross side lunges"
+       "name": "Cross side lunges"
       },
       {
        "reps": 10,
        "id": "11250441",
-       "name": "Trx shoulders openings"
+       "name": "TRX shoulders openings"
       }
      ],
-     "raw": "3 rounds:\n8/side kb cross side lunges\n10 trx shoulders openings\nrest 1,5 min"
+     "raw": "3 rounds:\n8/side KB cross side lunges\n10 TRX shoulders openings\nRest 1,5 min"
     },
     {
      "letter": "F",
-     "name": "half kneeling db shoulder press",
+     "name": "Half kneeling DB shoulder press",
      "kind": "rounds",
      "rounds": 3,
      "rounds_note": null,
@@ -3068,14 +3068,14 @@ window.PROGRAMME = {
        "reps": 8,
        "per_side": true,
        "id": "11291184",
-       "name": "half kneeling db shoulder press"
+       "name": "Half kneeling DB shoulder press"
       }
      ],
-     "raw": "3 sets of 8/side\nrest 1,5 minute"
+     "raw": "3 sets of 8/side\nRest 1,5 minute"
     },
     {
      "letter": "G",
-     "name": "supinated grip shoulder blade depression",
+     "name": "Supinated grip shoulder blade depression",
      "kind": "rounds",
      "rounds": 3,
      "rounds_note": null,
@@ -3086,10 +3086,10 @@ window.PROGRAMME = {
       {
        "reps": 10,
        "id": "11372777",
-       "name": "supinated grip shoulder blade depression"
+       "name": "Supinated grip shoulder blade depression"
       }
      ],
-     "raw": "3 sets of 10\nrest 1,5 minute"
+     "raw": "3 sets of 10\nRest 1,5 minute"
     }
    ]
   },
@@ -3099,11 +3099,11 @@ window.PROGRAMME = {
    "variant": 1,
    "title": "Workout 6.1",
    "warmup": {
-    "text": "Back routine mobility\n1 round, 8/10 reps each exercise:\nt-spine rotation with reach\nside lying rotation\nleg twist \nfloor seated trunk twist\ncat cow\nactive straight leg raise\nileopsoas dynamic stretch\nadductor dynamic stretch\nglute dynamic stretch",
+    "text": "Back routine mobility\n1 round, 8/10 reps each exercise:\nT-spine rotation with reach\nSide lying rotation\nLeg twist \nFloor seated trunk twist\nCat cow\nActive straight leg raise\nIleopsoas dynamic stretch\nAdductor dynamic stretch\nGlute dynamic stretch",
     "exercises": [
      {
       "id": "12503061",
-      "name": "t-spine rotation with reach"
+      "name": "T-spine rotation with reach"
      },
      {
       "id": "11249387",
@@ -3111,35 +3111,35 @@ window.PROGRAMME = {
      },
      {
       "id": "12478227",
-      "name": "leg twist"
+      "name": "Leg twist"
      },
      {
       "id": "14602077",
-      "name": "floor seated trunk twist"
+      "name": "Floor seated trunk twist"
      },
      {
       "id": "11307749",
-      "name": "cat cow"
+      "name": "Cat cow"
      },
      {
       "id": "11307746",
-      "name": "active straight leg raise"
+      "name": "Active straight leg raise"
      },
      {
       "id": "12503065",
-      "name": "ileopsoas dynamic stretch"
+      "name": "Ileopsoas dynamic stretch"
      },
      {
       "id": "11307759",
-      "name": "adductor dynamic stretch"
+      "name": "Adductor dynamic stretch"
      },
      {
       "id": "12417679",
-      "name": "glute dynamic stretch"
+      "name": "Glute dynamic stretch"
      },
      {
       "id": "12755748",
-      "name": "bw squat"
+      "name": "Bw squat"
      }
     ]
    },
@@ -3158,15 +3158,15 @@ window.PROGRAMME = {
        "reps": 8,
        "per_side": true,
        "id": "17664164",
-       "name": "miniband external rotation"
+       "name": "Miniband external rotation"
       },
       {
        "reps": 8,
        "id": "12816779",
-       "name": "foam roller db internal rotation"
+       "name": "Foam roller DB internal rotation"
       }
      ],
-     "raw": "2 rounds\n8/side miniband external rotation\n8 foam roller db internal rotation"
+     "raw": "2 rounds\n8/side Miniband external rotation\n8 Foam roller DB internal rotation"
     },
     {
      "letter": "B",
@@ -3181,25 +3181,25 @@ window.PROGRAMME = {
       {
        "reps": 10,
        "id": "11279401",
-       "name": "hands to elbows plank"
+       "name": "Hands to elbows plank"
       },
       {
        "reps": 12,
        "id": "11279404",
-       "name": "band tall kneeling shoulder press"
+       "name": "Band tall kneeling shoulder press"
       },
       {
        "reps": 12,
        "id": "14310937",
-       "name": "trx wallet crunch"
+       "name": "TRX wallet crunch"
       }
      ],
-     "raw": "3 rounds\n10 Hands to elbows plank \n12 Band tall kneeling shoulder press\n12 trx wallet crunch",
+     "raw": "3 rounds\n10 Hands to elbows plank \n12 Band tall kneeling shoulder press\n12 TRX wallet crunch",
      "overridden": true
     },
     {
      "letter": "C",
-     "name": "BB Bench press",
+     "name": "BB bench press",
      "kind": "rounds",
      "rounds": 3,
      "rounds_note": null,
@@ -3210,14 +3210,14 @@ window.PROGRAMME = {
       {
        "reps": 6,
        "id": "11611402",
-       "name": "BB Bench press"
+       "name": "BB bench press"
       }
      ],
-     "raw": "3 sets of 6 *RIR 1\nrest 1,5 minute"
+     "raw": "3 sets of 6 *RIR 1\nRest 1,5 minute"
     },
     {
      "letter": "D",
-     "name": "single arm floor press",
+     "name": "Single arm floor press",
      "kind": "rounds",
      "rounds": 3,
      "rounds_note": null,
@@ -3229,10 +3229,10 @@ window.PROGRAMME = {
        "reps": 6,
        "per_side": true,
        "id": "11307805",
-       "name": "single arm floor press"
+       "name": "Single arm floor press"
       }
      ],
-     "raw": "3 sets of 6/side\nrest 1,5 minute"
+     "raw": "3 sets of 6/side\nRest 1,5 minute"
     },
     {
      "letter": "E",
@@ -3247,16 +3247,16 @@ window.PROGRAMME = {
       {
        "reps": 12,
        "id": "11425178",
-       "name": "australian pull up"
+       "name": "Australian pull up"
       },
       {
        "reps": "MAX",
        "note": "RIR 0",
        "id": "11307835",
-       "name": "push up"
+       "name": "Push up"
       }
      ],
-     "raw": "3 rounds:\n12 Australian pull up\nMax reps full range push up *RIR 0\nrest 1,5 min"
+     "raw": "3 rounds:\n12 Australian pull up\nMax reps full range push up *RIR 0\nRest 1,5 min"
     },
     {
      "letter": "F",
@@ -3274,7 +3274,7 @@ window.PROGRAMME = {
        "name": "Pull up"
       }
      ],
-     "raw": "3 sets of MAX \nrest 2 minute"
+     "raw": "3 sets of MAX \nRest 2 minute"
     },
     {
      "letter": "G",
@@ -3293,7 +3293,7 @@ window.PROGRAMME = {
        "name": "DB bench lower row"
       }
      ],
-     "raw": "3 sets of 6/side *RIR 1\nrest 1,5 minute"
+     "raw": "3 sets of 6/side *RIR 1\nRest 1,5 minute"
     }
    ]
   },
@@ -3303,11 +3303,11 @@ window.PROGRAMME = {
    "variant": 2,
    "title": "Workout 6.2",
    "warmup": {
-    "text": "Back routine mobility\n1 round, 8/10 reps each exercise:\nt-spine rotation with reach\nside lying rotation\nleg twist \nfloor seated trunk twist\ncat cow\nactive straight leg raise\nileopsoas dynamic stretch\nadductor dynamic stretch\nglute dynamic stretch",
+    "text": "Back routine mobility\n1 round, 8/10 reps each exercise:\nT-spine rotation with reach\nSide lying rotation\nLeg twist \nFloor seated trunk twist\nCat cow\nActive straight leg raise\nIleopsoas dynamic stretch\nAdductor dynamic stretch\nGlute dynamic stretch",
     "exercises": [
      {
       "id": "12503061",
-      "name": "t-spine rotation with reach"
+      "name": "T-spine rotation with reach"
      },
      {
       "id": "11249387",
@@ -3315,35 +3315,35 @@ window.PROGRAMME = {
      },
      {
       "id": "12478227",
-      "name": "leg twist"
+      "name": "Leg twist"
      },
      {
       "id": "14602077",
-      "name": "floor seated trunk twist"
+      "name": "Floor seated trunk twist"
      },
      {
       "id": "11307749",
-      "name": "cat cow"
+      "name": "Cat cow"
      },
      {
       "id": "11307746",
-      "name": "active straight leg raise"
+      "name": "Active straight leg raise"
      },
      {
       "id": "12503065",
-      "name": "ileopsoas dynamic stretch"
+      "name": "Ileopsoas dynamic stretch"
      },
      {
       "id": "11307759",
-      "name": "adductor dynamic stretch"
+      "name": "Adductor dynamic stretch"
      },
      {
       "id": "12417679",
-      "name": "glute dynamic stretch"
+      "name": "Glute dynamic stretch"
      },
      {
       "id": "12755748",
-      "name": "bw squat"
+      "name": "Bw squat"
      }
     ]
    },
@@ -3362,15 +3362,15 @@ window.PROGRAMME = {
        "reps": 8,
        "per_side": true,
        "id": "17664164",
-       "name": "miniband external rotation"
+       "name": "Miniband external rotation"
       },
       {
        "reps": 8,
        "id": "12816779",
-       "name": "foam roller db internal rotation"
+       "name": "Foam roller DB internal rotation"
       }
      ],
-     "raw": "2 rounds\n8/side miniband external rotation\n8 foam roller db internal rotation"
+     "raw": "2 rounds\n8/side Miniband external rotation\n8 Foam roller DB internal rotation"
     },
     {
      "letter": "B",
@@ -3397,10 +3397,10 @@ window.PROGRAMME = {
        "reps": 10,
        "per_side": true,
        "id": "11279373",
-       "name": "Half kneeling DB Chop"
+       "name": "Half kneeling DB chop"
       }
      ],
-     "raw": "3 rounds\n30\"/side DB Side plank\n12 Band twist\n10/side Half kneeling DB Chop",
+     "raw": "3 rounds\n30\"/side DB side plank\n12 Band twist\n10/side Half kneeling DB chop",
      "overridden": true
     },
     {
@@ -3420,11 +3420,11 @@ window.PROGRAMME = {
        "name": "DB Bulgarian squat"
       }
      ],
-     "raw": "3/4 sets of 6/side\nrest 1,5 minute"
+     "raw": "3/4 sets of 6/side\nRest 1,5 minute"
     },
     {
      "letter": "D",
-     "name": "heels elevated back squat",
+     "name": "Heels elevated back squat",
      "kind": "rounds",
      "rounds": 3,
      "rounds_note": null,
@@ -3435,14 +3435,14 @@ window.PROGRAMME = {
       {
        "reps": 6,
        "id": "15545314",
-       "name": "heels elevated back squat"
+       "name": "Heels elevated back squat"
       }
      ],
-     "raw": "3 sets of 6 reps\nrest 1 minute"
+     "raw": "3 sets of 6 reps\nRest 1 minute"
     },
     {
      "letter": "E",
-     "name": "BB Rack deadlift + DB Lateral raises",
+     "name": "BB rack deadlift + DB lateral raises",
      "kind": "rounds",
      "rounds": 3,
      "rounds_note": null,
@@ -3453,15 +3453,15 @@ window.PROGRAMME = {
       {
        "reps": 10,
        "id": "11242555",
-       "name": "Barbell Rack Deadlift"
+       "name": "Barbell rack deadlift"
       },
       {
        "reps": 10,
        "id": "11497789",
-       "name": "db standing lateral raises"
+       "name": "DB standing lateral raises"
       }
      ],
-     "raw": "3 rounds:\n10 BB Rack deadlift\n10 db lateral raises\nrest 1,5 min"
+     "raw": "3 rounds:\n10 BB rack deadlift\n10 DB lateral raises\nRest 1,5 min"
     },
     {
      "letter": "F",
@@ -3479,11 +3479,11 @@ window.PROGRAMME = {
        "name": "BB shoulder press"
       }
      ],
-     "raw": "3 sets of 6 *RIR 1\nrest 2 minute"
+     "raw": "3 sets of 6 *RIR 1\nRest 2 minute"
     },
     {
      "letter": "G",
-     "name": "half kneeling db shoulder press",
+     "name": "Half kneeling DB shoulder press",
      "kind": "rounds",
      "rounds": 3,
      "rounds_note": null,
@@ -3495,10 +3495,10 @@ window.PROGRAMME = {
        "reps": 6,
        "per_side": true,
        "id": "11291184",
-       "name": "half kneeling db shoulder press"
+       "name": "Half kneeling DB shoulder press"
       }
      ],
-     "raw": "3 sets of 6/side *RIR 1\nrest 1,5 minute"
+     "raw": "3 sets of 6/side *RIR 1\nRest 1,5 minute"
     }
    ]
   },
@@ -3508,11 +3508,11 @@ window.PROGRAMME = {
    "variant": 1,
    "title": "Workout 7.1",
    "warmup": {
-    "text": "Back routine mobility\n1 round, 8/10 reps each exercise:\nt-spine rotation with reach\nside lying rotation\nleg twist \nfloor seated trunk twist\ncat cow\nactive straight leg raise\nileopsoas dynamic stretch\nadductor dynamic stretch\nglute dynamic stretch",
+    "text": "Back routine mobility\n1 round, 8/10 reps each exercise:\nT-spine rotation with reach\nSide lying rotation\nLeg twist \nFloor seated trunk twist\nCat cow\nActive straight leg raise\nIleopsoas dynamic stretch\nAdductor dynamic stretch\nGlute dynamic stretch",
     "exercises": [
      {
       "id": "12503061",
-      "name": "t-spine rotation with reach"
+      "name": "T-spine rotation with reach"
      },
      {
       "id": "11249387",
@@ -3524,39 +3524,39 @@ window.PROGRAMME = {
      },
      {
       "id": "12816779",
-      "name": "foam roller db internal rotation"
+      "name": "Foam roller DB internal rotation"
      },
      {
       "id": "11307746",
-      "name": "active straight leg raise"
+      "name": "Active straight leg raise"
      },
      {
       "id": "11307749",
-      "name": "cat cow"
+      "name": "Cat cow"
      },
      {
       "id": "12503065",
-      "name": "ileopsoas dynamic stretch"
+      "name": "Ileopsoas dynamic stretch"
      },
      {
       "id": "11307759",
-      "name": "adductor dynamic stretch"
+      "name": "Adductor dynamic stretch"
      },
      {
       "id": "17383107",
-      "name": "banded ankle mobility"
+      "name": "Banded ankle mobility"
      },
      {
       "id": "12478227",
-      "name": "leg twist"
+      "name": "Leg twist"
      },
      {
       "id": "14602077",
-      "name": "floor seated trunk twist"
+      "name": "Floor seated trunk twist"
      },
      {
       "id": "12417679",
-      "name": "glute dynamic stretch"
+      "name": "Glute dynamic stretch"
      }
     ]
    },
@@ -3575,16 +3575,16 @@ window.PROGRAMME = {
        "reps": 10,
        "per_side": true,
        "id": "12457698",
-       "name": "bear hug band internal rotation"
+       "name": "Bear hug band internal rotation"
       },
       {
        "reps": 10,
        "per_side": true,
        "id": "12457699",
-       "name": "bear hug band external rotation"
+       "name": "Bear hug band external rotation"
       }
      ],
-     "raw": "2 rounds\n10/side bear hug band internal rotation\n10/side bear hug band external rotation"
+     "raw": "2 rounds\n10/side Bear hug band internal rotation\n10/side Bear hug band external rotation"
     },
     {
      "letter": "B",
@@ -3611,15 +3611,15 @@ window.PROGRAMME = {
       {
        "reps": 20,
        "id": "11494648",
-       "name": "scissor crunch"
+       "name": "Scissor crunch"
       }
      ],
-     "raw": "3 rounds:\n8/side TK windmill press\n12/side Split stance plate twist\n20 scissor crunch\nrest as little as possible",
+     "raw": "3 rounds:\n8/side TK windmill press\n12/side Split stance plate twist\n20 Scissor crunch\nRest as little as possible",
      "overridden": true
     },
     {
      "letter": "C",
-     "name": "BB Deadlift + DB Swing",
+     "name": "BB deadlift + DB swing",
      "kind": "rounds",
      "rounds": 4,
      "rounds_note": null,
@@ -3631,20 +3631,20 @@ window.PROGRAMME = {
        "reps": 5,
        "note": "RIR 1",
        "id": "11250646",
-       "name": "BB Deadlift"
+       "name": "BB deadlift"
       },
       {
        "reps": 10,
-       "note": "controlado en bajada, pero subida rápida",
+       "note": "Controlado en bajada, pero subida rápida",
        "id": "11288954",
-       "name": "db swing"
+       "name": "DB swing"
       }
      ],
-     "raw": "4 rounds:\n5 BB Deadlift *RIR 1\n10 DB Swing *controlado en bajada, pero subida rápida\nrest 1,5 minutes"
+     "raw": "4 rounds:\n5 BB deadlift *RIR 1\n10 DB swing *Controlado en bajada, pero subida rápida\nRest 1,5 minutes"
     },
     {
      "letter": "D",
-     "name": "BB Bench press + Plyo push up",
+     "name": "BB bench press + Plyo push up",
      "kind": "rounds",
      "rounds": 4,
      "rounds_note": null,
@@ -3656,20 +3656,20 @@ window.PROGRAMME = {
        "reps": 5,
        "note": "RIR 1",
        "id": "11611402",
-       "name": "BB Bench press"
+       "name": "BB bench press"
       },
       {
        "reps": 10,
        "note": "EXPLOSIVO",
        "id": "11249258",
-       "name": "plyo push up"
+       "name": "Plyo push up"
       }
      ],
-     "raw": "4 rounds:\n5 BB Bench press *RIR 1\n10 Plyo push up *EXPLOSIVO\nrest 1,5 minutes"
+     "raw": "4 rounds:\n5 BB bench press *RIR 1\n10 Plyo push up *EXPLOSIVO\nRest 1,5 minutes"
     },
     {
      "letter": "E",
-     "name": "DB Lunge forward + Split jump",
+     "name": "DB lunge forward + Split jump",
      "kind": "rounds",
      "rounds": 4,
      "rounds_note": null,
@@ -3682,7 +3682,7 @@ window.PROGRAMME = {
        "per_side": true,
        "note": "RIR 2",
        "id": "11288959",
-       "name": "lunge forward"
+       "name": "Lunge forward"
       },
       {
        "reps": 12,
@@ -3691,11 +3691,11 @@ window.PROGRAMME = {
        "name": "Split jump"
       }
      ],
-     "raw": "4 rounds:\n6/side lunge forward *RIR 2\n12 split jump *EXPLOSIVO\nrest 1,5 minutes"
+     "raw": "4 rounds:\n6/side Lunge forward *RIR 2\n12 Split jump *EXPLOSIVO\nRest 1,5 minutes"
     },
     {
      "letter": "F",
-     "name": "DB Pull over + Half kneeling band pull down",
+     "name": "DB pull over + Half kneeling band pull down",
      "kind": "rounds",
      "rounds": 4,
      "rounds_note": null,
@@ -3714,10 +3714,10 @@ window.PROGRAMME = {
        "per_side": true,
        "note": "RIR 3",
        "id": "11288963",
-       "name": "half kneeling band pull down"
+       "name": "Half kneeling band pull down"
       }
      ],
-     "raw": "4 rounds:\n6 DB pull over *RIR 1\n6/side half kneeling band pull down *RIR 3\nrest 1,5 minutes"
+     "raw": "4 rounds:\n6 DB pull over *RIR 1\n6/side Half kneeling band pull down *RIR 3\nRest 1,5 minutes"
     }
    ]
   },
@@ -3727,11 +3727,11 @@ window.PROGRAMME = {
    "variant": 2,
    "title": "Workout 7.2",
    "warmup": {
-    "text": "Back routine mobility\n1 round, 8/10 reps each exercise:\nt-spine rotation with reach\nside lying rotation\nleg twist \nfloor seated trunk twist\ncat cow\nactive straight leg raise\nileopsoas dynamic stretch\nadductor dynamic stretch\nglute dynamic stretch",
+    "text": "Back routine mobility\n1 round, 8/10 reps each exercise:\nT-spine rotation with reach\nSide lying rotation\nLeg twist \nFloor seated trunk twist\nCat cow\nActive straight leg raise\nIleopsoas dynamic stretch\nAdductor dynamic stretch\nGlute dynamic stretch",
     "exercises": [
      {
       "id": "12503061",
-      "name": "t-spine rotation with reach"
+      "name": "T-spine rotation with reach"
      },
      {
       "id": "11249387",
@@ -3739,31 +3739,31 @@ window.PROGRAMME = {
      },
      {
       "id": "12478227",
-      "name": "leg twist"
+      "name": "Leg twist"
      },
      {
       "id": "14602077",
-      "name": "floor seated trunk twist"
+      "name": "Floor seated trunk twist"
      },
      {
       "id": "11307749",
-      "name": "cat cow"
+      "name": "Cat cow"
      },
      {
       "id": "11307746",
-      "name": "active straight leg raise"
+      "name": "Active straight leg raise"
      },
      {
       "id": "12503065",
-      "name": "ileopsoas dynamic stretch"
+      "name": "Ileopsoas dynamic stretch"
      },
      {
       "id": "11307759",
-      "name": "adductor dynamic stretch"
+      "name": "Adductor dynamic stretch"
      },
      {
       "id": "12417679",
-      "name": "glute dynamic stretch"
+      "name": "Glute dynamic stretch"
      }
     ]
    },
@@ -3781,27 +3781,27 @@ window.PROGRAMME = {
       {
        "seconds": 30,
        "id": "11288977",
-       "name": "isometric deadbug"
+       "name": "Isometric deadbug"
       },
       {
        "reps": 10,
        "per_side": true,
        "note": "push pull",
        "id": "11291128",
-       "name": "half kneeling kb chop push/pull"
+       "name": "Half kneeling KB chop push/pull"
       },
       {
        "reps": 16,
        "id": "11291140",
-       "name": "standing plate twist"
+       "name": "Standing plate twist"
       }
      ],
-     "raw": "3 rounds:\n30\" Isometric dead bug\n10/side Half kneeling KB chop (push pull)\n16 standing plate twist\nrest as ittle as possible",
+     "raw": "3 rounds:\n30\" Isometric dead bug\n10/side Half kneeling KB chop (push pull)\n16 Standing plate twist\nRest as ittle as possible",
      "overridden": true
     },
     {
      "letter": "B",
-     "name": "BB Back squat *TAP THE BENCH + No arms consecutive squat jumps",
+     "name": "BB back squat *TAP THE BENCH + No arms consecutive squat jumps",
      "kind": "rounds",
      "rounds": 4,
      "rounds_note": null,
@@ -3813,20 +3813,20 @@ window.PROGRAMME = {
        "reps": 5,
        "note": "TAP THE BENCH RIR 3",
        "id": "17594422",
-       "name": "BB Squat *TAP THE BENCH"
+       "name": "BB squat *TAP THE BENCH"
       },
       {
        "reps": 8,
        "note": "EXPLOSIVO",
        "id": "11570004",
-       "name": "no arms consecutive vertical jumps"
+       "name": "No arms consecutive vertical jumps"
       }
      ],
-     "raw": "4 rounds:\n5 BB Back squat *TAP THE BENCH RIR 3\n8 No arms consecutive squat jumps *EXPLOSIVO\nrest 1,5 minutes"
+     "raw": "4 rounds:\n5 BB back squat *TAP THE BENCH RIR 3\n8 No arms consecutive squat jumps *EXPLOSIVO\nRest 1,5 minutes"
     },
     {
      "letter": "C",
-     "name": "DB Half kneeling shoulder press + BB Push press",
+     "name": "DB half kneeling shoulder press + BB push press",
      "kind": "rounds",
      "rounds": 4,
      "rounds_note": null,
@@ -3837,9 +3837,9 @@ window.PROGRAMME = {
       {
        "reps": 5,
        "per_side": true,
-       "note": "control bajada, subida fuerte",
+       "note": "Control bajada, subida fuerte",
        "id": "11291184",
-       "name": "half kneeling db shoulder press"
+       "name": "Half kneeling DB shoulder press"
       },
       {
        "reps": 6,
@@ -3848,7 +3848,7 @@ window.PROGRAMME = {
        "name": "BB push press"
       }
      ],
-     "raw": "4 rounds:\n5/side DB half kneeling shoulder press *control bajada, subida fuerte\n6 BB push press *RIR 3\nrest 1,5 minutes"
+     "raw": "4 rounds:\n5/side DB half kneeling shoulder press *Control bajada, subida fuerte\n6 BB push press *RIR 3\nRest 1,5 minutes"
     },
     {
      "letter": "D",
@@ -3869,14 +3869,14 @@ window.PROGRAMME = {
       {
        "reps": 12,
        "id": "11279970",
-       "name": "single leg alternated lateral jump"
+       "name": "Single leg alternated lateral jump"
       }
      ],
-     "raw": "4 rounds:\n10 landmine side lunge *CONTROL\n12 single leg alternating lateral jump\nrest 1,5 minutes"
+     "raw": "4 rounds:\n10 Landmine side lunge *CONTROL\n12 Single leg alternating lateral jump\nRest 1,5 minutes"
     },
     {
      "letter": "E",
-     "name": "Trx upper row + Single arm pulley",
+     "name": "TRX upper row + Single arm pulley",
      "kind": "rounds",
      "rounds": 4,
      "rounds_note": null,
@@ -3888,7 +3888,7 @@ window.PROGRAMME = {
        "reps": 12,
        "note": "EXPLOSIVO",
        "id": "11279419",
-       "name": "Trx upper row"
+       "name": "TRX upper row"
       },
       {
        "reps": 6,
@@ -3898,7 +3898,7 @@ window.PROGRAMME = {
        "name": "Single arm pulley"
       }
      ],
-     "raw": "4 rounds:\n12 Trx upper row *EXPLOSIVO\n6/side single arm pulley *RIR 3\nrest 1,5 minutes"
+     "raw": "4 rounds:\n12 TRX upper row *EXPLOSIVO\n6/side Single arm pulley *RIR 3\nRest 1,5 minutes"
     }
    ]
   },
@@ -3908,11 +3908,11 @@ window.PROGRAMME = {
    "variant": 1,
    "title": "Workout 8.1",
    "warmup": {
-    "text": "Back routine mobility\n1 round, 8/10 reps each exercise:\nt-spine rotation with reach\nside lying rotation\nleg twist \nfloor seated trunk twist\ncat cow\nactive straight leg raise\nileopsoas dynamic stretch\nadductor dynamic stretch\nglute dynamic stretch",
+    "text": "Back routine mobility\n1 round, 8/10 reps each exercise:\nT-spine rotation with reach\nSide lying rotation\nLeg twist \nFloor seated trunk twist\nCat cow\nActive straight leg raise\nIleopsoas dynamic stretch\nAdductor dynamic stretch\nGlute dynamic stretch",
     "exercises": [
      {
       "id": "12503061",
-      "name": "t-spine rotation with reach"
+      "name": "T-spine rotation with reach"
      },
      {
       "id": "11249387",
@@ -3920,31 +3920,31 @@ window.PROGRAMME = {
      },
      {
       "id": "11307746",
-      "name": "active straight leg raise"
+      "name": "Active straight leg raise"
      },
      {
       "id": "11307749",
-      "name": "cat cow"
+      "name": "Cat cow"
      },
      {
       "id": "12503065",
-      "name": "ileopsoas dynamic stretch"
+      "name": "Ileopsoas dynamic stretch"
      },
      {
       "id": "11307759",
-      "name": "adductor dynamic stretch"
+      "name": "Adductor dynamic stretch"
      },
      {
       "id": "12478227",
-      "name": "leg twist"
+      "name": "Leg twist"
      },
      {
       "id": "14602077",
-      "name": "floor seated trunk twist"
+      "name": "Floor seated trunk twist"
      },
      {
       "id": "12417679",
-      "name": "glute dynamic stretch"
+      "name": "Glute dynamic stretch"
      }
     ]
    },
@@ -3963,7 +3963,7 @@ window.PROGRAMME = {
        "reps": 10,
        "per_side": true,
        "id": "12479502",
-       "name": "high elbow band internal rotation"
+       "name": "High elbow band internal rotation"
       },
       {
        "reps": 10,
@@ -3972,7 +3972,7 @@ window.PROGRAMME = {
        "name": "High elbow band external rotation"
       }
      ],
-     "raw": "2 rounds\n10/side high elbow band internal rotation\n10/side high elbow band external rotation"
+     "raw": "2 rounds\n10/side High elbow band internal rotation\n10/side High elbow band external rotation"
     },
     {
      "letter": "B",
@@ -3987,26 +3987,26 @@ window.PROGRAMME = {
       {
        "reps": 12,
        "id": "11372937",
-       "name": "tall kneeling half moon"
+       "name": "Tall kneeling half moon"
       },
       {
        "reps": 8,
        "per_side": true,
        "id": "11372945",
-       "name": "l-sit shoulder press rotation"
+       "name": "L-sit shoulder press rotation"
       },
       {
        "reps": 20,
        "id": "11259664",
-       "name": "plank twist"
+       "name": "Plank twist"
       }
      ],
-     "raw": "3 rounds:\n12 tall kneeling plate half moon\n8/side L-sit shoulder press rotation\n20 Plank twist\nrest as little as possible",
+     "raw": "3 rounds:\n12 Tall kneeling plate half moon\n8/side L-sit shoulder press rotation\n20 Plank twist\nRest as little as possible",
      "overridden": true
     },
     {
      "letter": "C",
-     "name": "BB Reverse lunge + High knees switches",
+     "name": "BB reverse lunge + High knees switches",
      "kind": "rounds",
      "rounds": 4,
      "rounds_note": null,
@@ -4017,22 +4017,22 @@ window.PROGRAMME = {
       {
        "reps": 5,
        "per_side": true,
-       "note": "control",
+       "note": "Control",
        "id": "11373004",
-       "name": "bb reverse lunge"
+       "name": "BB reverse lunge"
       },
       {
        "reps": 8,
        "per_side": true,
        "id": "11280034",
-       "name": "high knee switches"
+       "name": "High knee switches"
       }
      ],
-     "raw": "4 rounds:\n5/side BB Reverse lunges *control\n8/side high knees switches\nrest 1,5 minutes"
+     "raw": "4 rounds:\n5/side BB reverse lunges *Control\n8/side High knees switches\nRest 1,5 minutes"
     },
     {
      "letter": "D",
-     "name": "DB Incline bench press + Full range push up",
+     "name": "DB incline bench press + Full range push up",
      "kind": "rounds",
      "rounds": 4,
      "rounds_note": null,
@@ -4044,7 +4044,7 @@ window.PROGRAMME = {
        "reps": 5,
        "note": "RIR 1",
        "id": "11355605",
-       "name": "DB Incline Bench Press"
+       "name": "DB incline bench press"
       },
       {
        "reps": 8,
@@ -4053,11 +4053,11 @@ window.PROGRAMME = {
        "name": "Full range push up"
       }
      ],
-     "raw": "4 rounds:\n5 DB incline Bench press *RIR 1\n8 full range push up (explosive)\nrest 1,5 minutes"
+     "raw": "4 rounds:\n5 DB incline bench press *RIR 1\n8 Full range push up (explosive)\nRest 1,5 minutes"
     },
     {
      "letter": "E",
-     "name": "DB Deadlift + Plyo lateral jump",
+     "name": "DB deadlift + Plyo lateral jump",
      "kind": "rounds",
      "rounds": 4,
      "rounds_note": null,
@@ -4069,20 +4069,20 @@ window.PROGRAMME = {
        "reps": 6,
        "note": "RIR 1",
        "id": "11297983",
-       "name": "DB Deadlift"
+       "name": "DB deadlift"
       },
       {
        "reps": 10,
        "per_side": true,
        "id": "12711639",
-       "name": "plyo lateral jump"
+       "name": "Plyo lateral jump"
       }
      ],
-     "raw": "4 rounds:\n6 DB deadift *RIR 1\n10/side plyo lateral jump\nrest 1,5 minutes"
+     "raw": "4 rounds:\n6 DB deadift *RIR 1\n10/side Plyo lateral jump\nRest 1,5 minutes"
     },
     {
      "letter": "F",
-     "name": "Trx overhead extension + Overhead slam ball",
+     "name": "TRX overhead extension + Overhead slam ball",
      "kind": "rounds",
      "rounds": 4,
      "rounds_note": null,
@@ -4093,16 +4093,16 @@ window.PROGRAMME = {
       {
        "reps": 6,
        "id": "15680324",
-       "name": "trx overhead extension"
+       "name": "TRX overhead extension"
       },
       {
        "reps": 6,
        "note": "explosive",
        "id": "11373047",
-       "name": "overhead slam ball"
+       "name": "Overhead slam ball"
       }
      ],
-     "raw": "4 rounds:\n6 Trx overhead extension\n6 Overhead slam ball (explosive)\nrest 1,5 minutes"
+     "raw": "4 rounds:\n6 TRX overhead extension\n6 Overhead slam ball (explosive)\nRest 1,5 minutes"
     }
    ]
   },
@@ -4112,11 +4112,11 @@ window.PROGRAMME = {
    "variant": 2,
    "title": "Workout 8.2",
    "warmup": {
-    "text": "Back routine mobility\n1 round, 8/10 reps each exercise:\nt-spine rotation with reach\nside lying rotation\nleg twist \nfloor seated trunk twist\ncat cow\nactive straight leg raise\nileopsoas dynamic stretch\nadductor dynamic stretch\nglute dynamic stretch",
+    "text": "Back routine mobility\n1 round, 8/10 reps each exercise:\nT-spine rotation with reach\nSide lying rotation\nLeg twist \nFloor seated trunk twist\nCat cow\nActive straight leg raise\nIleopsoas dynamic stretch\nAdductor dynamic stretch\nGlute dynamic stretch",
     "exercises": [
      {
       "id": "12503061",
-      "name": "t-spine rotation with reach"
+      "name": "T-spine rotation with reach"
      },
      {
       "id": "11249387",
@@ -4124,31 +4124,31 @@ window.PROGRAMME = {
      },
      {
       "id": "11307746",
-      "name": "active straight leg raise"
+      "name": "Active straight leg raise"
      },
      {
       "id": "11307749",
-      "name": "cat cow"
+      "name": "Cat cow"
      },
      {
       "id": "12503065",
-      "name": "ileopsoas dynamic stretch"
+      "name": "Ileopsoas dynamic stretch"
      },
      {
       "id": "11307759",
-      "name": "adductor dynamic stretch"
+      "name": "Adductor dynamic stretch"
      },
      {
       "id": "12478227",
-      "name": "leg twist"
+      "name": "Leg twist"
      },
      {
       "id": "14602077",
-      "name": "floor seated trunk twist"
+      "name": "Floor seated trunk twist"
      },
      {
       "id": "12417679",
-      "name": "glute dynamic stretch"
+      "name": "Glute dynamic stretch"
      }
     ]
    },
@@ -4166,25 +4166,25 @@ window.PROGRAMME = {
       {
        "reps": 20,
        "id": "11372962",
-       "name": "plank move the kb"
+       "name": "Plank move the KB"
       },
       {
        "reps": 16,
        "id": "11372964",
-       "name": "alternating single arm db plank row"
+       "name": "Alternating single arm DB plank row"
       },
       {
        "reps": 20,
        "id": "11372994",
-       "name": "hyper extension"
+       "name": "Hyper extension"
       }
      ],
-     "raw": "3 rounds:\n20 plank move the kb\n16 alternating single arm db plank row\n20 hyperextension\nrest as ittle as possible",
+     "raw": "3 rounds:\n20 Plank move the KB\n16 Alternating single arm DB plank row\n20 Hyperextension\nRest as ittle as possible",
      "overridden": true
     },
     {
      "letter": "B",
-     "name": "BB Back squat + Plyometric depth jump",
+     "name": "BB back squat + Plyometric depth jump",
      "kind": "rounds",
      "rounds": 4,
      "rounds_note": null,
@@ -4194,21 +4194,21 @@ window.PROGRAMME = {
      "exercises": [
       {
        "reps": 5,
-       "note": "control",
+       "note": "Control",
        "id": "11249249",
-       "name": "BB Back squat"
+       "name": "BB back squat"
       },
       {
        "reps": 8,
        "id": "11373085",
-       "name": "plyometric depth jump"
+       "name": "Plyometric depth jump"
       }
      ],
-     "raw": "4 rounds:\n5 BB Back squat *control\n8 Plyometric depth jump\nrest 1,5 minutes"
+     "raw": "4 rounds:\n5 BB back squat *Control\n8 Plyometric depth jump\nRest 1,5 minutes"
     },
     {
      "letter": "C",
-     "name": "BB Shoulder press + single arm KB push press",
+     "name": "BB shoulder press + Single arm KB push press",
      "kind": "rounds",
      "rounds": 4,
      "rounds_note": null,
@@ -4229,7 +4229,7 @@ window.PROGRAMME = {
        "name": "Single arm KB push press"
       }
      ],
-     "raw": "4 rounds:\n5 BB shoulder press\n6/side single arm KB push press (explosive)\nrest 1,5 minutes"
+     "raw": "4 rounds:\n5 BB shoulder press\n6/side Single arm KB push press (explosive)\nRest 1,5 minutes"
     },
     {
      "letter": "D",
@@ -4246,21 +4246,21 @@ window.PROGRAMME = {
        "per_side": true,
        "note": "CONTROL",
        "id": "11329545",
-       "name": "cross side lunges"
+       "name": "Cross side lunges"
       },
       {
        "reps": 6,
        "per_side": true,
        "note": "CONTROL",
        "id": "11373099",
-       "name": "landmine angled reverse lunge"
+       "name": "Landmine angled reverse lunge"
       }
      ],
-     "raw": "4 rounds:\n5/side cross side lunge *CONTROL\n6/side landmine angled reverse lunge *CONTROL\nrest 1,5 minutes"
+     "raw": "4 rounds:\n5/side Cross side lunge *CONTROL\n6/side Landmine angled reverse lunge *CONTROL\nRest 1,5 minutes"
     },
     {
      "letter": "E",
-     "name": "Cable rope high pull + Half kneeling DB Chop",
+     "name": "Cable rope high pull + Half kneeling DB chop",
      "kind": "rounds",
      "rounds": 4,
      "rounds_note": null,
@@ -4272,17 +4272,17 @@ window.PROGRAMME = {
        "reps": 10,
        "note": "RIR 1",
        "id": "11373111",
-       "name": "cable rope high pull"
+       "name": "Cable rope high pull"
       },
       {
        "reps": 8,
        "per_side": true,
-       "note": "explosivo",
+       "note": "Explosivo",
        "id": "11279373",
-       "name": "Half kneeling DB Chop"
+       "name": "Half kneeling DB chop"
       }
      ],
-     "raw": "4 rounds:\n10 Cable rope high pull *RIR 1\n8/side db chop *explosivo\nrest 1,5 minutes"
+     "raw": "4 rounds:\n10 Cable rope high pull *RIR 1\n8/side DB chop *Explosivo\nRest 1,5 minutes"
     }
    ]
   },
@@ -4292,11 +4292,11 @@ window.PROGRAMME = {
    "variant": 1,
    "title": "Workout 9.1",
    "warmup": {
-    "text": "Back routine mobility\n1 round, 8/10 reps each exercise:\nt-spine rotation with reach\nside lying rotation\nleg twist \nfloor seated trunk twist\ncat cow\nactive straight leg raise\nileopsoas dynamic stretch\nadductor dynamic stretch\nglute dynamic stretch",
+    "text": "Back routine mobility\n1 round, 8/10 reps each exercise:\nT-spine rotation with reach\nSide lying rotation\nLeg twist \nFloor seated trunk twist\nCat cow\nActive straight leg raise\nIleopsoas dynamic stretch\nAdductor dynamic stretch\nGlute dynamic stretch",
     "exercises": [
      {
       "id": "12503061",
-      "name": "t-spine rotation with reach"
+      "name": "T-spine rotation with reach"
      },
      {
       "id": "11249387",
@@ -4304,38 +4304,38 @@ window.PROGRAMME = {
      },
      {
       "id": "12478227",
-      "name": "leg twist"
+      "name": "Leg twist"
      },
      {
       "id": "14602077",
-      "name": "floor seated trunk twist"
+      "name": "Floor seated trunk twist"
      },
      {
       "id": "11307749",
-      "name": "cat cow"
+      "name": "Cat cow"
      },
      {
       "id": "11307746",
-      "name": "active straight leg raise"
+      "name": "Active straight leg raise"
      },
      {
       "id": "12503065",
-      "name": "ileopsoas dynamic stretch"
+      "name": "Ileopsoas dynamic stretch"
      },
      {
       "id": "11307759",
-      "name": "adductor dynamic stretch"
+      "name": "Adductor dynamic stretch"
      },
      {
       "id": "12417679",
-      "name": "glute dynamic stretch"
+      "name": "Glute dynamic stretch"
      }
     ]
    },
    "blocks": [
     {
      "letter": "A",
-     "name": "Leg extension 2 up 1 down + Three points db row",
+     "name": "Leg extension 2 up 1 down + Three points DB row",
      "kind": "rounds",
      "rounds": 3,
      "rounds_note": null,
@@ -4347,16 +4347,16 @@ window.PROGRAMME = {
        "reps": 8,
        "per_side": true,
        "id": "16256970",
-       "name": "Leg Extension 2 Up 1 Down"
+       "name": "Leg extension 2 up 1 down"
       },
       {
        "reps": 10,
        "per_side": true,
        "id": "11577511",
-       "name": "three points db row"
+       "name": "Three points DB row"
       }
      ],
-     "raw": "3 rounds:\n8/side Leg extension 2 up 1 down\n10/side three points db row\nrest 1 min"
+     "raw": "3 rounds:\n8/side Leg extension 2 up 1 down\n10/side Three points DB row\nRest 1 min"
     },
     {
      "letter": "B",
@@ -4378,10 +4378,10 @@ window.PROGRAMME = {
        "reps": 10,
        "note": "RIR 3 explosivo",
        "id": "11250730",
-       "name": "DB Bench press"
+       "name": "DB bench press"
       }
      ],
-     "raw": "3 rounds:\n8/side db bulgarian squat\n10 db bench press *RIR 3 explosivo\nrest 1 min"
+     "raw": "3 rounds:\n8/side DB Bulgarian squat\n10 DB bench press *RIR 3 explosivo\nRest 1 min"
     },
     {
      "letter": "C",
@@ -4396,7 +4396,7 @@ window.PROGRAMME = {
       {
        "reps": 10,
        "id": "11293295",
-       "name": "hip trust machine"
+       "name": "Hip trust machine"
       },
       {
        "reps": 10,
@@ -4405,11 +4405,11 @@ window.PROGRAMME = {
        "name": "Floor row"
       }
      ],
-     "raw": "3 rounds:\n10 Hip trust machine\n10 Floor row *3 SEC HOLD\nrest 1 minute"
+     "raw": "3 rounds:\n10 Hip trust machine\n10 Floor row *3 SEC HOLD\nRest 1 minute"
     },
     {
      "letter": "D",
-     "name": "Side bridge + band hip to shoulder half moon",
+     "name": "Side bridge + Band hip to shoulder half moon",
      "kind": "rounds",
      "rounds": 3,
      "rounds_note": null,
@@ -4422,7 +4422,7 @@ window.PROGRAMME = {
        "per_side": true,
        "note": "3 SEC HOLD",
        "id": "11292345",
-       "name": "side bridge"
+       "name": "Side bridge"
       },
       {
        "reps": 8,
@@ -4431,7 +4431,7 @@ window.PROGRAMME = {
        "name": "Front band hip to shoulder half moon"
       }
      ],
-     "raw": "3 rounds:\n8/side Side bridge *3 SEC HOLD\n8 front band hip to shoulder half moon *LENTO\nrest as little as possible"
+     "raw": "3 rounds:\n8/side Side bridge *3 SEC HOLD\n8 Front band hip to shoulder half moon *LENTO\nRest as little as possible"
     },
     {
      "letter": "E",
@@ -4443,11 +4443,11 @@ window.PROGRAMME = {
      "exercises": [
       {
        "id": "11479471",
-       "name": "run back and fourth"
+       "name": "Run back and fourth"
       },
       {
        "id": "11326944",
-       "name": "plank"
+       "name": "Plank"
       }
      ],
      "raw": "Run back and fourth\nPlank"
@@ -4460,11 +4460,11 @@ window.PROGRAMME = {
    "variant": 2,
    "title": "Workout 9.2",
    "warmup": {
-    "text": "Back routine mobility\n1 round, 8/10 reps each exercise:\nt-spine rotation with reach\nside lying rotation\nleg twist \nfloor seated trunk twist\ncat cow\nactive straight leg raise\nileopsoas dynamic stretch\nadductor dynamic stretch\nglute dynamic stretch",
+    "text": "Back routine mobility\n1 round, 8/10 reps each exercise:\nT-spine rotation with reach\nSide lying rotation\nLeg twist \nFloor seated trunk twist\nCat cow\nActive straight leg raise\nIleopsoas dynamic stretch\nAdductor dynamic stretch\nGlute dynamic stretch",
     "exercises": [
      {
       "id": "12503061",
-      "name": "t-spine rotation with reach"
+      "name": "T-spine rotation with reach"
      },
      {
       "id": "11249387",
@@ -4472,31 +4472,31 @@ window.PROGRAMME = {
      },
      {
       "id": "12478227",
-      "name": "leg twist"
+      "name": "Leg twist"
      },
      {
       "id": "14602077",
-      "name": "floor seated trunk twist"
+      "name": "Floor seated trunk twist"
      },
      {
       "id": "11307749",
-      "name": "cat cow"
+      "name": "Cat cow"
      },
      {
       "id": "11307746",
-      "name": "active straight leg raise"
+      "name": "Active straight leg raise"
      },
      {
       "id": "12503065",
-      "name": "ileopsoas dynamic stretch"
+      "name": "Ileopsoas dynamic stretch"
      },
      {
       "id": "11307759",
-      "name": "adductor dynamic stretch"
+      "name": "Adductor dynamic stretch"
      },
      {
       "id": "12417679",
-      "name": "glute dynamic stretch"
+      "name": "Glute dynamic stretch"
      }
     ]
    },
@@ -4515,19 +4515,19 @@ window.PROGRAMME = {
        "reps": 8,
        "per_side": true,
        "id": "17363186",
-       "name": "lying leg curl 2 up 1 down"
+       "name": "Lying leg curl 2 up 1 down"
       },
       {
        "reps": 10,
        "id": "11373111",
-       "name": "cable rope high pull"
+       "name": "Cable rope high pull"
       }
      ],
-     "raw": "3 rounds:\n8/side single leg leg curl \n10 Cable rope high pull \nrest 1 minute"
+     "raw": "3 rounds:\n8/side Single leg leg curl \n10 Cable rope high pull \nRest 1 minute"
     },
     {
      "letter": "B",
-     "name": "DB Step up + DB bench cross over",
+     "name": "DB step up + DB bench cross over",
      "kind": "rounds",
      "rounds": 3,
      "rounds_note": null,
@@ -4540,19 +4540,19 @@ window.PROGRAMME = {
        "per_side": true,
        "note": "RIR 3 subida explosiva",
        "id": "11292356",
-       "name": "step up"
+       "name": "Step up"
       },
       {
        "reps": 10,
        "id": "11473304",
-       "name": "db bench cross over"
+       "name": "DB bench cross over"
       }
      ],
-     "raw": "3 rounds:\n8/side DB step up *RIR 3 subida explosiva\n10 db bench cross over\nrest 1 minute"
+     "raw": "3 rounds:\n8/side DB step up *RIR 3 subida explosiva\n10 DB bench cross over\nRest 1 minute"
     },
     {
      "letter": "C",
-     "name": "Heels elevated goblet squat + Trx scapular row",
+     "name": "Heels elevated goblet squat + TRX scapular row",
      "kind": "rounds",
      "rounds": 3,
      "rounds_note": null,
@@ -4563,19 +4563,19 @@ window.PROGRAMME = {
       {
        "reps": 10,
        "id": "12778078",
-       "name": "heels elevated goblet squat"
+       "name": "Heels elevated goblet squat"
       },
       {
        "reps": 8,
        "id": "11494918",
-       "name": "trx shoulder depression and row"
+       "name": "TRX shoulder depression and row"
       }
      ],
-     "raw": "3 rounds:\n10 heels elevated goblet squat\n8 trx scapular row\nrest 1 minute"
+     "raw": "3 rounds:\n10 Heels elevated goblet squat\n8 TRX scapular row\nRest 1 minute"
     },
     {
      "letter": "D",
-     "name": "Single leg bridge + band rhomboids openings",
+     "name": "Single leg bridge + Band rhomboids openings",
      "kind": "rounds",
      "rounds": 3,
      "rounds_note": null,
@@ -4587,7 +4587,7 @@ window.PROGRAMME = {
        "reps": 10,
        "per_side": true,
        "id": "11292212",
-       "name": "single leg bridge"
+       "name": "Single leg bridge"
       },
       {
        "reps": 10,
@@ -4595,7 +4595,7 @@ window.PROGRAMME = {
        "name": "Band rhomboids openings"
       }
      ],
-     "raw": "3 rounds:\n10/side single leg bridge\n10 band rhomboids openings"
+     "raw": "3 rounds:\n10/side Single leg bridge\n10 Band rhomboids openings"
     },
     {
      "letter": "E",
@@ -4607,11 +4607,11 @@ window.PROGRAMME = {
      "exercises": [
       {
        "id": "11479463",
-       "name": "lateral run back and fourth"
+       "name": "Lateral run back and fourth"
       },
       {
        "id": "11326993",
-       "name": "side plank"
+       "name": "Side plank"
       }
      ],
      "raw": "Lateral run back and fourth\nSide plank"

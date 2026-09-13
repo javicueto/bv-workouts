@@ -4,12 +4,15 @@
  *
  *   #/view/<key>  the session as written: warm-up, blocks, reps, rest.
  *   #/h/<id>      the SAME screen for one finished workout, with its record
- *                 folded in — when it was done at the top, what was lifted
- *                 under each block — each behind its own Edit.
+ *                 in it — when it was done at the top, what was lifted under
+ *                 each block.
  *
- * There used to be a separate edit screen for a finished workout, and a done
- * day card offered both it and View workout: the same workout twice, once as
- * the plan and once as the record. Don't split them again. */
+ * Editing is LIVE (Javier, 13 Sep 2026): Edit turns the values already on the
+ * screen into boxes in the same place, and Save or Cancel turns them back. No
+ * separate form — the first version unfolded one below the values, in a
+ * different layout, and it read like a modal. There also used to be a whole
+ * separate edit screen, and a done day card offered both it and View workout:
+ * the same workout twice. Don't split them again. */
 (function () {
   "use strict";
   var A = window.App, S = A.S, V = A.views, esc = A.esc, app = A.app, topbar = A.topbar;
@@ -41,63 +44,67 @@
     }
     return any ? vals.join(" · ") + " kg" : "—";
   }
+  function minutesLabel(seconds) { return seconds ? Math.round(seconds / 60) + " min" : ""; }
 
-  /* When it was done, and an Edit that unfolds the date and times. */
-  function recordStrip(w) {
-    var start = new Date(w.started_at), end = w.finished_at ? new Date(w.finished_at) : null;
-    var mins = w.duration_seconds ? " · " + Math.round(w.duration_seconds / 60) + " min" : "";
-    return '<div class="record">' +
-      '<div class="record__row">' +
-        '<div class="grow">' +
-          '<div class="record__label">' + (w.logged_manually ? "Done ✓ · logged by hand" : "Done ✓") + "</div>" +
-          // Date on one line, times on the next — as on the done day card. On
-          // one line it wrapped at 375px and left "min" on a line of its own.
-          '<div class="record__when"><span>' + esc(A.dayDate(w.started_at)) + "</span><span>" + esc(A.hhmm(w.started_at)) +
-            (end ? "–" + esc(A.hhmm(w.finished_at)) : "") + mins + "</span></div>" +
-        "</div>" +
-        '<button class="btn btn--quiet record__edit" type="button" data-edit="times" aria-expanded="false" aria-controls="times">' + ICONS.pen + "Edit</button>" +
-      "</div>" +
-      '<form class="record__form" id="times" hidden>' +
-        '<div class="field"><label for="d">Date</label><input class="input" id="d" type="date" value="' + A.dateVal(start) + '"></div>' +
-        '<div class="time-row">' +
-          '<div class="field"><label for="st">Start</label><input class="input" id="st" type="time" value="' + A.timeVal(start) + '"></div>' +
-          '<div class="field"><label for="en">End</label><input class="input" id="en" type="time" value="' + (end ? A.timeVal(end) : "") + '"></div>' +
-        "</div>" +
-        '<p class="error" hidden></p>' +
-        '<div class="record__actions"><button class="btn btn--ghost" type="button" data-cancel="times">Cancel</button>' +
-          '<button class="btn btn--primary" type="submit">Save</button></div>' +
-      "</form></div>";
+  /* The three buttons every editable piece has, in one place: Edit while
+     reading; Cancel and Save while editing (the app's icon language — pen =
+     edit, check = confirm). Which ones show is CSS, from .is-editing. */
+  function editActs(what) {
+    return '<div class="edit-acts">' +
+      '<button class="btn btn--quiet" type="button" data-edit aria-label="Edit ' + what + '">' + ICONS.pen + "Edit</button>" +
+      '<button class="btn btn--ghost btn--icon edit-cancel" type="button" data-cancel aria-label="Cancel">' + ICONS.xmark + "</button>" +
+      '<button class="btn btn--primary edit-save" type="submit">' + ICONS.check + "Save</button>" +
+      "</div>";
   }
 
-  /* Under a rounds block: what was lifted per movement, and an Edit that
-     unfolds one box per round. Tabata blocks have no weights. */
+  /* When it was done. Each value is there twice — as text (.rv) and as a box
+     (.re) in the same spot — and editing only swaps which one shows. */
+  function recordStrip(w) {
+    var start = new Date(w.started_at), end = w.finished_at ? new Date(w.finished_at) : null;
+    var mins = minutesLabel(w.duration_seconds);
+    return '<form class="record editable" id="times" novalidate>' +
+      '<div class="record__row">' +
+        '<div class="record__body">' +
+          '<div class="record__label">' + (w.logged_manually ? "Done ✓ · logged by hand" : "Done ✓") + "</div>" +
+          // Date on one line, times on the next — as on the done day card.
+          '<div class="record__when">' +
+            '<span class="rv">' + esc(A.dayDate(w.started_at)) + "</span>" +
+            '<span class="re"><input class="input input--inline" name="d" type="date" aria-label="Date" value="' + A.dateVal(start) + '"></span>' +
+            '<span class="rv">' + esc(A.hhmm(w.started_at)) + (end ? "–" + esc(A.hhmm(w.finished_at)) : "") +
+              (mins ? " · " + mins : "") + "</span>" +
+            '<span class="re">' +
+              '<input class="input input--inline" name="st" type="time" aria-label="Start" value="' + A.timeVal(start) + '">' +
+              "<span>–</span>" +
+              '<input class="input input--inline" name="en" type="time" aria-label="End" value="' + (end ? A.timeVal(end) : "") + '">' +
+              '<span data-dur>' + (mins ? "· " + mins : "") + "</span>" +
+            "</span>" +
+          "</div>" +
+          '<p class="error" role="alert" hidden></p>' +
+        "</div>" +
+        editActs("date and times") +
+      "</div></form>";
+  }
+
+  /* Under a rounds block: each movement's weights, as text or as one box per
+     round in the same line. Tabata blocks have no weights. */
   function weightsBox(b, byKey) {
-    var rounds = b.rounds || 1, id = "wt-" + b.letter;
-    return '<div class="vweights">' +
-      // The app's icon language: dumbbell = weight, arrows-repeat = reps or
-      // seconds, pen = edit, ✓ = done — the same marks as in a session.
+    var rounds = b.rounds || 1;
+    return '<form class="vweights editable" id="wt-' + esc(b.letter) + '" novalidate>' +
       '<div class="vweights__head"><span class="vweights__title">' + ICONS.dumbbell + "Your weights</span>" +
-        '<button class="btn btn--quiet" type="button" data-edit="' + esc(id) + '" aria-expanded="false" aria-controls="' + esc(id) + '">' + ICONS.pen + "Edit</button></div>" +
-      '<ul class="vweights__list" data-list="' + esc(id) + '">' + b.exercises.map(function (e) {
-        return '<li><span class="vweights__ex">' + esc(e.name) + '</span><span class="vweights__v">' + esc(weightsLine(b, e, byKey)) + "</span></li>";
-      }).join("") + "</ul>" +
-      '<form class="vweights__form" id="' + esc(id) + '" hidden>' +
-        '<p class="vweights__hint">kg per round</p>' +          // the unit, as the session's "kg" field says it
-        b.exercises.map(function (e) {
-          return '<div class="vweights__exrow"><div class="vweights__ex">' + esc(e.name) + "</div>" +
-            '<div class="wt-ex__rounds" style="grid-template-columns:repeat(' + rounds + ',1fr)">' +
-            Array.from({ length: rounds }, function (_, i) {
-              var r = i + 1, x = byKey[setKey(b.letter, r, e.id)];
-              var reps = x && x.reps != null ? String(x.reps) : (x && x.seconds != null ? x.seconds + "″" : "");
-              return '<label class="wt-cell"><span>R' + r + "</span>" +
-                '<input class="input input--sm" inputmode="decimal" placeholder="—" data-k="' + esc(setKey(b.letter, r, e.id)) + '"' +
-                ' data-b="' + esc(b.letter) + '" data-r="' + r + '" data-e="' + esc(e.id) + '" value="' + esc(x && x.weight != null ? +x.weight : "") + '">' +
-                (reps ? '<small><span class="sr-only">' + (x.seconds != null && x.reps == null ? "seconds" : "reps") + " </span>" + ICONS.arrowsRepeat + esc(reps) + "</small>" : "") + "</label>";
-            }).join("") + "</div></div>";
-        }).join("") +
-        '<div class="record__actions"><button class="btn btn--ghost" type="button" data-cancel="' + esc(id) + '">Cancel</button>' +
-          '<button class="btn btn--primary" type="submit">Save</button></div>' +
-      "</form></div>";
+        editActs("weights") + "</div>" +
+      '<ul class="vweights__list">' + b.exercises.map(function (e) {
+        var boxes = Array.from({ length: rounds }, function (_, i) {
+          var r = i + 1, x = byKey[setKey(b.letter, r, e.id)];
+          return (i ? '<span class="vweights__sep">·</span>' : "") +
+            '<input class="input input--inline input--kg" inputmode="decimal" placeholder="–"' +
+              ' aria-label="' + esc(e.name) + (rounds > 1 ? ", round " + r : "") + ', kg"' +
+              ' data-k="' + esc(setKey(b.letter, r, e.id)) + '" data-b="' + esc(b.letter) + '" data-r="' + r + '" data-e="' + esc(e.id) + '"' +
+              ' value="' + esc(x && x.weight != null ? +x.weight : "") + '">';
+        }).join("");
+        return '<li><span class="vweights__ex">' + esc(e.name) + "</span>" +
+          '<span class="vweights__v rv">' + esc(weightsLine(b, e, byKey)) + "</span>" +
+          '<span class="vweights__v re">' + boxes + '<span class="vweights__unit">kg</span></span></li>';
+      }).join("") + "</ul></form>";
   }
 
   /* The screen. ctx = { s, key, weekStart, back, record } — record is null for
@@ -175,39 +182,49 @@
   /* After a save: the same screen with the new values, where you were. */
   function redraw(ctx) { var y = window.scrollY; draw(ctx); window.scrollTo(0, y); }
 
+  /* Edit → the boxes show in place, focus goes to the first. Cancel or Escape
+     → the typing is thrown away. Save (or Enter) → onSave(form). */
+  function editable(form, onSave) {
+    var editBtn = form.querySelector("[data-edit]");
+    function setEditing(on) {
+      form.classList.toggle("is-editing", on);
+      editBtn.setAttribute("aria-expanded", String(on));
+      if (on) { var first = form.querySelector(".re input"); if (first) first.focus(); return; }
+      form.reset();
+      var er = form.querySelector(".error"); if (er) er.hidden = true;
+      form.dispatchEvent(new Event("input"));     // puts live text (the duration) back
+      editBtn.focus();
+    }
+    editBtn.addEventListener("click", function () { setEditing(true); });
+    form.querySelector("[data-cancel]").addEventListener("click", function () { setEditing(false); });
+    form.addEventListener("keydown", function (e) {
+      if (e.key === "Escape" && form.classList.contains("is-editing")) { e.preventDefault(); e.stopPropagation(); setEditing(false); }
+    });
+    form.addEventListener("submit", function (ev) {
+      ev.preventDefault();
+      if (form.classList.contains("is-editing")) onSave(form);
+    });
+  }
+
   function bindRecord(ctx) {
     var rec = ctx.record, w = rec.w;
 
-    // Edit unfolds a form in place of what it edits; Cancel folds it back
-    // and throws the typing away.
-    function fold(id, open) {
-      var form = document.getElementById(id);
-      var btn = app.querySelector('[data-edit="' + id + '"]');
-      var list = app.querySelector('[data-list="' + id + '"]');
-      form.hidden = !open;
-      if (list) list.hidden = open;
-      btn.hidden = open;
-      btn.setAttribute("aria-expanded", String(open));
-      if (open) { var first = form.querySelector("input"); if (first) first.focus(); }
-      else {
-        form.reset();
-        var er = form.querySelector(".error"); if (er) er.hidden = true;
-        btn.focus();
-      }
-    }
-    app.querySelectorAll("[data-edit]").forEach(function (b) {
-      b.addEventListener("click", function () { fold(b.getAttribute("data-edit"), true); });
-    });
-    app.querySelectorAll("[data-cancel]").forEach(function (b) {
-      b.addEventListener("click", function () { fold(b.getAttribute("data-cancel"), false); });
-    });
-
     var tf = document.getElementById("times");
-    tf.addEventListener("submit", function (ev) {
-      ev.preventDefault();
-      var err = tf.querySelector(".error");
-      var r = A.timesFrom(tf.querySelector("#d").value, tf.querySelector("#st").value, tf.querySelector("#en").value);
+    // The duration follows the boxes as you type, so what you see is what saves.
+    tf.addEventListener("input", function () {
+      var r = A.timesFrom(tf.elements.d.value, tf.elements.st.value, tf.elements.en.value);
+      tf.querySelector("[data-dur]").textContent = r.error ? "" : "· " + minutesLabel(r.seconds);
+    });
+    editable(tf, function (form) {
+      var err = form.querySelector(".error");
+      var r = A.timesFrom(form.elements.d.value, form.elements.st.value, form.elements.en.value);
       if (r.error) { err.textContent = r.error; err.hidden = false; return; }
+      // Minute precision: a live session's start has seconds the boxes can't
+      // show, so an untouched Save must not count as a change.
+      var minute = function (iso) { return iso ? Math.floor(new Date(iso).getTime() / 60000) : null; };
+      if (minute(r.start) === minute(w.started_at) && minute(r.end) === minute(w.finished_at)) {
+        UI.toast("Nothing changed"); redraw(ctx); return;
+      }
       var row = Object.assign({}, w, { started_at: r.start, finished_at: r.end, duration_seconds: r.seconds });
       delete row.freeco_sets; delete row.set_count; delete row.times; delete row.runs;   // view-only, not columns
       Store.saveWorkout(row);
@@ -216,11 +233,10 @@
       redraw(ctx);
     });
 
-    app.querySelectorAll(".vweights__form").forEach(function (wf) {
-      wf.addEventListener("submit", function (ev) {
-        ev.preventDefault();
+    app.querySelectorAll(".vweights").forEach(function (wf) {
+      editable(wf, function (form) {
         var changed = 0;
-        wf.querySelectorAll("[data-k]").forEach(function (inp) {
+        form.querySelectorAll("[data-k]").forEach(function (inp) {
           var k = inp.getAttribute("data-k"), x = rec.byKey[k];
           var v = inp.value.trim() === "" ? null : parseFloat(inp.value.replace(",", "."));
           if (v != null && isNaN(v)) v = null;

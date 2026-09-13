@@ -666,50 +666,75 @@ input[type="date"].input, input[type="time"].input {
 a.week-row { color: inherit; text-decoration: none; }
 
 /* ------------------------------------------------------------ weights editor */
-/* A finished workout's record, folded into the session screen (#/h/<id>):
-   when it was done at the top, what was lifted under each block, each behind
-   its own Edit. */
-/* MUST stay first: the display rules below would otherwise beat the browser's
-   own [hidden] { display: none } and paint the folded forms open. */
-.record [hidden], .vweights [hidden] { display: none !important; }
+/* A finished workout's record, in the session screen (#/h/<id>): when it was
+   done at the top, what was lifted under each block.
+   LIVE EDITING (Javier, 13 Sep 2026): Edit turns the values already on screen
+   into boxes in the same place — no separate form, which read like a modal.
+   Each editable piece is a <form class="editable"> holding the read value
+   (.rv) and its box (.re) side by side; .is-editing swaps which one shows.
+   Class-based on purpose: any author display rule beats [hidden]. None of
+   the rules below may set `display` on .rv/.re/.edit-* — that would tie or
+   beat these and paint both at once. */
+.record [hidden], .vweights [hidden] { display: none !important; }   /* the error line */
+.editable .re,
+.editable .edit-cancel,
+.editable .edit-save,
+.editable.is-editing .rv,
+.editable.is-editing [data-edit] { display: none; }
+.editable.is-editing .re { display: flex; }
+.editable.is-editing .edit-cancel,
+.editable.is-editing .edit-save { display: inline-flex; }
+.edit-acts { display: flex; align-items: center; gap: var(--space-2); flex: none; margin-left: auto; }
+.edit-acts .btn { min-height: var(--tap); padding: 0 var(--space-4); font-size: 15px; }
+.edit-acts .btn--icon { width: var(--tap); padding: 0; }
+/* A box inside a line of text: the text's own 16px (which also stops iOS
+   zooming on focus) and a 40px height every read line also reserves, so the
+   screen does not jump when Edit is tapped. */
+.input--inline { width: auto; min-height: 40px; height: 40px; padding: 0 var(--space-2); font-size: 16px; font-weight: 600; font-variant-numeric: tabular-nums; }
+input[type="date"].input--inline, input[type="time"].input--inline { height: 40px; min-height: 40px; line-height: 38px; padding: 0 var(--space-2); }
+input[type="date"].input--inline { width: 10.5em; }
+input[type="time"].input--inline { width: 6em; }
+.input--kg { width: 4.2em; text-align: center; }
 .record {
   margin-top: var(--space-4); padding: var(--space-3) var(--space-4);
   border: 1px solid var(--good-line); border-radius: var(--radius);
-  display: grid; gap: var(--space-3);
 }
-.record__row { display: flex; align-items: center; gap: var(--space-3); }
+.record__row { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-2) var(--space-3); }
+.record__body { flex: 1 1 13em; min-width: 0; display: grid; gap: var(--space-1); }
 .record__label { font-size: 12px; font-weight: 700; letter-spacing: .09em; text-transform: uppercase; color: var(--good); }
-.record__when { font-size: 15px; font-weight: 600; font-variant-numeric: tabular-nums; }
-.record__when span { display: block; }   /* date, then times — never one wrapping line */
-.record__edit, .vweights__head .btn { flex: none; padding: 0 var(--space-4); font-size: 15px; }
-.record__form, .vweights__form { display: grid; gap: var(--space-3); }
-.record__actions { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-3); }
+/* Date on one line, times on the next — never one line that wraps. */
+.record__when { display: grid; gap: var(--space-1); font-size: 16px; font-weight: 600; font-variant-numeric: tabular-nums; }
+.record__when .rv, .record__when .re { min-height: 40px; align-items: center; }
+.record__when .rv { display: flex; }
+/* The times row never wraps: at 320px a wrap left "· 85 min" alone on a line.
+   The two time boxes give up width instead, down to what "07:05" needs. */
+.record__when { grid-template-columns: minmax(0, 1fr); }   /* or the column grows to fit the boxes and nothing shrinks */
+.record__when .re { flex-wrap: nowrap; gap: var(--space-2); min-width: 0; }
+.record__when input[type="time"].input--inline { flex: 1 1 6em; min-width: 4.6em; max-width: 6em; }
+.record__when [data-dur] { flex: none; white-space: nowrap; }
+/* Desktop Chrome draws a clock inside a time box; below 360px it hid the
+   minutes ("07:("). Phones draw none, and tapping the box still opens the
+   picker, so on a narrow screen the icon goes. */
+@media (max-width: 359px) {
+  .record__when input[type="time"].input--inline::-webkit-calendar-picker-indicator { display: none; }
+}
 .vweights {
   margin-top: var(--space-4); padding: var(--space-3) var(--space-4);
   background: var(--bg-sunken); border-radius: var(--radius-sm);
   display: grid; gap: var(--space-2);
 }
-.vweights__head { display: flex; align-items: center; justify-content: space-between; gap: var(--space-3); }
+.vweights__head { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-2) var(--space-3); }
 .vweights__title {
   display: inline-flex; align-items: center; gap: var(--space-2);
   font-size: 12px; font-weight: 700; letter-spacing: .09em; text-transform: uppercase; color: var(--text-dim);
 }
 .vweights__title svg { width: 16px; height: 16px; flex: none; }
-.vweights__hint { font-size: 12px; color: var(--text-faint); }
 .vweights__list { list-style: none; margin: 0; padding: 0; display: grid; gap: var(--space-1); }
-.vweights__list li { display: flex; align-items: baseline; justify-content: space-between; gap: var(--space-3); font-size: 14px; }
-.vweights__ex { color: var(--text-dim); min-width: 0; }
-.vweights__v { font-weight: 700; font-variant-numeric: tabular-nums; white-space: nowrap; }
-.vweights__exrow { display: grid; gap: var(--space-2); }
-.wt-ex__rounds { display: grid; gap: var(--space-2); }
-/* align-content: start is load-bearing. The row stretches every round cell to
-   the tallest one; without it a cell with no reps line under its box spread
-   the spare height between its rows, and its box sat ~8px lower than its
-   neighbour's (seen 13 Sep 2026). Packed to the top, the boxes line up. */
-.wt-cell { display: grid; align-content: start; gap: 2px; font-size: 11px; font-weight: 700; color: var(--text-faint); text-align: center; min-width: 0; }
-.wt-cell small { display: inline-flex; align-items: center; justify-content: center; gap: 3px; font-weight: 500; }
-.wt-cell small svg { width: 11px; height: 11px; flex: none; }
-.wt-cell .input--sm { padding: 0 4px; }
+.vweights__list li { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: var(--space-1) var(--space-3); min-height: 40px; }
+.vweights__ex { font-size: 14px; color: var(--text-dim); min-width: 0; }
+.vweights__v { margin-left: auto; font-size: 16px; font-weight: 700; font-variant-numeric: tabular-nums; white-space: nowrap; }
+.vweights__v.re { flex-wrap: wrap; justify-content: flex-end; align-items: center; gap: var(--space-1) var(--space-2); white-space: normal; }
+.vweights__sep, .vweights__unit { color: var(--text-dim); font-weight: 600; }
 
 /* ------------------------------------------------------------ full-screen hold timer */
 /* Orange, not blue: blue means resting, this is working. */

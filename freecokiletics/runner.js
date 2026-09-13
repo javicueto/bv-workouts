@@ -169,7 +169,7 @@ window.Runner = (function () {
     return '<div class="actions">' +
       '<button class="btn btn--ghost" data-act="back"' + (state.i === 0 ? " disabled" : "") + ">Back</button>" +
       '<button class="btn btn--primary btn--big" data-act="next">' + esc(label) + "</button></div>" +
-      '<div class="swipe-hint">swipe left when done · right to go back</div>';
+      '<div class="swipe-hint">Swipe left when done · right to go back</div>';
   }
 
   function render() {
@@ -318,7 +318,7 @@ window.Runner = (function () {
      non-colour cue is the ↺ beside the target, which this chip mirrors). */
   function chip(v, kind) {
     return '<b class="logbtn__v' + (kind === "logged" ? "" : " logbtn__v--last") + '">' + esc(v) +
-      (kind === "last" ? '<small class="logbtn__last">last time</small>' : "") + "</b>";
+      (kind === "last" ? '<small class="logbtn__last">Last time</small>' : "") + "</b>";
   }
   function weightLabel(v, last) {
     return "Weight in kilos" + (v === "" || v == null ? ", not set" : ": " + v + (last ? ", last time" : ""));
@@ -508,7 +508,7 @@ window.Runner = (function () {
       else if (side > 1 && side <= sides) { btn.innerHTML = ICONS.play + '<span class="hold__long">Start </span>side ' + side; }
     }
     function lead() {
-      hsd.textContent = sides > 1 ? "side " + side + " of " + sides : "";
+      hsd.textContent = sides > 1 ? "Side " + side + " of " + sides : "";
       ov.classList.remove("is-holding", "is-done");
       hp.textContent = "Get ready"; arc.style.strokeDashoffset = "0";
       actions('<button class="btn btn--ghost" data-h="stop">Cancel</button>');
@@ -681,9 +681,9 @@ window.Runner = (function () {
         mv.textContent = m.name || "";
       } else {
         gif.hidden = true; gif.innerHTML = "";
-        mv.textContent = "next: " + (next.name || "");
+        mv.textContent = "Next: " + (next.name || "");
       }
-      cy.textContent = "cycle " + cycle + " of " + cycles;
+      cy.textContent = "Cycle " + cycle + " of " + cycles;
       setResting(phase === "rest");
     }
     function run() {
