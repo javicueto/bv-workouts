@@ -218,8 +218,15 @@ window.Store = (function () {
     if (weight == null && reps == null) return;
     var at = when ? new Date(when).getTime() : Date.now();
     var m = lastWeights(), cur = m[exerciseId];
-    if (cur && cur.at > at + 12 * 3600 * 1000) return;              // an older workout: leave newer data alone
-    if (!cur || Math.abs(cur.at - at) > 12 * 3600 * 1000) {         // a different session: start fresh
+    /* A different session is a different WORKOUT. It used to be "more than
+       12 hours apart", which filed a workout started, discarded and started
+       again the same morning under the first one — so discarding the second
+       deleted nothing and its weights kept coming back (Javier, 14 Sep 2026).
+       The 12-hour guess only stays for entries written before workout ids. */
+    var other = !!cur && (workoutId && cur.workout ? cur.workout !== workoutId
+                                                   : Math.abs(cur.at - at) > 12 * 3600 * 1000);
+    if (other && cur.at > at) return;                              // an older workout: leave newer data alone
+    if (!cur || other) {                                           // a different session: start fresh
       var before = cur ? Object.assign({}, cur) : null;
       if (before) delete before.before;                             // one level is enough
       cur = { byRound: {}, workout: workoutId || null, before: before };
@@ -255,9 +262,26 @@ window.Store = (function () {
           if (!e.byRound[row.round]) e.byRound[row.round] = { weight: row.weight, reps: row.reps };
           if (e.weight == null && row.weight != null) { e.weight = row.weight; e.reps = row.reps; }
         });
-        Object.keys(fromServer).forEach(function (id) {
-          if (!out[id] || fromServer[id].at >= (out[id].at || 0)) out[id] = fromServer[id];
+        /* Once the server has answered, IT is "last time". The local copy only
+           speaks for a workout still waiting to upload (its rows are in the
+           queue, so the server can't know them yet). It used to win whenever
+           it was newer — so weights from a discarded workout that the local
+           copy couldn't trace (written before workout ids) prefilled every
+           new session for good (Javier, 14 Sep 2026). The local copy is
+           rewritten to match, which also clears anything already stuck. */
+        var waiting = {};
+        readQ().forEach(function (op) {
+          if (op.row) waiting[op.table === "sets" ? op.row.workout_id : op.row.id] = true;
         });
+        var healed = false;
+        exerciseIds.forEach(function (id) {
+          var loc = local[id], srv = fromServer[id];
+          var keepLocal = !!loc && !!loc.workout && waiting[loc.workout] && (!srv || loc.at > srv.at);
+          if (keepLocal) { out[id] = loc; return; }
+          if (srv) out[id] = srv; else delete out[id];
+          if (loc) { if (srv) local[id] = srv; else delete local[id]; healed = true; }
+        });
+        if (healed) { try { localStorage.setItem(LAST_KEY, JSON.stringify(local)); } catch (e) {} }
       }
     } catch (e) { /* offline, or too slow: the local copy is enough to start */ }
     return out;

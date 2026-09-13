@@ -17,6 +17,12 @@
  *   6. A discarded / deleted workout leaves no weights behind: nothing of it
  *      uploads, and the local "last time" copy goes back to the workout before
  *      (Javier, 13 Sep 2026).
+ *   7. Online, the server is "last time": stuck local weights nobody can trace
+ *      are replaced (and removed from the phone), which is how weights from a
+ *      discarded workout kept coming back (Javier, 14 Sep 2026).
+ *   8. …except a workout still waiting to upload, whose weights stay.
+ *   9. A workout restarted and discarded within minutes restores the one
+ *      before — sessions are told apart by workout, not by a 12-hour window.
  */
 "use strict";
 var fs = require("fs"), path = require("path"), vm = require("vm");
@@ -52,7 +58,17 @@ function fakeServer() {
             signOut: function () { srv.signedOut++; return Promise.resolve({}); } },
     from: function (table) {
       return { upsert: function (row) { return builder(table, "upsert", row); },
-               delete: function () { return builder(table, "delete", null); } };
+               delete: function () { return builder(table, "delete", null); },
+               // Reads (lastForExercises): every filter is a no-op, the rows are srv.selectRows.
+               select: function () {
+                 var c = { eq: function () { return c; }, in: function () { return c; },
+                           order: function () { return c; }, limit: function () { return c; },
+                           then: function (ok, ko) {
+                             if (srv.selectHang) return new Promise(function () {}).then(ok, ko);   // a read that never answers
+                             return Promise.resolve({ data: srv.selectRows || [], error: null }).then(ok, ko);
+                           } };
+                 return c;
+               } };
     },
   };
   srv.accept = function (op) { srv.rows.push(op.payload); return Promise.resolve({ data: op.payload, error: null }); };
@@ -125,6 +141,7 @@ async function test4_hangingRequestTimesOut() {
   w.setTimeout = function (fn, ms) { return realTimeout(fn, ms === 8000 ? 30 : ms); };
   Store = loadStore(w);
   srv.respond = function () { return new Promise(function () {}); };   // never resolves
+  srv.selectHang = true;                                                 // reads never answer either
   Store.saveSet({ id: "s1", workout_id: "w", exercise_id: "e", round: 1 });
   var t0 = Date.now();
   await Store.flush();
@@ -184,6 +201,52 @@ async function test6_discardedWorkoutLeavesNoWeights() {
   check("the earlier workout's set still uploads", ops.some(function (op) { return op.payload && op.payload.id === "a1"; }));
 }
 
+async function test7_serverReplacesStuckLocalWeights() {
+  console.log("7. online, stuck local weights are replaced by what the server has");
+  var srv = fakeServer(), w = makeWindow(srv), Store = loadStore(w);
+  srv.respond = srv.accept;
+  var now = Date.now(), twoDaysAgo = new Date(now - 2 * 864e5).toISOString();
+  // What a phone still had from a workout discarded before workout ids existed.
+  w.localStorage.setItem("freeco.lastWeights", JSON.stringify({
+    e: { weight: 30, reps: 10, at: now, byRound: { 1: { weight: 30, reps: 10 } } },
+    g: { weight: 12, reps: 10, at: now, byRound: { 1: { weight: 12, reps: 10 } } }
+  }));
+  srv.selectRows = [{ exercise_id: "e", workout_id: "wReal", round: 1, weight: 20, reps: 10, done_at: twoDaysAgo }];
+  var last = await Store.lastForExercises(["e", "g"], "u1");
+  check("last time is the server's 20 kg, not the stuck 30", last.e && last.e.weight === 20);
+  check("an exercise the server has no record of has no last time", !last.g);
+  var local = JSON.parse(w.localStorage.getItem("freeco.lastWeights"));
+  check("the phone's copy is healed too (works offline afterwards)", local.e && local.e.weight === 20 && !local.g);
+}
+
+async function test8_waitingWorkoutKeepsLocalWeights() {
+  console.log("8. a workout still waiting to upload keeps its weights");
+  var srv = fakeServer(), w = makeWindow(srv), Store = loadStore(w);
+  srv.respond = function () { return Promise.resolve({ data: null, error: { message: "Failed to fetch" }, status: 0 }); };
+  var twoDaysAgo = new Date(Date.now() - 2 * 864e5).toISOString();
+  Store.saveSet({ id: "n1", workout_id: "wNew", exercise_id: "e", round: 1, weight: 25, reps: 10, done_at: new Date().toISOString() });
+  await sleep(30);
+  srv.selectRows = [{ exercise_id: "e", workout_id: "wOld", round: 1, weight: 20, reps: 10, done_at: twoDaysAgo }];
+  var last = await Store.lastForExercises(["e"], "u1");
+  check("the waiting workout's 25 kg wins over the server's older 20", last.e && last.e.weight === 25);
+}
+
+async function test9_restartWithinMinutes() {
+  console.log("9. restarted and discarded within minutes: the workout before comes back");
+  var srv = fakeServer(), w = makeWindow(srv), Store = loadStore(w);
+  srv.respond = function () { return Promise.resolve({ data: null, error: { message: "Failed to fetch" }, status: 0 }); };
+  w.navigator.onLine = false;                              // local copy only
+  var t = Date.now();
+  Store.saveSet({ id: "a1", workout_id: "wA", exercise_id: "e", round: 1, weight: 30, reps: 10, done_at: new Date(t - 5 * 60000).toISOString() });
+  Store.saveSet({ id: "b1", workout_id: "wB", exercise_id: "e", round: 1, weight: 25, reps: 10, done_at: new Date(t).toISOString() });
+  await Store.deleteWorkout("wB");
+  var last = await Store.lastForExercises(["e"], "u1");
+  check("discarding the second brings back the first (30 kg), not the discarded 25", last.e && last.e.weight === 30);
+  await Store.deleteWorkout("wA");
+  last = await Store.lastForExercises(["e"], "u1");
+  check("discarding the first too leaves nothing", !last.e);
+}
+
 (async function () {
   await test1_logDuringSlowUpload();
   await test2_refusedRowIsDroppedNotWedged();
@@ -191,6 +254,9 @@ async function test6_discardedWorkoutLeavesNoWeights() {
   await test4_hangingRequestTimesOut();
   await test5_signOutClearsAccountKeys();
   await test6_discardedWorkoutLeavesNoWeights();
+  await test7_serverReplacesStuckLocalWeights();
+  await test8_waitingWorkoutKeepsLocalWeights();
+  await test9_restartWithinMinutes();
   console.log(failures ? "\n" + failures + " FAILED" : "\nall passed");
   process.exit(failures ? 1 : 0);
 })();
