@@ -92,11 +92,15 @@ window.UI = (function () {
     function onKey(e) { if (e.key === "Escape") { e.preventDefault(); close(); } }
     document.addEventListener("keydown", onKey, true);
     document.body.appendChild(el);
-    var first = el.querySelector("button, [href], input, [tabindex='0']");
-    (first || el).focus({ preventScroll: true });
+    /* Focus goes to the layer itself, not its first button (Javier, 14 Sep
+       2026): focusing "Close" drew the orange focus ring on it the first time
+       a preview opened on the iPhone. The layer is still where focus is, so a
+       screen reader reads it, Tab reaches its buttons and Escape closes it.
+       focusVisible:false keeps the ring off where the browser supports it. */
+    el.focus({ preventScroll: true, focusVisible: false });
     return function release() {
       document.removeEventListener("keydown", onKey, true);
-      if (prevFocus && prevFocus.focus && document.contains(prevFocus)) prevFocus.focus({ preventScroll: true });
+      if (prevFocus && prevFocus.focus && document.contains(prevFocus)) prevFocus.focus({ preventScroll: true, focusVisible: false });
     };
   }
 

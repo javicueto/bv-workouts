@@ -437,7 +437,9 @@ p  { margin: 0; }
   background: var(--accent); color: var(--accent-ink); text-align: center;
   box-shadow: 0 0 0 100vmax var(--accent);    /* --overlay-bleed, see .hold-screen */
 }
-.countin:focus { outline: none; }
+/* Full-screen layers take focus themselves (UI.overlay); the layer is the
+   whole screen, so a ring around it says nothing. Their buttons keep theirs. */
+.countin:focus, .zoom:focus, .hold-screen:focus { outline: none; }
 .countin__title { font-size: 14px; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; }
 .countin__n { font-family: var(--font-display); font-size: 180px; font-weight: 800; line-height: 1; font-variant-numeric: tabular-nums; min-height: 1em; }
 .countin.is-go .countin__n { font-size: 140px; }
