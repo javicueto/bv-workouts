@@ -88,10 +88,20 @@
           "</div>";
       }
 
+      /* Chevron icons with a word under them (Javier, 13 Sep 2026: a typed "‹"
+         read as an underlined character, not a control). The word is short —
+         the week is named in the middle — and a screen reader hears the full
+         "Previous week" / "Next week" from aria-label. */
+      function weekBtn(target, dir) {
+        if (!target) return "<span></span>";
+        return '<a class="week-nav__btn" href="#/week/' + target.start + '" aria-label="' + (dir < 0 ? "Previous" : "Next") + ' week">' +
+          '<span class="week-nav__icon">' + (dir < 0 ? ICONS.chevronLeft : ICONS.chevronRight) + "</span>" +
+          '<span class="week-nav__word" aria-hidden="true">' + (dir < 0 ? "Previous" : "Next") + "</span></a>";
+      }
       html += '<div class="week-nav">' +
-          (prevW ? '<a class="btn btn--ghost btn--icon" href="#/week/' + prevW.start + '" aria-label="Previous week">‹</a>' : '<span class="btn--icon"></span>') +
+          weekBtn(prevW, -1) +
           '<div class="week-nav__label"><b>' + esc(label) + "</b><span>" + A.fmtRange(w.start) + "</span></div>" +
-          (nextW ? '<a class="btn btn--ghost btn--icon" href="#/week/' + nextW.start + '" aria-label="Next week">›</a>' : '<span class="btn--icon"></span>') +
+          weekBtn(nextW, 1) +
         "</div>" +
         (wf.index !== nowWf.index && nowWf.week ? '<a class="week-nav__today" href="#/">Back to this week</a>' : "") +
         (doneErr ? '<div class="notice" role="status"><span>' + (navigator.onLine ? "Couldn’t check what’s done this week." : "Offline — done sessions can’t be checked.") +

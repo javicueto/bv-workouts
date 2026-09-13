@@ -77,7 +77,7 @@
         '<div class="field"><label for="e">Email</label><input class="input" id="e" type="email" autocomplete="username" required value="' + esc(email || "") + '"></div>' +
         (msg ? '<p class="error">' + esc(msg) + "</p>" : "") +
         '<button class="btn btn--primary btn--big btn--block" type="submit" id="send">Send reset link</button>' +
-        '<button class="btn btn--quiet btn--block" type="button" id="bk">‹ Back to sign in</button>' +
+        '<button class="btn btn--quiet btn--block" type="button" id="bk">' + ICONS.chevronLeft + 'Back to sign in</button>' +
       "</form></div>";
     var f = document.getElementById("f");
     document.getElementById("bk").addEventListener("click", function () { V.renderLogin(null, f.e.value.trim()); });
@@ -95,7 +95,7 @@
       '<div class="eyebrow">Check your email</div><h1>Link sent</h1>' +
       '<p class="dim">We sent a reset link to <b>' + esc(email) + '</b>. It can take a minute — check spam if it doesn’t show up.</p>' +
       '<div class="note">Tapping the link opens your browser, not this app. Set the new password there, then come back here and sign in with it.</div>' +
-      '<button class="btn btn--ghost btn--block" id="bk">‹ Back to sign in</button></div>';
+      '<button class="btn btn--ghost btn--block" id="bk">' + ICONS.chevronLeft + 'Back to sign in</button></div>';
     document.getElementById("bk").addEventListener("click", function () { V.renderLogin(null, email); });
   };
 

@@ -161,7 +161,7 @@ window.App = (function () {
   function topbar(title, back, menu) {
     return '<div class="topbar">' +
       // `back` can come from the URL hash: escape it like any other value.
-      (back ? '<a class="btn btn--quiet" href="' + esc(back) + '">‹ Back</a>' : '<div class="row"><span class="logo">' + ICONS.bicep + '</span><b>Cokiletics</b></div>') +
+      (back ? '<a class="btn btn--quiet" href="' + esc(back) + '">' + ICONS.chevronLeft + "Back</a>" : '<div class="row"><span class="logo">' + ICONS.bicep + '</span><b>Cokiletics</b></div>') +
       '<div class="row">' +
         '<span class="faint" id="sync" style="font-size:12px"></span>' +
         (menu ? '<button class="iconbtn" id="menu-btn" type="button" aria-label="Menu" ' +
