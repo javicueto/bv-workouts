@@ -31,10 +31,25 @@ window.Sound = (function () {
      so iOS kept the audio off and every cue was silent. It now runs on every
      tap anywhere in the app (listeners at the bottom of this file), which also
      recovers audio after iOS suspends it (phone call, another app, lock). */
+  /* Sound is only WANTED while a session is on screen (Runner.mount / unmount,
+     and the tap that starts one). Outside it, and whenever sound is muted,
+     unlock() does nothing — the app never touches the phone's audio. */
+  var wanted = false;
+  function want(on) {
+    wanted = !!on;
+    // Leaving a session hands the audio back to the phone.
+    if (!wanted && ctx && ctx.state === "running") { try { ctx.suspend(); } catch (e) {} }
+  }
+
   function unlock() {
-    // iPhone: web audio is silenced by the ring/silent switch by default.
-    // "playback" makes it sound like a music app would (Safari 17+).
-    try { if (navigator.audioSession && navigator.audioSession.type !== "playback") navigator.audioSession.type = "playback"; } catch (e) {}
+    if (!wanted || muted()) return;
+    /* "ambient", NEVER "playback" (Javier, 14 Sep 2026): "playback" makes iOS
+       treat the app as a music player, and only one plays at a time — opening
+       Cokiletics stopped Spotify and YouTube. "ambient" mixes the cues over
+       whatever is playing. The cost: iOS then obeys the ring/silent switch, so
+       with the phone on silent the cues are silent (iPhone web apps cannot
+       vibrate either). Music that keeps playing matters more. */
+    try { if (navigator.audioSession && navigator.audioSession.type !== "ambient") navigator.audioSession.type = "ambient"; } catch (e) {}
     if (!ctx) ctx = new (window.AudioContext || window.webkitAudioContext)();
     if (ctx.state !== "running") { try { ctx.resume(); } catch (e) {} }
     if (!unlocked) {
@@ -66,6 +81,7 @@ window.Sound = (function () {
 
   return {
     unlock: unlock,
+    want: want,
     state: function () { return ctx ? ctx.state : "not started"; },
     muted: muted,
     toggleMuted: function () { setMuted(!muted()); return muted(); },
@@ -170,8 +186,15 @@ window.WakeLock = (function () {
   };
 })();
 
-/* Every tap keeps audio alive — see Sound.unlock. Capture phase, so it runs
-   before any handler that might navigate away. */
+/* Every tap keeps audio alive DURING a session — see Sound.unlock, which does
+   nothing outside one. iOS only lets audio start inside a tap, and the tap that
+   starts a session (Start, Do it again, Resume) lands before the session screen
+   exists, so that tap itself asks for sound. Capture phase, so it runs before
+   any handler that might navigate away. */
 ["touchend", "click", "keydown"].forEach(function (type) {
-  document.addEventListener(type, function () { Sound.unlock(); }, { capture: true, passive: true });
+  document.addEventListener(type, function (e) {
+    var t = e.target && e.target.closest ? e.target.closest('a[href^="#/run/"], #resume-go') : null;
+    if (t) Sound.want(true);
+    Sound.unlock();
+  }, { capture: true, passive: true });
 });

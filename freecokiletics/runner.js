@@ -108,11 +108,12 @@ window.Runner = (function () {
      resumed one. Off by default, so anything else that mounts the runner
      (the layout sweep) gets the screens straight away. */
   function mount(el, exit, opts) {
-    container = el; onExit = exit; Sound.unlock(); WakeLock.on(); render();
+    container = el; onExit = exit; Sound.want(true); Sound.unlock(); WakeLock.on(); render();
     startClock();
     if (opts && opts.countIn) countIn();
   }
   function unmount() {
+    Sound.want(false);                     // hand the phone's audio back (timer.js)
     stopClock(); stopCountIn();
     if (countdown) { countdown.stop(); countdown = null; }
     var hs = document.querySelector(".hold-screen"); if (hs) hs.remove();   // leaving mid-hold
