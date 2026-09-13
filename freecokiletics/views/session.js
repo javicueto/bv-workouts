@@ -32,18 +32,28 @@
 
   function setKey(letter, round, exId) { return letter + "|" + round + "|" + exId; }
 
-  /* What was lifted, round by round: "16 · 16 · 18 kg", "– · 16 · 18 kg" when
-     a round has no weight, "—" when nothing was. */
-  function weightsLine(b, e, byKey) {
-    var rounds = b.rounds || 1, vals = [], any = false;
-    for (var r = 1; r <= rounds; r++) {
-      var x = byKey[setKey(b.letter, r, e.id)];
-      var v = x && x.weight != null ? +x.weight : null;
-      if (v != null) any = true;
-      vals.push(v != null ? String(v) : "–");
-    }
-    return any ? vals.join(" · ") + " kg" : "—";
+  /* One movement's weights, round by round — null where a round has none. */
+  function roundWeights(b, e, byKey) {
+    return Array.from({ length: b.rounds || 1 }, function (_, i) {
+      var x = byKey[setKey(b.letter, i + 1, e.id)];
+      return x && x.weight != null ? +x.weight : null;
+    });
   }
+  function distinct(vals) { return vals.filter(function (v, i) { return v != null && vals.indexOf(v) === i; }); }
+  function heaviest(vals) { var d = distinct(vals); return d.length ? Math.max.apply(null, d) : null; }
+  function kg(s) { s = String(s).trim(); if (s === "") return null; var v = parseFloat(s.replace(",", ".")); return isNaN(v) ? null : v; }
+
+  /* What was lifted. One weight shows ONCE — "20 kg" — even when only some
+     rounds have it: Javier logs his heaviest as the reference for the whole
+     movement (13 Sep 2026). Different weights show round by round,
+     "16 · 18 · 20 kg", "–" for a round with none; "—" when nothing was logged. */
+  function weightsLine(vals) {
+    var d = distinct(vals);
+    if (!d.length) return "—";
+    if (d.length === 1) return d[0] + " kg";
+    return vals.map(function (v) { return v != null ? String(v) : "–"; }).join(" · ") + " kg";
+  }
+  var BY_ROUND = "Weights by round", SAME_ALL = "Same weight all rounds";
   function minutesLabel(seconds) { return seconds ? Math.round(seconds / 60) + " min" : ""; }
 
   /* The three buttons every editable piece has, in one place: Edit while
@@ -85,25 +95,44 @@
       "</div></form>";
   }
 
-  /* Under a rounds block: each movement's weights, as text or as one box per
-     round in the same line. Tabata blocks have no weights. */
+  /* Under a rounds block: each movement's weights. Edit opens ONE box per
+     movement holding the heaviest, and saving it sets every round (Javier,
+     13 Sep 2026: “I usually add the heaviest weight … that’s my reference”).
+     “Weights by round” swaps it for a box per round. A movement whose rounds
+     already differ opens by round, so nothing typed before is flattened
+     unseen. Tabata blocks have no weights. */
   function weightsBox(b, byKey) {
     var rounds = b.rounds || 1;
-    return '<form class="vweights editable" id="wt-' + esc(b.letter) + '" novalidate>' +
+    function box(e, attr, label, v) {
+      return '<input class="input input--inline input--kg" inputmode="decimal" placeholder="–" ' + attr +
+        ' aria-label="' + esc(e.name) + label + ', kg" value="' + (v != null ? esc(v) : "") + '">';
+    }
+    return '<form class="vweights editable" id="wt-' + esc(b.letter) + '" data-b="' + esc(b.letter) + '" novalidate>' +
       '<div class="vweights__head"><span class="vweights__title">' + ICONS.dumbbell + "Your weights</span>" +
         editActs("weights") + "</div>" +
       '<ul class="vweights__list">' + b.exercises.map(function (e) {
-        var boxes = Array.from({ length: rounds }, function (_, i) {
-          var r = i + 1, x = byKey[setKey(b.letter, r, e.id)];
-          return (i ? '<span class="vweights__sep">·</span>' : "") +
-            '<input class="input input--inline input--kg" inputmode="decimal" placeholder="–"' +
-              ' aria-label="' + esc(e.name) + (rounds > 1 ? ", round " + r : "") + ', kg"' +
-              ' data-k="' + esc(setKey(b.letter, r, e.id)) + '" data-b="' + esc(b.letter) + '" data-r="' + r + '" data-e="' + esc(e.id) + '"' +
-              ' value="' + esc(x && x.weight != null ? +x.weight : "") + '">';
-        }).join("");
-        return '<li><span class="vweights__ex">' + esc(e.name) + "</span>" +
-          '<span class="vweights__v rv">' + esc(weightsLine(b, e, byKey)) + "</span>" +
-          '<span class="vweights__v re">' + boxes + '<span class="vweights__unit">kg</span></span></li>';
+        var vals = roundWeights(b, e, byKey);
+        var byRound = rounds > 1 && distinct(vals).length > 1;
+        var unit = '<span class="vweights__unit">kg</span>';
+        return '<li data-e="' + esc(e.id) + '" data-by-round="' + byRound + '"' + (byRound ? ' class="is-by-round"' : "") + ">" +
+          '<span class="vweights__ex">' + esc(e.name) + "</span>" +
+          '<span class="vweights__v rv">' + esc(weightsLine(vals)) + "</span>" +
+          '<span class="vweights__v re">' +
+            '<span class="vw-one">' + box(e, "data-one", rounds > 1 ? ", all rounds" : "", heaviest(vals)) + unit + "</span>" +
+            (rounds > 1
+              ? '<span class="vw-rounds">' + vals.map(function (v, i) {
+                  var b1 = box(e, 'data-round="' + (i + 1) + '"', ", round " + (i + 1), v);
+                  // No "·" between boxes — the boxes already separate them, and a
+                  // dot left hanging at the end of a wrapped line (4 rounds at
+                  // 320px). The last box carries "kg", so the unit never sits alone.
+                  return i === vals.length - 1 ? '<span class="vw-last">' + b1 + unit + "</span>" : b1;
+                }).join("") + "</span>"
+              : "") +
+          "</span>" +
+          (rounds > 1
+            ? '<span class="vweights__more re"><button class="vweights__toggle" type="button" data-toggle>' + (byRound ? SAME_ALL : BY_ROUND) + "</button></span>"
+            : "") +
+          "</li>";
       }).join("") + "</ul></form>";
   }
 
@@ -182,15 +211,21 @@
   /* After a save: the same screen with the new values, where you were. */
   function redraw(ctx) { var y = window.scrollY; draw(ctx); window.scrollTo(0, y); }
 
-  /* Edit → the boxes show in place, focus goes to the first. Cancel or Escape
-     → the typing is thrown away. Save (or Enter) → onSave(form). */
-  function editable(form, onSave) {
+  /* Edit → the boxes show in place, focus goes to the first one showing.
+     Cancel or Escape → the typing is thrown away, and onReset puts back
+     anything else the editing changed. Save (or Enter) → onSave(form). */
+  function editable(form, onSave, onReset) {
     var editBtn = form.querySelector("[data-edit]");
     function setEditing(on) {
       form.classList.toggle("is-editing", on);
       editBtn.setAttribute("aria-expanded", String(on));
-      if (on) { var first = form.querySelector(".re input"); if (first) first.focus(); return; }
+      if (on) {
+        var first = Array.from(form.querySelectorAll(".re input")).find(function (i) { return i.offsetParent !== null; });
+        if (first) first.focus();
+        return;
+      }
       form.reset();
+      if (onReset) onReset(form);
       var er = form.querySelector(".error"); if (er) er.hidden = true;
       form.dispatchEvent(new Event("input"));     // puts live text (the duration) back
       editBtn.focus();
@@ -233,34 +268,66 @@
       redraw(ctx);
     });
 
+    /* One round's weight → a saved set, when it differs from what is there. A
+       round with no set yet (hand-logged, or not logged live) gets one with the
+       planned reps, dated to the workout. */
+    function writeRound(b, e, r, v) {
+      var k = setKey(b.letter, r, e.id), x = rec.byKey[k];
+      if (x ? (x.weight == null ? v == null : v != null && +x.weight === v) : v == null) return false;
+      var row;
+      if (x) row = Object.assign({}, x, { weight: v });
+      else {
+        var planned = e.reps_per_round ? e.reps_per_round[r - 1] : (typeof e.reps === "number" ? e.reps : null);
+        row = { id: Store.uuid(), workout_id: w.id, user_id: w.user_id, block_letter: b.letter, round: r,
+                exercise_id: e.id, exercise_name: e.name, weight: v, reps: e.seconds ? null : planned,
+                seconds: e.seconds || null, skipped: false, done_at: w.finished_at || w.started_at };
+      }
+      delete row.created_at;
+      Store.saveSet(row);
+      rec.byKey[k] = row;                      // a second save updates, never duplicates
+      return true;
+    }
+
     app.querySelectorAll(".vweights").forEach(function (wf) {
-      editable(wf, function (form) {
-        var changed = 0;
-        form.querySelectorAll("[data-k]").forEach(function (inp) {
-          var k = inp.getAttribute("data-k"), x = rec.byKey[k];
-          var v = inp.value.trim() === "" ? null : parseFloat(inp.value.replace(",", "."));
-          if (v != null && isNaN(v)) v = null;
-          if (x ? x.weight === v || (x.weight != null && v != null && +x.weight === v) : v == null) return;   // unchanged
-          var row;
-          if (x) row = Object.assign({}, x, { weight: v });
-          else {
-            // A round with no set yet (hand-logged workout, or not logged live):
-            // create one with the planned reps, dated to the workout.
-            var b = ctx.s.blocks.find(function (bb) { return bb.letter === inp.getAttribute("data-b"); });
-            var e = b.exercises.find(function (ee) { return String(ee.id) === inp.getAttribute("data-e"); });
-            var r = +inp.getAttribute("data-r");
-            var planned = e.reps_per_round ? e.reps_per_round[r - 1] : (typeof e.reps === "number" ? e.reps : null);
-            row = { id: Store.uuid(), workout_id: w.id, user_id: w.user_id, block_letter: b.letter, round: r,
-                    exercise_id: e.id, exercise_name: e.name, weight: v, reps: e.seconds ? null : planned,
-                    seconds: e.seconds || null, skipped: false, done_at: w.finished_at || w.started_at };
-          }
-          delete row.created_at;
-          Store.saveSet(row);
-          rec.byKey[k] = row;                  // a second save updates, never duplicates
-          changed++;
+      var b = ctx.s.blocks.find(function (bb) { return bb.letter === wf.getAttribute("data-b"); });
+      function setMode(li, byRound) {
+        li.classList.toggle("is-by-round", byRound);
+        var t = li.querySelector("[data-toggle]");
+        if (t) t.textContent = byRound ? SAME_ALL : BY_ROUND;
+      }
+      wf.querySelectorAll("[data-toggle]").forEach(function (t) {
+        t.addEventListener("click", function () {
+          var li = t.closest("li"), one = li.querySelector("[data-one]"), each = li.querySelectorAll("[data-round]");
+          var byRound = !li.classList.contains("is-by-round");
+          // To rounds: every box starts from the one weight, so only the rounds
+          // that differ need typing. Back to one: the heaviest is kept.
+          if (byRound) each.forEach(function (i) { i.value = one.value; });
+          else { var top = heaviest(Array.from(each, function (i) { return kg(i.value); })); one.value = top != null ? top : ""; }
+          setMode(li, byRound);
+          (byRound ? each[0] : one).focus();
         });
-        UI.toast(changed ? changed + " weight" + (changed === 1 ? "" : "s") + " saved" : "Nothing changed");
+      });
+      editable(wf, function () {
+        var changed = 0;
+        wf.querySelectorAll("li[data-e]").forEach(function (li) {
+          var e = b.exercises.find(function (ee) { return String(ee.id) === li.getAttribute("data-e"); });
+          var want;
+          if (li.classList.contains("is-by-round")) {
+            want = Array.from(li.querySelectorAll("[data-round]"), function (i) { return kg(i.value); });
+          } else {
+            var one = li.querySelector("[data-one]");
+            // Untouched, the box changes nothing: it shows the heaviest, and a
+            // plain Save must not quietly fill rounds that were left empty.
+            // (Rounds that differed and were switched to one weight DO get it.)
+            if (li.getAttribute("data-by-round") === "false" && one.value === one.defaultValue) return;
+            want = Array.from({ length: b.rounds || 1 }, function () { return kg(one.value); });
+          }
+          want.forEach(function (v, i) { if (writeRound(b, e, i + 1, v)) changed++; });
+        });
+        UI.toast(changed ? "Weights saved" : "Nothing changed");
         redraw(ctx);
+      }, function () {
+        wf.querySelectorAll("li[data-e]").forEach(function (li) { setMode(li, li.getAttribute("data-by-round") === "true"); });
       });
     });
 
