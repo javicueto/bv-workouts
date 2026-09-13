@@ -254,6 +254,7 @@ window.Runner = (function () {
   }
 
   function render() {
+    peekEl = null; peekDir = 0;              // the container is rebuilt below; any peek goes with it
     var step = state.steps[state.i];
     setResting(step.kind === "rest");
     UI.announce(step.kind === "round" ? "Block " + step.block + ", round " + step.round + " of " + step.rounds
@@ -277,9 +278,14 @@ window.Runner = (function () {
   }
 
   function renderWarmup(step) {
+    container.innerHTML = header(step, "Warm-up · " + step.exercises.length + " movements") + warmupBody(step);
+    bind(step);
+  }
+  /* Each screen's content as markup with no side effects: the live render
+     and the swipe peek (showPeek) both build from these. */
+  function warmupBody(step) {
     var instr = warmupInstruction(step.text);
-    container.innerHTML = header(step, "Warm-up · " + step.exercises.length + " movements") +
-      '<section class="screen" id="scr">' +
+    return '<section class="screen" id="scr">' +
         (instr ? '<div class="note">' + esc(instr) + "</div>" : "") +
         '<div class="thumb-grid">' + step.exercises.map(function (e) {
           var img = preview(e.id);
@@ -291,14 +297,15 @@ window.Runner = (function () {
         // Under the button, never above it: at 320px it pushed Done off the screen.
         startedLine() +
       "</section>";
-    bind(step);
   }
 
   // ---------------------------------------------------------------- one round
   function renderRound(step) {
-    var sub = "Block " + step.block + " · round " + step.round + " of " + step.rounds;
-    container.innerHTML = header(step, sub) +
-      '<section class="screen" id="scr">' +
+    container.innerHTML = header(step, "Block " + step.block + " · round " + step.round + " of " + step.rounds) + roundBody(step);
+    bind(step);
+  }
+  function roundBody(step) {
+    return '<section class="screen" id="scr">' +
         '<div class="round-head"><h2>' + window.App.cueHTML(step.blockName) + "</h2>" +
           (step.restRef ? '<span class="badge badge--cool">' +
             (step.restSeconds ? window.App.restHTML(step.restSeconds) : esc(step.restRef)) + "</span>" : "") + "</div>" +
@@ -309,7 +316,6 @@ window.Runner = (function () {
         footer(step.round < step.rounds ? "Round " + step.round + " done ✓" : "Block done ✓") +
         startedLine() +                        // a session with no warm-up starts here
       "</section>";
-    bind(step);
   }
 
   /* The weight logged for the same movement earlier in THIS session — the
@@ -493,6 +499,76 @@ window.Runner = (function () {
     });
   }
 
+  // ---------------------------------------------------------------- peek
+  /* The screen under the one being swiped (Javier, 14 Sep 2026: "see the next
+     screen below … a bit blurred … whatever is the standard in apps like
+     Tinder"). A frozen copy of the next screen (pushed left) or the previous
+     one (pushed right), built from the same body functions as the real render
+     but INERT: no ids, no data-* hooks, no labels' for=, so nothing in it can
+     be read by logRound, clicked or focused. It sits after #scr in the DOM and
+     under it on screen, grows from 94% and brightens as the card is pushed
+     away, and lands full size just as render() replaces it. Off with reduced
+     motion (the swipe is a crossfade there). */
+  var peekEl = null, peekDir = 0;
+  function stepBody(step) {
+    return step.kind === "warmup" ? warmupBody(step) : step.kind === "round" ? roundBody(step)
+      : step.kind === "rest" ? restBody(step) : step.kind === "tabata" ? tabataBody(step) : doneBody();
+  }
+  function peekTarget(dir) {
+    if (dir > 0) return state.i + 1 < state.steps.length ? state.steps[state.i + 1] : null;
+    if (state.i === 0) return null;
+    var n = state.i - 1;
+    while (n > 0 && state.steps[n].kind === "rest") n--;          // as go(-1): never back into a rest
+    return state.steps[n];
+  }
+  function showPeek(dir) {
+    if (peekEl && peekDir === dir) return peekEl;
+    hidePeek();
+    var scr = document.getElementById("scr"), step = peekTarget(dir);
+    if (!scr || !step) return null;
+    if (window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches) return null;
+    var tpl = document.createElement("template");
+    tpl.innerHTML = stepBody(step);
+    var body = tpl.content.firstElementChild;
+    if (!body) return null;
+    [body].concat(Array.prototype.slice.call(body.querySelectorAll("*"))).forEach(function (node) {
+      Array.prototype.slice.call(node.attributes).forEach(function (a) {
+        if (a.name === "id" || a.name === "for" || a.name === "aria-controls" || a.name.indexOf("data-") === 0) node.removeAttribute(a.name);
+      });
+    });
+    peekEl = document.createElement("div");
+    peekEl.className = "peek";
+    peekEl.setAttribute("aria-hidden", "true");
+    peekEl.inert = true;
+    // Layout box, not the drag's transformed one: .runner is the offsetParent.
+    peekEl.style.top = scr.offsetTop + "px"; peekEl.style.left = scr.offsetLeft + "px";
+    peekEl.style.width = scr.offsetWidth + "px"; peekEl.style.height = scr.offsetHeight + "px";
+    peekEl.appendChild(body);
+    container.appendChild(peekEl);
+    scr.classList.add("has-peek");
+    peekDir = dir;
+    return peekEl;
+  }
+  function peekProgress(p) { if (peekEl) peekEl.style.setProperty("--peek", Math.max(0, Math.min(1, p)).toFixed(3)); }
+  function hidePeek() {
+    if (peekEl) peekEl.remove();
+    peekEl = null; peekDir = 0;
+    var scr = document.getElementById("scr"); if (scr) scr.classList.remove("has-peek");
+  }
+  function landPeek() {
+    if (!peekEl) return;
+    void peekEl.offsetWidth;                                         // start the transition from where it is
+    peekEl.classList.add("is-animating", "is-landing");
+    peekProgress(1);
+  }
+  function settlePeek() {
+    if (!peekEl) return;
+    var dying = peekEl;
+    dying.classList.add("is-animating");
+    peekProgress(0);
+    setTimeout(function () { if (peekEl === dying) hidePeek(); }, 300);
+  }
+
   // ---------------------------------------------------------------- wiring
   function advance(step) {
     if (step.kind === "round") logRound(step);
@@ -501,6 +577,8 @@ window.Runner = (function () {
   function slide(cls, then) {
     var el = document.getElementById("scr");
     if (!el) { then(); return; }
+    // Done / Back buttons reveal the same screen underneath as a swipe does.
+    if (showPeek(cls === "out" ? 1 : -1)) { peekProgress(0); landPeek(); }
     el.classList.add(cls); setTimeout(then, 170);
   }
 
@@ -702,6 +780,7 @@ window.Runner = (function () {
       el.style.setProperty("--swipe-progress", progress.toFixed(2));
     }
     function settle() {
+      settlePeek();
       el.classList.remove("swiping", "swipe-left", "swipe-right");
       el.style.transform = ""; el.style.opacity = "";
       el.style.removeProperty("--swipe-progress");
@@ -728,6 +807,9 @@ window.Runner = (function () {
       dx = mx; dy = my;
       el.classList.add("swiping");
       paint();
+      // The screen underneath grows into place as this one is pushed away.
+      var pk = showPeek(dx < 0 ? 1 : -1);
+      if (pk) { pk.classList.remove("is-animating"); peekProgress(Math.abs(dx) / ((el.offsetWidth || 1) * 0.6)); }
     }, { passive: true });
 
     el.addEventListener("touchend", function () {
@@ -736,9 +818,15 @@ window.Runner = (function () {
       if (!horizontal) { settle(); return; }
       if (Math.abs(dx) < SWIPE_THRESHOLD) { settle(); return; }
       if (dx < 0) {
-        if (step.kind === "round") logRound(step);
+        if (step.kind === "round") {
+          logRound(step);
+          // Rebuilt after logging, so the next round's weights include this one.
+          if (peekEl) { var p = +peekEl.style.getPropertyValue("--peek") || 0; hidePeek(); if (showPeek(1)) peekProgress(p); }
+        }
+        landPeek();
         fling(-1, function () { go(1); });
       } else if (state.i > 0) {
+        landPeek();
         fling(1, function () { go(-1); });
       } else settle();
     });
@@ -751,34 +839,35 @@ window.Runner = (function () {
     // Radius + half the stroke (10/2) must stay inside the 100-unit viewBox:
     // 46 + 5 = 51 cropped the ring at the edges. 44 + 5 = 49 fits.
     var R = 44, C = 2 * Math.PI * R;
-    container.innerHTML = header(step, "Block " + step.block + " · rest") +
-      '<section class="rest">' +
-        '<div class="rest__ring"><svg viewBox="0 0 100 100" aria-hidden="true"><circle class="track" cx="50" cy="50" r="' + R + '"/>' +
-        '<circle class="arc" id="arc" cx="50" cy="50" r="' + R + '" stroke-dasharray="' + C + '" stroke-dashoffset="0"/></svg>' +
-        '<div class="rest__time" id="t" role="timer"></div></div>' +
-        '<div class="rest__next">Next · round ' + step.nextRound + " of " + step.rounds + "<br><b>" + step.next.map(window.App.cueHTML).join(" + ") + "</b></div>" +
-        '<div class="rest__actions"><button class="btn btn--ghost" data-act="extend" aria-label="Add 30 seconds">+30 sec</button>' +
-        '<button class="btn btn--primary" data-act="skip">Skip →</button></div>' +
-      "</section>";
+    container.innerHTML = header(step, "Block " + step.block + " · rest") + restBody(step);
     bind(step);
     var t = document.getElementById("t"), arc = document.getElementById("arc");
     countdown = new Countdown(step.seconds, {
       onTick: function (l, total) {
-        t.textContent = l >= 60 ? Math.floor(l / 60) + ":" + String(l % 60).padStart(2, "0") : String(l);
+        t.textContent = restClock(l);
         arc.style.strokeDashoffset = String(C * (1 - l / total));
         if (l <= 10) arc.classList.add("final");
       },
       onDone: function () { countdown = null; go(1); },
     });
   }
+  function restClock(l) { return l >= 60 ? Math.floor(l / 60) + ":" + String(l % 60).padStart(2, "0") : String(l); }
+  function restBody(step) {
+    var R = 44, C = 2 * Math.PI * R;
+    return '<section class="rest">' +
+        '<div class="rest__ring"><svg viewBox="0 0 100 100" aria-hidden="true"><circle class="track" cx="50" cy="50" r="' + R + '"/>' +
+        '<circle class="arc" id="arc" cx="50" cy="50" r="' + R + '" stroke-dasharray="' + C + '" stroke-dashoffset="0"/></svg>' +
+        '<div class="rest__time" id="t" role="timer">' + restClock(step.seconds) + '</div></div>' +
+        '<div class="rest__next">Next · round ' + step.nextRound + " of " + step.rounds + "<br><b>" + step.next.map(window.App.cueHTML).join(" + ") + "</b></div>" +
+        '<div class="rest__actions"><button class="btn btn--ghost" data-act="extend" aria-label="Add 30 seconds">+30 sec</button>' +
+        '<button class="btn btn--primary" data-act="skip">Skip →</button></div>' +
+      "</section>";
+  }
 
   // ---------------------------------------------------------------- tabata
-  function renderTabata(step) {
-    var tb = step.tabata, moves = tb.exercises, cycles = tb.cycles || 8, phase = "work", cycle = 1;
-    // Before starting: both movements as reference. Once running: only the one
-    // being done, big; rest phases are a plain blue screen with the countdown.
-    container.innerHTML = header(step, "Block " + step.block + " · Tabata") +
-      '<section class="tabata" id="tab">' +
+  function tabataBody(step) {
+    var tb = step.tabata, moves = tb.exercises, cycles = tb.cycles || 8;
+    return '<section class="tabata" id="tab">' +
         '<div class="thumb-grid thumb-grid--2">' + moves.map(function (m) {
           var img = preview(m.id);
           return '<button class="thumb" data-zoom="' + esc(m.id) + '">' + (img ? '<img src="' + img + '" alt="">' : "") +
@@ -789,6 +878,12 @@ window.Runner = (function () {
         '<button class="btn btn--primary btn--big btn--block" id="tstart">Start Tabata</button>' +
         '<button class="btn btn--quiet" data-act="skip">Skip block</button>' +
       "</section>";
+  }
+  function renderTabata(step) {
+    var tb = step.tabata, moves = tb.exercises, cycles = tb.cycles || 8, phase = "work", cycle = 1;
+    // Before starting: both movements as reference. Once running: only the one
+    // being done, big; rest phases are a plain blue screen with the countdown.
+    container.innerHTML = header(step, "Block " + step.block + " · Tabata") + tabataBody(step);
     bind(step);
 
     function startRun() {
@@ -835,15 +930,17 @@ window.Runner = (function () {
 
   // ---------------------------------------------------------------- done
   function renderDone() {
+    container.innerHTML = header(state.steps[state.i], "") + doneBody();
+    bind(state.steps[state.i]);
+  }
+  function doneBody() {
     var n = Object.keys(state.logs).length;
     var mins = Math.round((Date.now() - new Date(state.startedAt)) / 60000);
-    container.innerHTML = header(state.steps[state.i], "") +
-      '<section class="rest"><div class="eyebrow">Session complete</div><h1>' + esc(state.title) + "</h1>" +
+    return '<section class="rest"><div class="eyebrow">Session complete</div><h1>' + esc(state.title) + "</h1>" +
       '<p class="dim">' + mins + " min · " + n + " sets logged</p>" +
       '<p class="started">' + esc(startedText()) + "</p>" +
       '<button class="btn btn--primary btn--big btn--block" data-act="finish">Save & finish</button>' +
       '<button class="btn btn--quiet" data-act="back">Back</button></section>';
-    bind(state.steps[state.i]);
   }
 
   return { start: start, resume: resume, mount: mount, unmount: unmount, abandon: abandon, forget: forget, pending: pending,

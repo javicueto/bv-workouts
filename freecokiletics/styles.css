@@ -194,7 +194,7 @@ p  { margin: 0; }
 .list { display: grid; gap: var(--space-3); }
 
 /* ------------------------------------------------------------ session runner */
-.runner { flex: 1; display: flex; flex-direction: column; gap: var(--space-4); }
+.runner { flex: 1; display: flex; flex-direction: column; gap: var(--space-4); position: relative; }   /* anchors the swipe .peek */
 
 .progress { display: flex; gap: 4px; height: 4px; }
 .progress i { flex: 1; background: var(--line); border-radius: 2px; }
@@ -265,6 +265,27 @@ p  { margin: 0; }
 .screen.out::after,
 .screen.back::after { opacity: 1; }
 @media (prefers-reduced-motion: reduce) { .screen::after { display: none; } }
+
+/* The REAL next screen under the one being swiped (runner.js showPeek; Javier,
+   14 Sep 2026 — "see the next screen below … a bit blurred, whatever is the
+   standard in apps like Tinder"). A frozen, inert copy that grows from 94%
+   and brightens as the card is pushed away, and lands full size and sharp as
+   the real screen replaces it. The blur is constant during the drag (a blur
+   that changes every frame over moving GIFs is heavy on a phone) and clears
+   only on landing. When there is a peek, the empty card above is not drawn. */
+.peek {
+  --peek: 0;
+  position: absolute; z-index: 0; overflow: hidden; pointer-events: none;
+  display: flex; flex-direction: column;
+  transform-origin: 50% 35%;
+  transform: scale(calc(.94 + var(--peek) * .06));
+  opacity: calc(.7 + var(--peek) * .3);          /* readable from the first pixel of the drag */
+  filter: blur(2.5px) brightness(.85);
+}
+.peek.is-animating { transition: transform .28s var(--ease-out), opacity .28s var(--ease-out), filter .28s var(--ease-out); }
+.peek.is-landing { filter: none; }
+.screen.has-peek { z-index: 1; }
+.screen.has-peek::after { display: none; }
 .screen.out  { animation: cardFlyLeft  .4s var(--ease-in) forwards; }
 .screen.back { animation: cardFlyRight .4s var(--ease-in) forwards; }
 
