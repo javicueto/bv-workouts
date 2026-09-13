@@ -27,12 +27,14 @@
   /* Darkened 12 Sep 2026 (Javier: the brown ground wasn't dark enough).
      Near-black with only a whisper of warmth left — enough to keep the neutrals
      on the same side as the orange accent, not enough to read as brown.
-     Shade 7 (Javier, 12 Sep 2026): a content box is the SAME colour as the
-     page and is separated by its border alone — at this luminance a fill step
-     of any believable size is worth ~1.1:1 and does nothing. Anything that
-     used to rely on a fill needs its own outline. Things that FLOAT over
-     content (menu, dialogs, popovers) use --bg-float. */
-  --bg:        #0e0c0b;
+     Shade 7 (Javier, 12 Sep 2026): content boxes are #0e0c0b, separated by
+     their border — at this luminance a fill step of any believable size is
+     worth ~1.1:1, so anything that relies on a fill needs its own outline.
+     Page two shades LIGHTER than the boxes (Javier, 14 Sep 2026, chosen from
+     tests/dark-background — with both the same the app looked too uniform).
+     Measured on #141110: text 17.0:1, --line-strong 3.17:1 (still over 3:1).
+     Things that FLOAT over content (menu, dialogs, popovers) use --bg-float. */
+  --bg:        #141110;
   --bg-raised: #0e0c0b;
   --bg-float:  #1c1614;
   --bg-sunken: #050404;
@@ -65,7 +67,7 @@
   --danger:      #ff6b6b;
   --danger-text: #ff8c8c;     /* form errors — readable on the dark ground */
   --shadow:      #000a;
-  --ui-bg:       #0e0c0b;     /* the phone's status bar — MUST equal --bg */
+  --ui-bg:       #141110;     /* the phone's status bar — MUST equal --bg */
 
   --radius:    16px;
   --radius-sm: 10px;

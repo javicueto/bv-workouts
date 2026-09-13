@@ -26,7 +26,7 @@
      status bar is translucent, so those glyphs are always white and on the
      light theme's cream they vanished. Zero-height in a browser tab, where
      the inset is 0 and the bar is the browser's own. */
-  --status-band: #0e0c0b;
+  --status-band: #141110;
 }
 
 /* Installed, full-screen. The floor is the fix for a real iOS combination:
