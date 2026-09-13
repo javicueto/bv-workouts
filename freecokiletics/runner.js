@@ -227,16 +227,32 @@ window.Runner = (function () {
     bind(step);
   }
 
+  /* The weight logged for the same movement earlier in THIS session — the
+     nearest round before this one. Today beats last time (Javier, 13 Sep
+     2026): round 2 starts from what round 1 was today, not last week's round 2. */
+  function earlierToday(it) {
+    for (var i = state.i - 1; i >= 0; i--) {
+      var s = state.steps[i];
+      if (s.kind !== "round") continue;
+      var match = s.items.find(function (x) { return x.exercise.id === it.exercise.id; });
+      var log = match && state.logs[match.setId];
+      if (log && log.weight != null) return log.weight;
+    }
+    return null;
+  }
+
   function exerciseCard(it, ix) {
     var e = it.exercise, id = e.id, img = preview(id);
     var prev = state.logs[it.setId] || null;
-    // Same round last time if there is one (pyramids climb each round), else
-    // whatever was lifted last for this exercise.
+    // Prefill, in order: this round as logged; the round before, today; the
+    // same round last time (pyramids climb each round); whatever was lifted
+    // last for this exercise.
+    var today = prev ? null : earlierToday(it);
     var lastAll = state.last[id] || null;
     var last = lastAll && lastAll.byRound && lastAll.byRound[it.round] && lastAll.byRound[it.round].weight != null
       ? lastAll.byRound[it.round] : lastAll;
     var timed = !!it.target.timed;
-    var w = prev ? prev.weight : (last && last.weight != null ? last.weight : "");
+    var w = prev ? prev.weight : (today != null ? today : (last && last.weight != null ? last.weight : ""));
     var r = prev ? prev.reps : (typeof it.target.n === "number" ? it.target.n : "");
     if (r == null) r = "";
     /* Logging is folded away (Javier, 12 Sep 2026): most sets are done with
@@ -255,9 +271,11 @@ window.Runner = (function () {
        when there is. The weight box is PREFILLED with last time's weight, so
        the value alone can't tell the two apart — `prev` is what says this round
        was logged here. A carried-over weight shows in the accent. */
-    var wLabel = prev && prev.weight != null
-      ? chip(prev.weight, "logged")
+    var logged = prev && prev.weight != null;
+    var wLabel = logged ? chip(prev.weight, "logged")
+      : today != null ? chip(today, "round")
       : (w !== "" && w != null ? chip(w, "last") : "");
+    var carried = logged ? null : (today != null ? "last round" : "last time");
     var rLabel = repsEdited ? chip(r, "edited") : "";
     return '<article class="ex-card">' +
       '<button class="ex-card__thumb" data-zoom="' + esc(id) + '" aria-label="Show ' + esc(e.name) + ' larger">' +
@@ -276,7 +294,7 @@ window.Runner = (function () {
         '<div class="ex-card__log">' +
         '<div class="logbtns">' +
           '<button class="logbtn" type="button" data-logtoggle="' + ix + '" aria-expanded="false" aria-controls="log' + ix + '"' +
-            ' aria-label="' + esc(weightLabel(prev && prev.weight != null ? prev.weight : w, !(prev && prev.weight != null))) + '">' +
+            ' aria-label="' + esc(weightLabel(logged ? prev.weight : w, carried)) + '">' +
             ICONS.dumbbell + wLabel + "</button>" +
           (needsBox ? "" :
             '<button class="logbtn" type="button" data-repstoggle="' + ix + '" aria-expanded="false"' +
@@ -289,8 +307,11 @@ window.Runner = (function () {
         (it.note ? '<div class="ex-card__cue">' + esc(it.note) + "</div>" : "") +
       "</div>" +
       '<div class="logpanel" id="log' + ix + '" data-logpanel="' + ix + '" hidden>' +
-        '<div class="logfield"><label for="w' + ix + '">kg</label>' +
+        // \u2212 and + step 1 kg (Javier, 13 Sep 2026); a half kilo is still typed.
+        '<div class="logfield logfield--step"><label for="w' + ix + '">kg</label>' +
+          '<button class="logstep" type="button" data-wstep="-1" data-for="' + ix + '" aria-label="1 kilo less">' + ICONS.minus + "</button>" +
           '<input class="input input--sm input--num" id="w' + ix + '" data-w="' + ix + '" inputmode="decimal" placeholder="\u2014" value="' + esc(w) + '">' +
+          '<button class="logstep" type="button" data-wstep="1" data-for="' + ix + '" aria-label="1 kilo more">' + ICONS.plus + "</button>" +
           '<button class="logok" type="button" data-logdone="' + ix + '" aria-label="Done">' + ICONS.check + "</button></div>" +
         (needsBox
           ? '<div class="logfield"><label for="r' + ix + '">' + (timed ? "sec" : "reps") + "</label>" +
@@ -314,14 +335,16 @@ window.Runner = (function () {
      whole point of the distinction is knowing whether this set is recorded.
      An aria-label overrides the button's content, so the name has to carry
      the number itself — and it is built here, once, for render and sync. */
-  /* kind: "logged" (plain), "last" (accent + the words), "edited" (accent; the
+  /* kind: "logged" (plain); "last" and "round" (accent + the words — carried
+     from last time, or from the round before today); "edited" (accent; the
      non-colour cue is the ↺ beside the target, which this chip mirrors). */
   function chip(v, kind) {
+    var words = { last: "Last time", round: "Last round" }[kind];
     return '<b class="logbtn__v' + (kind === "logged" ? "" : " logbtn__v--last") + '">' + esc(v) +
-      (kind === "last" ? '<small class="logbtn__last">Last time</small>' : "") + "</b>";
+      (words ? '<small class="logbtn__last">' + words + "</small>" : "") + "</b>";
   }
-  function weightLabel(v, last) {
-    return "Weight in kilos" + (v === "" || v == null ? ", not set" : ": " + v + (last ? ", last time" : ""));
+  function weightLabel(v, carried) {
+    return "Weight in kilos" + (v === "" || v == null ? ", not set" : ": " + v + (carried ? ", " + carried : ""));
   }
   function repsLabel(unitWord, v) { return "Change " + unitWord.toLowerCase() + (v === "" || v == null ? "" : ": " + v); }
 
@@ -456,6 +479,17 @@ window.Runner = (function () {
     // closing the panel never hides a change you just made.
     container.querySelectorAll("[data-w]").forEach(function (inp) {
       inp.addEventListener("input", function () { syncChip(inp.getAttribute("data-w")); });
+    });
+    // − / +: 1 kg from whatever is in the box, never below 0; 20.5 + 1 = 21.5.
+    // Focus stays on the button, so the phone keyboard does not pop up.
+    container.querySelectorAll("[data-wstep]").forEach(function (b) {
+      b.addEventListener("click", function () {
+        var inp = container.querySelector('[data-w="' + b.getAttribute("data-for") + '"]');
+        var cur = parseFloat(inp.value.replace(",", "."));
+        if (isNaN(cur)) cur = 0;
+        inp.value = String(Math.max(0, Math.round((cur + +b.getAttribute("data-wstep")) * 100) / 100));
+        inp.dispatchEvent(new Event("input", { bubbles: true }));
+      });
     });
     container.querySelectorAll("[data-r]").forEach(function (inp) {
       inp.addEventListener("input", function () { syncTarget(inp.getAttribute("data-r")); });

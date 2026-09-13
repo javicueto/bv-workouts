@@ -366,6 +366,17 @@ p  { margin: 0; }
 }
 .logok svg { width: 17px; height: 17px; display: block; }
 .logok:active { background: var(--accent); color: var(--accent-ink); }
+/* − [ 20 ] + : the weight's 1 kg steps, either side of its box. */
+.logfield--step { gap: var(--space-2); }
+.logfield--step .input--num { text-align: center; }
+.logstep {
+  flex: none; width: var(--tap); min-height: var(--tap);
+  display: grid; place-items: center;
+  background: none; color: var(--text);
+  border: 1px solid var(--line-strong); border-radius: var(--radius-sm); cursor: pointer;
+}
+.logstep svg { width: 16px; height: 16px; display: block; }
+.logstep:active { background: var(--bg-sunken); }
 .logpanel--reps { border-top-style: dashed; }
 .logpanel__reset {
   justify-self: start; background: none; border: 0; padding: var(--space-1) 0;
