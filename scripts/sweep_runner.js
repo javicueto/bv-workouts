@@ -32,7 +32,10 @@ window.sweepRunner = async function (opts) {
   // `height` = the phone's viewport height to judge against (812 for a 375
   // phone) when the browser window's own toolbars make innerHeight smaller.
   var H = o.height || innerHeight;
-  var out = { width: innerWidth, height: H, fill: fill, screens: 0, wide: [], tall: [], worst: 0 };
+  // spill: a card's corner buttons wider than their column, pushing LEFT into
+  // the preview image. The page doesn't overflow when that happens, so "wide"
+  // never saw it (142.5 kg + changed reps at 320px, 13 Sep 2026).
+  var out = { width: innerWidth, height: H, fill: fill, screens: 0, wide: [], tall: [], spill: [], worst: 0 };
 
   function last() {
     var m = {};
@@ -72,6 +75,12 @@ window.sweepRunner = async function (opts) {
       out.screens++;
       if (over > 0) out.wide.push(key + " step " + i + " (" + kind + ") +" + over + "px");
       if (bottom > H) out.tall.push(key + " step " + i + " (" + kind + ") bottom " + Math.round(bottom) + "/" + H);
+      host.querySelectorAll(".ex-card").forEach(function (card, ci) {
+        var btns = card.querySelector(".logbtns"), body = card.querySelector(".ex-card__body");
+        if (!btns || !body) return;
+        var b = btns.getBoundingClientRect(), c = body.getBoundingClientRect();
+        if (b.left < c.left - 1 || b.right > c.right + 1) out.spill.push(key + " step " + i + " card " + (ci + 1) + " " + Math.round(c.left - b.left) + "px");
+      });
       out.worst = Math.max(out.worst, over);
     }
   }

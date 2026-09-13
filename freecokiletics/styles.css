@@ -320,16 +320,23 @@ p  { margin: 0; }
   margin-top: auto; padding-top: var(--space-2);
   display: flex; flex-wrap: wrap; justify-content: flex-end; min-width: 0;
 }
-.logbtns { flex: none; min-width: 0; display: flex; align-items: center; gap: var(--space-1); }
+/* Wraps, right-aligned, when a long weight ("142.5 kg") and changed reps don't
+   fit side by side at 320px. Without it the pair was wider than the column and
+   spilled LEFT into the preview image — flex-end overflows toward the start. */
+.logbtns { flex: 0 1 auto; max-width: 100%; min-width: 0; display: flex; flex-wrap: wrap; justify-content: flex-end; align-items: center; gap: 0; }   /* the buttons' own 4px padding separates them; a gap tipped 320px into wrapping */
 .ex-card__body > .btn--hold { width: 100%; margin-top: var(--space-2); }
 
 /* The two corner buttons: a dumbbell for the weight, an arrows-repeat for the
    reps. Icon alone when there is nothing to report; the number beside it when
    there is. Deliberately quiet — most sets use whatever weight is to hand and
    the reps are almost never changed. */
+/* 4px padding and gap, not 8: with "142.5 kg" beside changed reps the pair was
+   164px in a 153px column at 375px and wrapped, pushing Done off the screen
+   (13 Sep 2026). The tap target stays 44 × 44 at least: a bare icon button
+   was only 27px wide at 320px once the padding shrank. */
 .logbtn {
-  display: inline-flex; align-items: center; gap: var(--space-2);
-  min-height: var(--tap); min-width: 0; padding: 0 var(--space-2);
+  display: inline-flex; align-items: center; justify-content: center; gap: var(--space-1);
+  min-height: var(--tap); min-width: var(--tap); padding: 0 var(--space-1);
   background: none; border: 0; border-radius: var(--radius-sm);
   color: var(--text-faint); cursor: pointer; font-family: var(--font); font-size: 15px;
 }
@@ -337,6 +344,9 @@ p  { margin: 0; }
 .logbtn:active { background: var(--bg-sunken); }
 .logbtn[aria-expanded="true"] { color: var(--accent); }
 .logbtn__v { font-weight: 700; font-variant-numeric: tabular-nums; color: var(--text); display: inline-grid; line-height: 1.1; }
+/* "21 kg": the unit a step smaller and lighter than the number, same colour. */
+.logbtn__num { white-space: nowrap; }
+.logbtn__unit { margin-left: .2em; font-size: .8em; font-weight: 600; }
 /* Carried over from last time: the accent AND the words. The colour alone was
    the only difference between "logged this round" and "prefilled", which a
    colour-blind eye or a screen reader cannot see (WCAG 1.4.1). */
@@ -480,9 +490,9 @@ body.is-counting::before { background: var(--accent); }   /* the status-bar band
 @media (min-width: 360px) {
   .ex-card { grid-template-columns: 48% 1fr; }
   .thumb-grid { grid-template-columns: repeat(3, 1fr); }
-  /* The 44px touch target is worth more than 27px of overflow on a 375 phone,
-     but on a 320 one it is what pushes the icon row off the edge. */
-  .logbtn { min-width: var(--tap); }
+  /* .logbtn's 44px min-width used to live here, off at 320px where it pushed
+     the icon row off the edge. With 4px padding it fits at 320 too, so it is
+     on the base rule now (13 Sep 2026, checked by the sweep's spill test). */
 }
 
 /* ------------------------------------------------------------ rest timer */

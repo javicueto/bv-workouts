@@ -362,9 +362,9 @@ window.Runner = (function () {
        the value alone can't tell the two apart — `prev` is what says this round
        was logged here. A carried-over weight shows in the accent. */
     var logged = prev && prev.weight != null;
-    var wLabel = logged ? chip(prev.weight, "logged")
-      : today != null ? chip(today, "round")
-      : (w !== "" && w != null ? chip(w, "last") : "");
+    var wLabel = logged ? chip(prev.weight, "logged", "kg")
+      : today != null ? chip(today, "round", "kg")
+      : (w !== "" && w != null ? chip(w, "last", "kg") : "");
     var carried = logged ? null : (today != null ? "last round" : "last time");
     var rLabel = repsEdited ? chip(r, "edited") : "";
     return '<article class="ex-card">' +
@@ -434,9 +434,13 @@ window.Runner = (function () {
   /* kind: "logged" (plain); "last" and "round" (accent + the words — carried
      from last time, or from the round before today); "edited" (accent; the
      non-colour cue is the ↺ beside the target, which this chip mirrors). */
-  function chip(v, kind) {
+  /* unit: "kg" on a weight, so the card says what the number is, as every other
+     weight in the app does (Javier, 13 Sep 2026). Wrapped with the number so it
+     stays on the number's line above "Last time". */
+  function chip(v, kind, unit) {
     var words = { last: "Last time", round: "Last round" }[kind];
-    return '<b class="logbtn__v' + (kind === "logged" ? "" : " logbtn__v--last") + '">' + esc(v) +
+    var num = unit ? '<span class="logbtn__num">' + esc(v) + '<span class="logbtn__unit">' + esc(unit) + "</span></span>" : esc(v);
+    return '<b class="logbtn__v' + (kind === "logged" ? "" : " logbtn__v--last") + '">' + num +
       (words ? '<small class="logbtn__last">' + words + "</small>" : "") + "</b>";
   }
   function weightLabel(v, carried) {
@@ -450,7 +454,7 @@ window.Runner = (function () {
     var btn = container.querySelector('[data-logtoggle="' + ix + '"]');
     if (!inp || !btn) return;
     var v = inp.value.trim();
-    btn.innerHTML = ICONS.dumbbell + (v !== "" ? chip(v, "logged") : "");
+    btn.innerHTML = ICONS.dumbbell + (v !== "" ? chip(v, "logged", "kg") : "");
     btn.setAttribute("aria-label", weightLabel(v, false));
   }
   function syncTarget(ix) {
