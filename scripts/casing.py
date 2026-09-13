@@ -20,8 +20,11 @@ Rules
 - Always kept:
     ACRONYMS  gym shorthand, always upper case — "db row" becomes "DB row"
     PROPER    names inside exercise names — Bulgarian squat, Tabata
-    EMPHASIS  a word the coach wrote in capitals — "TAP THE BENCH", "EXPLOSIVO"
-              (his emphasis is his meaning; it is not ours to lower)
+  Lowered like any other word (14 Sep 2026):
+    CUES      what the coach wrote in capitals after a "*" — "TAP THE BENCH",
+              "EXPLOSIVO", "3 SEC HOLD" → "Tap the bench", "Explosivo",
+              "3 sec hold". He wrote the same cue both ways, so capitals were
+              not his system; the app gives cues their own colour instead.
 
 A capitalised word that gets lowered is recorded in `lowered`, and the build
 prints the list: a proper noun a future refresh brings in ("Romanian") shows up
@@ -53,8 +56,10 @@ def _word(w, first, after=""):
         return "x"                                 # "rest X 8 cycles" is "times"
     if len(w) == 1 and w.isupper():
         return w                                   # a shape: L-sit, T-bar, Y raise
-    if len(w) >= 2 and w.isupper():
-        return w                                   # the coach's emphasis
+    # No "emphasis" exception any more (Javier, 14 Sep 2026): the coach wrote
+    # the same cue as CONTROL in one workout and Control in another, so his
+    # capitals weren't a system. Cues are sentence case like everything else;
+    # the app shows them in their own colour instead.
     low = w.lower()
     if first:
         return low[:1].upper() + low[1:]
@@ -120,7 +125,7 @@ if __name__ == "__main__":
         (name, "floor db shoulder blade depression", "Floor DB shoulder blade depression"),
         (name, "Heels elevated goblet squat + Trx scapular row", "Heels elevated goblet squat + TRX scapular row"),
         (name, "DB Bulgarian squat", "DB Bulgarian squat"),
-        (name, "BB Squat *TAP THE BENCH", "BB squat *TAP THE BENCH"),
+        (name, "BB Squat *TAP THE BENCH", "BB squat *Tap the bench"),
         (name, "2 In 2 Out", "2 in 2 out"),
         (name, "Leg Extension 2 Up 1 Down", "Leg extension 2 up 1 down"),
         (name, 'Tabata: 20" work - 10" rest X 8 cycles', 'Tabata: 20" work - 10" rest x 8 cycles'),
@@ -131,13 +136,15 @@ if __name__ == "__main__":
         (notes, "2 round\nRest 1 min", "2 round\nRest 1 min"),
         (notes, "10 DB Swing *controlado en bajada, pero subida rápida",
                 "10 DB swing *Controlado en bajada, pero subida rápida"),
-        (notes, "10 Floor row *3 SEC HOLD", "10 Floor row *3 SEC HOLD"),
-        (notes, "3 sets *MAX REPS - RIR 0", "3 sets *MAX REPS - RIR 0"),
+        (notes, "10 Floor row *3 SEC HOLD", "10 Floor row *3 sec hold"),
+        (notes, "3 sets *MAX REPS - RIR 0", "3 sets *Max reps - RIR 0"),
+        (notes, "10 BB bench press *EXPLOSIVO", "10 BB bench press *Explosivo"),
+        (notes, "16 Pass simulation reverse lunges *CONTROL RODILLA", "16 Pass simulation reverse lunges *Control rodilla"),
         (notes, "mobility routine", "Mobility routine"),
     ]
     cases += [
         (notes, "3 rounds:\n8/side leg extension 2 up 1 down\n10 floor row *3 SEC HOLD",
-                "3 rounds:\n8/side Leg extension 2 up 1 down\n10 Floor row *3 SEC HOLD"),
+                "3 rounds:\n8/side Leg extension 2 up 1 down\n10 Floor row *3 sec hold"),
         (notes, "8 / side db bulgarian squat", "8 / side DB Bulgarian squat"),
         (notes, '30" isometric dead bug', '30" Isometric dead bug'),
         (notes, "8/side L-sit shoulder press rotation", "8/side L-sit shoulder press rotation"),

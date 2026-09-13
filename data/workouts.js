@@ -2190,7 +2190,7 @@ window.WORKOUTS = {
   },
   "17594422": {
    "id": "17594422",
-   "name": "BB squat *TAP THE BENCH",
+   "name": "BB squat *Tap the bench",
    "url": "https://youtu.be/PSCa07-YmyM",
    "youtube_id": "PSCa07-YmyM",
    "has_local_video": true,
@@ -2292,7 +2292,7 @@ window.WORKOUTS = {
     {
      "letter": "B",
      "name": "Core stability",
-     "info": "2 rounds\n30 sec Dynamic plank\n10/side Medball contralateral deadbug\n10 Band bridge *3 SEC HOLD\nRest 1 min",
+     "info": "2 rounds\n30 sec Dynamic plank\n10/side Medball contralateral deadbug\n10 Band bridge *3 sec hold\nRest 1 min",
      "is_circuit": true,
      "matched_by_name": false,
      "exercises": [
@@ -2690,7 +2690,7 @@ window.WORKOUTS = {
     {
      "letter": "D",
      "name": "BB rack deadlift + Pass simulation reverse lunges",
-     "info": "3 rounds\n10 BB rack deadlift (3 sec hold)\n16 Pass simultion reverse lunges *CONTROL RODILLA\nRest 1 min",
+     "info": "3 rounds\n10 BB rack deadlift (3 sec hold)\n16 Pass simultion reverse lunges *Control rodilla\nRest 1 min",
      "is_circuit": true,
      "matched_by_name": false,
      "exercises": [
@@ -3097,7 +3097,7 @@ window.WORKOUTS = {
     {
      "letter": "F",
      "name": "Chin up",
-     "info": "3 sets *MAX REPS - RIR 0 \nRest 1:30 min",
+     "info": "3 sets *Max reps - RIR 0 \nRest 1:30 min",
      "is_circuit": false,
      "matched_by_name": true,
      "exercises": [
@@ -3297,7 +3297,7 @@ window.WORKOUTS = {
     {
      "letter": "F",
      "name": "Pull up",
-     "info": "3 sets of MAX \nRest 2 min",
+     "info": "3 sets of max \nRest 2 min",
      "is_circuit": false,
      "matched_by_name": true,
      "exercises": [
@@ -3479,7 +3479,7 @@ window.WORKOUTS = {
     {
      "letter": "D",
      "name": "BB bench press + Plyo push up",
-     "info": "4 rounds:\n5 BB bench press *RIR 1\n10 Plyo push up *EXPLOSIVO\nRest 1:30 min",
+     "info": "4 rounds:\n5 BB bench press *RIR 1\n10 Plyo push up *Explosivo\nRest 1:30 min",
      "is_circuit": true,
      "matched_by_name": false,
      "exercises": [
@@ -3491,7 +3491,7 @@ window.WORKOUTS = {
     {
      "letter": "E",
      "name": "DB lunge forward + Split jump",
-     "info": "4 rounds:\n6/side Lunge forward *RIR 2\n12 Split jump *EXPLOSIVO\nRest 1:30 min",
+     "info": "4 rounds:\n6/side Lunge forward *RIR 2\n12 Split jump *Explosivo\nRest 1:30 min",
      "is_circuit": true,
      "matched_by_name": false,
      "exercises": [
@@ -3549,8 +3549,8 @@ window.WORKOUTS = {
     },
     {
      "letter": "B",
-     "name": "BB back squat *TAP THE BENCH + No arms consecutive squat jumps",
-     "info": "4 rounds:\n5 BB back squat *TAP THE BENCH RIR 3\n8 No arms consecutive squat jumps *EXPLOSIVO\nRest 1:30 min",
+     "name": "BB back squat *Tap the bench + No arms consecutive squat jumps",
+     "info": "4 rounds:\n5 BB back squat *Tap the bench RIR 3\n8 No arms consecutive squat jumps *Explosivo\nRest 1:30 min",
      "is_circuit": true,
      "matched_by_name": false,
      "exercises": [
@@ -3572,7 +3572,7 @@ window.WORKOUTS = {
     {
      "letter": "D",
      "name": "Landmine side lunge + Single leg alternating lateral jump",
-     "info": "4 rounds:\n10 Landmine side lunge *CONTROL\n12 Single leg alternating lateral jump\nRest 1:30 min",
+     "info": "4 rounds:\n10 Landmine side lunge *Control\n12 Single leg alternating lateral jump\nRest 1:30 min",
      "is_circuit": true,
      "matched_by_name": false,
      "exercises": [
@@ -3583,7 +3583,7 @@ window.WORKOUTS = {
     {
      "letter": "E",
      "name": "TRX upper row + Single arm pulley",
-     "info": "4 rounds:\n12 TRX upper row *EXPLOSIVO\n6/side Single arm pulley *RIR 3\nRest 1:30 min",
+     "info": "4 rounds:\n12 TRX upper row *Explosivo\n6/side Single arm pulley *RIR 3\nRest 1:30 min",
      "is_circuit": true,
      "matched_by_name": false,
      "exercises": [
@@ -3746,7 +3746,7 @@ window.WORKOUTS = {
     {
      "letter": "D",
      "name": "Cross side lunge + Landmine angled reverse lunge",
-     "info": "4 rounds:\n5/side Cross side lunge *CONTROL\n6/side Landmine angled reverse lunge *CONTROL\nRest 1:30 min",
+     "info": "4 rounds:\n5/side Cross side lunge *Control\n6/side Landmine angled reverse lunge *Control\nRest 1:30 min",
      "is_circuit": true,
      "matched_by_name": false,
      "exercises": [
@@ -3815,7 +3815,7 @@ window.WORKOUTS = {
     {
      "letter": "C",
      "name": "Hip trust machine + Floor row",
-     "info": "3 rounds:\n10 Hip trust machine\n10 Floor row *3 SEC HOLD\nRest 1 min",
+     "info": "3 rounds:\n10 Hip trust machine\n10 Floor row *3 sec hold\nRest 1 min",
      "is_circuit": true,
      "matched_by_name": false,
      "exercises": [
@@ -3826,7 +3826,7 @@ window.WORKOUTS = {
     {
      "letter": "D",
      "name": "Side bridge + Band hip to shoulder half moon",
-     "info": "3 rounds:\n8/side Side bridge *3 SEC HOLD\n8 Front band hip to shoulder half moon *LENTO\nRest as little as possible",
+     "info": "3 rounds:\n8/side Side bridge *3 sec hold\n8 Front band hip to shoulder half moon *Lento\nRest as little as possible",
      "is_circuit": true,
      "matched_by_name": false,
      "exercises": [

@@ -1052,7 +1052,7 @@ window.PROGRAMME = {
   },
   "17594422": {
    "id": "17594422",
-   "name": "BB squat *TAP THE BENCH",
+   "name": "BB squat *Tap the bench",
    "youtube_id": "PSCa07-YmyM",
    "has_preview": true
   },
@@ -1195,13 +1195,13 @@ window.PROGRAMME = {
       },
       {
        "reps": 10,
-       "note": "3 SEC HOLD",
+       "note": "3 sec hold",
        "id": "11307787",
        "name": "Band glute bridge (3 sec hold)",
        "no_weight": true
       }
      ],
-     "raw": "2 rounds\n30 sec Dynamic plank\n10/side Medball contralateral deadbug\n10 Band bridge *3 SEC HOLD\nRest 1 min",
+     "raw": "2 rounds\n30 sec Dynamic plank\n10/side Medball contralateral deadbug\n10 Band bridge *3 sec hold\nRest 1 min",
      "overridden": true
     },
     {
@@ -2086,13 +2086,13 @@ window.PROGRAMME = {
       },
       {
        "reps": 16,
-       "note": "CONTROL RODILLA",
+       "note": "Control rodilla",
        "id": "12690832",
        "name": "Pass simulation reverse lunges",
        "no_weight": true
       }
      ],
-     "raw": "3 rounds\n10 BB rack deadlift (3 sec hold)\n16 Pass simultion reverse lunges *CONTROL RODILLA\nRest 1 min"
+     "raw": "3 rounds\n10 BB rack deadlift (3 sec hold)\n16 Pass simultion reverse lunges *Control rodilla\nRest 1 min"
     },
     {
      "letter": "E",
@@ -2746,7 +2746,7 @@ window.PROGRAMME = {
         6
        ],
        "id": "17594422",
-       "name": "BB squat *TAP THE BENCH"
+       "name": "BB squat *Tap the bench"
       },
       {
        "reps": 10,
@@ -2987,13 +2987,13 @@ window.PROGRAMME = {
      "exercises": [
       {
        "reps": "MAX",
-       "note": "MAX REPS - RIR 0",
+       "note": "Max reps - RIR 0",
        "id": "12777905",
        "name": "Chin up",
        "no_weight": true
       }
      ],
-     "raw": "3 sets *MAX REPS - RIR 0 \nRest 1:30 min"
+     "raw": "3 sets *Max reps - RIR 0 \nRest 1:30 min"
     },
     {
      "letter": "G",
@@ -3419,7 +3419,7 @@ window.PROGRAMME = {
        "no_weight": true
       }
      ],
-     "raw": "3 sets of MAX \nRest 2 min"
+     "raw": "3 sets of max \nRest 2 min"
     },
     {
      "letter": "G",
@@ -3810,13 +3810,13 @@ window.PROGRAMME = {
       },
       {
        "reps": 10,
-       "note": "EXPLOSIVO",
+       "note": "Explosivo",
        "id": "11249258",
        "name": "Plyo push up",
        "no_weight": true
       }
      ],
-     "raw": "4 rounds:\n5 BB bench press *RIR 1\n10 Plyo push up *EXPLOSIVO\nRest 1:30 min"
+     "raw": "4 rounds:\n5 BB bench press *RIR 1\n10 Plyo push up *Explosivo\nRest 1:30 min"
     },
     {
      "letter": "E",
@@ -3837,13 +3837,13 @@ window.PROGRAMME = {
       },
       {
        "reps": 12,
-       "note": "EXPLOSIVO",
+       "note": "Explosivo",
        "id": "11249269",
        "name": "Split jump",
        "no_weight": true
       }
      ],
-     "raw": "4 rounds:\n6/side Lunge forward *RIR 2\n12 Split jump *EXPLOSIVO\nRest 1:30 min"
+     "raw": "4 rounds:\n6/side Lunge forward *RIR 2\n12 Split jump *Explosivo\nRest 1:30 min"
     },
     {
      "letter": "F",
@@ -3955,7 +3955,7 @@ window.PROGRAMME = {
     },
     {
      "letter": "B",
-     "name": "BB back squat *TAP THE BENCH + No arms consecutive squat jumps",
+     "name": "BB back squat *Tap the bench + No arms consecutive squat jumps",
      "kind": "rounds",
      "rounds": 4,
      "rounds_note": null,
@@ -3965,19 +3965,19 @@ window.PROGRAMME = {
      "exercises": [
       {
        "reps": 5,
-       "note": "TAP THE BENCH RIR 3",
+       "note": "Tap the bench RIR 3",
        "id": "17594422",
-       "name": "BB squat *TAP THE BENCH"
+       "name": "BB squat *Tap the bench"
       },
       {
        "reps": 8,
-       "note": "EXPLOSIVO",
+       "note": "Explosivo",
        "id": "11570004",
        "name": "No arms consecutive vertical jumps",
        "no_weight": true
       }
      ],
-     "raw": "4 rounds:\n5 BB back squat *TAP THE BENCH RIR 3\n8 No arms consecutive squat jumps *EXPLOSIVO\nRest 1:30 min"
+     "raw": "4 rounds:\n5 BB back squat *Tap the bench RIR 3\n8 No arms consecutive squat jumps *Explosivo\nRest 1:30 min"
     },
     {
      "letter": "C",
@@ -4017,7 +4017,7 @@ window.PROGRAMME = {
      "exercises": [
       {
        "reps": 10,
-       "note": "CONTROL",
+       "note": "Control",
        "id": "11259651",
        "name": "Landmine side lunges"
       },
@@ -4028,7 +4028,7 @@ window.PROGRAMME = {
        "no_weight": true
       }
      ],
-     "raw": "4 rounds:\n10 Landmine side lunge *CONTROL\n12 Single leg alternating lateral jump\nRest 1:30 min"
+     "raw": "4 rounds:\n10 Landmine side lunge *Control\n12 Single leg alternating lateral jump\nRest 1:30 min"
     },
     {
      "letter": "E",
@@ -4042,7 +4042,7 @@ window.PROGRAMME = {
      "exercises": [
       {
        "reps": 12,
-       "note": "EXPLOSIVO",
+       "note": "Explosivo",
        "id": "11279419",
        "name": "TRX upper row",
        "no_weight": true
@@ -4055,7 +4055,7 @@ window.PROGRAMME = {
        "name": "Single arm pulley"
       }
      ],
-     "raw": "4 rounds:\n12 TRX upper row *EXPLOSIVO\n6/side Single arm pulley *RIR 3\nRest 1:30 min"
+     "raw": "4 rounds:\n12 TRX upper row *Explosivo\n6/side Single arm pulley *RIR 3\nRest 1:30 min"
     }
    ]
   },
@@ -4409,19 +4409,19 @@ window.PROGRAMME = {
       {
        "reps": 5,
        "per_side": true,
-       "note": "CONTROL",
+       "note": "Control",
        "id": "11329545",
        "name": "Cross side lunges"
       },
       {
        "reps": 6,
        "per_side": true,
-       "note": "CONTROL",
+       "note": "Control",
        "id": "11373099",
        "name": "Landmine angled reverse lunge"
       }
      ],
-     "raw": "4 rounds:\n5/side Cross side lunge *CONTROL\n6/side Landmine angled reverse lunge *CONTROL\nRest 1:30 min"
+     "raw": "4 rounds:\n5/side Cross side lunge *Control\n6/side Landmine angled reverse lunge *Control\nRest 1:30 min"
     },
     {
      "letter": "E",
@@ -4565,13 +4565,13 @@ window.PROGRAMME = {
       },
       {
        "reps": 10,
-       "note": "3 SEC HOLD",
+       "note": "3 sec hold",
        "id": "15734789",
        "name": "Floor row",
        "no_weight": true
       }
      ],
-     "raw": "3 rounds:\n10 Hip trust machine\n10 Floor row *3 SEC HOLD\nRest 1 min"
+     "raw": "3 rounds:\n10 Hip trust machine\n10 Floor row *3 sec hold\nRest 1 min"
     },
     {
      "letter": "D",
@@ -4586,20 +4586,20 @@ window.PROGRAMME = {
       {
        "reps": 8,
        "per_side": true,
-       "note": "3 SEC HOLD",
+       "note": "3 sec hold",
        "id": "11292345",
        "name": "Side bridge",
        "no_weight": true
       },
       {
        "reps": 8,
-       "note": "LENTO",
+       "note": "Lento",
        "id": "14645591",
        "name": "Front band hip to shoulder half moon",
        "no_weight": true
       }
      ],
-     "raw": "3 rounds:\n8/side Side bridge *3 SEC HOLD\n8 Front band hip to shoulder half moon *LENTO\nRest as little as possible"
+     "raw": "3 rounds:\n8/side Side bridge *3 sec hold\n8 Front band hip to shoulder half moon *Lento\nRest as little as possible"
     },
     {
      "letter": "E",
