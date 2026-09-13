@@ -730,16 +730,26 @@ input[type="date"].input, input[type="time"].input {
 .week-nav__icon svg { width: 18px; height: 18px; display: block; }
 .week-nav__btn:active .week-nav__icon { transform: scale(.97); }
 .week-nav__word { font-size: 12px; color: var(--text-dim); }
-/* The week swipes sideways (UI.swipePages): vertical scrolling stays the
-   browser's, the drag follows the finger, the new week slides in. */
-.week-swipe { touch-action: pan-y; transition: transform .16s var(--ease-out), opacity .16s var(--ease-out); }
+/* The week moves like a page (UI.swipePages; Javier, 14 Sep 2026: "the whole
+   page moving at the edge and disappearing"). Vertical scrolling stays the
+   browser's; the drag follows the finger and fades; past the threshold the
+   week slides right off that edge and the next one slides in from the other.
+   The ‹ › arrows play the same slide. */
+.week-swipe { touch-action: pan-y; }
 .week-swipe.is-swiping { transition: none; }
-.week-swipe.is-in-next { animation: week-in-next .22s var(--ease-out) both; }
-.week-swipe.is-in-prev { animation: week-in-prev .22s var(--ease-out) both; }
-@keyframes week-in-next { from { transform: translateX(32px); opacity: 0; } to { transform: none; opacity: 1; } }
-@keyframes week-in-prev { from { transform: translateX(-32px); opacity: 0; } to { transform: none; opacity: 1; } }
+.week-swipe.is-settling { transition: transform .22s var(--ease-out), opacity .22s var(--ease-out); }
+.week-swipe.is-leaving { transition: transform .22s var(--ease-in), opacity .22s var(--ease-in); }
+/* backwards, NOT both: a finished animation holding its end value overrides
+   the inline transform, so the NEXT swipe or arrow tap on this week wouldn't
+   move it. home.js also drops the class once the week has landed. */
+.week-swipe.is-in-next { animation: week-in-next .28s var(--ease-out) backwards; }
+.week-swipe.is-in-prev { animation: week-in-prev .28s var(--ease-out) backwards; }
+@keyframes week-in-next { from { transform: translateX(100%); opacity: .4; } to { transform: none; opacity: 1; } }
+@keyframes week-in-prev { from { transform: translateX(-100%); opacity: .4; } to { transform: none; opacity: 1; } }
+/* While a week is off-centre, its overflow is clipped, never scrollable. */
+html.is-paging, html.is-paging body { overflow-x: clip; }
 @media (prefers-reduced-motion: reduce) {
-  .week-swipe { transition: none; }
+  .week-swipe.is-settling, .week-swipe.is-leaving { transition: none; }
   .week-swipe.is-in-next, .week-swipe.is-in-prev { animation: none; }
 }
 .week-nav__label { display: grid; text-align: center; }

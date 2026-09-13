@@ -141,10 +141,40 @@ window.UI = (function () {
      threshold, or with no page that way, it settles back (with resistance).
      A drag never also taps the card it started on.
        opts: { prev, next }  — functions, or null where there is no page */
+  /* The page moves like a page (Javier, 14 Sep 2026: "the whole page moving
+     at the edge and disappearing"): it follows the finger, fading as it nears
+     the edge; past the threshold it slides right off that side and the next
+     page slides in from the other (the caller adds .is-in-next / .is-in-prev
+     on the new page); short of it, it springs back. Returns { go(dir) } so a
+     tap on an arrow plays the same slide. html.is-paging clips the sideways
+     overflow while a page is off-centre, so the body never scrolls. */
   function swipePages(el, opts) {
     var THRESHOLD = 80;                  // px, as in the session swipe
+    var OUT_MS = 220;                    // matches .week-swipe.is-leaving
+    var root = document.documentElement;
     var x0 = 0, y0 = 0, dx = 0, active = false, horizontal = null;
-    function settle() { el.classList.remove("is-swiping"); el.style.transform = ""; el.style.opacity = ""; }
+    function reduced() { return !!(window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches); }
+    function paging(on) { root.classList.toggle("is-paging", !!on); }
+    function settle() {
+      el.classList.remove("is-swiping");
+      el.classList.add("is-settling");
+      el.style.transform = ""; el.style.opacity = "";
+      setTimeout(function () { el.classList.remove("is-settling"); paging(false); }, 240);
+    }
+    // dir 1 = next (the page leaves to the left), -1 = previous.
+    function leave(dir) {
+      var go = dir > 0 ? opts.next : opts.prev;
+      if (!go) { settle(); return; }
+      paging(true);
+      el.classList.remove("is-swiping");
+      el.classList.add("is-leaving");
+      el.style.transform = "translateX(" + (dir > 0 ? -100 : 100) + "%)";
+      el.style.opacity = "0";
+      setTimeout(function () {
+        go(dir);
+        setTimeout(function () { paging(false); }, 1500);   // safety net; the new page clears it when it lands
+      }, reduced() ? 0 : OUT_MS);
+    }
     el.addEventListener("touchstart", function (e) {
       horizontal = null; dx = 0;
       if (e.touches.length !== 1 || e.target.closest("input, textarea, select")) { active = false; return; }
@@ -156,24 +186,22 @@ window.UI = (function () {
       if (horizontal === null && (Math.abs(mx) > 8 || Math.abs(my) > 8)) horizontal = Math.abs(mx) > Math.abs(my) * 1.3;
       if (!horizontal) return;
       dx = (mx < 0 ? opts.next : opts.prev) ? mx : mx / 4;    // resistance where there's nowhere to go
+      paging(true);
       el.classList.add("is-swiping");
       el.style.transform = "translateX(" + dx + "px)";
+      el.style.opacity = String(1 - Math.min(Math.abs(dx) / (el.offsetWidth || 1), 1) * 0.6);
     }, { passive: true });
     el.addEventListener("touchend", function () {
       if (!active) return;
       active = false;
       if (!horizontal) return;
-      var go = Math.abs(dx) >= THRESHOLD ? (dx < 0 ? opts.next : opts.prev) : null;
-      if (!go) { settle(); return; }
-      el.classList.remove("is-swiping");
-      el.style.transform = "translateX(" + (dx < 0 ? -40 : 40) + "%)";
-      el.style.opacity = "0";
-      setTimeout(function () { go(dx < 0 ? 1 : -1); }, 160);
+      if (Math.abs(dx) >= THRESHOLD) leave(dx < 0 ? 1 : -1); else settle();
     });
-    el.addEventListener("touchcancel", function () { active = false; settle(); });
+    el.addEventListener("touchcancel", function () { active = false; if (horizontal) settle(); });
     el.addEventListener("click", function (e) {
       if (horizontal) { e.preventDefault(); e.stopPropagation(); }
     }, true);
+    return { go: leave };
   }
 
   return { esc: esc, confirm: confirm, info: info, toast: toast, announce: announce, overlay: overlay, zoomImage: zoomImage,

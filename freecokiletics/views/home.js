@@ -96,7 +96,7 @@
          "Previous week" / "Next week" from aria-label. */
       function weekBtn(target, dir) {
         if (!target) return "<span></span>";
-        return '<a class="week-nav__btn" href="#/week/' + target.start + '" aria-label="' + (dir < 0 ? "Previous" : "Next") + ' week">' +
+        return '<a class="week-nav__btn" href="#/week/' + target.start + '" data-dir="' + dir + '" aria-label="' + (dir < 0 ? "Previous" : "Next") + ' week">' +
           '<span class="week-nav__icon">' + (dir < 0 ? ICONS.chevronLeft : ICONS.chevronRight) + "</span>" +
           '<span class="week-nav__word" aria-hidden="true">' + (dir < 0 ? "Previous" : "Next") + "</span></a>";
       }
@@ -172,11 +172,27 @@
        across the re-render and is cleared at once. */
     var swipeEl = document.getElementById("week-swipe");
     if (swipeEl) {
-      if (S.weekSwipe) { swipeEl.classList.add(S.weekSwipe > 0 ? "is-in-next" : "is-in-prev"); S.weekSwipe = 0; }
+      if (S.weekSwipe) {
+        swipeEl.classList.add(S.weekSwipe > 0 ? "is-in-next" : "is-in-prev");
+        S.weekSwipe = 0;
+        // The page has landed: stop clipping the sideways overflow.
+        // Landed: on animationend, or after the animation's length when there
+        // is none to end (reduced motion) — whichever comes first.
+        var landed = function () {
+          swipeEl.classList.remove("is-in-next", "is-in-prev");   // or its end state blocks the next slide
+          document.documentElement.classList.remove("is-paging");
+        };
+        swipeEl.addEventListener("animationend", landed, { once: true });
+        setTimeout(landed, 400);
+      }
       var toWeek = function (target) {
         return target ? function (dir) { S.weekSwipe = dir; location.hash = "#/week/" + target.start; } : null;
       };
-      UI.swipePages(swipeEl, { prev: toWeek(prevW), next: toWeek(nextW) });
+      var pager = UI.swipePages(swipeEl, { prev: toWeek(prevW), next: toWeek(nextW) });
+      // A tap on ‹ / › plays the same slide as the swipe.
+      swipeEl.querySelectorAll(".week-nav__btn[data-dir]").forEach(function (a) {
+        a.addEventListener("click", function (e) { e.preventDefault(); pager.go(+a.getAttribute("data-dir")); });
+      });
     }
     document.getElementById("out").addEventListener("click", V.signOutFlow);
     document.getElementById("cp").addEventListener("click", function () { V.renderSetPassword(null, { cancel: true }); });
