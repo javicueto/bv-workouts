@@ -592,6 +592,12 @@ body.is-resting :where(a, button, input, [tabindex]):focus-visible { outline-col
   grid-template-columns: repeat(auto-fill, minmax(105px, 1fr));
 }
 .vthumb { margin: 0; }
+/* The tile is a button: tap to see the movement big (UI.zoomImage). */
+.vthumb__open {
+  display: block; width: 100%; padding: 0; border: 0; background: none;
+  border-radius: var(--radius-sm); cursor: zoom-in;
+}
+.vthumb__open:active img { opacity: .8; }
 .vthumb img, .vthumb__none {
   width: 100%; aspect-ratio: 16 / 9; object-fit: cover;
   border-radius: var(--radius-sm); background: #000; display: block;

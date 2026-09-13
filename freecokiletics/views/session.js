@@ -4,6 +4,19 @@
   "use strict";
   var A = window.App, S = A.S, V = A.views, esc = A.esc, app = A.app, topbar = A.topbar;
 
+  /* One movement on the read-only screen. With a preview it is a button that
+     opens it big (Javier, 13 Sep 2026 — the tiles are small so the whole
+     session scans at once); without one it is an empty tile, not a dead
+     button. `caption` is trusted markup built here. */
+  function thumb(e, caption) {
+    var u = A.previewUrl(e.id);
+    return '<figure class="vthumb">' +
+      (u ? '<button class="vthumb__open" type="button" data-zoom="' + esc(e.id) + '" aria-label="Show ' + esc(e.name) + ' larger">' +
+             '<img src="' + u + '" alt="" loading="lazy"></button>'
+         : '<div class="vthumb__none"></div>') +
+      "<figcaption>" + caption + "</figcaption></figure>";
+  }
+
   /* A session, read only. Reached from the day card, and the one place to look
      something up mid-week without starting a workout — starting one used to be
      the only way in, which meant discarding it afterwards just to have looked. */
@@ -32,9 +45,7 @@
       html += '<section class="vsec"><h2 class="vsec__h">Warm-up</h2>' +
         (wText ? '<p class="note">' + esc(wText) + "</p>" : "") +
         '<div class="vgrid">' + (s.warmup.exercises || []).map(function (e) {
-          var u = A.previewUrl(e.id);
-          return '<figure class="vthumb">' + (u ? '<img src="' + u + '" alt="" loading="lazy">' : '<div class="vthumb__none"></div>') +
-            "<figcaption>" + esc(e.name) + "</figcaption></figure>";
+          return thumb(e, esc(e.name));
         }).join("") + "</div></section>";
     }
 
@@ -48,9 +59,8 @@
           : '<p class="dim">' + esc(b.rest_seconds ? A.restLabel(b.rest_seconds) + " between rounds"
                                                    : (b.rest_note || "No rest")) + "</p>") +
         '<div class="vgrid">' + (b.exercises || []).map(function (e) {
-          var u = A.previewUrl(e.id), reps = A.repsLabel(e);
-          return '<figure class="vthumb">' + (u ? '<img src="' + u + '" alt="" loading="lazy">' : '<div class="vthumb__none"></div>') +
-            "<figcaption>" + (reps ? "<b>" + esc(reps) + "</b> " : "") + esc(e.name) + "</figcaption></figure>";
+          var reps = A.repsLabel(e);
+          return thumb(e, (reps ? "<b>" + esc(reps) + "</b> " : "") + esc(e.name));
         }).join("") + "</div></section>";
     });
 
@@ -60,6 +70,14 @@
       "</div>";
     app.innerHTML = html;
     A.syncBadge();
+    // Bound on the buttons themselves, which go away with the screen — a
+    // listener on #app would pile up one per visit.
+    app.querySelectorAll("[data-zoom]").forEach(function (b) {
+      b.addEventListener("click", function () {
+        var id = b.getAttribute("data-zoom");
+        UI.zoomImage(A.previewUrl(id), (A.P.exercises[id] || {}).name || "");
+      });
+    });
   };
 
   V.renderLog = function (key, weekStart) {

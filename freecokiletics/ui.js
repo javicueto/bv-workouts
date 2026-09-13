@@ -100,6 +100,23 @@ window.UI = (function () {
     };
   }
 
+  /* A movement preview, full width, over everything. The ONE implementation:
+     the runner's thumbnails and the read-only session screen both open it, so
+     the two cannot drift. Escape, the Close button or a tap anywhere closes it,
+     and focus goes back to the thumbnail that opened it (UI.overlay). */
+  function zoomImage(src, name) {
+    var ov = document.createElement("div");
+    ov.className = "zoom";
+    ov.innerHTML = (src ? '<img src="' + esc(src) + '" alt="">' : "") +
+      '<div class="zoom__name">' + esc(name || "") + "</div>" +
+      '<button class="btn btn--ghost zoom__close" type="button">Close</button>' +
+      '<div class="faint" style="font-size:13px">or tap anywhere</div>';
+    var release;
+    function close() { release(); ov.remove(); }
+    ov.addEventListener("click", close);
+    release = overlay(ov, name || "Preview", close);
+  }
+
   var toastEl = null, toastTimer = null;
   function toast(msg, ms) {
     if (!toastEl) {
@@ -113,5 +130,5 @@ window.UI = (function () {
     toastTimer = setTimeout(function () { toastEl.classList.remove("in"); }, ms || 3200);
   }
 
-  return { esc: esc, confirm: confirm, info: info, toast: toast, announce: announce, overlay: overlay };
+  return { esc: esc, confirm: confirm, info: info, toast: toast, announce: announce, overlay: overlay, zoomImage: zoomImage };
 })();

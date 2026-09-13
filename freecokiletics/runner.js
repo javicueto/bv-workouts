@@ -467,18 +467,7 @@ window.Runner = (function () {
     if (scr) bindSwipe(scr, step);
   }
 
-  function zoom(id) {
-    var e = P.exercises[id] || {}, img = preview(id);
-    var ov = document.createElement("div");
-    ov.className = "zoom";
-    ov.innerHTML = (img ? '<img src="' + img + '" alt="">' : "") + '<div class="zoom__name">' + esc(e.name || "") + "</div>" +
-      '<button class="btn btn--ghost zoom__close" type="button">Close</button>' +
-      '<div class="faint" style="font-size:13px">or tap anywhere</div>';
-    var release;
-    function close() { release(); ov.remove(); }
-    ov.addEventListener("click", close);
-    release = UI.overlay(ov, e.name || "Preview", close);
-  }
+  function zoom(id) { UI.zoomImage(preview(id), (P.exercises[id] || {}).name || ""); }
 
   /* Timed hold (30″ plank…): takes over the whole screen, like the rest timer
      but orange — you can't read a small button face-down in a plank. A 3-2-1
