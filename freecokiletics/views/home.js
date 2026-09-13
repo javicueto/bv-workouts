@@ -139,9 +139,10 @@
                 }).join("") + "</ul>"
               : "") +
             '<div class="day-card__acts">' +
+              // Done: the card itself opens the workout with its record, so the
+              // only other thing to offer is doing it again (13 Sep 2026).
               (d
-                ? '<a href="#/run/' + esc(s.key) + wq + '">Do it again</a>' +
-                  '<a href="#/view/' + esc(s.key) + wq + '">View workout</a>'
+                ? '<a href="#/run/' + esc(s.key) + wq + '">Do it again</a>'
                 : '<a href="#/view/' + esc(s.key) + wq + '">View workout</a>' +
                   '<a href="#/log/' + esc(s.key) + wq + '">Mark as done</a>') +
             "</div>" +
