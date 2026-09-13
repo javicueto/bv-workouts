@@ -14,6 +14,9 @@
  *   3. A dead network leaves the queue intact and retries later.
  *   4. A request that never answers times out instead of hanging.
  *   5. Sign-out clears the account's keys and leaves device preferences.
+ *   6. A discarded / deleted workout leaves no weights behind: nothing of it
+ *      uploads, and the local "last time" copy goes back to the workout before
+ *      (Javier, 13 Sep 2026).
  */
 "use strict";
 var fs = require("fs"), path = require("path"), vm = require("vm");
@@ -142,13 +145,43 @@ async function test5_signOutClearsAccountKeys() {
   await sleep(30);
   w.localStorage.setItem("freeco.plan", "{}"); w.localStorage.setItem("freeco.session", "{}");
   w.localStorage.setItem("freeco.theme", "light"); w.localStorage.setItem("freeco.installHidden", "1");
+  w.localStorage.setItem("freeco.sound", "off");
   await Store.signOut();
   ["freeco.queue", "freeco.plan", "freeco.session", "freeco.lastWeights"].forEach(function (k) {
     check(k + " is gone", w.localStorage.getItem(k) === null);
   });
   check("freeco.theme stays", w.localStorage.getItem("freeco.theme") === "light");
   check("freeco.installHidden stays", w.localStorage.getItem("freeco.installHidden") === "1");
+  check("freeco.sound (mute) stays", w.localStorage.getItem("freeco.sound") === "off");
   check("supabase signOut was called", srv.signedOut === 1);
+}
+
+async function test6_discardedWorkoutLeavesNoWeights() {
+  console.log("6. a discarded workout leaves no weights behind");
+  var srv = fakeServer(), w = makeWindow(srv), Store = loadStore(w);
+  var ops = [];
+  var dead = function () { return Promise.resolve({ data: null, error: { message: "Failed to fetch" }, status: 0 }); };
+  srv.respond = dead;                                       // offline in the gym
+  var twoDaysAgo = new Date(Date.now() - 2 * 864e5).toISOString(), now = new Date().toISOString();
+  Store.saveSet({ id: "a1", workout_id: "wA", exercise_id: "e", round: 1, weight: 20, reps: 10, done_at: twoDaysAgo });
+  Store.saveWorkout({ id: "wB", user_id: "u1" });
+  Store.saveSet({ id: "b1", workout_id: "wB", exercise_id: "e", round: 1, weight: 30, reps: 10, done_at: now });
+  Store.saveSet({ id: "b2", workout_id: "wB", exercise_id: "f", round: 1, weight: 12, reps: 10, done_at: now });
+  await sleep(30);
+  var last = await Store.lastForExercises(["e", "f"], "u1");
+  check("before the discard, last time shows the new workout (30 kg)", last.e && last.e.weight === 30 && last.f && last.f.weight === 12);
+  await Store.deleteWorkout("wB");
+  last = await Store.lastForExercises(["e", "f"], "u1");
+  check("after it, last time is the workout before (20 kg)", last.e && last.e.weight === 20 && last.e.byRound[1].weight === 20);
+  check("an exercise only the discarded workout had has no last time", !last.f);
+  var q = JSON.parse(w.localStorage.getItem("freeco.queue") || "[]");
+  check("nothing of the discarded workout is left to upload",
+        !q.some(function (op) { return (op.row && (op.row.id === "wB" || op.row.workout_id === "wB")); }));
+  srv.respond = function (op) { ops.push(op); return srv.accept(op); };   // signal is back
+  await Store.flush();
+  check("its sets never reach the server", !ops.some(function (op) { return op.payload && op.payload.workout_id === "wB"; }));
+  check("the server is told to delete it", ops.some(function (op) { return op.table === "freeco_workouts" && op.kind === "delete"; }));
+  check("the earlier workout's set still uploads", ops.some(function (op) { return op.payload && op.payload.id === "a1"; }));
 }
 
 (async function () {
@@ -157,6 +190,7 @@ async function test5_signOutClearsAccountKeys() {
   await test3_deadNetworkKeepsQueue();
   await test4_hangingRequestTimesOut();
   await test5_signOutClearsAccountKeys();
+  await test6_discardedWorkoutLeavesNoWeights();
   console.log(failures ? "\n" + failures + " FAILED" : "\nall passed");
   process.exit(failures ? 1 : 0);
 })();

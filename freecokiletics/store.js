@@ -209,12 +209,21 @@ window.Store = (function () {
   /* Local copy of "last time", per exercise AND per round, for offline use.
      Only moves forward in time, so editing an old workout's weights never
      overwrites what you lifted more recently. */
-  function rememberWeight(exerciseId, round, weight, reps, when) {
+  /* Each entry remembers the workout it came from and what it replaced
+     (`before`, one level), so deleting or discarding that workout can put the
+     previous "last time" back (forgetWorkout). Javier, 13 Sep 2026: weights
+     from a discarded workout must be gone — including this local copy, which
+     otherwise prefilled the next session with them, even online. */
+  function rememberWeight(exerciseId, round, weight, reps, when, workoutId) {
     if (weight == null && reps == null) return;
     var at = when ? new Date(when).getTime() : Date.now();
     var m = lastWeights(), cur = m[exerciseId];
     if (cur && cur.at > at + 12 * 3600 * 1000) return;              // an older workout: leave newer data alone
-    if (!cur || Math.abs(cur.at - at) > 12 * 3600 * 1000) cur = { byRound: {} };   // a different session: start fresh
+    if (!cur || Math.abs(cur.at - at) > 12 * 3600 * 1000) {         // a different session: start fresh
+      var before = cur ? Object.assign({}, cur) : null;
+      if (before) delete before.before;                             // one level is enough
+      cur = { byRound: {}, workout: workoutId || null, before: before };
+    }
     cur.byRound = cur.byRound || {};
     cur.byRound[round] = { weight: weight, reps: reps };
     cur.weight = weight; cur.reps = reps; cur.at = Math.max(cur.at || 0, at);
@@ -328,9 +337,22 @@ window.Store = (function () {
     });
     q.push({ table: "workouts", op: "delete", id: id, qid: uuid() });
     writeQ(q);
+    forgetWorkout(id);
     return flush();
   }
-  function saveSet(row) { rememberWeight(row.exercise_id, row.round, row.weight, row.reps, row.done_at); enqueue({ table: "sets", row: row }); }
+  /* The local "last time" copy forgets a deleted workout: each exercise it
+     wrote goes back to what it held before, or is removed. Online the server
+     already has no trace (sets cascade); this makes offline match. */
+  function forgetWorkout(id) {
+    var m = lastWeights(), changed = false;
+    Object.keys(m).forEach(function (ex) {
+      if (!m[ex] || m[ex].workout !== id) return;
+      if (m[ex].before) m[ex] = m[ex].before; else delete m[ex];
+      changed = true;
+    });
+    if (changed) { try { localStorage.setItem(LAST_KEY, JSON.stringify(m)); } catch (e) {} }
+  }
+  function saveSet(row) { rememberWeight(row.exercise_id, row.round, row.weight, row.reps, row.done_at, row.workout_id); enqueue({ table: "sets", row: row }); }
 
   /* The reads below THROW when the server cannot be reached or refuses (they
      used to return an empty list, which painted "Nothing logged yet" over a
