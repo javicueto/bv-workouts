@@ -430,6 +430,11 @@ p  { margin: 0; }
 .countin__title { font-size: 14px; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; }
 .countin__n { font-family: var(--font-display); font-size: 180px; font-weight: 800; line-height: 1; font-variant-numeric: tabular-nums; min-height: 1em; }
 .countin.is-go .countin__n { font-size: 140px; }
+/* The app's biceps, with Go! only. */
+.countin__logo { display: none; }
+.countin.is-go .countin__logo { display: block; width: 96px; height: 96px; animation: countin-pop .8s cubic-bezier(.2, .8, .2, 1) both; }
+.countin__logo svg { width: 100%; height: 100%; display: block; }
+@media (prefers-reduced-motion: reduce) { .countin.is-go .countin__logo { animation: none; } }
 .countin__n.pop { animation: countin-pop .8s cubic-bezier(.2, .8, .2, 1) both; }
 @keyframes countin-pop { from { transform: scale(1.4); opacity: 0; } 30% { opacity: 1; } to { transform: scale(1); opacity: 1; } }
 @media (prefers-reduced-motion: reduce) { .countin__n.pop { animation: none; } }

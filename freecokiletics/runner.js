@@ -170,7 +170,8 @@ window.Runner = (function () {
 
   /* 3 · 2 · 1 · Go! over the first screen when a session starts (Javier,
      13 Sep 2026), so it is clear the workout has begun. Orange — this is work —
-     and silent. The session's time starts at Go!, not at the tap on Start.
+     with soft blips (silent when sound is muted in the menu) and the app's
+     biceps on Go!. The session's time starts at Go!, not at the tap on Start.
      Escape skips straight to Go!. */
   var countInTimer = null;
   function countIn() {
@@ -178,6 +179,7 @@ window.Runner = (function () {
     var ov = document.createElement("div");
     ov.className = "countin";
     ov.innerHTML = '<div class="countin__title">' + esc(state.title) + "</div>" +
+      '<div class="countin__logo" aria-hidden="true">' + ICONS.bicep + "</div>" +
       '<div class="countin__n" aria-live="assertive"></div>';
     var n = ov.querySelector(".countin__n"), left = 3, begun = false;
     var meta = document.querySelector('meta[name="theme-color"]');
@@ -186,7 +188,7 @@ window.Runner = (function () {
     var release = UI.overlay(ov, "Starting " + state.title, begin);
     function show(t) { n.textContent = t; n.classList.remove("pop"); void n.offsetWidth; n.classList.add("pop"); }
     function tick() {
-      if (left > 0) { show(String(left)); left--; countInTimer = setTimeout(tick, 1000); }
+      if (left > 0) { show(String(left)); Sound.introCount(); left--; countInTimer = setTimeout(tick, 1000); }
       else begin();
     }
     function begin() {
@@ -195,7 +197,7 @@ window.Runner = (function () {
       state.startedAt = new Date().toISOString(); state.counting = false; save();
       paintClock();
       container.querySelectorAll("[data-started]").forEach(function (el) { el.textContent = startedText(); });
-      show("Go!"); ov.classList.add("is-go");
+      show("Go!"); ov.classList.add("is-go"); Sound.introGo();
       countInTimer = setTimeout(end, 700);
     }
     function end() {

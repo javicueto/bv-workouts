@@ -185,6 +185,8 @@ window.App = (function () {
       '<div class="menu__sep"></div>' +
       '<button class="menu__item menu__item--icon" type="button" id="theme">' +
         themeLabel() + "</button>" +
+      '<button class="menu__item menu__item--icon" type="button" id="sound">' +
+        soundLabel() + "</button>" +
       '<div class="menu__sep"></div>' +
       '<button class="menu__item" type="button" id="cp">Change password</button>' +
       '<button class="menu__item" type="button" id="out">Sign out</button>' +
@@ -195,6 +197,13 @@ window.App = (function () {
     return Theme.current() === "dark"
       ? '<span class="menu__icon">' + ICONS.sun + "</span>Light mode"
       : '<span class="menu__icon">' + ICONS.moon + "</span>Dark mode";
+  }
+  /* Same rule as the theme: offers what you would switch TO. Remembered on
+     this phone until switched back (Sound.muted, timer.js). */
+  function soundLabel() {
+    return Sound.muted()
+      ? '<span class="menu__icon">' + ICONS.volumeHigh + "</span>Turn sound on"
+      : '<span class="menu__icon">' + ICONS.volumeXmark + "</span>Mute sound";
   }
   function closeMenu() {
     var btn = document.getElementById("menu-btn"), panel = document.getElementById("menu");
@@ -219,6 +228,12 @@ window.App = (function () {
     if (theme) {
       Theme.toggle();
       theme.innerHTML = themeLabel();     // the menu stays open so the switch is visible
+      return;
+    }
+    var sound = e.target.closest && e.target.closest("#sound");
+    if (sound) {
+      if (!Sound.toggleMuted()) Sound.introCount();   // turned on: one soft blip says so
+      sound.innerHTML = soundLabel();
       return;
     }
     // Picking an item closes it too, and so does a tap anywhere outside.

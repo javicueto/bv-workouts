@@ -10,10 +10,20 @@
  *   - one low "dong" at the halfway point
  *   - a double beep at 10 seconds left
  *   - three short beeps at 3, 2, 1 and a longer rising "go"
+ * The session intro (3 · 2 · 1 · Go!) has its own, much softer pair.
+ *
+ * Mute (Javier, 13 Sep 2026): a switch in the menu, remembered on this phone —
+ * once off it stays off, session after session, until switched back on. It
+ * silences every tone; vibration is not sound and still works.
  */
 window.Sound = (function () {
   var ctx = null;
   var unlocked = false;
+  var MUTE_KEY = "freeco.sound";              // "off" = muted; nothing stored = on
+  function muted() { try { return localStorage.getItem(MUTE_KEY) === "off"; } catch (e) { return false; } }
+  function setMuted(on) {
+    try { if (on) localStorage.setItem(MUTE_KEY, "off"); else localStorage.removeItem(MUTE_KEY); } catch (e) {}
+  }
 
   /* MUST run inside a user gesture (a tap) — iPhone refuses to start or resume
      audio at any other moment. It used to run once when a session opened, but
@@ -36,7 +46,7 @@ window.Sound = (function () {
   }
 
   function tone(freq, seconds, gain, type, when) {
-    if (!ctx) return;
+    if (!ctx || muted()) return;             // every cue goes through here, so mute covers them all
     var t = (when || ctx.currentTime);
     var o = ctx.createOscillator();
     var g = ctx.createGain();
@@ -57,6 +67,16 @@ window.Sound = (function () {
   return {
     unlock: unlock,
     state: function () { return ctx ? ctx.state : "not started"; },
+    muted: muted,
+    toggleMuted: function () { setMuted(!muted()); return muted(); },
+    // The session intro: soft sine blips, a fraction of the timer cues' volume
+    // (Javier: "subtle"), and no vibration.
+    introCount: function () { tone(880, 0.09, 0.12, "sine"); },
+    introGo: function () {
+      if (!ctx) return;
+      tone(1175, 0.22, 0.14, "sine");
+      tone(1568, 0.32, 0.11, "sine", ctx.currentTime + 0.1);
+    },
     halfway: function () { tone(330, 0.9, 0.5, "sine"); vibrate(80); },
     tenLeft: function () {
       if (!ctx) return;
