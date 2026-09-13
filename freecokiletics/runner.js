@@ -793,10 +793,16 @@ window.Runner = (function () {
     }
 
     el.addEventListener("touchstart", function (ev) {
-      if (ev.target.closest("input, button, a")) { active = false; return; }
+      horizontal = null;
+      /* Any part of the screen starts a swipe — the GIFs, the corner icons and
+         the hold button included (Javier, 14 Sep 2026: swiping with a finger
+         on a GIF often did nothing, because buttons used to be skipped). Only
+         a field being typed in is left alone. A sideways drag never also taps
+         what it started on: see the click guard below. */
+      if (ev.target.closest("input, textarea, select")) { active = false; return; }
       var t = ev.touches[0];
       x0 = t.clientX; y0 = t.clientY; dx = dy = 0;
-      active = true; horizontal = null;
+      active = true;
     }, { passive: true });
 
     el.addEventListener("touchmove", function (ev) {
@@ -837,6 +843,10 @@ window.Runner = (function () {
     });
 
     el.addEventListener("touchcancel", function () { active = false; settle(); });
+    // A drag that started on a GIF or a button must not also open or press it.
+    el.addEventListener("click", function (e) {
+      if (horizontal) { e.preventDefault(); e.stopPropagation(); }
+    }, true);
   }
 
   // ---------------------------------------------------------------- rest

@@ -326,6 +326,9 @@ p  { margin: 0; }
   border: 0; padding: 0; border-radius: var(--radius-sm); overflow: hidden; background: #000; cursor: zoom-in;
 }
 .ex-card__thumb img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+/* A swipe can start on a GIF (runner.js bindSwipe): a finger resting on one
+   must not open the iPhone's image preview or start dragging the picture. */
+.ex-card__thumb img, .thumb img { -webkit-touch-callout: none; -webkit-user-drag: none; user-select: none; }
 .ex-card__body { min-width: 0; display: flex; flex-direction: column; gap: 2px; }
 .ex-card__label { font-size: 12px; font-weight: 800; letter-spacing: .08em; color: var(--accent); }
 .ex-card__name { font-size: 16px; font-weight: 650; line-height: 1.2; }
