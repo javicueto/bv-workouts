@@ -804,13 +804,18 @@ window.Runner = (function () {
       var t = ev.touches[0], mx = t.clientX - x0, my = t.clientY - y0;
       if (horizontal === null && (Math.abs(mx) > 8 || Math.abs(my) > 8)) horizontal = Math.abs(mx) > Math.abs(my) * 1.3;
       if (!horizontal) return;
+      /* Once a drag is sideways it never also scrolls the page (Javier,
+         14 Sep 2026: the side scroll bar flashed while swiping weeks — the
+         finger is never perfectly level, so the page moved a few pixels up
+         or down). Needs a non-passive listener; vertical drags scroll as ever. */
+      if (ev.cancelable) ev.preventDefault();
       dx = mx; dy = my;
       el.classList.add("swiping");
       paint();
       // The screen underneath grows into place as this one is pushed away.
       var pk = showPeek(dx < 0 ? 1 : -1);
       if (pk) { pk.classList.remove("is-animating"); peekProgress(Math.abs(dx) / ((el.offsetWidth || 1) * 0.6)); }
-    }, { passive: true });
+    }, { passive: false });
 
     el.addEventListener("touchend", function () {
       if (!active) return;

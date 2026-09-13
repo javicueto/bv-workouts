@@ -185,12 +185,17 @@ window.UI = (function () {
       var mx = e.touches[0].clientX - x0, my = e.touches[0].clientY - y0;
       if (horizontal === null && (Math.abs(mx) > 8 || Math.abs(my) > 8)) horizontal = Math.abs(mx) > Math.abs(my) * 1.3;
       if (!horizontal) return;
+      /* Once a drag is sideways it never also scrolls the page (Javier,
+         14 Sep 2026: the side scroll bar flashed while swiping weeks — the
+         finger is never perfectly level, so the page moved a few pixels up
+         or down). Needs a non-passive listener; vertical drags scroll as ever. */
+      if (e.cancelable) e.preventDefault();
       dx = (mx < 0 ? opts.next : opts.prev) ? mx : mx / 4;    // resistance where there's nowhere to go
       paging(true);
       el.classList.add("is-swiping");
       el.style.transform = "translateX(" + dx + "px)";
       el.style.opacity = String(1 - Math.min(Math.abs(dx) / (el.offsetWidth || 1), 1) * 0.6);
-    }, { passive: true });
+    }, { passive: false });
     el.addEventListener("touchend", function () {
       if (!active) return;
       active = false;
