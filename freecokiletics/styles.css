@@ -759,10 +759,14 @@ input[type="date"].input, input[type="time"].input {
    browser's; the drag follows the finger and fades; past the threshold the
    week slides right off that edge and the next one slides in from the other.
    The ‹ › arrows play the same slide. */
-.week-swipe { touch-action: pan-y; }
+.week-swipe { touch-action: pan-y; position: relative; }   /* anchors the neighbouring weeks */
 .week-swipe.is-swiping { transition: none; }
 .week-swipe.is-settling { transition: transform .22s var(--ease-out), opacity .22s var(--ease-out); }
-.week-swipe.is-leaving { transition: transform .22s var(--ease-in), opacity .22s var(--ease-in); }
+.week-swipe.is-leaving { transition: transform .26s var(--ease-out), opacity .22s var(--ease-in); }
+/* The previous / next week beside the page while swiping (UI.swipePages side):
+   a child of the page, so it moves with it, cut to the page's height so a
+   longer week never makes the page taller mid-swipe. */
+.swipe-side { position: absolute; top: 0; width: 100%; height: 100%; overflow: hidden; pointer-events: none; }
 /* backwards, NOT both: a finished animation holding its end value overrides
    the inline transform, so the NEXT swipe or arrow tap on this week wouldn't
    move it. home.js also drops the class once the week has landed. */

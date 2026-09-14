@@ -148,30 +148,78 @@ window.UI = (function () {
      on the new page); short of it, it springs back. Returns { go(dir) } so a
      tap on an arrow plays the same slide. html.is-paging clips the sideways
      overflow while a page is off-centre, so the body never scrolls. */
+  /* An inert copy of screen markup, for anything shown "beside" or "under"
+     the live screen while swiping (the neighbouring week, the session peek):
+     no ids, no data-* hooks, no for= / aria-controls, so nothing in it can be
+     found by the live code, clicked, focused or read when a round is logged.
+     Returns a DocumentFragment. */
+  function inertCopy(html) {
+    var tpl = document.createElement("template");
+    tpl.innerHTML = html;
+    Array.prototype.slice.call(tpl.content.querySelectorAll("*")).forEach(function (node) {
+      Array.prototype.slice.call(node.attributes).forEach(function (a) {
+        if (a.name === "id" || a.name === "for" || a.name === "aria-controls" || a.name.indexOf("data-") === 0) node.removeAttribute(a.name);
+      });
+    });
+    return tpl.content;
+  }
+
   function swipePages(el, opts) {
     var THRESHOLD = 80;                  // px, as in the session swipe
-    var OUT_MS = 220;                    // matches .week-swipe.is-leaving
+    var OUT_MS = 260;                    // matches .week-swipe.is-leaving
+    var GAP = 16;                        // px between the page and its neighbour
     var root = document.documentElement;
     var x0 = 0, y0 = 0, dx = 0, active = false, horizontal = null;
+    var sides = {};                      // dir → the neighbouring page (or null: none to show)
     function reduced() { return !!(window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches); }
     function paging(on) { root.classList.toggle("is-paging", !!on); }
+
+    /* The neighbouring page, beside this one (opts.peek(dir) → its markup),
+       Javier 14 Sep 2026: "the following or previous weeks appear on the sides
+       while the swipe is active". It is a child of the page, so it moves with
+       the drag; it lands exactly where the real page then renders. */
+    function side(dir) {
+      if (sides[dir] !== undefined) return sides[dir];
+      var html = opts.peek && (dir > 0 ? opts.next : opts.prev) && !reduced() ? opts.peek(dir) : null;
+      if (!html) { sides[dir] = null; return null; }
+      var pane = document.createElement("div");
+      pane.className = "swipe-side";
+      pane.setAttribute("aria-hidden", "true");
+      pane.inert = true;
+      pane.style.left = dir > 0 ? "calc(100% + " + GAP + "px)" : "calc(-100% - " + GAP + "px)";
+      pane.appendChild(inertCopy(html));
+      el.appendChild(pane);
+      sides[dir] = pane;
+      return pane;
+    }
+    function dropSides() {
+      Object.keys(sides).forEach(function (k) { if (sides[k]) sides[k].remove(); });
+      sides = {};
+    }
     function settle() {
       el.classList.remove("is-swiping");
       el.classList.add("is-settling");
       el.style.transform = ""; el.style.opacity = "";
-      setTimeout(function () { el.classList.remove("is-settling"); paging(false); }, 240);
+      setTimeout(function () { el.classList.remove("is-settling"); dropSides(); paging(false); }, 280);
     }
     // dir 1 = next (the page leaves to the left), -1 = previous.
     function leave(dir) {
       var go = dir > 0 ? opts.next : opts.prev;
       if (!go) { settle(); return; }
       paging(true);
+      var pane = side(dir);
+      void el.offsetWidth;                                      // an arrow tap starts the slide from rest
       el.classList.remove("is-swiping");
       el.classList.add("is-leaving");
-      el.style.transform = "translateX(" + (dir > 0 ? -100 : 100) + "%)";
-      el.style.opacity = "0";
+      if (pane) {
+        // Carousel: the neighbour slides exactly into the page's place.
+        el.style.transform = "translateX(calc(" + (dir > 0 ? "-100% - " : "100% + ") + GAP + "px))";
+      } else {
+        el.style.transform = "translateX(" + (dir > 0 ? -100 : 100) + "%)";
+        el.style.opacity = "0";
+      }
       setTimeout(function () {
-        go(dir);
+        go(dir, !!pane);
         setTimeout(function () { paging(false); }, 1500);   // safety net; the new page clears it when it lands
       }, reduced() ? 0 : OUT_MS);
     }
@@ -190,11 +238,14 @@ window.UI = (function () {
          finger is never perfectly level, so the page moved a few pixels up
          or down). Needs a non-passive listener; vertical drags scroll as ever. */
       if (e.cancelable) e.preventDefault();
-      dx = (mx < 0 ? opts.next : opts.prev) ? mx : mx / 4;    // resistance where there's nowhere to go
+      var dir = mx < 0 ? 1 : -1, can = dir > 0 ? opts.next : opts.prev;
+      dx = can ? mx : mx / 4;                                   // resistance where there's nowhere to go
       paging(true);
+      var pane = can ? side(dir) : null;
       el.classList.add("is-swiping");
       el.style.transform = "translateX(" + dx + "px)";
-      el.style.opacity = String(1 - Math.min(Math.abs(dx) / (el.offsetWidth || 1), 1) * 0.6);
+      // With a neighbour beside it the page doesn't fade — it's a carousel.
+      el.style.opacity = pane || !can ? "" : String(1 - Math.min(Math.abs(dx) / (el.offsetWidth || 1), 1) * 0.6);
     }, { passive: false });
     el.addEventListener("touchend", function () {
       if (!active) return;
@@ -210,5 +261,5 @@ window.UI = (function () {
   }
 
   return { esc: esc, confirm: confirm, info: info, toast: toast, announce: announce, overlay: overlay, zoomImage: zoomImage,
-           swipePages: swipePages };
+           swipePages: swipePages, inertCopy: inertCopy };
 })();

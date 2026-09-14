@@ -527,15 +527,8 @@ window.Runner = (function () {
     var scr = document.getElementById("scr"), step = peekTarget(dir);
     if (!scr || !step) return null;
     if (window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches) return null;
-    var tpl = document.createElement("template");
-    tpl.innerHTML = stepBody(step);
-    var body = tpl.content.firstElementChild;
+    var body = UI.inertCopy(stepBody(step)).firstElementChild;     // one inert copy for every swipe preview (ui.js)
     if (!body) return null;
-    [body].concat(Array.prototype.slice.call(body.querySelectorAll("*"))).forEach(function (node) {
-      Array.prototype.slice.call(node.attributes).forEach(function (a) {
-        if (a.name === "id" || a.name === "for" || a.name === "aria-controls" || a.name.indexOf("data-") === 0) node.removeAttribute(a.name);
-      });
-    });
     peekEl = document.createElement("div");
     peekEl.className = "peek";
     peekEl.setAttribute("aria-hidden", "true");
