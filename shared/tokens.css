@@ -152,3 +152,12 @@
     transition-duration: .01ms !important;
   }
 }
+
+/* No scroll bar on touch screens, for both sites (Javier, 14 Sep 2026 —
+   analiticafantasy.com shows none on his iPhone, and this is exactly how it
+   does it). The page still scrolls normally — nothing becomes a scroll box —
+   only the indicator is hidden. A mouse keeps its scroll bar, where it helps. */
+@media (hover: none) and (pointer: coarse) {
+  * { scrollbar-width: none; }
+  ::-webkit-scrollbar { width: 0; height: 0; display: none; }
+}
