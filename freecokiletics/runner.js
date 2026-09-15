@@ -113,7 +113,7 @@ window.Runner = (function () {
     if (state.pausedAt) { state.pausedMs = (state.pausedMs || 0) + Date.now() - state.pausedAt; delete state.pausedAt; save(); }
     render();
     startClock();
-    if (opts && opts.countIn) countIn();
+    if (opts && opts.countIn) sessionCountIn();
   }
   function unmount() {
     Sound.want(false);                     // hand the phone's audio back (timer.js)
@@ -180,18 +180,23 @@ window.Runner = (function () {
      biceps on Go!. The session's time starts at Go!, not at the tap on Start.
      Escape skips straight to Go!. */
   var countInTimer = null;
-  function countIn() {
-    state.counting = true; paintClock();
+  /* 3 · 2 · 1 · Go! over everything, orange. Used for the session's start
+     (sessionCountIn) and for a Tabata's Start (Javier, 16 Sep 2026: "give like
+     3 seconds to prepare"). o.title on top; o.onGo runs at "Go!"; o.onEnd once
+     the layer has gone, so what follows is never hidden under it. A tap or
+     Escape skips straight to Go!. unmount (stopCountIn) cancels it, and then
+     neither runs. */
+  function countIn(o) {
     var ov = document.createElement("div");
     ov.className = "countin";
-    ov.innerHTML = '<div class="countin__title">' + esc(state.title) + "</div>" +
+    ov.innerHTML = '<div class="countin__title">' + esc(o.title) + "</div>" +
       '<div class="countin__logo" aria-hidden="true">' + ICONS.bicep + "</div>" +
       '<div class="countin__n" aria-live="assertive"></div>';
     var n = ov.querySelector(".countin__n"), left = 3, begun = false;
     var meta = document.querySelector('meta[name="theme-color"]');
     document.body.classList.add("is-counting");
     if (meta) meta.setAttribute("content", getComputedStyle(document.documentElement).getPropertyValue("--accent").trim());
-    var release = UI.overlay(ov, "Starting " + state.title, begin);
+    var release = UI.overlay(ov, o.label || o.title, begin);
     function show(t) { n.textContent = t; n.classList.remove("pop"); void n.offsetWidth; n.classList.add("pop"); }
     function tick() {
       if (left > 0) { show(String(left)); Sound.introCount(); left--; countInTimer = setTimeout(tick, 1000); }
@@ -200,9 +205,7 @@ window.Runner = (function () {
     function begin() {
       if (begun) return;
       begun = true; clearTimeout(countInTimer);
-      state.startedAt = new Date().toISOString(); state.counting = false; save();
-      paintClock();
-      container.querySelectorAll("[data-started]").forEach(function (el) { el.textContent = startedText(); });
+      if (o.onGo) o.onGo();
       show("Go!"); ov.classList.add("is-go"); Sound.introGo();
       countInTimer = setTimeout(end, 700);
     }
@@ -210,8 +213,18 @@ window.Runner = (function () {
       countInTimer = null; release(); ov.remove();
       document.body.classList.remove("is-counting");
       if (meta) meta.setAttribute("content", Theme.uiColor());
+      if (o.onEnd) o.onEnd();
     }
     tick();
+  }
+  // The session's own time starts at Go!, not at the tap on Start.
+  function sessionCountIn() {
+    state.counting = true; paintClock();
+    countIn({ title: state.title, label: "Starting " + state.title, onGo: function () {
+      state.startedAt = new Date().toISOString(); state.counting = false; save();
+      paintClock();
+      container.querySelectorAll("[data-started]").forEach(function (el) { el.textContent = startedText(); });
+    } });
   }
   function stopCountIn() {
     if (countInTimer) { clearTimeout(countInTimer); countInTimer = null; }
@@ -941,7 +954,12 @@ window.Runner = (function () {
           else { cycle++; if (cycle > cycles) { setResting(false); Sound.done(); go(1); return; } phase = "work"; Sound.go(); run(); }
         } });
     }
-    document.getElementById("tstart").addEventListener("click", function () { Sound.unlock(); Sound.go(); startRun(); });
+    // 3 · 2 · 1 · Go! first, naming the first movement so you can get into
+    // position; the work's 20 sec start once Go! has gone.
+    document.getElementById("tstart").addEventListener("click", function () {
+      Sound.unlock();
+      countIn({ title: "Tabata · " + window.App.cueText((moves[0] || {}).name || ""), label: "Tabata starting", onEnd: startRun });
+    });
   }
 
   // ---------------------------------------------------------------- done
