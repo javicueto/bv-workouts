@@ -427,7 +427,7 @@ body.is-counting { background: var(--accent); }
 /* ------------------------------------------------------------ rest timer */
 .rest {
   flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center;
-  gap: var(--space-6); text-align: center;
+  gap: var(--space-5); text-align: center;
 }
 .rest__ring { position: relative; width: min(72vw, 300px); aspect-ratio: 1; }
 .rest__ring svg { width: 100%; height: 100%; transform: rotate(-90deg); }
@@ -439,9 +439,34 @@ body.is-counting { background: var(--accent); }
   position: absolute; inset: 0; display: grid; place-items: center;
   font-size: clamp(64px, 23vw, 104px); font-weight: 800; letter-spacing: 0; font-variant-numeric: tabular-nums;
 }
-.rest__next { color: var(--text-dim); }
-.rest__next b { color: var(--text); }
-.rest__actions { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-3); width: 100%; }
+.rest__actions { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--space-3); width: 100%; }
+
+/* Coming up (runner.js restBody, 15 Sep 2026): the next round's previews and
+   the round after it. The rest ring is smaller than the hold timer's (which
+   shares .rest__ring) so all of it, and the three buttons, fit a 375×812
+   screen without scrolling. Two tiles across at every width: they're the
+   point of the screen, not a reference grid. */
+.rest > .rest__ring { width: min(52vw, 220px); }
+.rest .rest__time { font-size: clamp(56px, 19vw, 84px); }
+.rest__up { width: 100%; display: grid; gap: var(--space-2); text-align: left; }
+/* Two across means two across: the ≥360px rule that makes .thumb-grid three
+   columns comes later in the file and was beating .thumb-grid--2, so Tabata
+   and the "after that" details showed two tiles in a three-column grid. */
+.rest__grid, .thumb-grid.thumb-grid--2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.thumb__name b { color: var(--text); font-weight: 700; }
+div.thumb { cursor: default; }
+.rest__after {
+  width: 100%; min-height: var(--tap);
+  display: flex; align-items: center; gap: var(--space-3);
+  padding: var(--space-3); text-align: left;
+  background: none; color: inherit; font: inherit;
+  border: 1px solid var(--line-strong); border-radius: var(--radius);
+}
+.rest__after--end { justify-content: center; border-style: dashed; }
+.rest__after-text { flex: 1; min-width: 0; display: grid; gap: 2px; }
+.rest__after-label { font-size: 12px; font-weight: 700; letter-spacing: .09em; text-transform: uppercase; color: var(--text-dim); }
+.rest__after-names { font-size: 14px; line-height: 1.3; }
+.rest__after svg { width: 16px; height: 16px; flex: none; }
 
 /* ------------------------------------------------------------ tabata */
 .tabata { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: var(--space-5); text-align: center; }
@@ -465,19 +490,24 @@ body { transition: background-color .25s var(--ease-out); }
 /* color-scheme dark: the ground is dark blue in both themes, so native bits
    (scrollbar, a focused control) must not come out light-mode over it. */
 body.is-resting { background: var(--rest); color: var(--rest-ink); color-scheme: dark; }
-body.is-resting .dim, body.is-resting .faint, body.is-resting .rest__next { color: var(--rest-ink-dim); }
-body.is-resting .rest__next b, body.is-resting .eyebrow { color: var(--rest-ink); }
-body.is-resting .progress i { background: var(--rest-line); }
-body.is-resting .progress i.done, body.is-resting .progress i.now { background: var(--rest-ink); }
-body.is-resting .rest__ring .track { stroke: var(--rest-line); }
-body.is-resting .rest__ring .arc { stroke: var(--rest-ink); }
-body.is-resting .rest__ring .arc.final { stroke: var(--rest-arc-final); }   /* last 10 s */
-body.is-resting .btn--ghost, body.is-resting .btn--quiet { border-color: var(--rest-line-strong); }
-body.is-resting .btn--ghost { color: var(--rest-ink); }
-body.is-resting .btn--primary { background: var(--rest-ink); color: var(--rest); border-color: var(--rest-ink); }  /* blue+white is 5.96:1 — fine */
-body.is-resting .btn--quiet { color: var(--rest-ink-dim); }
-body.is-resting .tabata__phase.rest { color: var(--rest-ink); }
-body.is-resting :where(a, button, input, [tabindex]):focus-visible { outline-color: var(--rest-ink); }
+/* Everything below is scoped to .runner: a dialog opened during a rest (the
+   "after that" details, Leave this session?) sits outside it and keeps its
+   own colours. Unscoped, it took white text and a white button, unreadable
+   on the light theme's sheet. */
+body.is-resting .runner :is(.dim, .faint, .thumb__name, .rest__after-label) { color: var(--rest-ink-dim); }
+body.is-resting .runner :is(.eyebrow, .thumb__name b) { color: var(--rest-ink); }
+body.is-resting .runner .rest__after { border-color: var(--rest-line-strong); }
+body.is-resting .runner .progress i { background: var(--rest-line); }
+body.is-resting .runner .progress i.done, body.is-resting .runner .progress i.now { background: var(--rest-ink); }
+body.is-resting .runner .rest__ring .track { stroke: var(--rest-line); }
+body.is-resting .runner .rest__ring .arc { stroke: var(--rest-ink); }
+body.is-resting .runner .rest__ring .arc.final { stroke: var(--rest-arc-final); }   /* last 10 s */
+body.is-resting .runner :is(.btn--ghost, .btn--quiet) { border-color: var(--rest-line-strong); }
+body.is-resting .runner .btn--ghost { color: var(--rest-ink); }
+body.is-resting .runner .btn--primary { background: var(--rest-ink); color: var(--rest); border-color: var(--rest-ink); }  /* blue+white is 5.96:1 — fine */
+body.is-resting .runner .btn--quiet { color: var(--rest-ink-dim); }
+body.is-resting .runner .tabata__phase.rest { color: var(--rest-ink); }
+body.is-resting .runner :where(a, button, input, [tabindex]):focus-visible { outline-color: var(--rest-ink); }
 
 /* ------------------------------------------------------------ Tabata running */
 .tabata__gif { width: 100%; }

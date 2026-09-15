@@ -63,8 +63,8 @@ window.Runner = (function () {
                      target: targetFor(e, r), note: e.note || null, setId: Store.uuid() };
           }) });
         if (r < rounds && b.rest_seconds > 0) {
-          steps.push({ kind: "rest", seg: seg, block: b.letter, seconds: b.rest_seconds,
-            nextRound: r + 1, rounds: rounds, next: b.exercises.map(function (e) { return e.name; }) });
+          // What follows is read from the steps themselves (restBody), not stored here.
+          steps.push({ kind: "rest", seg: seg, block: b.letter, seconds: b.rest_seconds });
         }
       }
     });
@@ -285,10 +285,7 @@ window.Runner = (function () {
     return '<section class="screen" id="scr">' +
         (instr ? '<div class="note">' + esc(instr) + "</div>" : "") +
         '<div class="thumb-grid">' + step.exercises.map(function (e) {
-          var img = preview(e.id);
-          return '<button class="thumb" data-zoom="' + esc(e.id) + '">' +
-            (img ? '<img src="' + img + '" alt="" loading="lazy">' : '<span class="thumb__none"></span>') +
-            '<span class="thumb__name">' + window.App.cueHTML(e.name) + "</span></button>";
+          return moveThumb({ id: e.id, name: e.name });
         }).join("") + "</div>" +
         footer("Warm-up done ✓") +
         // Under the button, never above it: at 320px it pushed Done off the screen.
@@ -518,6 +515,9 @@ window.Runner = (function () {
         }
       });
     });
+    container.querySelectorAll("[data-after]").forEach(function (b) {
+      b.addEventListener("click", function () { showUpcoming(state.steps[+b.getAttribute("data-after")]); });
+    });
     container.querySelectorAll("[data-zoom]").forEach(function (b) {
       b.addEventListener("click", function (ev) { ev.stopPropagation(); zoom(b.getAttribute("data-zoom")); });
     });
@@ -594,6 +594,17 @@ window.Runner = (function () {
     container.querySelectorAll("[data-hold]").forEach(function (b) {
       b.addEventListener("click", function () { startHold(step.items[+b.getAttribute("data-hold")], b); });
     });
+  }
+
+  /* One small moving tile, shared by the warm-up grid, Tabata and the rest
+     screen. A button that opens the movement big; `still` (inside a dialog,
+     where nothing else is bound) is a plain tile. `reps` goes in bold before
+     the name when given. */
+  function moveThumb(m, still) {
+    var img = preview(m.id), tag = still ? "div" : "button";
+    return "<" + tag + ' class="thumb"' + (still ? "" : ' type="button" data-zoom="' + esc(m.id) + '"') + ">" +
+      (img ? '<img src="' + img + '" alt="" loading="lazy">' : '<span class="thumb__none"></span>') +
+      '<span class="thumb__name">' + (m.reps ? "<b>" + esc(m.reps) + "</b> " : "") + window.App.cueHTML(m.name) + "</span></" + tag + ">";
   }
 
   function zoom(id) { UI.zoomImage(preview(id), window.App.cueText((P.exercises[id] || {}).name || "")); }
@@ -684,26 +695,69 @@ window.Runner = (function () {
     });
   }
   function restClock(l) { return l >= 60 ? Math.floor(l / 60) + ":" + String(l % 60).padStart(2, "0") : String(l); }
+  /* Coming up, on the rest screen (Javier, 15 Sep 2026): the next round in
+     full, a preview and the reps for every movement; then, smaller, the
+     round after it by name only, and a tap opens its details with previews.
+     "Round" means any screen with movements (a round or a Tabata); rests in
+     between are skipped. A rest only ever sits between two rounds of one
+     block, so "next" always exists; "after that" is missing only when the
+     session ends. */
+  function upcomingFrom(n) {
+    for (; n < state.steps.length; n++) {
+      var k = state.steps[n].kind;
+      if (k === "round" || k === "tabata") return n;
+    }
+    return -1;
+  }
+  function movesOf(s) {
+    if (s.kind === "tabata") return s.tabata.exercises.map(function (m) { return { id: m.id, name: m.name }; });
+    return s.items.map(function (it) {
+      var t = it.target;
+      return { id: it.exercise.id, name: it.exercise.name, reps: t.n === "" ? "" : (t.n + " " + t.unit).trim() };
+    });
+  }
+  // "Round 3 of 3" inside the block you are resting in, with the block otherwise.
+  function upTitle(s, block) {
+    var head = s.block === block ? "" : "Block " + s.block + " · ";
+    return s.kind === "tabata" ? head + "Tabata" : head + (head ? "round " : "Round ") + s.round + " of " + s.rounds;
+  }
+  function showUpcoming(s) {
+    var tb = s.kind === "tabata" ? s.tabata : null;
+    UI.info({ title: upTitle(s, null), ok: "Close",
+      html: '<p class="dim">' + window.App.cueHTML(tb ? tb.name : s.blockName) +
+          (tb ? " · " + window.App.durHTML(tb.work_seconds) + " work · " + window.App.durHTML(tb.rest_seconds) + " rest · " + (tb.cycles || 8) + " cycles" : "") + "</p>" +
+        '<div class="thumb-grid thumb-grid--2">' + movesOf(s).map(function (m) { return moveThumb(m, true); }).join("") + "</div>" });
+  }
   function restBody(step) {
     var R = 44, C = 2 * Math.PI * R;
+    var ni = upcomingFrom(state.i + 1), next = ni === -1 ? null : state.steps[ni];
+    var ai = next ? upcomingFrom(ni + 1) : -1, after = ai === -1 ? null : state.steps[ai];
     return '<section class="rest">' +
         '<div class="rest__ring"><svg viewBox="0 0 100 100" aria-hidden="true"><circle class="track" cx="50" cy="50" r="' + R + '"/>' +
         '<circle class="arc" id="arc" cx="50" cy="50" r="' + R + '" stroke-dasharray="' + C + '" stroke-dashoffset="0"/></svg>' +
         '<div class="rest__time" id="t" role="timer">' + restClock(step.seconds) + '</div></div>' +
-        '<div class="rest__next">Next · round ' + step.nextRound + " of " + step.rounds + "<br><b>" + step.next.map(window.App.cueHTML).join(" + ") + "</b></div>" +
-        '<div class="rest__actions"><button class="btn btn--ghost" data-act="extend" aria-label="Add 30 seconds">+30 sec</button>' +
+        (next ? '<div class="rest__up"><div class="eyebrow">Up next · ' + esc(upTitle(next, step.block)) + "</div>" +
+          '<div class="thumb-grid rest__grid">' + movesOf(next).map(function (m) { return moveThumb(m); }).join("") + "</div></div>" : "") +
+        (after
+          ? '<button class="rest__after" type="button" data-after="' + ai + '" aria-haspopup="dialog">' +
+              '<span class="rest__after-text"><span class="rest__after-label">After that · ' + esc(upTitle(after, step.block)) + "</span>" +
+              '<span class="rest__after-names">' + movesOf(after).map(function (m) { return window.App.cueHTML(m.name); }).join(" + ") + "</span></span>" +
+              ICONS.chevronRight + "</button>"
+          : next ? '<div class="rest__after rest__after--end"><span class="rest__after-label">After that · end of session</span></div>' : "") +
+        // Back returns to the round just finished (go(-1)), its logged values kept.
+        '<div class="rest__actions"><button class="btn btn--ghost" data-act="back">Back</button>' +
+        '<button class="btn btn--ghost" data-act="extend" aria-label="Add 30 seconds">+30 sec</button>' +
         '<button class="btn btn--primary" data-act="skip">Skip →</button></div>' +
       "</section>";
   }
+
 
   // ---------------------------------------------------------------- tabata
   function tabataBody(step) {
     var tb = step.tabata, moves = tb.exercises, cycles = tb.cycles || 8;
     return '<section class="tabata" id="tab">' +
         '<div class="thumb-grid thumb-grid--2">' + moves.map(function (m) {
-          var img = preview(m.id);
-          return '<button class="thumb" data-zoom="' + esc(m.id) + '">' + (img ? '<img src="' + img + '" alt="">' : "") +
-            '<span class="thumb__name">' + window.App.cueHTML(m.name) + "</span></button>"; }).join("") + "</div>" +
+          return moveThumb({ id: m.id, name: m.name }); }).join("") + "</div>" +
         '<div class="tabata__phase">Ready</div>' +
         '<div class="tabata__time">' + tb.work_seconds + "/" + tb.rest_seconds + "</div>" +
         '<div class="tabata__cycle">' + cycles + " cycles · 4 min · alternating</div>" +
