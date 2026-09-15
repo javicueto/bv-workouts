@@ -108,7 +108,10 @@ window.Runner = (function () {
      resumed one. Off by default, so anything else that mounts the runner
      (the layout sweep) gets the screens straight away. */
   function mount(el, exit, opts) {
-    container = el; onExit = exit; Sound.want(true); Sound.unlock(); WakeLock.on(); render();
+    container = el; onExit = exit; Sound.want(true); Sound.unlock(); WakeLock.on();
+    // Back from "Go home, resume later": the time away was a pause.
+    if (state.pausedAt) { state.pausedMs = (state.pausedMs || 0) + Date.now() - state.pausedAt; delete state.pausedAt; save(); }
+    render();
     startClock();
     if (opts && opts.countIn) countIn();
   }
@@ -146,7 +149,7 @@ window.Runner = (function () {
   var clockTimer = null;
   function clockText() {
     if (state.counting) return "0:00";
-    var s = Math.max(0, Math.floor((Date.now() - new Date(state.startedAt)) / 1000));
+    var s = Math.floor(activeMs() / 1000);
     var h = Math.floor(s / 3600), m = Math.floor(s % 3600 / 60), sec = String(s % 60).padStart(2, "0");
     return h ? h + ":" + String(m).padStart(2, "0") + ":" + sec : m + ":" + sec;
   }
@@ -154,6 +157,11 @@ window.Runner = (function () {
     if (!state || !container) return;
     var el = container.querySelector("[data-clock]");
     if (el) el.textContent = clockText();
+  }
+  // Time in the session, pauses left out (pausedMs so far, plus a pause going on now).
+  function activeMs() {
+    var paused = (state.pausedMs || 0) + (state.pausedAt ? Date.now() - state.pausedAt : 0);
+    return Math.max(0, Date.now() - new Date(state.startedAt) - paused);
   }
   function startClock() { stopClock(); paintClock(); clockTimer = setInterval(paintClock, 1000); }
   function stopClock() { if (clockTimer) { clearInterval(clockTimer); clockTimer = null; } }
@@ -222,7 +230,7 @@ window.Runner = (function () {
 
   function finish() {
     var finished = new Date().toISOString();
-    var dur = Math.round((new Date(finished) - new Date(state.startedAt)) / 1000);
+    var dur = Math.round(activeMs() / 1000);                 // paused time is not workout time
     var session = P.sessions.find(function (s) { return s.key === state.key; });
     var sets = Object.keys(state.logs).length;
     Store.saveWorkout({ id: state.workoutId, user_id: state.userId, session_key: state.key,
@@ -239,7 +247,7 @@ window.Runner = (function () {
   }
   function header(step, sub) {
     return '<div class="row">' +
-      '<button class="btn btn--ghost btn--quit" data-act="quit" aria-label="Leave session">' + ICONS.xmark + "</button>" +
+      '<button class="btn btn--ghost btn--pause" data-act="pause">' + ICONS.pause + '<span class="pause-label">Pause</span></button>' +
       '<div class="grow" style="text-align:center">' +
       // The title opens the whole workout (showOverview), on every screen.
       '<button class="eyebrow head-title" type="button" data-act="overview" aria-haspopup="dialog">' + esc(state.title) + "</button>" +
@@ -495,6 +503,59 @@ window.Runner = (function () {
     });
   }
 
+  // ---------------------------------------------------------------- pause
+  /* Pause instead of an X (Javier, 15 Sep 2026: leaving a workout deserves a
+     clear choice, not a small cross). Everything stops: the rest or Tabata
+     countdown holds its time left, the session clock stops, and paused time
+     is not counted in the workout's duration. The pause screen offers Resume;
+     Go home, resume later (still paused until you come back, see mount);
+     End and save now (finish with what is logged); Discard this workout
+     (asks first). A timed hold or the 3·2·1 cover the header, so neither can
+     be paused mid-way. */
+  var pausedRest = false;
+  function pause() {
+    if (!state || state.pausedAt) return;
+    state.pausedAt = Date.now(); save();
+    if (countdown && countdown.pause) countdown.pause();
+    stopClock(); paintClock();
+    pausedRest = document.body.classList.contains("is-resting");
+    setResting(false);                             // the pause screen is not a rest
+    var ov = document.createElement("div");
+    ov.className = "pause-screen";
+    ov.innerHTML = '<div class="pause-screen__label">Paused</div>' +
+      '<div class="pause-screen__title">' + esc(state.title) + "</div>" +
+      '<div class="pause-screen__time" aria-label="Time in this session">' + clockText() + "</div>" +
+      '<div class="pause-screen__actions">' +
+        '<button class="btn btn--primary btn--big btn--block" type="button" data-p="resume">' + ICONS.play + "Resume</button>" +
+        '<button class="btn btn--ghost btn--block" type="button" data-p="home">Go home, resume later</button>' +
+        '<button class="btn btn--ghost btn--block" type="button" data-p="end">End and save now</button>' +
+        '<button class="btn btn--quiet btn--danger-text btn--block" type="button" data-p="discard">Discard this workout</button>' +
+      "</div>";
+    var release = UI.overlay(ov, "Paused", resumeNow);
+    function closeLayer() { release(); ov.remove(); }
+    function resumeNow() { closeLayer(); unpause(); }
+    ov.addEventListener("click", function (e) {
+      var b = e.target.closest("[data-p]"); if (!b) return;
+      var a = b.getAttribute("data-p");
+      if (a === "resume") resumeNow();
+      else if (a === "home") { closeLayer(); unmount(); onExit && onExit({ finished: false }); }
+      else if (a === "end") { closeLayer(); finish(); }
+      else if (a === "discard") {
+        UI.confirm({ title: "Discard this workout?", body: "Nothing from this session is kept, including the rounds you’ve logged.",
+                     confirm: "Discard", cancel: "Keep it", danger: true })
+          .then(function (ok) { if (ok) { closeLayer(); abandon(); } });
+      }
+    });
+  }
+  function unpause() {
+    if (!state || !state.pausedAt) return;
+    state.pausedMs = (state.pausedMs || 0) + Date.now() - state.pausedAt;
+    delete state.pausedAt; save();
+    if (pausedRest) setResting(true);
+    if (countdown && countdown.resume) countdown.resume();
+    startClock();
+  }
+
   // ---------------------------------------------------------------- wiring
   function advance(step) {
     if (step.kind === "round") logRound(step);
@@ -511,11 +572,7 @@ window.Runner = (function () {
         else if (a === "extend") { if (countdown) countdown.extend(30); }
         else if (a === "finish") finish();
         else if (a === "overview") showOverview();
-        else if (a === "quit") {
-          UI.confirm({ title: "Leave this session?", body: "What you’ve logged is kept. You can pick it up again from the home screen.",
-                       confirm: "Leave", cancel: "Keep going" })
-            .then(function (ok) { if (ok) { unmount(); onExit && onExit({ finished: false }); } });
-        }
+        else if (a === "pause") pause();
       });
     });
     container.querySelectorAll("[data-after]").forEach(function (b) {
@@ -865,8 +922,8 @@ window.Runner = (function () {
       var sideMove = phase === "work" ? m : next, sideCycle = phase === "work" ? cycle : cycle + 1;
       if (sideMove.per_side && !lastRest) {
         var right = Math.floor((sideCycle - 1) / n) % 2 === 1;
-        sd.innerHTML = '<span class="tabata__side' + (right ? "" : " is-on") + '">Left</span>' +
-          '<span class="tabata__side' + (right ? " is-on" : "") + '">Right</span>';
+        sd.innerHTML = '<span class="tabata__side' + (right ? "" : " is-on") + '">' + ICONS.arrowLeft + "Left</span>" +
+          '<span class="tabata__side' + (right ? " is-on" : "") + '">Right' + ICONS.arrowRight + "</span>";
         sd.setAttribute("aria-label", (phase === "work" ? "" : "Next: ") + (right ? "right side" : "left side"));
         sd.hidden = false;
       } else { sd.hidden = true; sd.innerHTML = ""; }

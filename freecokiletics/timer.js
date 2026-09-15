@@ -162,6 +162,20 @@ window.Countdown = function (totalSeconds, opts) {
   };
   this.extend = function (seconds) { end += seconds * 1000; totalSeconds += seconds; fired = {}; };
   this.left = function () { return left; };
+  /* Pause holds the time left; resume moves the deadline by however long the
+     pause lasted, so a paused rest picks up exactly where it stopped (the
+     session's Pause, runner.js, 15 Sep 2026). */
+  var heldMs = null;
+  this.pause = function () {
+    if (heldMs !== null) return;
+    heldMs = Math.max(0, end - Date.now());
+    if (handle) { clearTimeout(handle); handle = null; }
+  };
+  this.resume = function () {
+    if (heldMs === null) return;
+    end = Date.now() + heldMs; heldMs = null;
+    handle = setTimeout(tick, 100);
+  };
   o.onTick && o.onTick(left, totalSeconds);
   document.addEventListener("visibilitychange", onVisible);
   handle = setTimeout(tick, 100);

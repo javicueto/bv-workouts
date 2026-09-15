@@ -337,6 +337,19 @@ p  { margin: 0; }
    screen — with a 24px glyph and full-contrast ink. .head-clock on the other
    side is as wide, so the session title stays centred between them. */
 .btn--quit { width: 52px; min-height: 52px; padding: 0; color: var(--text); }
+/* Pause, top left of every session screen (runner.js pause): icon and word,
+   so it reads as a choice and not as a small cross. It and the clock on the
+   right share one width (--head-side) so the title stays centred. 80px, not
+   the button's natural 88: the widest line under the title ("Warm-up · 11
+   movements", 153px) must still fit between them at 375. Under 360px the
+   word is for screen readers only and both sides go back to 52px. */
+.runner { --head-side: 80px; }
+.btn--pause { width: var(--head-side); min-height: 52px; padding: 0; gap: var(--space-1); color: var(--text); font-size: 15px; flex: none; }
+@media (max-width: 359px) {
+  .runner { --head-side: 52px; }
+  .btn--pause svg { width: 24px; height: 24px; }
+  .pause-label { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+}
 .btn--quit svg { width: 24px; height: 24px; }
 /* The session's running time (Javier, 13 Sep 2026), in the slot that
    balances the close button so the title stays centred. min-width, not width:
@@ -350,7 +363,7 @@ p  { margin: 0; }
 }
 .head-title::after { content: ""; position: absolute; inset: -12px -8px; }
 .head-clock {
-  min-width: 52px; flex: none; text-align: right; white-space: nowrap;
+  min-width: var(--head-side, 52px); flex: none; text-align: right; white-space: nowrap;
   font-size: 15px; font-weight: 700; font-variant-numeric: tabular-nums; color: inherit;
 }
 /* "Started Sun 13 Sep ’26 at 07:05" — first screen and the done screen. */
@@ -493,17 +506,19 @@ div.thumb { cursor: default; }
 .tabata__move { font-size: 24px; font-weight: 700; }
 .tabata__cycle { color: var(--text-dim); }
 /* Left / Right for a movement done one side per interval (runner.js
-   renderTabata, 15 Sep 2026): each on its own side of the screen, the side
-   to do filled, the other outlined. */
-.tabata__sides { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-3); width: 100%; }
+   renderTabata, 15 Sep 2026): an arrow and a word at each edge of the
+   screen, the side to do big and in the accent, the other small and faint.
+   No box or fill (Javier, same day): it is a cue to read, not a button. */
+.tabata__sides { display: flex; align-items: center; justify-content: space-between; width: 100%; min-height: 40px; }
 .tabata__sides[hidden] { display: none; }
 .tabata__side {
-  display: grid; place-items: center; min-height: 56px;
-  border: 1px solid var(--line-strong); border-radius: var(--radius);
-  font-family: var(--font-display); font-size: 22px; font-weight: 800; letter-spacing: .04em; text-transform: uppercase;
+  display: inline-flex; align-items: center; gap: var(--space-2);
+  font-family: var(--font-display); font-size: 18px; font-weight: 800; letter-spacing: .04em; text-transform: uppercase;
   color: var(--text-faint);
 }
-.tabata__side.is-on { background: var(--accent); border-color: var(--accent); color: var(--accent-ink); }
+.tabata__side svg { width: 18px; height: 18px; flex: none; }
+.tabata__side.is-on { font-size: 32px; color: var(--accent); }
+.tabata__side.is-on svg { width: 30px; height: 30px; }
 
 /* ------------------------------------------------------------ plan weeks */
 .week-row { display: flex; align-items: center; gap: var(--space-3); padding: var(--space-3) 0; border-bottom: 1px solid var(--line-soft); }
@@ -535,8 +550,8 @@ body.is-resting .runner .btn--ghost { color: var(--rest-ink); }
 body.is-resting .runner .btn--primary { background: var(--rest-ink); color: var(--rest); border-color: var(--rest-ink); }  /* blue+white is 5.96:1 — fine */
 body.is-resting .runner .btn--quiet { color: var(--rest-ink-dim); }
 body.is-resting .runner .tabata__phase.rest { color: var(--rest-ink); }
-body.is-resting .runner .tabata__side { border-color: var(--rest-line-strong); color: var(--rest-ink-dim); }
-body.is-resting .runner .tabata__side.is-on { background: var(--rest-ink); border-color: var(--rest-ink); color: var(--rest); }
+body.is-resting .runner .tabata__side { color: var(--rest-ink-dim); }
+body.is-resting .runner .tabata__side.is-on { color: var(--rest-ink); }
 body.is-resting .runner :where(a, button, input, [tabindex]):focus-visible { outline-color: var(--rest-ink); }
 
 /* ------------------------------------------------------------ Tabata running */
@@ -857,6 +872,21 @@ input[type="time"].input--inline { width: 6em; }
 
 /* ------------------------------------------------------------ full-screen hold timer */
 /* Orange, not blue: blue means resting, this is working. */
+/* The pause screen (runner.js pause): over the session like the hold timer,
+   the choices stacked — Resume first and biggest, Discard last and red. */
+.pause-screen {
+  position: fixed; inset: 0; z-index: 55;
+  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: var(--space-3);
+  padding: calc(var(--safe-top) + var(--space-6)) var(--space-4) calc(var(--safe-bottom) + var(--space-6));
+  background: var(--bg); color: var(--text); text-align: center;
+  box-shadow: 0 0 0 100vmax var(--bg);            /* bleed, see .hold-screen */
+}
+.pause-screen:focus { outline: none; }
+.pause-screen__label { font-size: 14px; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; color: var(--accent); }
+.pause-screen__title { font-size: 24px; font-weight: 700; }
+.pause-screen__time { font-family: var(--font-display); font-size: 64px; font-weight: 800; line-height: 1; font-variant-numeric: tabular-nums; color: var(--text-dim); }
+.pause-screen__actions { display: grid; gap: var(--space-3); width: 100%; max-width: 420px; margin-top: var(--space-5); }
+
 .hold-screen {
   position: fixed; inset: 0; z-index: 55;
   display: flex; flex-direction: column; align-items: center; justify-content: center; gap: var(--space-5);
