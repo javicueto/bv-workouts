@@ -240,7 +240,9 @@ window.Runner = (function () {
   function header(step, sub) {
     return '<div class="row">' +
       '<button class="btn btn--ghost btn--quit" data-act="quit" aria-label="Leave session">' + ICONS.xmark + "</button>" +
-      '<div class="grow" style="text-align:center"><div class="eyebrow">' + esc(state.title) + '</div>' +
+      '<div class="grow" style="text-align:center">' +
+      // The title opens the whole workout (showOverview), on every screen.
+      '<button class="eyebrow head-title" type="button" data-act="overview" aria-haspopup="dialog">' + esc(state.title) + "</button>" +
       '<div class="dim" style="font-size:13px">' + esc(sub || "") + "</div></div>" +
       // The running time sits where a spacer balanced the close button.
       '<span class="head-clock" data-clock role="timer" aria-label="Time in this session">' + clockText() + "</span></div>" +
@@ -508,6 +510,7 @@ window.Runner = (function () {
         else if (a === "skip") go(1);
         else if (a === "extend") { if (countdown) countdown.extend(30); }
         else if (a === "finish") finish();
+        else if (a === "overview") showOverview();
         else if (a === "quit") {
           UI.confirm({ title: "Leave this session?", body: "What you’ve logged is kept. You can pick it up again from the home screen.",
                        confirm: "Leave", cancel: "Keep going" })
@@ -605,6 +608,54 @@ window.Runner = (function () {
     return "<" + tag + ' class="thumb"' + (still ? "" : ' type="button" data-zoom="' + esc(m.id) + '"') + ">" +
       (img ? '<img src="' + img + '" alt="" loading="lazy">' : '<span class="thumb__none"></span>') +
       '<span class="thumb__name">' + (m.reps ? "<b>" + esc(m.reps) + "</b> " : "") + window.App.cueHTML(m.name) + "</span></" + tag + ">";
+  }
+
+  /* The whole workout from any runner screen (Javier, 15 Sep 2026: "at any
+     time … the full day program, what I've done and what's missing"): tap
+     the title. The same sections as View workout (App.sessionSections,
+     session.js) with a line per part: done, now, to do. Read from where you
+     are in the steps, not from what was logged, so a skipped block reads
+     done. Read-only, over the runner, which keeps going underneath: a rest
+     timer keeps counting. */
+  function partStatus(letter) {
+    var seg = state.segments.indexOf(letter);
+    if (seg === -1) return "";
+    var cur = state.steps[state.i], total = 0, done = 0;
+    state.steps.forEach(function (st, n) {
+      if (st.seg !== seg || st.kind === "rest") return;
+      total++;
+      if (n < state.i) done++;
+    });
+    // Class names written out whole, so scripts/check_css.py can see them used.
+    var cls = "", text, icon = "";
+    if (cur.seg === seg) {
+      cls = " vstatus--now";
+      text = cur.kind === "round" ? "Now · round " + cur.round + " of " + cur.rounds
+        : cur.kind === "rest" ? "Now · resting, then round " + (done + 1) + " of " + total : "Now";
+    } else if (total && done === total) { cls = " vstatus--done"; text = "Done"; icon = ICONS.check; }
+    else if (done) text = done + " of " + total + " rounds done";
+    else text = "To do";
+    return '<p class="vstatus' + cls + '">' + icon + esc(text) + "</p>";
+  }
+  function showOverview() {
+    var session = P.sessions.find(function (s) { return s.key === state.key; });
+    if (!session || !window.App.sessionSections) return;
+    var ov = document.createElement("div");
+    ov.className = "overview";
+    ov.innerHTML = '<div class="overview__inner">' +
+        '<div class="row overview__bar"><div class="grow">' +
+          '<div class="eyebrow">Block ' + esc(session.block) + " · session " + esc(session.variant) + "</div>" +
+          '<h1 class="overview__title">' + esc(state.title) + "</h1></div>" +
+        '<button class="btn btn--ghost btn--quit" type="button" data-close aria-label="Close">' + ICONS.xmark + "</button></div>" +
+        window.App.sessionSections(session, { status: partStatus }) +
+      "</div>";
+    var release;
+    function close() { release(); ov.remove(); }
+    ov.querySelector("[data-close]").addEventListener("click", close);
+    ov.querySelectorAll("[data-zoom]").forEach(function (b) {
+      b.addEventListener("click", function () { zoom(b.getAttribute("data-zoom")); });
+    });
+    release = UI.overlay(ov, state.title, close);
   }
 
   function zoom(id) { var e = P.exercises[id] || {}; UI.zoomImage(preview(id), window.App.cueText(e.name || ""), e.youtube_id); }

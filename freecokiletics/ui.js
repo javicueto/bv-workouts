@@ -117,7 +117,7 @@ window.UI = (function () {
     ov.className = "zoom";
     ov.innerHTML = (src ? '<img src="' + esc(src) + '" alt="">' : "") +
       '<div class="zoom__name">' + esc(name || "") + "</div>" +
-      (youtubeId ? '<a class="btn btn--ghost zoom__yt" href="https://www.youtube.com/watch?v=' + encodeURIComponent(youtubeId) +
+      (youtubeId ? '<a class="zoom__yt" href="https://www.youtube.com/watch?v=' + encodeURIComponent(youtubeId) +
         '" target="_blank" rel="noopener">' + ICONS.external + "Full video on YouTube</a>" : "") +
       '<button class="btn btn--ghost zoom__close" type="button">Close</button>' +
       '<div class="faint" style="font-size:13px">Or tap anywhere</div>';

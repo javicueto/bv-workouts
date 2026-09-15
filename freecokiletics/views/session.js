@@ -146,18 +146,12 @@
       }).join("") + "</ul></form>";
   }
 
-  /* The screen. ctx = { s, key, weekStart, back, record } — record is null for
-     the session as written, or { id, w, sets, byKey } for a finished workout. */
-  function draw(ctx) {
-    var s = ctx.s, rec = ctx.record, w = rec && rec.w;
-    var wq = ctx.weekStart ? "?w=" + encodeURIComponent(ctx.weekStart) : "";
-    var html = topbar(null, ctx.back) +
-      '<div class="stack">' +
-        '<div class="eyebrow">' + (s ? "Block " + s.block + " · session " + s.variant : "Workout") + "</div>" +
-        "<h1>" + esc(s ? s.title : "Workout " + ctx.key) + "</h1>" +
-      "</div>" +
-      (rec ? recordStrip(w) : "");
-
+  /* The session as written — warm-up and every block — as markup. Shared by
+     this screen and the runner's whole-workout view (runner.js showOverview,
+     15 Sep 2026), which passes `status(letter)` → a line saying done / now /
+     to do ("W" is the warm-up). `rec` adds what was lifted under each block. */
+  function sectionsHTML(s, o) {
+    var rec = o.rec, status = o.status || function () { return ""; }, html = "";
     if (s && s.warmup) {
       /* The coach's warm-up text is a heading plus the list of movements, and
          the movements are already named under their own previews below — so
@@ -168,7 +162,7 @@
         var t = line.trim().toLowerCase().replace(/[.;:,]+$/, "");
         return t !== "" && wNames.indexOf(t) === -1;
       }).join("\n");
-      html += '<section class="vsec"><h2 class="vsec__h">Warm-up</h2>' +
+      html += '<section class="vsec"><h2 class="vsec__h">Warm-up</h2>' + status("W") +
         (wText ? '<p class="note">' + esc(wText) + "</p>" : "") +
         '<div class="vgrid">' + (s.warmup.exercises || []).map(function (e) {
           return thumb(e, A.cueHTML(e.name));
@@ -179,7 +173,7 @@
       html += '<section class="vsec"><div class="vsec__head">' +
         '<span class="letter">' + esc(b.letter) + "</span>" +
         '<h2 class="vsec__h grow">' + A.cueHTML(b.name) + "</h2>" +
-        '<span class="badge">' + esc(A.blockCount(b)) + "</span></div>" +
+        '<span class="badge">' + esc(A.blockCount(b)) + "</span></div>" + status(b.letter) +
         (b.kind === "tabata"
           ? '<p class="dim">' + A.durHTML(b.work_seconds) + " work · " + A.durHTML(b.rest_seconds) + " rest · " + b.cycles + " cycles</p>"
           : '<p class="dim">' + (b.rest_seconds ? A.restHTML(b.rest_seconds) + " between rounds"
@@ -192,6 +186,24 @@
         (rec && b.kind === "rounds" && weighable(b, rec.byKey).length ? weightsBox(b, rec.byKey) : "") +
         "</section>";
     });
+
+    return html;
+  }
+  A.sessionSections = sectionsHTML;
+
+  /* The screen. ctx = { s, key, weekStart, back, record } — record is null for
+     the session as written, or { id, w, sets, byKey } for a finished workout. */
+  function draw(ctx) {
+    var s = ctx.s, rec = ctx.record, w = rec && rec.w;
+    var wq = ctx.weekStart ? "?w=" + encodeURIComponent(ctx.weekStart) : "";
+    var html = topbar(null, ctx.back) +
+      '<div class="stack">' +
+        '<div class="eyebrow">' + (s ? "Block " + s.block + " · session " + s.variant : "Workout") + "</div>" +
+        "<h1>" + esc(s ? s.title : "Workout " + ctx.key) + "</h1>" +
+      "</div>" +
+      (rec ? recordStrip(w) : "");
+
+    html += sectionsHTML(s, { rec: rec });
 
     if (rec && !s) {
       html += '<p class="dim" style="margin-top:var(--space-6)">This session is no longer in the programme, so only its times are shown.</p>';
