@@ -149,7 +149,7 @@ window.UI = (function () {
      tap on an arrow plays the same slide. html.is-paging clips the sideways
      overflow while a page is off-centre, so the body never scrolls. */
   /* An inert copy of screen markup, for anything shown "beside" or "under"
-     the live screen while swiping (the neighbouring week, the session peek):
+     the live screen while swiping (the neighbouring week):
      no ids, no data-* hooks, no for= / aria-controls, so nothing in it can be
      found by the live code, clicked, focused or read when a round is logged.
      Returns a DocumentFragment. */
@@ -165,7 +165,7 @@ window.UI = (function () {
   }
 
   function swipePages(el, opts) {
-    var THRESHOLD = 80;                  // px, as in the session swipe
+    var THRESHOLD = 80;                  // px
     var OUT_MS = 260;                    // matches .week-swipe.is-leaving
     var GAP = 16;                        // px between the page and its neighbour
     var root = document.documentElement;

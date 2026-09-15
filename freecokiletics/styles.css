@@ -47,12 +47,10 @@ body::before {
 /* Rest mode owns the whole screen, status bar included. */
 body.is-resting::before { background: var(--rest); }
 
-/* Motion off: the shared rule collapses everything; these two carry MEANING
-   and are put back — the rest ring's sweep IS the countdown, and the screen
-   still has to leave (as a crossfade, defined with the swipe below). */
+/* Motion off: the shared rule collapses everything; the rest ring's sweep
+   carries MEANING (it IS the countdown), so it is put back. */
 @media (prefers-reduced-motion: reduce) {
   .rest__ring .arc { transition-duration: .95s !important; }
-  .screen { transition-duration: .14s !important; }
 }
 
 * { box-sizing: border-box; }
@@ -194,118 +192,16 @@ p  { margin: 0; }
 .list { display: grid; gap: var(--space-3); }
 
 /* ------------------------------------------------------------ session runner */
-.runner { flex: 1; display: flex; flex-direction: column; gap: var(--space-4); position: relative; }   /* anchors the swipe .peek */
+.runner { flex: 1; display: flex; flex-direction: column; gap: var(--space-4); }
 
 .progress { display: flex; gap: 4px; height: 4px; }
 .progress i { flex: 1; background: var(--line); border-radius: 2px; }
 .progress i.done { background: var(--accent); }
 .progress i.now  { background: var(--accent); opacity: .5; }
 
-/* One screen = one round. It swipes as a whole.
-   Card-deck swipe, matched to DeHetSwipe (shared/engine.js + style.css) so the
-   two apps feel the same: settle back over 0.3s, fly out over 0.4s to 150% with
-   a 30-degree tilt. The rotation while dragging is set inline by runner.js at
-   0.15deg per px.
-
-   isolation: isolate makes the screen a stacking context so its ::before /
-   ::after (z-index -1 / -2) stay INSIDE it, behind the content. Before, that
-   context came for free from a permanent will-change — which also held a
-   compositor layer for the whole screen at all times and blurred the big
-   timer digits on iOS. Now the hint exists only while the card moves; the two
-   rules are a pair, do not remove one without the other. */
-.screen {
-  position: relative; isolation: isolate;
-  flex: 1; display: flex; flex-direction: column; gap: var(--space-4);
-  touch-action: pan-y;
-  transition: transform .3s var(--ease-out);
-}
-.screen.swiping { transition: none; }          /* it tracks the finger 1:1 */
-.screen.swiping, .screen.out, .screen.back { will-change: transform; }
-
-/* While it moves, the screen needs to BE a card — otherwise the content just
-   tilts against the page with nothing behind it and the corners look torn off
-   (Javier, 12 Sep 2026). The surface is a pseudo-element inset NEGATIVELY, so
-   it appears behind and slightly beyond the content: nothing reflows, and an
-   idle screen is pixel-identical to before. */
-.screen::before {
-  content: "";
-  position: absolute; inset: calc(var(--space-3) * -1);
-  z-index: -1;                       /* behind the content, above the page */
-  background: var(--bg-float);
-  border: 1px solid var(--line);
-  border-radius: var(--radius);
-  box-shadow: 0 18px 44px var(--shadow);
-  opacity: 0;
-  transition: opacity .12s var(--ease-out);
-  pointer-events: none;
-}
-.screen.swiping::before,
-.screen.out::before,
-.screen.back::before { opacity: 1; }
-
-/* The card under this one — the deck idea borrowed from SmoothUI's card stack,
-   built by hand rather than pulling in React + Motion for it. It is an empty
-   surface, not a render of the next round: the point is depth, so you can see
-   there is something behind what you are pushing away. Sits at z-index -2 so
-   it stays behind the card's own surface (-1), and it does NOT travel with the
-   drag — the card slides off it. */
-.screen::after {
-  content: "";
-  position: absolute; inset: calc(var(--space-3) * -1);
-  z-index: -2;
-  background: var(--bg-sunken);
-  border: 1px solid var(--line-soft);
-  border-radius: var(--radius);
-  opacity: 0;
-  transform: translateY(10px) scale(.97);
-  transition: opacity .14s var(--ease-out);
-  pointer-events: none;
-}
-.screen.swiping::after,
-.screen.out::after,
-.screen.back::after { opacity: 1; }
-@media (prefers-reduced-motion: reduce) { .screen::after { display: none; } }
-
-/* The REAL next screen under the one being swiped (runner.js showPeek; Javier,
-   14 Sep 2026 — "see the next screen below … a bit blurred, whatever is the
-   standard in apps like Tinder"). A frozen, inert copy that grows from 94%
-   and brightens as the card is pushed away, and lands full size and sharp as
-   the real screen replaces it. The blur is constant during the drag (a blur
-   that changes every frame over moving GIFs is heavy on a phone) and clears
-   only on landing. When there is a peek, the empty card above is not drawn. */
-.peek {
-  --peek: 0;
-  position: absolute; z-index: 0; overflow: hidden; pointer-events: none;
-  display: flex; flex-direction: column;
-  transform-origin: 50% 35%;
-  transform: scale(calc(.94 + var(--peek) * .06));
-  opacity: calc(.7 + var(--peek) * .3);          /* readable from the first pixel of the drag */
-  filter: blur(2.5px) brightness(.85);
-}
-.peek.is-animating { transition: transform .28s var(--ease-out), opacity .28s var(--ease-out), filter .28s var(--ease-out); }
-.peek.is-landing { filter: none; }
-.screen.has-peek { z-index: 1; }
-.screen.has-peek::after { display: none; }
-.screen.out  { animation: cardFlyLeft  .4s var(--ease-in) forwards; }
-.screen.back { animation: cardFlyRight .4s var(--ease-in) forwards; }
-
-@keyframes cardFlyLeft  { to { transform: translateX(-150%) rotate(-30deg); opacity: 0; } }
-@keyframes cardFlyRight { to { transform: translateX(150%)  rotate(30deg);  opacity: 0; } }
-
-/* The hint line already under the card brightens as you drag:
-   --swipe-progress runs 0 → 1 as the drag approaches the threshold, so it is
-   fully lit exactly when letting go would count. Set inline by runner.js. */
-.screen.swipe-left .swipe-hint,
-.screen.swipe-right .swipe-hint {
-  color: var(--accent);
-  opacity: calc(.45 + var(--swipe-progress, 0) * .55);
-}
-
-@media (prefers-reduced-motion: reduce) {
-  /* Spatial motion collapses to a crossfade; the card still leaves, quietly. */
-  .screen { transition: opacity .14s linear; }
-  .screen.out, .screen.back { animation: none; opacity: 0; transform: none; }
-}
+/* One screen = one round. Done / Back move between screens, no swipe
+   (Javier, 15 Sep 2026: "swiping between exercises is messy … keep it simple"). */
+.screen { flex: 1; display: flex; flex-direction: column; gap: var(--space-4); }
 
 .round-head { display: flex; align-items: baseline; justify-content: space-between; gap: var(--space-3); flex-wrap: wrap; }
 
@@ -326,8 +222,8 @@ p  { margin: 0; }
   border: 0; padding: 0; border-radius: var(--radius-sm); overflow: hidden; background: #000; cursor: zoom-in;
 }
 .ex-card__thumb img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
-/* A swipe can start on a GIF (runner.js bindSwipe): a finger resting on one
-   must not open the iPhone's image preview or start dragging the picture. */
+/* A finger resting on a GIF must not open the iPhone's image preview or
+   start dragging the picture. */
 .ex-card__thumb img, .thumb img { -webkit-touch-callout: none; -webkit-user-drag: none; user-select: none; }
 .ex-card__body { min-width: 0; display: flex; flex-direction: column; gap: 2px; }
 .ex-card__label { font-size: 12px; font-weight: 800; letter-spacing: .08em; color: var(--accent); }
@@ -451,7 +347,7 @@ p  { margin: 0; }
 }
 /* "Started Sun 13 Sep ’26 at 07:05" — first screen and the done screen. */
 .started { margin: 0; font-size: 13px; color: var(--text-dim); }
-.screen > .started { text-align: center; }   /* under the swipe hint, never above the Done button */
+.screen > .started { text-align: center; }   /* under the Done button, never above it */
 
 /* 3 · 2 · 1 · Go! when a session starts. Orange: this is work. Silent. */
 .countin {
@@ -505,7 +401,6 @@ body.is-counting { background: var(--accent); }
 .thumb__name { font-size: 11px; line-height: 1.25; color: var(--text-dim); }
 
 .actions { display: grid; grid-template-columns: 1fr 2fr; gap: var(--space-3); margin-top: auto; padding-top: var(--space-2); }
-.swipe-hint { text-align: center; font-size: 12px; color: var(--text-faint); }
 
 /* Tap a thumbnail: full-width view over everything. A dialog (UI.overlay):
    Escape closes it, focus comes back to the thumbnail. Safe-area padded like

@@ -4,9 +4,9 @@
  * to be swiping after every single exercise"):
  *
  *   warm-up      one screen: a grid of small moving thumbnails as reference,
- *                one swipe when done, nothing logged
+ *                one tap on Done, nothing logged
  *   rounds block one screen per round with every movement of that round on it
- *                (A1 + A2 together). One swipe logs the whole round. Then a rest
+ *                (A1 + A2 together). One tap on Done logs the whole round. Then a rest
  *                timer — only if the block states a rest, and never after the
  *                last round. Core/shoulder blocks with no rest written go
  *                straight to the next round with no timer.
@@ -53,7 +53,7 @@ window.Runner = (function () {
       for (var r = 1; r <= rounds; r++) {
         steps.push({ kind: "round", seg: seg, block: b.letter, blockName: b.name, round: r, rounds: rounds,
           // The block's rest, shown on every round as a reference so you
-          // always know what follows the swipe. Same on the last round.
+          // always know what comes next. Same on the last round.
           // One time format for the whole app: App.dur (core.js). restSeconds
           // lets the badge carry the spoken form; restRef is the text fallback.
           restRef: b.rest_seconds > 0 ? window.App.restLabel(b.rest_seconds) : (b.rest_note || "No rest"),
@@ -249,12 +249,10 @@ window.Runner = (function () {
   function footer(label) {
     return '<div class="actions">' +
       '<button class="btn btn--ghost" data-act="back"' + (state.i === 0 ? " disabled" : "") + ">Back</button>" +
-      '<button class="btn btn--primary btn--big" data-act="next">' + esc(label) + "</button></div>" +
-      '<div class="swipe-hint">Swipe left when done · right to go back</div>';
+      '<button class="btn btn--primary btn--big" data-act="next">' + esc(label) + "</button></div>";
   }
 
   function render() {
-    peekEl = null; peekDir = 0;              // the container is rebuilt below; any peek goes with it
     var step = state.steps[state.i];
     setResting(step.kind === "rest");
     UI.announce(step.kind === "round" ? "Block " + step.block + ", round " + step.round + " of " + step.rounds
@@ -281,8 +279,7 @@ window.Runner = (function () {
     container.innerHTML = header(step, "Warm-up · " + step.exercises.length + " movements") + warmupBody(step);
     bind(step);
   }
-  /* Each screen's content as markup with no side effects: the live render
-     and the swipe peek (showPeek) both build from these. */
+  /* Each screen's content as markup with no side effects. */
   function warmupBody(step) {
     var instr = warmupInstruction(step.text);
     return '<section class="screen" id="scr">' +
@@ -499,80 +496,10 @@ window.Runner = (function () {
     });
   }
 
-  // ---------------------------------------------------------------- peek
-  /* The screen under the one being swiped (Javier, 14 Sep 2026: "see the next
-     screen below … a bit blurred … whatever is the standard in apps like
-     Tinder"). A frozen copy of the next screen (pushed left) or the previous
-     one (pushed right), built from the same body functions as the real render
-     but INERT: no ids, no data-* hooks, no labels' for=, so nothing in it can
-     be read by logRound, clicked or focused. It sits after #scr in the DOM and
-     under it on screen, grows from 94% and brightens as the card is pushed
-     away, and lands full size just as render() replaces it. Off with reduced
-     motion (the swipe is a crossfade there). */
-  var peekEl = null, peekDir = 0;
-  function stepBody(step) {
-    return step.kind === "warmup" ? warmupBody(step) : step.kind === "round" ? roundBody(step)
-      : step.kind === "rest" ? restBody(step) : step.kind === "tabata" ? tabataBody(step) : doneBody();
-  }
-  function peekTarget(dir) {
-    if (dir > 0) return state.i + 1 < state.steps.length ? state.steps[state.i + 1] : null;
-    if (state.i === 0) return null;
-    var n = state.i - 1;
-    while (n > 0 && state.steps[n].kind === "rest") n--;          // as go(-1): never back into a rest
-    return state.steps[n];
-  }
-  function showPeek(dir) {
-    if (peekEl && peekDir === dir) return peekEl;
-    hidePeek();
-    var scr = document.getElementById("scr"), step = peekTarget(dir);
-    if (!scr || !step) return null;
-    if (window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches) return null;
-    var body = UI.inertCopy(stepBody(step)).firstElementChild;     // one inert copy for every swipe preview (ui.js)
-    if (!body) return null;
-    peekEl = document.createElement("div");
-    peekEl.className = "peek";
-    peekEl.setAttribute("aria-hidden", "true");
-    peekEl.inert = true;
-    // Layout box, not the drag's transformed one: .runner is the offsetParent.
-    peekEl.style.top = scr.offsetTop + "px"; peekEl.style.left = scr.offsetLeft + "px";
-    peekEl.style.width = scr.offsetWidth + "px"; peekEl.style.height = scr.offsetHeight + "px";
-    peekEl.appendChild(body);
-    container.appendChild(peekEl);
-    scr.classList.add("has-peek");
-    peekDir = dir;
-    return peekEl;
-  }
-  function peekProgress(p) { if (peekEl) peekEl.style.setProperty("--peek", Math.max(0, Math.min(1, p)).toFixed(3)); }
-  function hidePeek() {
-    if (peekEl) peekEl.remove();
-    peekEl = null; peekDir = 0;
-    var scr = document.getElementById("scr"); if (scr) scr.classList.remove("has-peek");
-  }
-  function landPeek() {
-    if (!peekEl) return;
-    void peekEl.offsetWidth;                                         // start the transition from where it is
-    peekEl.classList.add("is-animating", "is-landing");
-    peekProgress(1);
-  }
-  function settlePeek() {
-    if (!peekEl) return;
-    var dying = peekEl;
-    dying.classList.add("is-animating");
-    peekProgress(0);
-    setTimeout(function () { if (peekEl === dying) hidePeek(); }, 300);
-  }
-
   // ---------------------------------------------------------------- wiring
   function advance(step) {
     if (step.kind === "round") logRound(step);
-    slide("out", function () { go(1); });
-  }
-  function slide(cls, then) {
-    var el = document.getElementById("scr");
-    if (!el) { then(); return; }
-    // Done / Back buttons reveal the same screen underneath as a swipe does.
-    if (showPeek(cls === "out" ? 1 : -1)) { peekProgress(0); landPeek(); }
-    el.classList.add(cls); setTimeout(then, 170);
+    go(1);
   }
 
   function bind(step) {
@@ -580,7 +507,7 @@ window.Runner = (function () {
       b.addEventListener("click", function () {
         var a = b.getAttribute("data-act");
         if (a === "next") advance(step);
-        else if (a === "back") slide("back", function () { go(-1); });
+        else if (a === "back") go(-1);
         else if (a === "skip") go(1);
         else if (a === "extend") { if (countdown) countdown.extend(30); }
         else if (a === "finish") finish();
@@ -667,8 +594,6 @@ window.Runner = (function () {
     container.querySelectorAll("[data-hold]").forEach(function (b) {
       b.addEventListener("click", function () { startHold(step.items[+b.getAttribute("data-hold")], b); });
     });
-    var scr = document.getElementById("scr");
-    if (scr) bindSwipe(scr, step);
   }
 
   function zoom(id) { UI.zoomImage(preview(id), window.App.cueText((P.exercises[id] || {}).name || "")); }
@@ -708,7 +633,7 @@ window.Runner = (function () {
     function close(finished) {
       if (countdown) { countdown.stop(); countdown = null; }
       release(); ov.remove();
-      if (finished) { btn.classList.add("is-done"); btn.innerHTML = 'Done ✓<span class="hold__long"> — swipe when ready</span>'; }
+      if (finished) { btn.classList.add("is-done"); btn.textContent = "Done ✓"; }
       else if (side > 1 && side <= sides) { btn.innerHTML = ICONS.play + '<span class="hold__long">Start </span>side ' + side; }
     }
     function lead() {
@@ -739,107 +664,6 @@ window.Runner = (function () {
         } });
     }
     lead();
-  }
-
-  // Swipe left = done, right = back. Must be clearly horizontal, so scrolling
-  // a tall round never fires it, and never starts on an input.
-  /* Swipe, card-deck style (Javier, 12 Sep 2026 — "more like Tinder").
-     Three things make it feel like a card rather than a slide:
-       - it tilts as it travels, and the tilt flips depending on whether you
-         grabbed above or below the middle, so it pivots around your thumb;
-       - a flick counts even if it is short, because velocity is judged as well
-         as distance — a fast 60px flick is a decision, a slow 100px drag is a
-         look;
-       - under the threshold it settles back instead of snapping, so nothing
-         moves without being animated.
-     No overshoot on the way back: this is UI, not a toy. */
-  /* These three are DeHetSwipe's own numbers, read from its engine.js so the
-     two apps feel identical in the hand: threshold 80px, rotation 0.15deg per
-     px dragged, and distance only — no velocity, so a flick that doesn't
-     travel never counts. Change them in both places or not at all. */
-  var SWIPE_THRESHOLD = 80;
-  var ROTATION_FACTOR = 0.15;
-
-  function bindSwipe(el, step) {
-    var x0 = 0, y0 = 0, dx = 0, dy = 0, active = false, horizontal = null;
-
-    function paint() {
-      el.style.transform = "translateX(" + dx + "px) rotate(" + (dx * ROTATION_FACTOR).toFixed(2) + "deg)";
-      // the hint under the card strengthens as you approach the threshold,
-      // which is how DeHetSwipe tells you the swipe has registered
-      var progress = Math.min(Math.abs(dx) / SWIPE_THRESHOLD, 1);
-      el.classList.toggle("swipe-left", dx < -20);
-      el.classList.toggle("swipe-right", dx > 20);
-      el.style.setProperty("--swipe-progress", progress.toFixed(2));
-    }
-    function settle() {
-      settlePeek();
-      el.classList.remove("swiping", "swipe-left", "swipe-right");
-      el.style.transform = ""; el.style.opacity = "";
-      el.style.removeProperty("--swipe-progress");
-    }
-    function fling(dir, then) {
-      el.classList.remove("swiping", "swipe-left", "swipe-right");
-      el.style.transform = ""; el.style.opacity = "";   // let the keyframe own it
-      el.classList.add(dir < 0 ? "out" : "back");
-      setTimeout(then, 400);                            // matches the animation
-    }
-
-    el.addEventListener("touchstart", function (ev) {
-      horizontal = null;
-      /* Any part of the screen starts a swipe — the GIFs, the corner icons and
-         the hold button included (Javier, 14 Sep 2026: swiping with a finger
-         on a GIF often did nothing, because buttons used to be skipped). Only
-         a field being typed in is left alone. A sideways drag never also taps
-         what it started on: see the click guard below. */
-      if (ev.target.closest("input, textarea, select")) { active = false; return; }
-      var t = ev.touches[0];
-      x0 = t.clientX; y0 = t.clientY; dx = dy = 0;
-      active = true;
-    }, { passive: true });
-
-    el.addEventListener("touchmove", function (ev) {
-      if (!active) return;
-      var t = ev.touches[0], mx = t.clientX - x0, my = t.clientY - y0;
-      if (horizontal === null && (Math.abs(mx) > 8 || Math.abs(my) > 8)) horizontal = Math.abs(mx) > Math.abs(my) * 1.3;
-      if (!horizontal) return;
-      /* Once a drag is sideways it never also scrolls the page (Javier,
-         14 Sep 2026: the side scroll bar flashed while swiping weeks — the
-         finger is never perfectly level, so the page moved a few pixels up
-         or down). Needs a non-passive listener; vertical drags scroll as ever. */
-      if (ev.cancelable) ev.preventDefault();
-      dx = mx; dy = my;
-      el.classList.add("swiping");
-      paint();
-      // The screen underneath grows into place as this one is pushed away.
-      var pk = showPeek(dx < 0 ? 1 : -1);
-      if (pk) { pk.classList.remove("is-animating"); peekProgress(Math.abs(dx) / ((el.offsetWidth || 1) * 0.6)); }
-    }, { passive: false });
-
-    el.addEventListener("touchend", function () {
-      if (!active) return;
-      active = false;
-      if (!horizontal) { settle(); return; }
-      if (Math.abs(dx) < SWIPE_THRESHOLD) { settle(); return; }
-      if (dx < 0) {
-        if (step.kind === "round") {
-          logRound(step);
-          // Rebuilt after logging, so the next round's weights include this one.
-          if (peekEl) { var p = +peekEl.style.getPropertyValue("--peek") || 0; hidePeek(); if (showPeek(1)) peekProgress(p); }
-        }
-        landPeek();
-        fling(-1, function () { go(1); });
-      } else if (state.i > 0) {
-        landPeek();
-        fling(1, function () { go(-1); });
-      } else settle();
-    });
-
-    el.addEventListener("touchcancel", function () { active = false; settle(); });
-    // A drag that started on a GIF or a button must not also open or press it.
-    el.addEventListener("click", function (e) {
-      if (horizontal) { e.preventDefault(); e.stopPropagation(); }
-    }, true);
   }
 
   // ---------------------------------------------------------------- rest
