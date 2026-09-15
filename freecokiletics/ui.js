@@ -120,7 +120,8 @@ window.UI = (function () {
      then calls done, which removes it. bump(el) settles a value that just
      changed. Each has a timer fallback: a phone that drops animationend must
      never leave a screen half-faded or a layer stuck on top. */
-  var ENTER = { forward: "m-forward", back: "m-back", fade: "m-fade", rise: "m-rise" };
+  var ENTER = { forward: "m-forward", back: "m-back", fade: "m-fade", rise: "m-rise",
+                stepForward: "m-step-forward", stepBack: "m-step-back" };
   function enter(el, kind) {
     var cls = ENTER[kind];
     if (!el || !cls) return;
@@ -147,8 +148,13 @@ window.UI = (function () {
   }
   function bump(el) {
     if (!el) return;
-    el.classList.remove("m-bump"); void el.offsetWidth; el.classList.add("m-bump");
-    setTimeout(function () { el.classList.remove("m-bump"); }, 700);
+    // A transform does nothing to an inline box, and most bumped things are
+    // a <span> of text: give those a block for the length of the settle.
+    var inline = getComputedStyle(el).display === "inline";
+    el.classList.remove("m-bump", "m-bump-block"); void el.offsetWidth;
+    el.classList.add("m-bump");
+    if (inline) el.classList.add("m-bump-block");
+    setTimeout(function () { el.classList.remove("m-bump", "m-bump-block"); }, 700);
   }
 
   function zoomImage(src, name, youtubeId) {

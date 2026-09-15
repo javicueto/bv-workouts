@@ -89,9 +89,15 @@
      only a little. The system itself is in freecokiletics/styles.css. */
   --dur-press: 120ms;
   --dur-leave: 180ms;
-  --dur-enter: 280ms;
-  --move-page: 20%;
+  --dur-enter: 320ms;
+  --move-page: 16%;
+  --move-step: 10%;      /* inside a session: less travel, the screens are dense */
   --move-layer: 24px;
+  /* Arrivals use this, not --ease-out: --ease-out covers 80% of the distance
+     in its first 90ms, which reads as a snap and then a crawl — "too speedy
+     or bumpy" (Javier, 16 Sep 2026), especially on a round screen decoding
+     its previews mid-move. This one starts gently and lands softly. */
+  --ease-enter: cubic-bezier(0.05, 0.7, 0.1, 1);
 
   /* Two voices and no third. Display carries numbers, headings and buttons —
      anything you GLANCE at; body carries anything you READ. Both self-hosted

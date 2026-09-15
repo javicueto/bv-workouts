@@ -205,24 +205,33 @@ p  { margin: 0; }
    Quick start and a soft landing, never a bounce, nothing moves on its own.
    Every class is removed as soon as it has played (ui.js), so no transform
    is left behind. Reduce Motion: every move becomes a short crossfade. */
-@keyframes m-in-forward { from { opacity: 0; transform: translateX(var(--move-page)); } }
-@keyframes m-in-back    { from { opacity: 0; transform: translateX(calc(var(--move-page) * -1)); } }
+@keyframes m-in-forward { from { opacity: 0; transform: translateX(var(--move)); } }
+@keyframes m-in-back    { from { opacity: 0; transform: translateX(calc(var(--move) * -1)); } }
 @keyframes m-in-fade    { from { opacity: 0; } }
 @keyframes m-in-rise    { from { opacity: 0; transform: translateY(var(--move-layer)); } }
 @keyframes m-out-sink   { to { opacity: 0; transform: translateY(calc(var(--move-layer) / 2)); } }
 @keyframes m-out-fade   { to { opacity: 0; } }
 @keyframes m-settle     { 40% { transform: scale(1.12); } }
 @keyframes m-drop       { from { opacity: 0; transform: translateY(-6px) scale(.98); } }
-.m-forward { animation: m-in-forward var(--dur-enter) var(--ease-out) backwards; }
-.m-back    { animation: m-in-back var(--dur-enter) var(--ease-out) backwards; }
-.m-fade    { animation: m-in-fade var(--dur-leave) var(--ease-out) backwards; }
-.m-rise    { animation: m-in-rise var(--dur-enter) var(--ease-out) backwards; }
+/* A whole screen travels --move-page; a step inside a session --move-step,
+   which is shorter because those screens are dense and change a lot at once.
+   will-change keeps the move on the GPU while it plays: a round screen
+   decodes its previews at exactly that moment, and that is what made the
+   move stutter. The class is removed after, so no layer is kept. */
+.m-forward, .m-back           { --move: var(--move-page); }
+.m-step-forward, .m-step-back { --move: var(--move-step); }
+.m-forward, .m-step-forward { animation: m-in-forward var(--dur-enter) var(--ease-enter) backwards; }
+.m-back, .m-step-back       { animation: m-in-back var(--dur-enter) var(--ease-enter) backwards; }
+.m-fade    { animation: m-in-fade var(--dur-leave) var(--ease-enter) backwards; }
+.m-rise    { animation: m-in-rise var(--dur-enter) var(--ease-enter) backwards; }
 .m-leave   { animation: m-out-sink var(--dur-leave) var(--ease-in) forwards; pointer-events: none; }
-.m-bump    { display: inline-block; animation: m-settle var(--dur-enter) var(--ease-out); }
+.m-forward, .m-back, .m-step-forward, .m-step-back, .m-rise { will-change: transform, opacity; }
+.m-bump       { animation: m-settle var(--dur-enter) var(--ease-enter); }
+.m-bump-block { display: inline-block; }        /* transform needs a block; ui.js adds it to inline text */
 @media (prefers-reduced-motion: reduce) {
   /* !important on a class beats the shared "collapse everything" rule in
      tokens.css, which would otherwise make these instant rather than calm. */
-  .m-forward, .m-back, .m-fade, .m-rise { animation: m-in-fade .15s linear backwards !important; }
+  .m-forward, .m-back, .m-step-forward, .m-step-back, .m-fade, .m-rise { animation: m-in-fade .15s linear backwards !important; }
   .m-leave { animation: m-out-fade .12s linear forwards !important; }
   .m-bump { animation: none !important; }
 }
@@ -233,6 +242,14 @@ p  { margin: 0; }
   transition: transform var(--dur-press) var(--ease-out);
 }
 :where(.thumb, .vthumb__open, .ex-card__thumb, .rest__after, .logbtn, .logstep, .iconbtn):active { transform: scale(.97); }
+/* Cards press too, and more gently than a button: a card is big, so the same
+   .97 would look like it jumped. The brightness they already had stays. */
+:where(.card--tap, .day-card__main, .day-card__acts a, .backlog__list a, .menu__item, a.week-row) {
+  transition: transform var(--dur-press) var(--ease-out), filter var(--dur-press) var(--ease-out);
+}
+:where(.card--tap, .day-card__main, .day-card__acts a, .backlog__list a, .menu__item, a.week-row):active { transform: scale(.985); }
+/* The ✓ on a Done button, so the tap is confirmed before the screen moves. */
+.tick { display: inline-block; }
 
 /* ------------------------------------------------------------ session runner */
 .runner { flex: 1; display: flex; flex-direction: column; gap: var(--space-4); }
@@ -572,7 +589,7 @@ div.thumb { cursor: default; }
 /* ------------------------------------------------------------ rest mode (blue) */
 /* The rest timer and Tabata's rest phases turn the whole screen blue, so a
    glance across the gym tells you which mode you're in. */
-body { transition: background-color .25s var(--ease-out); }
+body { transition: background-color var(--dur-enter) var(--ease-enter); }
 /* color-scheme dark: the ground is dark blue in both themes, so native bits
    (scrollbar, a focused control) must not come out light-mode over it. */
 body.is-resting { background: var(--rest); color: var(--rest-ink); color-scheme: dark; }

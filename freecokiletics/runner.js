@@ -235,7 +235,7 @@ window.Runner = (function () {
 
   var stepMove = null;       // the move render() plays: Done → "forward", Back → "back"
   function go(delta) {
-    stepMove = delta < 0 ? "back" : "forward";
+    stepMove = delta < 0 ? "stepBack" : "stepForward";
     if (countdown) { countdown.stop(); countdown = null; }
     var n = state.i + delta;
     while (delta < 0 && n > 0 && state.steps[n].kind === "rest") n--;   // never sit through a rest twice
@@ -274,7 +274,9 @@ window.Runner = (function () {
   function footer(label) {
     return '<div class="actions">' +
       '<button class="btn btn--ghost" data-act="back"' + (state.i === 0 ? " disabled" : "") + ">Back</button>" +
-      '<button class="btn btn--primary btn--big" data-act="next">' + esc(label) + "</button></div>";
+      // The ✓ is its own span so it can confirm the tap (bind, data-act=next).
+      '<button class="btn btn--primary btn--big" data-act="next">' +
+        esc(label.replace(/\s*✓$/, "")) + '<span class="tick">✓</span></button></div>';
   }
 
   function render() {
@@ -586,7 +588,16 @@ window.Runner = (function () {
     container.querySelectorAll("[data-act]").forEach(function (b) {
       b.addEventListener("click", function () {
         var a = b.getAttribute("data-act");
-        if (a === "next") advance(step);
+        if (a === "next") {
+          /* The ✓ settles first, then the screen moves (Javier, 16 Sep 2026:
+             "anticipation on each action"). 110ms is under the threshold
+             where a tap feels delayed, and it stops a double tap skipping
+             two steps. */
+          if (b.getAttribute("data-busy")) return;
+          b.setAttribute("data-busy", "1");
+          UI.bump(b.querySelector(".tick"));
+          setTimeout(function () { advance(step); }, 110);
+        }
         else if (a === "back") go(-1);
         else if (a === "skip") go(1);
         else if (a === "extend") { if (countdown) { countdown.extend(30); UI.bump(document.getElementById("t")); } }
@@ -786,7 +797,7 @@ window.Runner = (function () {
       hp.textContent = "Get ready"; arc.style.strokeDashoffset = "0";
       actions('<button class="btn btn--ghost" data-h="stop">Cancel</button>');
       countdown = new Countdown(3, { cues: false,
-        onTick: function (l) { ht.textContent = l > 0 ? String(l) : ""; if (l > 0) Sound.count(); },
+        onTick: function (l) { ht.textContent = l > 0 ? String(l) : ""; if (l > 0) { Sound.count(); UI.bump(ht); } },
         onDone: function () { countdown = null; Sound.go(); hold(); } });
     }
     function hold() {
@@ -823,6 +834,7 @@ window.Runner = (function () {
         t.textContent = restClock(l);
         arc.style.strokeDashoffset = String(C * (1 - l / total));
         if (l <= 10) arc.classList.add("final");
+        if (l <= 3 && l > 0) UI.bump(t);                 // the last three, with the beeps
       },
       onDone: function () { countdown = null; go(1); },
     });
@@ -959,7 +971,7 @@ window.Runner = (function () {
       show();
       var t = document.getElementById("t");
       countdown = new Countdown(phase === "work" ? tb.work_seconds : tb.rest_seconds, { cues: false,
-        onTick: function (l) { t.textContent = String(l); if (l <= 3 && l > 0) Sound.count(); },
+        onTick: function (l) { t.textContent = String(l); if (l <= 3 && l > 0) { Sound.count(); UI.bump(t); } },
         onDone: function () {
           countdown = null;
           if (phase === "work") { phase = "rest"; Sound.halfway(); run(); }
