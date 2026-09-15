@@ -149,7 +149,7 @@
     var html = topbar(null, null, true) + A.installCard();
 
     if (pendingRun) {
-      html += '<div class="card card--tap" id="resume"><div class="eyebrow">In progress</div>' +
+      html += '<div class="card card--tap resume-card" id="resume"><div class="eyebrow">In progress</div>' +
         '<h2>' + esc(pendingRun.title) + '</h2><p class="dim">Started ' + A.hhmm(pendingRun.startedAt) +
         ' · step ' + (pendingRun.i + 1) + "/" + pendingRun.steps.length + "</p>" +
         '<div class="row" style="margin-top:var(--space-4)"><button class="btn btn--primary grow" id="resume-go">Resume</button>' +
