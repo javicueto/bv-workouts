@@ -233,7 +233,9 @@ window.Runner = (function () {
     if (state && state.counting) state.counting = false;
   }
 
+  var stepMove = null;       // the move render() plays: Done → "forward", Back → "back"
   function go(delta) {
+    stepMove = delta < 0 ? "back" : "forward";
     if (countdown) { countdown.stop(); countdown = null; }
     var n = state.i + delta;
     while (delta < 0 && n > 0 && state.steps[n].kind === "rest") n--;   // never sit through a rest twice
@@ -285,6 +287,10 @@ window.Runner = (function () {
     else if (step.kind === "rest") renderRest(step);
     else if (step.kind === "tabata") renderTabata(step);
     else renderDone();
+    /* Motion: only the body moves (the header and progress bar are drawn
+       again identical, so they stay still), and it starts at the top — the
+       Done button of a long round sits low on the page. */
+    if (stepMove) { window.scrollTo(0, 0); UI.enter(container.lastElementChild, stepMove); stepMove = null; }
   }
 
   // ---------------------------------------------------------------- warm-up
@@ -544,8 +550,9 @@ window.Runner = (function () {
         '<button class="btn btn--ghost btn--block" type="button" data-p="end">End and save now</button>' +
         '<button class="btn btn--quiet btn--danger-text btn--block" type="button" data-p="discard">Discard this workout</button>' +
       "</div>";
-    var release = UI.overlay(ov, "Paused", resumeNow);
-    function closeLayer() { release(); ov.remove(); }
+    var release = UI.overlay(ov, "Paused", resumeNow), closing = false;
+    UI.enter(ov, "rise");
+    function closeLayer() { if (closing) return; closing = true; release(); UI.leave(ov, function () { ov.remove(); }); }
     function resumeNow() { closeLayer(); unpause(); }
     ov.addEventListener("click", function (e) {
       var b = e.target.closest("[data-p]"); if (!b) return;
@@ -582,7 +589,7 @@ window.Runner = (function () {
         if (a === "next") advance(step);
         else if (a === "back") go(-1);
         else if (a === "skip") go(1);
-        else if (a === "extend") { if (countdown) countdown.extend(30); }
+        else if (a === "extend") { if (countdown) { countdown.extend(30); UI.bump(document.getElementById("t")); } }
         else if (a === "finish") finish();
         else if (a === "overview") showOverview();
         else if (a === "pause") pause();
@@ -642,7 +649,7 @@ window.Runner = (function () {
         var ix = b.getAttribute("data-repsreset");
         var inp = container.querySelector('[data-r="' + ix + '"]');
         var line = container.querySelector('[data-target-for="' + ix + '"]');
-        if (inp && line) { inp.value = line.getAttribute("data-target") || ""; syncTarget(ix); }
+        if (inp && line) { inp.value = line.getAttribute("data-target") || ""; syncTarget(ix); UI.bump(line.querySelector("[data-target-n]")); }
       });
     });
     // The folded button and the big target line both mirror what is typed, so
@@ -659,6 +666,7 @@ window.Runner = (function () {
         if (isNaN(cur)) cur = 0;
         inp.value = String(Math.max(0, Math.round((cur + +b.getAttribute("data-wstep")) * 100) / 100));
         inp.dispatchEvent(new Event("input", { bubbles: true }));
+        UI.bump(container.querySelector('[data-logtoggle="' + b.getAttribute("data-for") + '"] .logbtn__num'));
       });
     });
     container.querySelectorAll("[data-r]").forEach(function (inp) {
@@ -719,13 +727,14 @@ window.Runner = (function () {
         '<button class="btn btn--ghost btn--quit" type="button" data-close aria-label="Close">' + ICONS.xmark + "</button></div>" +
         window.App.sessionSections(session, { status: partStatus }) +
       "</div>";
-    var release;
-    function close() { release(); ov.remove(); }
+    var release, closing = false;
+    function close() { if (closing) return; closing = true; release(); UI.leave(ov, function () { ov.remove(); }); }
     ov.querySelector("[data-close]").addEventListener("click", close);
     ov.querySelectorAll("[data-zoom]").forEach(function (b) {
       b.addEventListener("click", function () { zoom(b.getAttribute("data-zoom")); });
     });
     release = UI.overlay(ov, state.title, close);
+    UI.enter(ov, "rise");
   }
 
   function zoom(id) { var e = P.exercises[id] || {}; UI.zoomImage(preview(id), window.App.cueText(e.name || ""), e.youtube_id); }
@@ -749,7 +758,8 @@ window.Runner = (function () {
       '<div class="rest__time" id="ht" role="timer"></div></div>' +
       '<div class="hold-screen__phase" id="hp"></div>' +
       '<div class="hold-screen__actions" id="ha"></div>';
-    var release = UI.overlay(ov, "Hold timer", function () { close(false); });
+    var release = UI.overlay(ov, "Hold timer", function () { close(false); }), closing = false;
+    UI.enter(ov, "rise");
     var ht = ov.querySelector("#ht"), hp = ov.querySelector("#hp"), ha = ov.querySelector("#ha"), arc = ov.querySelector("#harc"), hsd = ov.querySelector("#hsd");
 
     function actions(html) {
@@ -763,8 +773,10 @@ window.Runner = (function () {
       });
     }
     function close(finished) {
+      if (closing) return;
+      closing = true;
       if (countdown) { countdown.stop(); countdown = null; }
-      release(); ov.remove();
+      release(); UI.leave(ov, function () { ov.remove(); });
       if (finished) { btn.classList.add("is-done"); btn.textContent = "Done ✓"; }
       else if (side > 1 && side <= sides) { btn.innerHTML = ICONS.play + '<span class="hold__long">Start </span>side ' + side; }
     }

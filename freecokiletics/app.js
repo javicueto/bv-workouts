@@ -5,8 +5,46 @@
   "use strict";
   var A = window.App, S = A.S, V = A.views, app = A.app;
 
+  /* Motion between screens (styles.css "motion"). Where a screen sits:
+     home (and every week) and history are the top; plan, a workout to look
+     at and a finished one are one level in; editing the plan, logging by hand
+     and a running session are two. Deeper → arrives from the right, back →
+     from the left, same level → crossfade, one week to another → nothing
+     here (the week swipe has its own), a first screen → crossfade. */
+  function place(h) {
+    if (!h || h === "#/" || /^#\/week\//.test(h)) return { key: "home", depth: 0 };
+    if (h === "#/history") return { key: "history", depth: 0 };
+    if (h === "#/plan") return { key: "plan", depth: 1 };
+    if (/^#\/(view|h)\//.test(h)) return { key: "view", depth: 1 };
+    return { key: h.split(/[/?]/)[1] || "", depth: 2 };          // #/plan/edit, #/log/…, #/run/…
+  }
+  function moveFor(from, to) {
+    if (from == null) return "fade";
+    if (from === to) return "none";                              // the same screen drawn again
+    var a = place(from), b = place(to);
+    if (a.key === "home" && b.key === "home") return "none";
+    return b.depth > a.depth ? "forward" : b.depth < a.depth ? "back" : "fade";
+  }
+  /* Views render when their data arrives, and some twice ("Loading…", then
+     the screen). The move is decided when the hash changes and played on
+     the first render after it; a second render close behind gets only a
+     fade, so content never slides twice. A move nobody rendered expires, so
+     it can't fire later on a redraw (a save redraws the same screen). */
+  var pendingMove = null, pendingAt = 0, movedAt = 0;
+  new MutationObserver(function (list) {
+    if (!list.some(function (m) { return m.addedNodes.length; })) return;
+    var now = Date.now();
+    if (pendingMove && now - pendingAt < 5000) {
+      if (pendingMove !== "none") { window.scrollTo(0, 0); UI.enter(app, pendingMove); movedAt = now; }
+      pendingMove = null;
+    } else if (movedAt && now - movedAt < 1200) {
+      UI.enter(app, "fade"); movedAt = 0;
+    }
+  }).observe(app, { childList: true });
+
   async function route() {
     S.prevHash = S.curHash; S.curHash = location.hash || "#/";
+    pendingMove = moveFor(S.prevHash, S.curHash); pendingAt = Date.now();
     if (!Store.configured()) { A.renderSetup(); return; }
     if (S.recoveryMode) { V.renderSetPassword(); return; }
     var t = A.ticket();

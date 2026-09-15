@@ -33,7 +33,7 @@ window.UI = (function () {
       function close(v) {
         back.classList.remove("in");
         document.removeEventListener("keydown", onKey, true);
-        setTimeout(function () { back.remove(); if (prevFocus && prevFocus.focus) prevFocus.focus(); }, 160);
+        setTimeout(function () { back.remove(); if (prevFocus && prevFocus.focus) prevFocus.focus(); }, 180);
         resolve(v);
       }
       function onKey(e) { if (e.key === "Escape") { e.preventDefault(); close(false); } }
@@ -60,7 +60,7 @@ window.UI = (function () {
       back.innerHTML = '<div class="sheet" role="dialog" aria-modal="true" aria-labelledby="sheet-t">' +
         '<h2 id="sheet-t">' + esc(o.title || "") + "</h2>" + (o.html || "") +
         '<button class="btn btn--primary btn--block" data-v="1">' + esc(o.ok || "Got it") + "</button></div>";
-      function close() { back.classList.remove("in"); document.removeEventListener("keydown", onKey, true); setTimeout(function () { back.remove(); }, 160); resolve(); }
+      function close() { back.classList.remove("in"); document.removeEventListener("keydown", onKey, true); setTimeout(function () { back.remove(); }, 180); resolve(); }
       function onKey(e) { if (e.key === "Escape") close(); }
       back.addEventListener("click", function (e) { if (e.target.closest("[data-v]") || e.target === back) close(); });
       document.addEventListener("keydown", onKey, true);
@@ -112,6 +112,45 @@ window.UI = (function () {
      (Javier, 15 Sep 2026: after seeing the loop big you may still want the
      whole exercise). It opens outside the app and does NOT close this view,
      so the preview is still there when you come back. */
+  /* The motion system's moves (styles.css "motion"). enter(el, kind) plays
+     one arrival: "forward" | "back" | "fade" | "rise"; "none" or nothing
+     plays nothing. The class comes off as soon as it has played, so the next
+     one can play and no transform stays behind (a transform would make any
+     fixed child position against el). leave(el, done) sinks and fades el,
+     then calls done, which removes it. bump(el) settles a value that just
+     changed. Each has a timer fallback: a phone that drops animationend must
+     never leave a screen half-faded or a layer stuck on top. */
+  var ENTER = { forward: "m-forward", back: "m-back", fade: "m-fade", rise: "m-rise" };
+  function enter(el, kind) {
+    var cls = ENTER[kind];
+    if (!el || !cls) return;
+    Object.keys(ENTER).forEach(function (k) { el.classList.remove(ENTER[k]); });
+    void el.offsetWidth;                                  // restart, even the same kind
+    el.classList.add(cls);
+    var t = setTimeout(clear, 700);
+    function clear(e) {
+      if (e && e.target !== el) return;                   // a child's own animation
+      clearTimeout(t); el.removeEventListener("animationend", clear); el.classList.remove(cls);
+    }
+    el.addEventListener("animationend", clear);
+  }
+  function leave(el, done) {
+    if (!el) { if (done) done(); return; }
+    var over = false, t = setTimeout(finish, 450);
+    function finish(e) {
+      if ((e && e.target !== el) || over) return;
+      over = true; clearTimeout(t); el.removeEventListener("animationend", finish);
+      if (done) done();
+    }
+    el.classList.add("m-leave");
+    el.addEventListener("animationend", finish);
+  }
+  function bump(el) {
+    if (!el) return;
+    el.classList.remove("m-bump"); void el.offsetWidth; el.classList.add("m-bump");
+    setTimeout(function () { el.classList.remove("m-bump"); }, 700);
+  }
+
   function zoomImage(src, name, youtubeId) {
     var ov = document.createElement("div");
     ov.className = "zoom";
@@ -121,10 +160,11 @@ window.UI = (function () {
         '" target="_blank" rel="noopener">' + ICONS.external + "Full video on YouTube</a>" : "") +
       '<button class="btn btn--ghost zoom__close" type="button">Close</button>' +
       '<div class="faint" style="font-size:13px">Or tap anywhere</div>';
-    var release;
-    function close() { release(); ov.remove(); }
+    var release, closing = false;
+    function close() { if (closing) return; closing = true; release(); leave(ov, function () { ov.remove(); }); }
     ov.addEventListener("click", function (e) { if (!e.target.closest(".zoom__yt")) close(); });
     release = overlay(ov, name || "Preview", close);
+    enter(ov, "rise");
   }
 
   var toastEl = null, toastTimer = null;
@@ -266,6 +306,6 @@ window.UI = (function () {
     return { go: leave };
   }
 
-  return { esc: esc, confirm: confirm, info: info, toast: toast, announce: announce, overlay: overlay, zoomImage: zoomImage,
+  return { esc: esc, confirm: confirm, info: info, toast: toast, announce: announce, overlay: overlay, zoomImage: zoomImage, enter: enter, leave: leave, bump: bump,
            swipePages: swipePages, inertCopy: inertCopy };
 })();

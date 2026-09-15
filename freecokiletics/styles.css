@@ -191,6 +191,49 @@ p  { margin: 0; }
 .notice .btn { min-height: 36px; padding: 0 var(--space-3); font-size: 14px; flex: none; }
 .list { display: grid; gap: var(--space-3); }
 
+/* ------------------------------------------------------------ motion */
+/* One small system (Javier, 16 Sep 2026: the app felt abrupt, "slippery"),
+   used everywhere and invented nowhere else:
+   - a screen that goes DEEPER arrives from the right, going BACK from the
+     left, a sibling (home ↔ history) crossfades — app.js decides which;
+   - inside a session the same language: Done → from the right, Back → from
+     the left (runner.js render). Only the screen's body moves; the header
+     and the progress bar stay put, so the session reads as one place;
+   - layers (pause, the whole workout, a preview big, the hold timer) rise a
+     little and fade in, and sink and fade out faster (UI.enter / UI.leave);
+   - a press answers in the first frame, a value you change settles (UI.bump).
+   Quick start and a soft landing, never a bounce, nothing moves on its own.
+   Every class is removed as soon as it has played (ui.js), so no transform
+   is left behind. Reduce Motion: every move becomes a short crossfade. */
+@keyframes m-in-forward { from { opacity: 0; transform: translateX(var(--move-page)); } }
+@keyframes m-in-back    { from { opacity: 0; transform: translateX(calc(var(--move-page) * -1)); } }
+@keyframes m-in-fade    { from { opacity: 0; } }
+@keyframes m-in-rise    { from { opacity: 0; transform: translateY(var(--move-layer)); } }
+@keyframes m-out-sink   { to { opacity: 0; transform: translateY(calc(var(--move-layer) / 2)); } }
+@keyframes m-out-fade   { to { opacity: 0; } }
+@keyframes m-settle     { 40% { transform: scale(1.12); } }
+@keyframes m-drop       { from { opacity: 0; transform: translateY(-6px) scale(.98); } }
+.m-forward { animation: m-in-forward var(--dur-enter) var(--ease-out) backwards; }
+.m-back    { animation: m-in-back var(--dur-enter) var(--ease-out) backwards; }
+.m-fade    { animation: m-in-fade var(--dur-leave) var(--ease-out) backwards; }
+.m-rise    { animation: m-in-rise var(--dur-enter) var(--ease-out) backwards; }
+.m-leave   { animation: m-out-sink var(--dur-leave) var(--ease-in) forwards; pointer-events: none; }
+.m-bump    { display: inline-block; animation: m-settle var(--dur-enter) var(--ease-out); }
+@media (prefers-reduced-motion: reduce) {
+  /* !important on a class beats the shared "collapse everything" rule in
+     tokens.css, which would otherwise make these instant rather than calm. */
+  .m-forward, .m-back, .m-fade, .m-rise { animation: m-in-fade .15s linear backwards !important; }
+  .m-leave { animation: m-out-fade .12s linear forwards !important; }
+  .m-bump { animation: none !important; }
+}
+/* A press answers in the first frame on anything tappable that is not a
+   .btn (which already does): previews, the corner log buttons, "after that",
+   the menu button. :where() keeps it overridable. */
+:where(.thumb, .vthumb__open, .ex-card__thumb, .rest__after, .logbtn, .logstep, .iconbtn) {
+  transition: transform var(--dur-press) var(--ease-out);
+}
+:where(.thumb, .vthumb__open, .ex-card__thumb, .rest__after, .logbtn, .logstep, .iconbtn):active { transform: scale(.97); }
+
 /* ------------------------------------------------------------ session runner */
 .runner { flex: 1; display: flex; flex-direction: column; gap: var(--space-4); }
 
@@ -698,7 +741,7 @@ body.is-resting .runner :where(a, button, input, [tabindex]):focus-visible { out
   position: fixed; inset: 0; z-index: 60;
   display: flex; align-items: flex-end; justify-content: center;
   padding: var(--space-4) var(--space-4) calc(var(--safe-bottom) + var(--space-4));
-  background: #0008; opacity: 0; transition: opacity .16s var(--ease-out);
+  background: #0008; opacity: 0; transition: opacity var(--dur-leave) var(--ease-out);
   box-shadow: 0 0 0 100vmax #0008;             /* bleed, see .hold-screen */
 }
 .sheet-back.in { opacity: 1; }
@@ -708,7 +751,7 @@ body.is-resting .runner :where(a, button, input, [tabindex]):focus-visible { out
   padding: var(--space-6) var(--space-5) var(--space-5);
   background: var(--bg-float); color: var(--text);     /* floats above content */
   border: 1px solid var(--line); border-radius: var(--radius);
-  transform: translateY(24px); transition: transform .16s var(--ease-out);
+  transform: translateY(var(--move-layer)); transition: transform var(--dur-enter) var(--ease-out);
 }
 .sheet-back.in .sheet { transform: none; }
 .sheet__actions { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-3); margin-top: var(--space-2); }
@@ -772,6 +815,12 @@ input[type="date"].input, input[type="time"].input {
 @keyframes week-in-prev { from { transform: translateX(-100%); opacity: .4; } to { transform: none; opacity: 1; } }
 /* While a week is off-centre, its overflow is clipped, never scrollable. */
 html.is-paging, html.is-paging body { overflow-x: clip; }
+/* Always, not only while paging: a screen or a session step arriving from
+   the right (motion, --move-page) is briefly a fifth of its width past the
+   edge, and WebKit counts a transform as scrollable overflow — a sideways
+   scroll could flash for 280ms. clip, never hidden: hidden makes body a
+   scroll container and breaks position: sticky. */
+html, body { overflow-x: clip; }
 @media (prefers-reduced-motion: reduce) {
   .week-swipe.is-settling, .week-swipe.is-leaving { transition: none; }
   .week-swipe.is-in-next, .week-swipe.is-in-prev { animation: none; }
@@ -956,6 +1005,7 @@ input[type="time"].input--inline { width: 6em; }
    stayed painted while JS happily toggled .hidden. Never give .menu a display
    value without keeping .menu[hidden] next to it. */
 .menu[hidden] { display: none; }
+.menu:not([hidden]) { transform-origin: top right; animation: m-drop var(--dur-leave) var(--ease-out); }   /* motion: drops in */
 .menu {
   position: absolute; right: 0; top: calc(100% + 6px); z-index: 40;
   min-width: 220px; max-width: calc(100% + var(--space-4));

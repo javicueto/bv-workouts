@@ -82,6 +82,17 @@
   --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
   --ease-in:  cubic-bezier(0.55, 0, 1, 0.45);
 
+  /* Motion (Javier, 16 Sep 2026: "like an iPhone — smooth, connected, no
+     motion sickness"). Three durations and two distances for everything that
+     moves: a press answers at once, things arrive in --dur-enter and leave
+     faster in --dur-leave; a screen travels a fifth of its width, a layer
+     only a little. The system itself is in freecokiletics/styles.css. */
+  --dur-press: 120ms;
+  --dur-leave: 180ms;
+  --dur-enter: 280ms;
+  --move-page: 20%;
+  --move-layer: 24px;
+
   /* Two voices and no third. Display carries numbers, headings and buttons —
      anything you GLANCE at; body carries anything you READ. Both self-hosted
      in fonts/ (see fonts/fonts.css) because the gym has no signal. */
