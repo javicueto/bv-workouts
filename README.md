@@ -316,9 +316,9 @@ forever on their own — plain `<img>` tags, no video element and no JavaScript,
 which is why they work everywhere including on a phone with autoplay locked down.
 
 `scripts/make_previews.py` builds them from `videos/*.mp4` into `previews/*.webp`:
-360px wide, 4 seconds at 12fps, taken from a third of the way into each clip
-(exercise videos open with the setup; the reps are in the middle). About 120 KB
-each, roughly 19 MB for all 161.
+360px wide, 8 seconds at 12fps, taken from a third of the way into each clip
+(exercise videos open with the setup; the reps are in the middle). About 210 KB
+each, roughly 34 MB for all 168.
 
 Unlike the videos, **previews are published** — they are the whole point of the
 card. Tapping one swaps in the YouTube player, and the × closes it again.

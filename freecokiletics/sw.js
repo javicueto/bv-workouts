@@ -11,7 +11,7 @@
  *   vendor/ and precached with the shell like any other file — no CDN, so
  *   the precache cannot half-fail on a third party at install time.
  */
-const CACHE = "freeco-v70";
+const CACHE = "freeco-v71";
 const SHELL = [
   "./", "./index.html", "./styles.css", "../shared/tokens.css", "./config.js",
   "./theme.js", "./icons.js", "./ui.js", "./store.js", "./timer.js", "./runner.js",
@@ -54,7 +54,11 @@ self.addEventListener("fetch", (e) => {
 async function cacheFirst(req) {
   const hit = await caches.match(req);
   if (hit) return hit;
-  const res = await fetch(req);
+  // cache: "no-cache" for the same reason as networkFirst: previews live in
+  // CACHE, so a bump drops them, but a plain fetch could refill it from the
+  // browser's HTTP cache (max-age=600) with the preview just replaced — the
+  // 4s → 8s rebuild (15 Sep 2026) would then stay 4s on the phone.
+  const res = await fetch(req, { cache: "no-cache" });
   if (res.ok) (await caches.open(CACHE)).put(req, res.clone());
   return res;
 }

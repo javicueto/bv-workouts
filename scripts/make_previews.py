@@ -31,11 +31,14 @@ ROOT = pathlib.Path(__file__).resolve().parent.parent
 VIDEOS = ROOT / "videos"
 PREVIEWS = ROOT / "previews"
 
-# Chosen with Javier on 24 Aug 2026 against real samples. Bigger or longer looks
-# barely better and costs roughly double the bytes on every card.
+# Size, frame rate and quality chosen with Javier on 24 Aug 2026 against real
+# samples. Length doubled from 4s to 8s on 15 Sep 2026 (Javier: "some are too
+# short and the full exercise is not visible") — bytes double with it (median
+# ~84 KB → ~165 KB, all 168 ≈ 35 MB). Every source video is ≥ 6.5s; shorter
+# than 8.5s is taken whole (see build).
 WIDTH = 360          # px on the long edge; cards render ~300px, so crisp on 2x screens
 FPS = 12
-SECONDS = 4
+SECONDS = 8
 QUALITY = 50         # img2webp lossy quality
 # Start a third of the way in: exercise clips open with the setup and someone
 # walking into frame, and the actual reps are in the middle.
