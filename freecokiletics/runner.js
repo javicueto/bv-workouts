@@ -808,7 +808,7 @@ window.Runner = (function () {
     var tb = step.tabata, moves = tb.exercises, cycles = tb.cycles || 8;
     return '<section class="tabata" id="tab">' +
         '<div class="thumb-grid thumb-grid--2">' + moves.map(function (m) {
-          return moveThumb({ id: m.id, name: m.name }); }).join("") + "</div>" +
+          return moveThumb({ id: m.id, name: m.name, reps: m.per_side ? "Left / right" : "" }); }).join("") + "</div>" +
         '<div class="tabata__phase">Ready</div>' +
         '<div class="tabata__time">' + tb.work_seconds + "/" + tb.rest_seconds + "</div>" +
         '<div class="tabata__cycle">' + cycles + " cycles · 4 min · alternating</div>" +
@@ -830,15 +830,25 @@ window.Runner = (function () {
         '<div class="tabata__gif" id="gif"></div>' +
         '<div class="tabata__time" id="t" role="timer"></div>' +
         '<div class="tabata__move" id="mv"></div>' +
+        '<div class="tabata__sides" id="sd" hidden></div>' +
         '<div class="tabata__cycle" id="cy"></div>' +
         '<button class="btn btn--quiet" data-act="skip">Skip block</button>';
       bind(step);
       run();
     }
+    /* The rest after the last cycle has nothing of this Tabata after it
+       (Javier, 15 Sep 2026: it said "Next: Lateral run" when the session was
+       over). It names what really follows: the next block, or the end. */
+    function afterTabata() {
+      var ni = upcomingFrom(state.i + 1);
+      return ni === -1 ? "Last rest · then you’re done" : "Last rest · next: " + upTitle(state.steps[ni], null);
+    }
     function show() {
-      var m = moves[(cycle - 1) % moves.length] || {}, next = moves[cycle % moves.length] || {};
+      var n = moves.length || 1;
+      var m = moves[(cycle - 1) % n] || {}, next = moves[cycle % n] || {};
       var ph = document.getElementById("ph"), gif = document.getElementById("gif");
-      var mv = document.getElementById("mv"), cy = document.getElementById("cy");
+      var mv = document.getElementById("mv"), cy = document.getElementById("cy"), sd = document.getElementById("sd");
+      var lastRest = phase === "rest" && cycle === cycles;
       ph.textContent = phase === "work" ? "Work" : "Rest"; ph.className = "tabata__phase " + phase;
       if (phase === "work") {
         var img = preview(m.id);
@@ -846,8 +856,20 @@ window.Runner = (function () {
         mv.textContent = window.App.cueText(m.name || "");
       } else {
         gif.hidden = true; gif.innerHTML = "";
-        mv.textContent = "Next: " + (next.name || "");
+        mv.textContent = lastRest ? afterTabata() : "Next: " + window.App.cueText(next.name || "");
       }
+      /* One side per interval (data/one_side.json, Javier 15 Sep 2026): Left
+         on the left, Right on the right, the side to do filled. A movement's
+         1st, 3rd… interval is left, its 2nd, 4th… right. In a rest it shows
+         the side coming up, so you can get into position. */
+      var sideMove = phase === "work" ? m : next, sideCycle = phase === "work" ? cycle : cycle + 1;
+      if (sideMove.per_side && !lastRest) {
+        var right = Math.floor((sideCycle - 1) / n) % 2 === 1;
+        sd.innerHTML = '<span class="tabata__side' + (right ? "" : " is-on") + '">Left</span>' +
+          '<span class="tabata__side' + (right ? " is-on" : "") + '">Right</span>';
+        sd.setAttribute("aria-label", (phase === "work" ? "" : "Next: ") + (right ? "right side" : "left side"));
+        sd.hidden = false;
+      } else { sd.hidden = true; sd.innerHTML = ""; }
       cy.textContent = "Cycle " + cycle + " of " + cycles;
       setResting(phase === "rest");
     }

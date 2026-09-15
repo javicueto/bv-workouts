@@ -1,0 +1,7 @@
+{
+  "_about": "Tabata movements done one side per work interval (Javier, 15 Sep 2026). build_freeco.py marks them per_side inside Tabata blocks, and Cokiletics shows Left / Right during the Tabata, alternating, starting left. Keyed by TrueCoach exercise id; the name is only for reading. A new one-sided movement from a programme refresh is NOT in here until added.",
+  "exercises": {
+    "11326993": "Side plank",
+    "11326763": "Side plank raises"
+  }
+}

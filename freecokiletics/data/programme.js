@@ -1506,7 +1506,8 @@ window.PROGRAMME = {
       },
       {
        "id": "11326993",
-       "name": "Side plank"
+       "name": "Side plank",
+       "per_side": true
       }
      ],
      "raw": "Lateral run back and fourth\nSide plank"
@@ -1921,7 +1922,8 @@ window.PROGRAMME = {
       },
       {
        "id": "11326993",
-       "name": "Side plank"
+       "name": "Side plank",
+       "per_side": true
       }
      ],
      "raw": "3 in 3 out\nSide plank"
@@ -2347,7 +2349,8 @@ window.PROGRAMME = {
       },
       {
        "id": "11326763",
-       "name": "Side plank raises"
+       "name": "Side plank raises",
+       "per_side": true
       }
      ],
      "raw": "Obstacle lateral run back and fourth\nSide plank raises"
@@ -4782,7 +4785,8 @@ window.PROGRAMME = {
       },
       {
        "id": "11326993",
-       "name": "Side plank"
+       "name": "Side plank",
+       "per_side": true
       }
      ],
      "raw": "Lateral run back and fourth\nSide plank"

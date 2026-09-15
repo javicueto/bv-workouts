@@ -485,13 +485,25 @@ div.thumb { cursor: default; }
 .rest__after svg { width: 16px; height: 16px; flex: none; }
 
 /* ------------------------------------------------------------ tabata */
-.tabata { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: var(--space-5); text-align: center; }
+.tabata { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: var(--space-4); text-align: center; }
 .tabata__phase { font-size: 14px; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; }
 .tabata__phase.work { color: var(--accent); }
 .tabata__phase.rest { color: var(--cool); }
 .tabata__time { font-size: clamp(80px, 30vw, 128px); font-weight: 800; letter-spacing: -.05em; line-height: 1; font-variant-numeric: tabular-nums; }
 .tabata__move { font-size: 24px; font-weight: 700; }
 .tabata__cycle { color: var(--text-dim); }
+/* Left / Right for a movement done one side per interval (runner.js
+   renderTabata, 15 Sep 2026): each on its own side of the screen, the side
+   to do filled, the other outlined. */
+.tabata__sides { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-3); width: 100%; }
+.tabata__sides[hidden] { display: none; }
+.tabata__side {
+  display: grid; place-items: center; min-height: 56px;
+  border: 1px solid var(--line-strong); border-radius: var(--radius);
+  font-family: var(--font-display); font-size: 22px; font-weight: 800; letter-spacing: .04em; text-transform: uppercase;
+  color: var(--text-faint);
+}
+.tabata__side.is-on { background: var(--accent); border-color: var(--accent); color: var(--accent-ink); }
 
 /* ------------------------------------------------------------ plan weeks */
 .week-row { display: flex; align-items: center; gap: var(--space-3); padding: var(--space-3) 0; border-bottom: 1px solid var(--line-soft); }
@@ -523,11 +535,15 @@ body.is-resting .runner .btn--ghost { color: var(--rest-ink); }
 body.is-resting .runner .btn--primary { background: var(--rest-ink); color: var(--rest); border-color: var(--rest-ink); }  /* blue+white is 5.96:1 — fine */
 body.is-resting .runner .btn--quiet { color: var(--rest-ink-dim); }
 body.is-resting .runner .tabata__phase.rest { color: var(--rest-ink); }
+body.is-resting .runner .tabata__side { border-color: var(--rest-line-strong); color: var(--rest-ink-dim); }
+body.is-resting .runner .tabata__side.is-on { background: var(--rest-ink); border-color: var(--rest-ink); color: var(--rest); }
 body.is-resting .runner :where(a, button, input, [tabindex]):focus-visible { outline-color: var(--rest-ink); }
 
 /* ------------------------------------------------------------ Tabata running */
 .tabata__gif { width: 100%; }
-.tabata__gif img { width: 100%; max-width: 340px; margin: 0 auto; aspect-ratio: 1; object-fit: cover; border-radius: var(--radius); display: block; background: #000; }
+/* The square preview gives way to the screen's height (36svh ≈ 292px on a
+   375×812 phone) so the Left / Right pair and Skip block still fit. */
+.tabata__gif img { width: 100%; max-width: min(340px, 36svh); margin: 0 auto; aspect-ratio: 1; object-fit: cover; border-radius: var(--radius); display: block; background: #000; }
 
 /* ------------------------------------------------------------ timed hold */
 .btn--hold {

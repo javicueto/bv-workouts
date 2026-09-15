@@ -24,6 +24,7 @@ ROOT = pathlib.Path(__file__).resolve().parent.parent
 SRC = ROOT / "data" / "workouts.js"
 OVERRIDES = ROOT / "freecokiletics" / "data" / "programme_overrides.json"
 NO_WEIGHT = ROOT / "freecokiletics" / "data" / "no_weight.json"    # exercises with no weight to log
+ONE_SIDE = ROOT / "freecokiletics" / "data" / "one_side.json"      # Tabata movements done one side per interval
 OUT = ROOT / "freecokiletics" / "data" / "programme.js"
 
 # Blocks with no rest written are the prehab/core circuits. Javier's call
@@ -274,6 +275,25 @@ def main():
                 for e in b.get("exercises", []):
                     if e.get("id") in no_weight:
                         e["no_weight"] = True
+
+    # Tabata movements done one side per work interval — side plank (Javier,
+    # 15 Sep 2026; see the file's _about). The coach's Tabata text carries no
+    # "/side", so the flag comes from this list; the app alternates Left / Right.
+    if ONE_SIDE.exists():
+        one_side = set(json.loads(ONE_SIDE.read_text())["exercises"])
+        missing = sorted(i for i in one_side if i not in ex)
+        if missing:
+            print(f"  one_side.json lists exercises this programme does not have: {', '.join(missing)}")
+        marked = 0
+        for s in sessions:
+            for b in s["blocks"]:
+                if b.get("kind") != "tabata":
+                    continue
+                for e in b["exercises"]:
+                    if e.get("id") in one_side:
+                        e["per_side"] = True
+                        marked += 1
+        print(f"  {marked} Tabata movements marked one side per interval")
 
     exercises = {i: {"id": i, "name": e["name"], "youtube_id": e["youtube_id"],
                      "has_preview": e["has_preview"], **({"no_weight": True} if i in no_weight else {})}
