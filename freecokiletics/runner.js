@@ -607,7 +607,7 @@ window.Runner = (function () {
       '<span class="thumb__name">' + (m.reps ? "<b>" + esc(m.reps) + "</b> " : "") + window.App.cueHTML(m.name) + "</span></" + tag + ">";
   }
 
-  function zoom(id) { UI.zoomImage(preview(id), window.App.cueText((P.exercises[id] || {}).name || "")); }
+  function zoom(id) { var e = P.exercises[id] || {}; UI.zoomImage(preview(id), window.App.cueText(e.name || ""), e.youtube_id); }
 
   /* Timed hold (30″ plank…): takes over the whole screen, like the rest timer
      but orange — you can't read a small button face-down in a plank. A 3-2-1

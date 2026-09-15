@@ -213,7 +213,8 @@
     app.querySelectorAll("[data-zoom]").forEach(function (btn) {
       btn.addEventListener("click", function () {
         var id = btn.getAttribute("data-zoom");
-        UI.zoomImage(A.previewUrl(id), A.cueText((A.P.exercises[id] || {}).name || ""));
+        var ex = A.P.exercises[id] || {};
+        UI.zoomImage(A.previewUrl(id), A.cueText(ex.name || ""), ex.youtube_id);
       });
     });
     if (rec) bindRecord(ctx);

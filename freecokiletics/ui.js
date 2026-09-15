@@ -108,16 +108,22 @@ window.UI = (function () {
      the runner's thumbnails and the read-only session screen both open it, so
      the two cannot drift. Escape, the Close button or a tap anywhere closes it,
      and focus goes back to the thumbnail that opened it (UI.overlay). */
-  function zoomImage(src, name) {
+  /* With a YouTube id, a link to the full video sits under the preview
+     (Javier, 15 Sep 2026: after seeing the loop big you may still want the
+     whole exercise). It opens outside the app and does NOT close this view,
+     so the preview is still there when you come back. */
+  function zoomImage(src, name, youtubeId) {
     var ov = document.createElement("div");
     ov.className = "zoom";
     ov.innerHTML = (src ? '<img src="' + esc(src) + '" alt="">' : "") +
       '<div class="zoom__name">' + esc(name || "") + "</div>" +
+      (youtubeId ? '<a class="btn btn--ghost zoom__yt" href="https://www.youtube.com/watch?v=' + encodeURIComponent(youtubeId) +
+        '" target="_blank" rel="noopener">' + ICONS.external + "Full video on YouTube</a>" : "") +
       '<button class="btn btn--ghost zoom__close" type="button">Close</button>' +
       '<div class="faint" style="font-size:13px">Or tap anywhere</div>';
     var release;
     function close() { release(); ov.remove(); }
-    ov.addEventListener("click", close);
+    ov.addEventListener("click", function (e) { if (!e.target.closest(".zoom__yt")) close(); });
     release = overlay(ov, name || "Preview", close);
   }
 
