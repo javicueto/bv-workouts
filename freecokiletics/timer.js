@@ -95,6 +95,25 @@ window.Sound = (function () {
   document.addEventListener("visibilitychange", onVisible);
   window.addEventListener("focus", onVisible);
 
+  /* The pause screen's Test (Javier, 16 Sep 2026: "a button to restart the
+     sounds in case they are not working"). It runs inside that tap, the one
+     moment iPhone always lets audio start: throws the audio away, builds it
+     fresh and plays one short beep, so the same tap repairs and proves it.
+     Does nothing when muted or outside a session. */
+  function repair() {
+    if (!wanted || muted()) return false;
+    closeCtx();
+    unlock();
+    tone(880, 0.14, 0.45, "sine");
+    return true;
+  }
+  /* Sound should be playing and can't: wanted, not muted, but the audio has
+     not been running for over 2 seconds, so every cue is being dropped. The
+     session's Pause button shows a dot while this is true (runner.js). */
+  function stuck() {
+    return wanted && !muted() && !!ctx && ctx.state !== "running" && Date.now() - createdAt > 2000;
+  }
+
   function tone(freq, seconds, gain, type, when) {
     if (!ctx || muted()) return;             // every cue goes through here, so mute covers them all
     /* A cue fired while the context is not running is DROPPED, not queued.
@@ -128,6 +147,8 @@ window.Sound = (function () {
     unlock: unlock,
     want: want,
     state: function () { return ctx ? ctx.state : "not started"; },
+    repair: repair,
+    stuck: stuck,
     muted: muted,
     toggleMuted: function () { setMuted(!muted()); return muted(); },
     // The session intro: soft sine blips, a fraction of the timer cues' volume

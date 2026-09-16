@@ -19,7 +19,7 @@
     // were only saved on the first logged round. Offered for one-tap removal.
     var empty = rows.filter(function (w) { return !w.finished_at && !w.set_count; });
     var real = rows.filter(function (w) { return empty.indexOf(w) === -1; });
-    app.innerHTML = topbar("History", "#/") +
+    app.innerHTML = topbar("History", "#/") + A.savedNotice(Store.savedAt(rows)) +
       (empty.length
         ? '<div class="card stack"><p><b>' + empty.length + " empty session" + (empty.length > 1 ? "s" : "") + "</b> — opened but nothing logged.</p>" +
           '<button class="btn btn--ghost btn--block" id="clr">Remove ' + (empty.length > 1 ? "them" : "it") + "</button></div>"
@@ -38,6 +38,7 @@
           (w.finished_at ? '<span class="badge badge--good">Done ✓</span>' : '<span class="badge">Partial</span>') + "</div></a>";
       }).join("") + "</div>" : (empty.length ? "" : '<p class="dim">Nothing logged yet.</p>'));
 
+    A.bindRetry(renderHistory);                    // the saved-copy notice's Retry, when there is one
     var clr = document.getElementById("clr");
     if (clr) clr.addEventListener("click", function () {
       UI.confirm({ title: "Remove " + empty.length + " empty session" + (empty.length > 1 ? "s" : "") + "?",

@@ -196,7 +196,7 @@
   function draw(ctx) {
     var s = ctx.s, rec = ctx.record, w = rec && rec.w;
     var wq = ctx.weekStart ? "?w=" + encodeURIComponent(ctx.weekStart) : "";
-    var html = topbar(null, ctx.back) +
+    var html = topbar(null, ctx.back) + A.savedNotice(ctx.savedAt) +
       '<div class="stack">' +
         '<div class="eyebrow">' + (s ? "Block " + s.block + " · session " + s.variant : "Workout") + "</div>" +
         "<h1>" + esc(s ? s.title : "Workout " + ctx.key) + "</h1>" +
@@ -388,7 +388,8 @@
     var byKey = {};
     sets.forEach(function (x) { byKey[setKey(x.block_letter, x.round, x.exercise_id)] = x; });
     draw({ s: A.sessionByKey(w.session_key), key: w.session_key, weekStart: w.week_start, back: back,
-           record: { id: id, w: w, sets: sets, byKey: byKey } });
+           record: { id: id, w: w, sets: sets, byKey: byKey }, savedAt: Store.savedAt(sets) || Store.savedAt(w) });
+    if (Store.savedAt(sets) || Store.savedAt(w)) A.bindRetry(function () { renderWorkout(id); });
   };
 
   V.renderLog = function (key, weekStart) {

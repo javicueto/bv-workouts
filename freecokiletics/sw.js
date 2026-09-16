@@ -4,19 +4,22 @@
  *   network fails or takes more than 3s. It used to be stale-while-revalidate,
  *   which served the old copy first — so every fix only reached the phone on
  *   the SECOND reload. Bump CACHE when the shell changes so old files go.
- * - Exercise previews (../previews/*.webp): cached the first time they are
- *   seen, so a session you have opened once works fully offline afterwards.
+ * - Exercise previews (../previews/*.webp?v=…): kept in their OWN cache,
+ *   PREVIEWS, which a CACHE bump never deletes — an app update must not throw
+ *   35 MB away. offline.js fills it in the background and prunes old
+ *   versions; a preview requested before then is saved on the way.
  * - Supabase data: never cached — always network. The app keeps its own
  *   offline queue for writes. The Supabase CLIENT LIBRARY is vendored in
  *   vendor/ and precached with the shell like any other file — no CDN, so
  *   the precache cannot half-fail on a third party at install time.
  */
-const CACHE = "freeco-v81";
+const CACHE = "freeco-v82";
+const PREVIEWS = "freeco-previews";     // not versioned with CACHE — see above; same name in offline.js
 const SHELL = [
   "./", "./index.html", "./styles.css", "../shared/tokens.css", "./config.js",
   "./theme.js", "./icons.js", "./ui.js", "./store.js", "./timer.js", "./runner.js",
   "./core.js", "./views/auth.js", "./views/home.js", "./views/plan.js", "./views/session.js",
-  "./views/history.js", "./app.js",
+  "./views/history.js", "./offline.js", "./app.js",
   "./data/programme.js",
   "./vendor/supabase-js-2.116.0.min.js",     // keep in step with index.html
   // Self-hosted type. Both are variable fonts — one file per family.
@@ -37,7 +40,7 @@ self.addEventListener("install", (e) => {
 
 self.addEventListener("activate", (e) => {
   e.waitUntil(
-    caches.keys().then((keys) => Promise.all(keys.filter((k) => k !== CACHE).map((k) => caches.delete(k))))
+    caches.keys().then((keys) => Promise.all(keys.filter((k) => k !== CACHE && k !== PREVIEWS).map((k) => caches.delete(k))))
       .then(() => self.clients.claim())
   );
 });
@@ -47,19 +50,18 @@ self.addEventListener("fetch", (e) => {
   if (e.request.method !== "GET") return;
   if (url.hostname.endsWith("supabase.co")) return;          // live data, never cached
   if (url.origin !== location.origin) return;
-  if (url.pathname.includes("/previews/")) { e.respondWith(cacheFirst(e.request)); return; }
+  if (url.pathname.includes("/previews/")) { e.respondWith(previewFirst(e.request)); return; }
   e.respondWith(networkFirst(e.request));
 });
 
-async function cacheFirst(req) {
-  const hit = await caches.match(req);
+async function previewFirst(req) {
+  const cache = await caches.open(PREVIEWS);
+  const hit = await cache.match(req);       // the exact address, ?v= included
   if (hit) return hit;
-  // cache: "no-cache" for the same reason as networkFirst: previews live in
-  // CACHE, so a bump drops them, but a plain fetch could refill it from the
-  // browser's HTTP cache (max-age=600) with the preview just replaced — the
-  // 4s → 8s rebuild (15 Sep 2026) would then stay 4s on the phone.
+  // cache: "no-cache" for the same reason as networkFirst: never take a copy
+  // the browser's HTTP cache (max-age=600) may still hold.
   const res = await fetch(req, { cache: "no-cache" });
-  if (res.ok) (await caches.open(CACHE)).put(req, res.clone());
+  if (res.ok) cache.put(req, res.clone());
   return res;
 }
 

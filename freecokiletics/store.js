@@ -99,7 +99,8 @@ window.Store = (function () {
      (theme, "not now" on the install card) are not the account's and stay. */
   async function signOut() {
     try {
-      [PLAN_KEY, LAST_KEY, Q_KEY, SESSION_KEY, MEMBER_KEY].forEach(function (k) { localStorage.removeItem(k); });
+      [PLAN_KEY, LAST_KEY, Q_KEY, SESSION_KEY, MEMBER_KEY, COPY_DONE, COPY_HISTORY, COPY_WORKOUTS]
+        .forEach(function (k) { localStorage.removeItem(k); });
     } catch (e) {}
     notify();
     if (sb()) { try { await timed(sb().auth.signOut()); } catch (e) { /* offline: the local session is gone regardless */ } }
@@ -362,6 +363,7 @@ window.Store = (function () {
     q.push({ table: "workouts", op: "delete", id: id, qid: uuid() });
     writeQ(q);
     forgetWorkout(id);
+    dropFromCopies(id);                 // or it would come back from a saved copy offline
     return flush();
   }
   /* The local "last time" copy forgets a deleted workout: each exercise it
@@ -378,24 +380,129 @@ window.Store = (function () {
   }
   function saveSet(row) { rememberWeight(row.exercise_id, row.round, row.weight, row.reps, row.done_at, row.workout_id); enqueue({ table: "sets", row: row }); }
 
-  /* The reads below THROW when the server cannot be reached or refuses (they
-     used to return an empty list, which painted "Nothing logged yet" over a
-     real history). The screens catch and offer Retry. */
+  // ------------------------------------------------------------- saved copies
+  /* Offline by default (Javier, 16 Sep 2026). Each read below that reaches the
+     server keeps what it said on this phone; when the server can't be reached
+     the copy answers instead, marked with when it was saved — Store.savedAt(
+     result) — so the screen can say "Offline · as of 18:40". Whatever is still
+     waiting in the upload queue is laid over the answer either way, so a
+     session finished with no signal counts as done at once and a deleted one
+     is gone at once. Account data: cleared on sign-out. */
+  var COPY_DONE = "freeco.copy.done";          // finished workouts by week (Home)
+  var COPY_HISTORY = "freeco.copy.history";    // the History list
+  var COPY_WORKOUTS = "freeco.copy.workouts";  // the sets of recent and opened workouts
+  var COPY_WORKOUTS_MAX = 40;
+  function readCopy(key) { try { return JSON.parse(localStorage.getItem(key) || "null"); } catch (e) { return null; } }
+  function writeCopy(key, v) { try { localStorage.setItem(key, JSON.stringify(v)); } catch (e) {} }
+  function stamp(result, at) {
+    if (at && result && typeof result === "object") Object.defineProperty(result, "savedAt", { value: at, enumerable: false });
+    return result;
+  }
+  function savedAt(result) { return (result && result.savedAt) || null; }
+  // With no network at all, fail at once instead of waiting out REQUEST_TIMEOUT_MS.
+  function needNetwork() { if (!navigator.onLine) throw new Error("You’re offline."); }
+
+  /* The queue read as data: the latest version of each workout waiting to
+     upload (a session is queued when it starts and again when it finishes —
+     the later wins), the ids waiting to be deleted, and the waiting sets. */
+  function queued(userId) {
+    var workouts = {}, deleted = {}, sets = [];
+    readQ().forEach(function (op) {
+      if (op.op === "delete") { deleted[op.id] = true; delete workouts[op.id]; return; }
+      if (!op.row) return;
+      if (op.table === "workouts") {
+        if (userId && op.row.user_id && op.row.user_id !== userId) return;
+        workouts[op.row.id] = Object.assign({}, workouts[op.row.id] || {}, op.row);
+      } else if (op.table === "sets") sets.push(op.row);
+    });
+    return { workouts: workouts, deleted: deleted, sets: sets };
+  }
+  function withQueued(rows, qd) {
+    var byId = {}, order = [];
+    rows.forEach(function (w) { if (!qd.deleted[w.id]) { byId[w.id] = w; order.push(w.id); } });
+    Object.keys(qd.workouts).forEach(function (id) {
+      if (byId[id]) byId[id] = Object.assign({}, byId[id], qd.workouts[id]);
+      else { byId[id] = qd.workouts[id]; order.push(id); }
+    });
+    return order.map(function (id) { return byId[id]; });
+  }
+  function dropFromCopies(id) {
+    [COPY_DONE, COPY_HISTORY].forEach(function (key) {
+      var c = readCopy(key);
+      if (c && c.rows) { c.rows = c.rows.filter(function (w) { return w.id !== id; }); writeCopy(key, c); }
+    });
+    var ws = readCopy(COPY_WORKOUTS);
+    if (ws && ws.items && ws.items[id]) {
+      delete ws.items[id]; ws.order = ws.order.filter(function (x) { return x !== id; }); writeCopy(COPY_WORKOUTS, ws);
+    }
+  }
+  // Newest first; the oldest past COPY_WORKOUTS_MAX are dropped.
+  function keepSets(byWorkout, at) {
+    var c = readCopy(COPY_WORKOUTS);
+    if (!c || !c.items) c = { items: {}, order: [] };
+    Object.keys(byWorkout).reverse().forEach(function (id) {
+      c.items[id] = { at: at, sets: byWorkout[id] };
+      c.order = [id].concat(c.order.filter(function (x) { return x !== id; }));
+    });
+    c.order.slice(COPY_WORKOUTS_MAX).forEach(function (id) { delete c.items[id]; });
+    c.order = c.order.slice(0, COPY_WORKOUTS_MAX);
+    writeCopy(COPY_WORKOUTS, c);
+  }
+  function newest(field) {
+    return function (a, b) { return (a[field] || "") < (b[field] || "") ? 1 : (a[field] || "") > (b[field] || "") ? -1 : 0; };
+  }
+
+  /* The reads below THROW when the server cannot be reached and there is no
+     saved copy (they used to return an empty list, which painted "Nothing
+     logged yet" over a real history). The screens catch and offer Retry. */
   async function history(userId, limit) {
     if (!sb() || !userId) return [];
-    // Embedded count of each workout's sets, so History can spot the empty
-    // unfinished ones (a session opened and left without logging anything).
-    var rows = await q(sb().from(T_WORKOUTS).select("*, freeco_sets(count)").eq("user_id", userId)
-      .order("started_at", { ascending: false }).limit(limit || 60));
-    return rows.map(function (w) {
-      w.set_count = (w.freeco_sets && w.freeco_sets[0] && w.freeco_sets[0].count) || 0;
-      delete w.freeco_sets;
-      return w;
-    });
+    var rows, at = null;
+    try {
+      needNetwork();
+      // Embedded count of each workout's sets, so History can spot the empty
+      // unfinished ones (a session opened and left without logging anything).
+      rows = (await q(sb().from(T_WORKOUTS).select("*, freeco_sets(count)").eq("user_id", userId)
+        .order("started_at", { ascending: false }).limit(limit || 60))).map(function (w) {
+          w.set_count = (w.freeco_sets && w.freeco_sets[0] && w.freeco_sets[0].count) || 0;
+          delete w.freeco_sets;
+          return w;
+        });
+      writeCopy(COPY_HISTORY, { user: userId, at: new Date().toISOString(), rows: rows });
+    } catch (e) {
+      var c = readCopy(COPY_HISTORY);
+      if (!c || c.user !== userId) throw e;
+      rows = c.rows; at = c.at;
+    }
+    var qd = queued(userId);
+    rows = withQueued(rows, qd).map(function (w) {
+      var waiting = qd.sets.filter(function (x) { return x.workout_id === w.id; }).length;
+      return waiting ? Object.assign({}, w, { set_count: (w.set_count || 0) + waiting }) : w;
+    }).sort(newest("started_at")).slice(0, limit || 60);
+    return stamp(rows, at);
   }
   async function setsFor(workoutId) {
     if (!sb()) return [];
-    return q(sb().from(T_SETS).select("*").eq("workout_id", workoutId).order("done_at"));
+    var sets, at = null, qd = queued();
+    var waiting = qd.sets.filter(function (x) { return x.workout_id === workoutId; });
+    try {
+      needNetwork();
+      sets = await q(sb().from(T_SETS).select("*").eq("workout_id", workoutId).order("done_at"));
+      var one = {}; one[workoutId] = sets;
+      keepSets(one, new Date().toISOString());
+    } catch (e) {
+      var c = readCopy(COPY_WORKOUTS), item = c && c.items && c.items[workoutId];
+      if (!item && !waiting.length) throw e;
+      sets = item ? item.sets : []; at = item ? item.at : null;
+    }
+    var byId = {}, order = [];
+    sets.concat(waiting).forEach(function (x) {
+      if (!byId[x.id]) order.push(x.id);
+      byId[x.id] = Object.assign({}, byId[x.id] || {}, x);
+    });
+    var out = order.map(function (id) { return byId[id]; })
+      .sort(function (a, b) { return (a.done_at || "") < (b.done_at || "") ? -1 : (a.done_at || "") > (b.done_at || "") ? 1 : 0; });
+    return stamp(out, at);
   }
   /* Finished workouts from `fromWeekStart` onwards, grouped
      week → session key → the most recent workout for it, carrying how many
@@ -408,20 +515,67 @@ window.Store = (function () {
      asking "what is still open from earlier weeks" costs no extra request. */
   async function doneByWeek(userId, fromWeekStart) {
     if (!sb() || !userId) return {};
-    var rows = await q(sb().from(T_WORKOUTS).select("*")
-      .eq("user_id", userId).gte("week_start", fromWeekStart).not("finished_at", "is", null)
-      .order("finished_at", { ascending: false }));
+    var rows, at = null;
+    try {
+      needNetwork();
+      rows = await q(sb().from(T_WORKOUTS).select("*")
+        .eq("user_id", userId).gte("week_start", fromWeekStart).not("finished_at", "is", null)
+        .order("finished_at", { ascending: false }));
+      // The copy only grows backwards: weeks before this read keep what a
+      // wider read saved earlier, so swiping back offline still has them.
+      var old = readCopy(COPY_DONE), mine = !!(old && old.user === userId);
+      writeCopy(COPY_DONE, { user: userId, at: new Date().toISOString(),
+        from: mine && old.from < fromWeekStart ? old.from : fromWeekStart,
+        rows: (mine ? old.rows.filter(function (w) { return w.week_start < fromWeekStart; }) : []).concat(rows) });
+    } catch (e) {
+      var c = readCopy(COPY_DONE);
+      if (!c || c.user !== userId || c.from > fromWeekStart) throw e;     // no copy that covers these weeks
+      rows = c.rows; at = c.at;
+    }
+    rows = withQueued(rows, queued(userId))
+      .filter(function (w) { return w.finished_at && w.week_start && w.week_start >= fromWeekStart; })
+      .sort(newest("finished_at"));
     var out = {};
     rows.forEach(function (w) {
       var m = out[w.week_start] || (out[w.week_start] = {});
       if (!m[w.session_key]) { m[w.session_key] = w; w.times = 1; w.runs = [w]; }
       else { m[w.session_key].times++; m[w.session_key].runs.push(w); }
     });
-    return out;                        // newest first, so runs[0] is the latest
+    return stamp(out, at);             // newest first, so runs[0] is the latest
   }
   async function workout(id) {
     if (!sb()) return null;
-    return q(sb().from(T_WORKOUTS).select("*").eq("id", id).maybeSingle());
+    var qd = queued(), row = null, at = null;
+    if (qd.deleted[id]) return null;
+    try {
+      needNetwork();
+      row = await q(sb().from(T_WORKOUTS).select("*").eq("id", id).maybeSingle());
+    } catch (e) {
+      // Offline: the row as History or Home last saw it.
+      [readCopy(COPY_HISTORY), readCopy(COPY_DONE)].some(function (c) {
+        var hit = c && c.rows && c.rows.filter(function (w) { return w.id === id; })[0];
+        if (hit) { row = hit; at = c.at; }
+        return !!hit;
+      });
+      if (!row && !qd.workouts[id]) throw e;
+    }
+    if (qd.workouts[id]) row = Object.assign({}, row || {}, qd.workouts[id]);
+    return row ? stamp(row, at) : null;
+  }
+  /* In the background once the app is open (offline.js): History, and with it
+     the sets of the latest finished workouts in ONE query, so those open with
+     no signal even if they were never opened on this phone. Home keeps its
+     own copy of done weeks on every visit. */
+  async function warmOffline(userId) {
+    if (!sb() || !userId || !navigator.onLine) return;
+    var rows = await history(userId, 120);
+    var ids = rows.filter(function (w) { return w.finished_at; }).slice(0, COPY_WORKOUTS_MAX).map(function (w) { return w.id; });
+    if (!ids.length) return;
+    var sets = await q(sb().from(T_SETS).select("*").in("workout_id", ids).order("done_at"));
+    var by = {};
+    ids.forEach(function (id) { by[id] = []; });
+    sets.forEach(function (x) { if (by[x.workout_id]) by[x.workout_id].push(x); });
+    keepSets(by, new Date().toISOString());
   }
 
   return {
@@ -430,6 +584,7 @@ window.Store = (function () {
     plan: plan, savePlan: savePlan, isMember: isMember,
     uuid: uuid, saveWorkout: saveWorkout, saveSet: saveSet, lastForExercises: lastForExercises,
     history: history, setsFor: setsFor, doneByWeek: doneByWeek, workout: workout, deleteWorkout: deleteWorkout,
+    warmOffline: warmOffline, savedAt: savedAt,
     flush: flush, pending: function () { return readQ().length; },
     onQueue: function (fn) { listeners.push(fn); },
   };

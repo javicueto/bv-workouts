@@ -86,7 +86,10 @@ window.App = (function () {
      copies tuned for a live session; these are the quiet, at-a-glance versions.
      Never invent a number here — only restate what the programme says. */
   function previewUrl(id) {
-    return P.exercises[id] && P.exercises[id].has_preview ? "../previews/" + id + ".webp" : "";
+    // ?v= is the file's content version (build_freeco.py preview_v): a rebuilt
+    // preview is a new address, so the offline copy fetches it again (offline.js).
+    var e = P.exercises[id];
+    return e && e.has_preview ? "../previews/" + id + ".webp" + (e.preview_v ? "?v=" + e.preview_v : "") : "";
   }
   function repsLabel(e) {
     if (e.holds && e.seconds) return e.holds + " × " + dur(e.seconds);
@@ -222,11 +225,14 @@ window.App = (function () {
         themeLabel() + "</button>" +
       '<button class="menu__item menu__item--icon" type="button" id="sound">' +
         soundLabel() + "</button>" +
+      // How much is saved for offline (offline.js keeps it current).
+      '<div class="menu__note" id="offline-note"' + (offlineText() ? "" : " hidden") + ">" + UI.esc(offlineText()) + "</div>" +
       '<div class="menu__sep"></div>' +
       '<button class="menu__item" type="button" id="cp">Change password</button>' +
       '<button class="menu__item" type="button" id="out">Sign out</button>' +
       "</div>";
   }
+  function offlineText() { return window.Offline ? window.Offline.label() : ""; }
   // Offers the mode you would be switching TO, which is the thing you are choosing.
   function themeLabel() {
     return Theme.current() === "dark"
@@ -285,6 +291,16 @@ window.App = (function () {
   /* A read that failed or timed out. Every screen that waits on the server
      shows this instead of sitting on "Loading…": what went wrong in plain
      words, and one button that tries again. bindRetry(fn) wires it. */
+  /* A screen showing a copy kept on this phone (Store.savedAt) says so, with
+     when, and offers Retry: "Offline · as of 18:40", or with the day when it
+     is not today. bindRetry wires the button like loadError's. */
+  function savedNotice(at, label) {
+    if (!at) return "";
+    var A = window.App, today = new Date().toDateString() === new Date(at).toDateString();
+    return '<div class="notice" role="status"><span>Offline · ' + UI.esc(label || "as of") + " " +
+      (today ? "" : UI.esc(A.dayDate(at)) + ", ") + UI.esc(A.hhmm(at)) +
+      '</span><button class="btn btn--quiet" type="button" id="retry">Retry</button></div>';
+  }
   function loadError(err) {
     var msg = !navigator.onLine ? "You’re offline." : ((err && err.message) || "Couldn’t reach the server.");
     return '<div class="card stack load-error" role="alert"><p><b>Couldn’t load this.</b></p>' +
@@ -367,7 +383,7 @@ window.App = (function () {
     fmt: fmt, fmtRange: fmtRange, dateVal: dateVal, timeVal: timeVal, hhmm: hhmm, longDate: longDate,
     dayDate: dayDate, today: today, isoDate: isoDate, mondayOf: mondayOf, nextMonday: nextMonday, timesFrom: timesFrom,
     weekFor: weekFor, sessionsFor: sessionsFor, sessionByKey: sessionByKey,
-    topbar: topbar, renderSetup: renderSetup, loadError: loadError, bindRetry: bindRetry,
+    topbar: topbar, renderSetup: renderSetup, loadError: loadError, bindRetry: bindRetry, savedNotice: savedNotice,
     isInstalled: isInstalled, installCard: installCard, bindInstall: bindInstall, syncBadge: syncBadge,
   };
 })();

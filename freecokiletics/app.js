@@ -75,6 +75,7 @@
       if (S.PLAN) S.WEEKS = A.buildWeeks(S.PLAN);
     }
     Store.flush();
+    Offline.start();              // offline by default: previews and saved copies (offline.js)
     var h = location.hash || "#/";
     // A new account has no plan yet — nothing else makes sense until it does.
     if (!S.PLAN && h !== "#/plan/edit") { V.renderPlanEdit(); return; }

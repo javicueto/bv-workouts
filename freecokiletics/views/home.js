@@ -77,6 +77,8 @@
       (ix !== nowWf.index && nowWf.week ? '<a class="week-nav__today" href="#/">Back to this week</a>' : "") +
       (doneErr ? '<div class="notice" role="status"><span>' + (navigator.onLine ? "Couldn’t check what’s done this week." : "Offline — done sessions can’t be checked.") +
                  '</span><button class="btn btn--quiet" type="button" id="retry">Retry</button></div>' : "") +
+      // Offline with a saved copy: the done cards are real, and dated.
+      (doneErr ? "" : A.savedNotice(Store.savedAt(byWeek), "done sessions as of")) +
       '<div class="stack">' +
       '<div class="eyebrow">' + esc(w.phase) + " · week " + w.week_of_block + " of " + w.weeks_in_block + "</div>" +
       "<h1>Block " + w.block + "</h1>" +

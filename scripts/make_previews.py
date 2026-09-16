@@ -149,6 +149,8 @@ def main():
     count = len(list(PREVIEWS.glob("*.webp")))
     print(f"previews: {count} files, {total / 1024 / 1024:.1f} MB "
           f"(avg {total / max(count, 1) / 1024:.0f} KB) — {made} built, {skipped} already current")
+    if made:
+        print("  now run scripts/build_freeco.py (refresh.sh does): the app asks for each preview by its version")
     if failures:
         print("  !! failed:")
         for f in failures:

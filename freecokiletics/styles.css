@@ -405,6 +405,13 @@ p  { margin: 0; }
    word is for screen readers only and both sides go back to 52px. */
 .runner { --head-side: 80px; }
 .btn--pause { width: var(--head-side); min-height: 52px; padding: 0; gap: var(--space-1); color: var(--text); font-size: 15px; flex: none; }
+/* A dot on Pause while sound should be playing and has stopped (runner.js
+   paintClock, Sound.stuck); the pause screen's Test repairs it. */
+.btn--pause { position: relative; }
+.btn--pause.has-alert::after {
+  content: ""; position: absolute; top: 7px; right: 7px;
+  width: 8px; height: 8px; border-radius: 50%; background: var(--accent);
+}
 @media (max-width: 359px) {
   .runner { --head-side: 52px; }
   .btn--pause svg { width: 24px; height: 24px; }
@@ -952,6 +959,11 @@ input[type="time"].input--inline { width: 6em; }
 .pause-screen__title { font-size: 24px; font-weight: 700; }
 .pause-screen__time { font-family: var(--font-display); font-size: 64px; font-weight: 800; line-height: 1; font-variant-numeric: tabular-nums; color: var(--text-dim); }
 .pause-screen__actions { display: grid; gap: var(--space-3); width: 100%; max-width: 420px; margin-top: var(--space-5); }
+/* Sound on · Test · Mute (runner.js soundRowHTML). */
+.pause-sound { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 0 var(--space-2); margin-top: var(--space-2); }
+.pause-sound__state { font-size: 14px; color: var(--text-dim); margin-right: var(--space-1); }
+.pause-sound__state.is-stuck { color: var(--accent); font-weight: 650; }
+.pause-sound__btn { min-height: var(--tap); padding: 0 var(--space-3); font-size: 15px; }
 
 .hold-screen {
   position: fixed; inset: 0; z-index: 55;
@@ -1021,6 +1033,9 @@ input[type="time"].input--inline { width: 6em; }
    silently beats the browser's own `[hidden] { display: none }`, so the panel
    stayed painted while JS happily toggled .hidden. Never give .menu a display
    value without keeping .menu[hidden] next to it. */
+/* How much is saved for offline (offline.js): a line of information, not an item. */
+.menu__note { padding: var(--space-2) var(--space-3); font-size: 12px; line-height: 1.35; color: var(--text-faint); }
+.menu__note[hidden] { display: none; }
 .menu[hidden] { display: none; }
 .menu:not([hidden]) { transform-origin: top right; animation: m-drop var(--dur-leave) var(--ease-out); }   /* motion: drops in */
 .menu {

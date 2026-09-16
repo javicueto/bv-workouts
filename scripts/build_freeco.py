@@ -17,6 +17,7 @@ Usage:  python3 scripts/build_freeco.py
 import difflib
 import json
 import pathlib
+import hashlib
 import re
 import sys
 
@@ -295,9 +296,22 @@ def main():
                         marked += 1
         print(f"  {marked} Tabata movements marked one side per interval")
 
-    exercises = {i: {"id": i, "name": e["name"], "youtube_id": e["youtube_id"],
-                     "has_preview": e["has_preview"], **({"no_weight": True} if i in no_weight else {})}
-                 for i, e in ex.items()}
+    # preview_v: a short hash of the preview file. The app asks for
+    # previews/<id>.webp?v=<preview_v>, so a rebuilt preview is a new address:
+    # the offline copy on the phone (the freeco-previews cache) fetches it again
+    # and drops the old one, and nothing unchanged downloads twice. Run this
+    # build after make_previews.py (refresh.sh does).
+    exercises = {}
+    for i, e in ex.items():
+        row = {"id": i, "name": e["name"], "youtube_id": e["youtube_id"], "has_preview": e["has_preview"]}
+        if e["has_preview"]:
+            f = ROOT / "previews" / f"{i}.webp"
+            if not f.exists():
+                sys.exit(f"  {i} is marked has_preview but previews/{i}.webp is missing")
+            row["preview_v"] = hashlib.sha1(f.read_bytes()).hexdigest()[:8]
+        if i in no_weight:
+            row["no_weight"] = True
+        exercises[i] = row
     print(f"  {sum(1 for i in ex if i in no_weight)} exercises marked no weight")
     payload = {"generated_from": "data/workouts.js", "session_count": len(sessions),
                "exercises": exercises, "sessions": sessions}

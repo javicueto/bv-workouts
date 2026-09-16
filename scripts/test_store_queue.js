@@ -23,6 +23,11 @@
  *   8. …except a workout still waiting to upload, whose weights stay.
  *   9. A workout restarted and discarded within minutes restores the one
  *      before — sessions are told apart by workout, not by a 12-hour window.
+ *  10. Offline, Home's done weeks come from the saved copy, a session finished
+ *      offline counts at once, a deleted one is gone at once, and weeks the
+ *      copy never covered still say they can't be checked (16 Sep 2026).
+ *  11. Offline, History and a recent workout (with its weights) open from the
+ *      saved copies, with sets still waiting to upload counted in.
  */
 "use strict";
 var fs = require("fs"), path = require("path"), vm = require("vm");
@@ -61,11 +66,14 @@ function fakeServer() {
                delete: function () { return builder(table, "delete", null); },
                // Reads (lastForExercises): every filter is a no-op, the rows are srv.selectRows.
                select: function () {
-                 var c = { eq: function () { return c; }, in: function () { return c; },
-                           order: function () { return c; }, limit: function () { return c; },
+                 var self = function () { return c; }, single = false;
+                 var c = { eq: self, in: self, order: self, limit: self, gte: self, not: self,
+                           maybeSingle: function () { single = true; return c; },
                            then: function (ok, ko) {
                              if (srv.selectHang) return new Promise(function () {}).then(ok, ko);   // a read that never answers
-                             return Promise.resolve({ data: srv.selectRows || [], error: null }).then(ok, ko);
+                             // srv.selectFor(table) answers per table; srv.selectRows answers every read.
+                             var rows = srv.selectFor ? srv.selectFor(table) : (srv.selectRows || []);
+                             return Promise.resolve({ data: single ? (rows[0] || null) : rows, error: null }).then(ok, ko);
                            } };
                  return c;
                } };
@@ -163,8 +171,10 @@ async function test5_signOutClearsAccountKeys() {
   w.localStorage.setItem("freeco.plan", "{}"); w.localStorage.setItem("freeco.session", "{}");
   w.localStorage.setItem("freeco.theme", "light"); w.localStorage.setItem("freeco.installHidden", "1");
   w.localStorage.setItem("freeco.sound", "off");
+  ["freeco.copy.done", "freeco.copy.history", "freeco.copy.workouts"].forEach(function (k) { w.localStorage.setItem(k, "{}"); });
   await Store.signOut();
-  ["freeco.queue", "freeco.plan", "freeco.session", "freeco.lastWeights"].forEach(function (k) {
+  ["freeco.queue", "freeco.plan", "freeco.session", "freeco.lastWeights",
+   "freeco.copy.done", "freeco.copy.history", "freeco.copy.workouts"].forEach(function (k) {
     check(k + " is gone", w.localStorage.getItem(k) === null);
   });
   check("freeco.theme stays", w.localStorage.getItem("freeco.theme") === "light");
@@ -247,6 +257,58 @@ async function test9_restartWithinMinutes() {
   check("discarding the first too leaves nothing", !last.e);
 }
 
+async function test10_doneWeeksOffline() {
+  console.log("10. offline, Home's done weeks come from the saved copy");
+  var srv = fakeServer(), w = makeWindow(srv), Store = loadStore(w);
+  srv.respond = function () { return Promise.resolve({ data: null, error: { message: "Failed to fetch" }, status: 0 }); };
+  srv.selectFor = function () {
+    return [{ id: "w1", user_id: "u1", session_key: "1.1", week_start: "2026-09-14",
+              started_at: "2026-09-14T08:00:00Z", finished_at: "2026-09-14T09:00:00Z" }];
+  };
+  var online = await Store.doneByWeek("u1", "2026-09-07");
+  check("online: the server's answer, not marked as a saved copy", online["2026-09-14"]["1.1"].id === "w1" && !Store.savedAt(online));
+  w.navigator.onLine = false;
+  Store.saveWorkout({ id: "w2", user_id: "u1", session_key: "1.2", week_start: "2026-09-14",
+                      started_at: "2026-09-16T08:00:00Z", finished_at: "2026-09-16T09:00:00Z" });
+  await sleep(20);
+  var off = await Store.doneByWeek("u1", "2026-09-07");
+  check("offline: the saved copy answers, marked with when it was saved", off["2026-09-14"]["1.1"].id === "w1" && !!Store.savedAt(off));
+  check("offline: a session finished offline counts as done at once", !!off["2026-09-14"]["1.2"] && off["2026-09-14"]["1.2"].id === "w2");
+  var threw = false;
+  try { await Store.doneByWeek("u1", "2026-08-03"); } catch (e) { threw = true; }
+  check("offline: weeks the copy never covered still can't be checked", threw);
+  await Store.deleteWorkout("w1");
+  var after = await Store.doneByWeek("u1", "2026-09-07");
+  check("offline: a deleted workout is gone at once", !after["2026-09-14"]["1.1"]);
+}
+
+async function test11_historyAndWorkoutOffline() {
+  console.log("11. offline, History and a recent workout open from the saved copies");
+  var srv = fakeServer(), w = makeWindow(srv), Store = loadStore(w);
+  srv.respond = function () { return Promise.resolve({ data: null, error: { message: "Failed to fetch" }, status: 0 }); };
+  srv.selectFor = function (table) {
+    if (table === "freeco_sets") return [
+      { id: "s1", workout_id: "w1", exercise_id: "e", round: 1, weight: 40, done_at: "2026-09-14T08:10:00Z" },
+      { id: "s2", workout_id: "w1", exercise_id: "e", round: 2, weight: 42, done_at: "2026-09-14T08:20:00Z" }];
+    return [{ id: "w1", user_id: "u1", session_key: "1.1", week_start: "2026-09-14", started_at: "2026-09-14T08:00:00Z",
+              finished_at: "2026-09-14T09:00:00Z", freeco_sets: [{ count: 2 }] }];
+  };
+  await Store.warmOffline("u1");
+  w.navigator.onLine = false;
+  Store.saveSet({ id: "s3", workout_id: "w1", exercise_id: "e", round: 3, weight: 44, done_at: "2026-09-14T08:30:00Z" });
+  await sleep(20);
+  var hist = await Store.history("u1", 60);
+  check("offline: History comes from the copy, marked saved", hist.length === 1 && hist[0].id === "w1" && !!Store.savedAt(hist));
+  check("offline: a set still waiting to upload is counted", hist[0].set_count === 3);
+  var wk = await Store.workout("w1");
+  check("offline: the workout opens from the copy", !!wk && wk.id === "w1" && !!Store.savedAt(wk));
+  var sets = await Store.setsFor("w1");
+  check("offline: its weights are the copy plus the waiting set", sets.map(function (x) { return x.weight; }).join() === "40,42,44");
+  var threw = false;
+  try { await Store.setsFor("never-saved"); } catch (e) { threw = true; }
+  check("offline: a workout never saved still says it can't be loaded", threw);
+}
+
 (async function () {
   await test1_logDuringSlowUpload();
   await test2_refusedRowIsDroppedNotWedged();
@@ -257,6 +319,8 @@ async function test9_restartWithinMinutes() {
   await test7_serverReplacesStuckLocalWeights();
   await test8_waitingWorkoutKeepsLocalWeights();
   await test9_restartWithinMinutes();
+  await test10_doneWeeksOffline();
+  await test11_historyAndWorkoutOffline();
   console.log(failures ? "\n" + failures + " FAILED" : "\nall passed");
   process.exit(failures ? 1 : 0);
 })();

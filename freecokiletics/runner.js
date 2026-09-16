@@ -27,7 +27,7 @@ window.Runner = (function () {
   var countdown = null;
 
   var esc = UI.esc;
-  function preview(id) { return P.exercises[id] && P.exercises[id].has_preview ? "../previews/" + id + ".webp" : ""; }
+  function preview(id) { return window.App.previewUrl(id); }     // versioned address, see offline.js
 
   // ---------------------------------------------------------------- steps
   function targetFor(e, round) {
@@ -157,6 +157,17 @@ window.Runner = (function () {
     if (!state || !container) return;
     var el = container.querySelector("[data-clock]");
     if (el) el.textContent = clockText();
+    // A dot on Pause while sound should be playing and has stopped (Sound.stuck);
+    // the pause screen's Test repairs it.
+    var pb = container.querySelector(".btn--pause");
+    if (pb) {
+      var stuck = Sound.stuck();
+      if (pb.classList.contains("has-alert") !== stuck) {
+        pb.classList.toggle("has-alert", stuck);
+        if (stuck) pb.setAttribute("aria-label", "Pause. Sound has stopped: open to fix it");
+        else pb.removeAttribute("aria-label");
+      }
+    }
   }
   // Time in the session, pauses left out (pausedMs so far, plus a pause going on now).
   function activeMs() {
@@ -534,6 +545,17 @@ window.Runner = (function () {
      (asks first). A timed hold or the 3·2·1 cover the header, so neither can
      be paused mid-way. */
   var pausedRest = false;
+  /* Sound on · Test · Mute (Javier, 16 Sep 2026). Test = Sound.repair: new
+     audio built inside the tap, then a beep. Turning sound back on does the
+     same, so it is audible at once. */
+  function soundRowHTML() {
+    var off = Sound.muted(), stuck = !off && Sound.stuck();
+    return '<span class="pause-sound__state' + (stuck ? " is-stuck" : "") + '" role="status">' +
+        (off ? "Sound off" : stuck ? "Sound stopped · tap Test" : "Sound on") + "</span>" +
+      (off ? "" : '<button class="btn btn--quiet pause-sound__btn" type="button" data-p="sound-test">' + ICONS.volumeHigh + "Test</button>") +
+      '<button class="btn btn--quiet pause-sound__btn" type="button" data-p="sound-mute">' +
+        (off ? ICONS.volumeHigh + "Turn on" : ICONS.volumeXmark + "Mute") + "</button>";
+  }
   function pause() {
     if (!state || state.pausedAt) return;
     state.pausedAt = Date.now(); save();
@@ -546,6 +568,7 @@ window.Runner = (function () {
     ov.innerHTML = '<div class="pause-screen__label">Paused</div>' +
       '<div class="pause-screen__title">' + esc(state.title) + "</div>" +
       '<div class="pause-screen__time" aria-label="Time in this session">' + clockText() + "</div>" +
+      '<div class="pause-sound" id="psound">' + soundRowHTML() + "</div>" +
       '<div class="pause-screen__actions">' +
         '<button class="btn btn--primary btn--big btn--block" type="button" data-p="resume">' + ICONS.play + "Resume</button>" +
         '<button class="btn btn--ghost btn--block" type="button" data-p="home">Go home, resume later</button>' +
@@ -559,6 +582,15 @@ window.Runner = (function () {
     ov.addEventListener("click", function (e) {
       var b = e.target.closest("[data-p]"); if (!b) return;
       var a = b.getAttribute("data-p");
+      if (a === "sound-test" || a === "sound-mute") {
+        if (a === "sound-test") Sound.repair();
+        else if (!Sound.toggleMuted()) Sound.repair();         // just turned on: one beep says so
+        var row = ov.querySelector("#psound");
+        row.innerHTML = soundRowHTML();
+        var again = row.querySelector('[data-p="' + a + '"]') || row.querySelector("[data-p]");
+        if (again) again.focus({ preventScroll: true, focusVisible: false });
+        return;
+      }
       if (a === "resume") resumeNow();
       else if (a === "home") { closeLayer(); unmount(); onExit && onExit({ finished: false }); }
       else if (a === "end") { closeLayer(); finish(); }
