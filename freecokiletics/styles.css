@@ -1027,7 +1027,10 @@ input[type="time"].input--inline { width: 6em; }
 .league__top { display: flex; align-items: center; gap: var(--space-3); }
 .league__name { font-weight: 650; }
 .league__level { margin-top: 2px; font-size: 12px; font-weight: 700; letter-spacing: .09em; text-transform: uppercase; color: var(--text-dim); }
-.league__status { font-family: var(--font-display); font-size: 26px; font-weight: 800; line-height: 1.05; color: var(--accent); }
+.league__status { display: flex; align-items: flex-start; gap: var(--space-2); font-family: var(--font-display); font-size: 26px; font-weight: 800; line-height: 1.05; color: var(--accent); }
+/* The level's icon (points.js LADDER), level with the FIRST line: a long name
+   ("Antoine Griezmann") wraps at 320px and a centred icon floated between. */
+.league__status svg { width: 24px; height: 24px; flex: none; margin-top: 2px; }
 .league__pts { text-align: right; line-height: 1; flex: none; }
 .league__pts b { display: block; font-family: var(--font-display); font-size: 26px; font-weight: 800; }
 .league__pts span { font-size: 12px; color: var(--text-dim); }

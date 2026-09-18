@@ -17,22 +17,24 @@
  * A streak counts consecutive full weeks and stays alive while its last full
  * week is this week or last week.
  *
- * Status: ten La Liga players, from Tomás Pina to Messi (Lamine Yamal in
- * place of Cristiano, Javier's call).
+ * Status: ten players, from Tomás Pina to Messi, each with an icon (Font
+ * Awesome, ICONS key) telling a player's growth — seedling to crown. Javier's
+ * calls: Lamine Yamal in place of Cristiano; Buffon, the goalkeeper, in
+ * place of Koke — the one name on the ladder who never played in La Liga.
  */
 (function (root) {
   "use strict";
   var LADDER = [
-    { min: 0, name: "Tomás Pina" },
-    { min: 500, name: "Dani Parejo" },
-    { min: 1200, name: "Iago Aspas" },
-    { min: 2200, name: "Koke" },
-    { min: 3500, name: "Antoine Griezmann" },
-    { min: 5000, name: "Sergio Busquets" },
-    { min: 7000, name: "Xavi" },
-    { min: 9500, name: "Andrés Iniesta" },
-    { min: 12500, name: "Lamine Yamal" },
-    { min: 16000, name: "Lionel Messi" },
+    { min: 0, name: "Tomás Pina", icon: "seedling" },               // just growing
+    { min: 500, name: "Dani Parejo", icon: "personRunning" },        // in the game
+    { min: 1200, name: "Iago Aspas", icon: "bolt" },                 // sharp finisher
+    { min: 2200, name: "Gianluigi Buffon", icon: "shieldHalved" },   // the wall
+    { min: 3500, name: "Antoine Griezmann", icon: "star" },          // a real star
+    { min: 5000, name: "Sergio Busquets", icon: "chessKnight" },     // the brain
+    { min: 7000, name: "Xavi", icon: "compass" },                    // runs the game
+    { min: 9500, name: "Andrés Iniesta", icon: "wandMagicSparkles" }, // pure magic
+    { min: 12500, name: "Lamine Yamal", icon: "rocket" },            // rising fast
+    { min: 16000, name: "Lionel Messi", icon: "crown" },             // the god
   ];
   var RULES = { workout: 100, faster: 25, best: 10, week: 50, weekStep: 10,
                 milestones: { 10: 100, 25: 250, 50: 500, 100: 1000 } };
@@ -41,7 +43,7 @@
     var i = 0;
     while (i + 1 < LADDER.length && points >= LADDER[i + 1].min) i++;
     // level: 1 … LADDER.length, as the league card shows it ("Level 2 of 10").
-    return { index: i, level: i + 1, name: LADDER[i].name, min: LADDER[i].min, next: LADDER[i + 1] || null };
+    return { index: i, level: i + 1, name: LADDER[i].name, icon: LADDER[i].icon, min: LADDER[i].min, next: LADDER[i + 1] || null };
   }
   function dayNumber(iso) {                         // "2026-09-14" → whole days, no time zone drift
     var p = String(iso).slice(0, 10).split("-");
@@ -108,7 +110,7 @@
         if (p.kind !== "workout") events.push({ kind: p.kind, workout_id: w.id, at: w.finished_at, pts: p.pts, detail: p.detail });
       });
       var t0 = tierFor(before), t1 = tierFor(total);
-      if (t1.index > t0.index) events.push({ kind: "status", workout_id: w.id, at: w.finished_at, pts: 0, detail: { name: t1.name, level: t1.index + 1 } });
+      if (t1.index > t0.index) events.push({ kind: "status", workout_id: w.id, at: w.finished_at, pts: 0, detail: { name: t1.name, level: t1.level, icon: t1.icon } });
     });
 
     var alive = lastFull != null && today && dayNumber(today) - dayNumber(lastFull) <= 13;

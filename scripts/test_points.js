@@ -74,6 +74,9 @@ check("1100 is still Dani Parejo, next Iago Aspas at 1200", r.tier.name === "Dan
 check("12,500 is Lamine Yamal", P.tierFor(12500).name === "Lamine Yamal");
 check("16,000 is Messi, and there is nothing above", P.tierFor(16000).name === "Lionel Messi" && P.tierFor(99999).next === null);
 check("ten players", P.LADDER.length === 10 && P.LADDER[0].name === "Tomás Pina");
+check("level 4 is Buffon (Javier, 18 Sep 2026)", P.tierFor(2200).name === "Gianluigi Buffon" && P.tierFor(2200).level === 4);
+check("every level has its own icon; Messi's is the crown",
+  P.LADDER.every(function (l) { return l.icon; }) && new Set(P.LADDER.map(function (l) { return l.icon; })).size === 10 && P.tierFor(16000).icon === "crown");
 
 console.log(failures ? "\n" + failures + " FAILED" : "\nall passed");
 process.exit(failures ? 1 : 0);
