@@ -13,6 +13,9 @@
  *   - a double beep at 10 seconds left
  *   - three short beeps at 3, 2, 1 and a longer rising "go"
  * The session intro (3 · 2 · 1 · Go!) has its own, much softer pair.
+ * Tabata (Javier, 18 Sep 2026) adds a light chime halfway through each work
+ * interval (not the rest's low dong, so the two can't be confused) and a
+ * boxing-style triple bell when the last round starts, in place of "go".
  *
  * Mute (Javier, 13 Sep 2026): a switch in the menu, remembered on this phone —
  * once off it stays off, session after session, until switched back on. It
@@ -139,6 +142,14 @@ window.Sound = (function () {
     o.stop(t + seconds + 0.02);
   }
 
+  // A struck bell: a few inharmonic partials that ring and fade (the master
+  // low-pass keeps the top soft in headphones).
+  function bell(when) {
+    tone(988, 0.9, 0.34, "sine", when);
+    tone(988 * 2, 0.6, 0.12, "sine", when);
+    tone(988 * 2.76, 0.4, 0.08, "sine", when);
+  }
+
   function vibrate(pattern) {
     if (navigator.vibrate) { try { navigator.vibrate(pattern); } catch (e) {} }
   }
@@ -160,6 +171,12 @@ window.Sound = (function () {
       tone(1568, 0.32, 0.11, "sine", ctx.currentTime + 0.1);
     },
     halfway: function () { tone(330, 0.9, 0.5, "sine"); vibrate(80); },
+    midway: function () { tone(660, 0.22, 0.32, "sine"); vibrate(30); },             // Tabata: half a work interval gone
+    lastRound: function () {                                                           // Tabata: the last round starts
+      if (!ctx) return;
+      for (var k = 0; k < 3; k++) bell(ctx.currentTime + k * 0.3);
+      vibrate([90, 60, 90, 60, 90]);
+    },
     tenLeft: function () {
       if (!ctx) return;
       tone(880, 0.12, 0.5, "square");

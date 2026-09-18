@@ -567,11 +567,19 @@ div.thumb { cursor: default; }
 /* ------------------------------------------------------------ tabata */
 .tabata { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: var(--space-4); text-align: center; }
 .tabata__phase { font-size: 14px; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; }
-.tabata__phase.work { color: var(--accent); }
-.tabata__phase.rest { color: var(--cool); }
+/* --work / --rest, not .work / .rest: a bare "rest" class is the rest
+   screen's (a full-height flex column), and on the phase label it stretched
+   it to 300px and left a gap above the ring in every Tabata rest. */
+.tabata__phase--work { color: var(--accent); }
+.tabata__phase--rest { color: var(--cool); }
 .tabata__time { font-size: clamp(80px, 30vw, 128px); font-weight: 800; letter-spacing: -.05em; line-height: 1; font-variant-numeric: tabular-nums; }
 .tabata__move { font-size: 24px; font-weight: 700; }
 .tabata__cycle { color: var(--text-dim); }
+/* The running Tabata's seconds in a ring (runner.js renderTabata), the same
+   ring as the rest and hold timers, smaller: the preview and Left / Right
+   share the screen. The arc's colours follow rest mode like the rest timer's. */
+.tabata__ring { width: min(40vw, 160px); }
+.tabata__ring .rest__time { font-size: clamp(48px, 15vw, 64px); }
 /* Left / Right for a movement done one side per interval (runner.js
    renderTabata, 15 Sep 2026): an arrow and a word at each edge of the
    screen, the side to do big and in the accent, the other small and faint.
@@ -616,16 +624,16 @@ body.is-resting .runner :is(.btn--ghost, .btn--quiet) { border-color: var(--rest
 body.is-resting .runner .btn--ghost { color: var(--rest-ink); }
 body.is-resting .runner .btn--primary { background: var(--rest-ink); color: var(--rest); border-color: var(--rest-ink); }  /* blue+white is 5.96:1 — fine */
 body.is-resting .runner .btn--quiet { color: var(--rest-ink-dim); }
-body.is-resting .runner .tabata__phase.rest { color: var(--rest-ink); }
+body.is-resting .runner .tabata__phase--rest { color: var(--rest-ink); }
 body.is-resting .runner .tabata__side { color: var(--rest-ink-dim); }
 body.is-resting .runner .tabata__side.is-on { color: var(--rest-ink); }
 body.is-resting .runner :where(a, button, input, [tabindex]):focus-visible { outline-color: var(--rest-ink); }
 
 /* ------------------------------------------------------------ Tabata running */
 .tabata__gif { width: 100%; }
-/* The square preview gives way to the screen's height (36svh ≈ 292px on a
-   375×812 phone) so the Left / Right pair and Skip block still fit. */
-.tabata__gif img { width: 100%; max-width: min(340px, 36svh); margin: 0 auto; aspect-ratio: 1; object-fit: cover; border-radius: var(--radius); display: block; background: #000; }
+/* The square preview gives way to the screen's height (32svh ≈ 260px on a
+   375×812 phone) so the ring, the Left / Right pair and Skip block still fit. */
+.tabata__gif img { width: 100%; max-width: min(340px, 32svh); margin: 0 auto; aspect-ratio: 1; object-fit: cover; border-radius: var(--radius); display: block; background: #000; }
 
 /* ------------------------------------------------------------ timed hold */
 .btn--hold {

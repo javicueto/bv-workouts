@@ -944,6 +944,7 @@ window.Runner = (function () {
   }
   function renderTabata(step) {
     var tb = step.tabata, moves = tb.exercises, cycles = tb.cycles || 8, phase = "work", cycle = 1;
+    var R = 44, C = 2 * Math.PI * R;
     // Before starting: both movements as reference. Once running: only the one
     // being done, big; rest phases are a plain blue screen with the countdown.
     container.innerHTML = header(step, "Block " + step.block + " · Tabata") + tabataBody(step);
@@ -954,7 +955,12 @@ window.Runner = (function () {
       tab.innerHTML =
         '<div class="tabata__phase" id="ph"></div>' +
         '<div class="tabata__gif" id="gif"></div>' +
-        '<div class="tabata__time" id="t" role="timer"></div>' +
+        // The seconds in a ring that empties with the interval, like the rest
+        // and hold timers (Javier, 18 Sep 2026). Same radius: 44 + 10/2 < 50.
+        '<div class="rest__ring tabata__ring"><svg viewBox="0 0 100 100" aria-hidden="true">' +
+          '<circle class="track" cx="50" cy="50" r="' + R + '"/>' +
+          '<circle class="arc" id="tarc" cx="50" cy="50" r="' + R + '" stroke-dasharray="' + C + '" stroke-dashoffset="0"/></svg>' +
+          '<div class="rest__time" id="t" role="timer"></div></div>' +
         '<div class="tabata__move" id="mv"></div>' +
         '<div class="tabata__sides" id="sd" hidden></div>' +
         '<div class="tabata__cycle" id="cy"></div>' +
@@ -975,7 +981,10 @@ window.Runner = (function () {
       var ph = document.getElementById("ph"), gif = document.getElementById("gif");
       var mv = document.getElementById("mv"), cy = document.getElementById("cy"), sd = document.getElementById("sd");
       var lastRest = phase === "rest" && cycle === cycles;
-      ph.textContent = phase === "work" ? "Work" : "Rest"; ph.className = "tabata__phase " + phase;
+      ph.textContent = phase === "work" ? "Work" : "Rest";
+      // Never a bare "rest" class: that is the rest screen's layout. Written
+      // out whole so scripts/check_css.py can see both used.
+      ph.className = phase === "work" ? "tabata__phase tabata__phase--work" : "tabata__phase tabata__phase--rest";
       if (phase === "work") {
         var img = preview(m.id);
         gif.innerHTML = img ? '<img src="' + img + '" alt="">' : ""; gif.hidden = !img;
@@ -996,18 +1005,33 @@ window.Runner = (function () {
         sd.setAttribute("aria-label", (phase === "work" ? "" : "Next: ") + (right ? "right side" : "left side"));
         sd.hidden = false;
       } else { sd.hidden = true; sd.innerHTML = ""; }
-      cy.textContent = "Cycle " + cycle + " of " + cycles;
+      cy.textContent = "Cycle " + cycle + " of " + cycles + (cycle === cycles ? " · last round" : "");
       setResting(phase === "rest");
     }
     function run() {
       show();
-      var t = document.getElementById("t");
+      var t = document.getElementById("t"), arc = document.getElementById("tarc");
+      // A new interval starts with a full ring AT ONCE: with its transition on,
+      // the arc would visibly refill while the new seconds already count down.
+      arc.style.transition = "none"; arc.style.strokeDashoffset = "0";
+      void arc.getBoundingClientRect(); arc.style.transition = "";
       countdown = new Countdown(phase === "work" ? tb.work_seconds : tb.rest_seconds, { cues: false,
-        onTick: function (l) { t.textContent = String(l); if (l <= 3 && l > 0) { Sound.count(); UI.bump(t); } },
+        onTick: function (l, total) {
+          t.textContent = String(l);
+          arc.style.strokeDashoffset = String(C * (1 - l / total));
+          if (l <= 3 && l > 0) { Sound.count(); UI.bump(t); }
+          else if (phase === "work" && l === Math.round(total / 2)) Sound.midway();   // halfway chime
+        },
         onDone: function () {
           countdown = null;
           if (phase === "work") { phase = "rest"; Sound.halfway(); run(); }
-          else { cycle++; if (cycle > cycles) { setResting(false); Sound.done(); go(1); return; } phase = "work"; Sound.go(); run(); }
+          else {
+            cycle++;
+            if (cycle > cycles) { setResting(false); Sound.done(); go(1); return; }
+            phase = "work";
+            if (cycle === cycles) Sound.lastRound(); else Sound.go();     // boxing's triple bell for the last round
+            run();
+          }
         } });
     }
     // 3 · 2 · 1 · Go! first, naming the first movement so you can get into
