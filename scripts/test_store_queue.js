@@ -28,6 +28,9 @@
  *      copy never covered still say they can't be checked (16 Sep 2026).
  *  11. Offline, History and a recent workout (with its weights) open from the
  *      saved copies, with sets still waiting to upload counted in.
+ *  12. The celebration's points input: offline it uses Social's saved copy
+ *      plus the queue, so the workout just finished counts with its weights;
+ *      with no copy at all it says it is partial.
  */
 "use strict";
 var fs = require("fs"), path = require("path"), vm = require("vm");
@@ -309,6 +312,32 @@ async function test11_historyAndWorkoutOffline() {
   check("offline: a workout never saved still says it can't be loaded", threw);
 }
 
+async function test12_pointsInputCountsTheJustFinished() {
+  console.log("12. the celebration's points input counts the workout still uploading");
+  var srv = fakeServer(), w = makeWindow(srv), Store = loadStore(w);
+  srv.respond = function () { return Promise.resolve({ data: null, error: { message: "Failed to fetch" }, status: 0 }); };
+  w.navigator.onLine = false;
+  var none = await Store.pointsInput("u1");
+  check("no saved copy: partial, and nothing invented", none.partial === true && none.workouts.length === 0);
+  w.localStorage.setItem("freeco.copy.social", JSON.stringify({ user: "u1", at: "2026-09-17T10:00:00Z", d: {
+    workouts: [{ id: "w1", user_id: "u1", session_key: "1.1", week_start: "2026-09-14", finished_at: "2026-09-14T09:00:00Z", duration_seconds: 3600 },
+               { id: "x1", user_id: "u2", session_key: "1.1", week_start: "2026-09-14", finished_at: "2026-09-14T09:00:00Z", duration_seconds: 3600 }],
+    bests: [{ workout_id: "w1", user_id: "u1", exercise_id: "e", weight: 40 }, { workout_id: "x1", user_id: "u2", exercise_id: "e", weight: 99 }],
+    sets: [], profiles: [], reactions: [], comments: [] } }));
+  Store.saveSet({ id: "s1", workout_id: "w2", exercise_id: "e", round: 1, weight: 42.5, done_at: "2026-09-16T08:10:00Z" });
+  Store.saveSet({ id: "s2", workout_id: "w2", exercise_id: "e", round: 2, weight: 45, done_at: "2026-09-16T08:20:00Z" });
+  Store.saveWorkout({ id: "w2", user_id: "u1", session_key: "1.2", week_start: "2026-09-14", started_at: "2026-09-16T08:00:00Z",
+                      finished_at: "2026-09-16T09:00:00Z", duration_seconds: 3500 });
+  await sleep(20);
+  var r = await Store.pointsInput("u1");
+  check("not partial when the copy exists", r.partial === false);
+  check("only this person's workouts, the just-finished one included",
+    r.workouts.map(function (x) { return x.id; }).sort().join() === "w1,w2");
+  var b = r.bests.filter(function (x) { return x.workout_id === "w2"; });
+  check("its heaviest weight comes from the queued sets (45)", b.length === 1 && b[0].weight === 45);
+  check("the friend's bests are left out", !r.bests.some(function (x) { return x.weight === 99; }));
+}
+
 (async function () {
   await test1_logDuringSlowUpload();
   await test2_refusedRowIsDroppedNotWedged();
@@ -321,6 +350,7 @@ async function test11_historyAndWorkoutOffline() {
   await test9_restartWithinMinutes();
   await test10_doneWeeksOffline();
   await test11_historyAndWorkoutOffline();
+  await test12_pointsInputCountsTheJustFinished();
   console.log(failures ? "\n" + failures + " FAILED" : "\nall passed");
   process.exit(failures ? 1 : 0);
 })();

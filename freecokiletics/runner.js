@@ -262,8 +262,9 @@ window.Runner = (function () {
     Store.saveWorkout({ id: state.workoutId, user_id: state.userId, session_key: state.key,
       block: session.block, week_start: state.weekStart, started_at: state.startedAt,
       finished_at: finished, duration_seconds: dur });
+    var id = state.workoutId, key = state.key;                 // clear() forgets them
     Sound.done(); unmount(); clear();
-    onExit && onExit({ finished: true, duration: dur, sets: sets });
+    onExit && onExit({ finished: true, duration: dur, sets: sets, workoutId: id, key: key });
   }
 
   // ---------------------------------------------------------------- chrome

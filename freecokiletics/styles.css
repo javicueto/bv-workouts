@@ -1080,6 +1080,40 @@ input[type="time"].input--inline { width: 6em; }
 .comment-form { display: flex; gap: var(--space-2); }
 .comment-form .input { flex: 1; min-width: 0; }
 
+/* ------------------------------------------------------------ celebration */
+/* After Save and finish (views/celebrate.js): over Home, like the pause
+   screen. The level block reuses the league card's pieces so the two read
+   the same; the bar fills from where it was (transition on its width). */
+.celebrate {
+  position: fixed; inset: 0; z-index: 55; overflow-y: auto; overscroll-behavior: contain;
+  display: flex; align-items: center; justify-content: center;
+  padding: calc(var(--safe-top) + var(--space-6)) var(--space-4) calc(var(--safe-bottom) + var(--space-6));
+  background: var(--bg); color: var(--text);
+  box-shadow: 0 0 0 100vmax var(--bg);            /* bleed, see .hold-screen */
+}
+.celebrate:focus { outline: none; }
+.celebrate__inner { width: 100%; max-width: 420px; display: grid; gap: var(--space-3); text-align: center; }
+.celebrate__title { font-family: var(--font-display); font-size: 34px; font-weight: 800; line-height: 1; text-transform: uppercase; }
+.celebrate__meta { margin: 0; }
+.celebrate__body { display: grid; gap: var(--space-4); margin: var(--space-3) 0; }
+.celebrate__pts { display: grid; justify-items: center; line-height: 1; }
+.celebrate__pts span { font-family: var(--font-display); font-size: 72px; font-weight: 800; color: var(--accent); font-variant-numeric: tabular-nums; }
+.celebrate__pts small { font-size: 14px; color: var(--text-dim); }
+.celebrate__parts { list-style: none; margin: 0; padding: 0; display: grid; gap: var(--space-1); text-align: left; font-size: 15px; }
+.celebrate__parts li { display: flex; justify-content: space-between; gap: var(--space-3); padding: var(--space-2) 0; border-bottom: 1px solid var(--line-soft); }
+.celebrate__parts li span { min-width: 0; }
+.celebrate__parts b { color: var(--accent); white-space: nowrap; }
+.celebrate__level {
+  display: grid; gap: var(--space-2); justify-items: start; text-align: left;
+  padding: var(--space-4); border: 1px solid var(--line); border-radius: var(--radius); background: var(--bg-raised);
+}
+.celebrate__level .league__bar { width: 100%; }
+.celebrate__level .league__bar i { transition: width 1s var(--ease-enter); }
+.celebrate__level.is-up { border-color: var(--accent); }
+.celebrate__level.is-up .league__status { font-size: 34px; }
+.celebrate__level.is-up .league__status svg { width: 32px; height: 32px; }
+.celebrate__new { font-size: 12px; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; color: var(--accent); }
+
 /* ------------------------------------------------------------ add to home screen */
 .install-card {
   display: grid; grid-template-columns: auto 1fr; gap: var(--space-2) var(--space-3); align-items: start;

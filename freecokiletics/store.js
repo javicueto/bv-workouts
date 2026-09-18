@@ -654,6 +654,43 @@ window.Store = (function () {
     return q(sb().from(T_PROFILES).upsert({ user_id: u.id, display_name: name, updated_at: new Date().toISOString() },
       { onConflict: "user_id" }).select().single());
   }
+  /* What points.js needs for one person: their finished workouts and heaviest
+     weight per movement per workout. From the server when it answers, else
+     from Social's saved copy; either way with the upload queue laid over it,
+     so the workout just finished counts while it is still uploading. The
+     queue is read FIRST: a row that finishes uploading while the server read
+     is in flight is then in one of the two, never in neither. partial = no
+     history could be found at all (offline, Social never opened here). */
+  async function pointsInput(userId) {
+    var qd = queued(userId), workouts, bests, partial = false;
+    try {
+      needNetwork();
+      var got = await Promise.all([
+        allRows(function () {
+          return sb().from(T_WORKOUTS).select("id, user_id, session_key, week_start, started_at, finished_at, duration_seconds, logged_manually")
+            .eq("user_id", userId).not("finished_at", "is", null).order("finished_at");
+        }),
+        allRows(function () { return sb().from(V_BEST).select("workout_id, user_id, exercise_id, weight").eq("user_id", userId).order("workout_id"); }),
+      ]);
+      workouts = got[0]; bests = got[1];
+    } catch (e) {
+      var c = readCopy(COPY_SOCIAL);
+      if (c && c.user === userId && c.d) {
+        workouts = c.d.workouts.filter(function (w) { return w.user_id === userId; });
+        bests = c.d.bests.filter(function (b) { return b.user_id === userId; });
+      } else { workouts = []; bests = []; partial = true; }
+    }
+    workouts = withQueued(workouts, qd).filter(function (w) { return w.finished_at; });
+    // Heaviest per workout and movement, counting sets still waiting to upload.
+    var best = {};
+    function keep(b) {
+      var k = b.workout_id + "|" + b.exercise_id;
+      if (!best[k] || +b.weight > +best[k].weight) best[k] = { workout_id: b.workout_id, user_id: userId, exercise_id: b.exercise_id, weight: +b.weight };
+    }
+    bests.forEach(keep);
+    qd.sets.forEach(function (x) { if (x.weight != null && +x.weight > 0 && x.workout_id) keep(x); });
+    return { workouts: workouts, bests: Object.keys(best).map(function (k) { return best[k]; }), partial: partial };
+  }
   /* The newest thing a friend did — a finished workout, a reaction or a
      comment — for the dot on Home's Social button. Online only. */
   async function socialLatest(userId) {
@@ -677,6 +714,7 @@ window.Store = (function () {
     history: history, setsFor: setsFor, doneByWeek: doneByWeek, workout: workout, deleteWorkout: deleteWorkout,
     warmOffline: warmOffline, savedAt: savedAt,
     social: social, react: react, comment: comment, deleteComment: deleteComment, setName: setName, socialLatest: socialLatest,
+    pointsInput: pointsInput,
     flush: flush, pending: function () { return readQ().length; },
     onQueue: function (fn) { listeners.push(fn); },
   };

@@ -444,9 +444,8 @@
     app.innerHTML = '<div class="runner" id="runner"></div>';
     Runner.mount(document.getElementById("runner"), function (result) {
       location.hash = "#/";
-      if (result && result.finished) {
-        UI.toast("Saved · " + Math.round(result.duration / 60) + " min · " + result.sets + " sets");
-      }
+      // A finished workout gets its celebration (views/celebrate.js), over Home.
+      if (result && result.finished) V.celebrate(result);
     }, { countIn: !resumed });                 // 3 · 2 · 1 · Go! on a fresh start only
   };
 })();
