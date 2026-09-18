@@ -1026,6 +1026,7 @@ input[type="time"].input--inline { width: 6em; }
 .league__card--me { border-color: var(--accent-line); }
 .league__top { display: flex; align-items: center; gap: var(--space-3); }
 .league__name { font-weight: 650; }
+.league__level { margin-top: 2px; font-size: 12px; font-weight: 700; letter-spacing: .09em; text-transform: uppercase; color: var(--text-dim); }
 .league__status { font-family: var(--font-display); font-size: 26px; font-weight: 800; line-height: 1.05; color: var(--accent); }
 .league__pts { text-align: right; line-height: 1; flex: none; }
 .league__pts b { display: block; font-family: var(--font-display); font-size: 26px; font-weight: 800; }

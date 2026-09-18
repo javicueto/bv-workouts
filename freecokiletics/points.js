@@ -40,7 +40,8 @@
   function tierFor(points) {
     var i = 0;
     while (i + 1 < LADDER.length && points >= LADDER[i + 1].min) i++;
-    return { index: i, name: LADDER[i].name, min: LADDER[i].min, next: LADDER[i + 1] || null };
+    // level: 1 … LADDER.length, as the league card shows it ("Level 2 of 10").
+    return { index: i, level: i + 1, name: LADDER[i].name, min: LADDER[i].min, next: LADDER[i + 1] || null };
   }
   function dayNumber(iso) {                         // "2026-09-14" → whole days, no time zone drift
     var p = String(iso).slice(0, 10).split("-");
@@ -107,7 +108,7 @@
         if (p.kind !== "workout") events.push({ kind: p.kind, workout_id: w.id, at: w.finished_at, pts: p.pts, detail: p.detail });
       });
       var t0 = tierFor(before), t1 = tierFor(total);
-      if (t1.index > t0.index) events.push({ kind: "status", workout_id: w.id, at: w.finished_at, pts: 0, detail: { name: t1.name } });
+      if (t1.index > t0.index) events.push({ kind: "status", workout_id: w.id, at: w.finished_at, pts: 0, detail: { name: t1.name, level: t1.index + 1 } });
     });
 
     var alive = lastFull != null && today && dayNumber(today) - dayNumber(lastFull) <= 13;

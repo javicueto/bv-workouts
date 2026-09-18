@@ -13,7 +13,7 @@
  *   vendor/ and precached with the shell like any other file — no CDN, so
  *   the precache cannot half-fail on a third party at install time.
  */
-const CACHE = "freeco-v85";
+const CACHE = "freeco-v86";
 const PREVIEWS = "freeco-previews";     // not versioned with CACHE — see above; same name in offline.js
 const SHELL = [
   "./", "./index.html", "./styles.css", "../shared/tokens.css", "./config.js",

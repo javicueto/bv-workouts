@@ -92,6 +92,8 @@
         '<div class="league__top"><span class="avatar' + (mine ? " avatar--me" : "") + '" aria-hidden="true">' + esc(initial(name)) + "</span>" +
           // "· you" only next to a real name: "You · you" says it twice.
           '<div class="grow"><div class="league__name">' + esc(name) + (mine && ctx.names[p.id] ? ' <span class="faint">· you</span>' : "") + "</div>" +
+          // "Level 2 of 10": where on the ladder, which a player's name alone doesn't say (Javier, 18 Sep 2026).
+          '<div class="league__level">Level ' + t.level + " of " + Points.LADDER.length + "</div>" +
           '<div class="league__status">' + esc(t.name) + "</div></div>" +
           '<div class="league__pts"><b>' + num(p.pts.total) + "</b><span>points</span></div></div>" +
         '<div class="league__bar" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="' + pct + '" aria-label="' +
@@ -121,7 +123,7 @@
   function headline(ctx, it) {
     var who = esc(nameOf(ctx, it.owner)), e = it.e, d = e && e.detail;
     if (it.kind === "workout") return { icon: "", text: who + " finished " + esc(title(it.w.session_key)) };
-    if (it.kind === "status") return { icon: ICONS.trophy, text: who + " reached <b>" + esc(d.name) + "</b>" };
+    if (it.kind === "status") return { icon: ICONS.trophy, text: who + " reached level " + d.level + ": <b>" + esc(d.name) + "</b>" };
     if (it.kind === "milestone") return { icon: ICONS.medal, text: who + " reached " + d.workouts + " workouts" };
     if (it.kind === "week") return { icon: ICONS.fire, text: d.streak > 1
       ? who + (it.owner === ctx.me ? " are" : " is") + " on a " + d.streak + "-week streak"
