@@ -213,7 +213,7 @@ window.App = (function () {
       // the bar and cannot drift off the right edge on a narrow phone.
       (menu ? menuPanel() : "") +
       "</div>" +
-      (title ? "<h1>" + esc(title) + "</h1>" : "");
+      (title ? '<h1 class="page-title">' + esc(title) + "</h1>" : "");
   }
 
   /* Everything that is not "do today's session" lives in here. It used to be

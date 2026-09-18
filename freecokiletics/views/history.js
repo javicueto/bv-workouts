@@ -24,7 +24,8 @@
         ? '<div class="card stack"><p><b>' + empty.length + " empty session" + (empty.length > 1 ? "s" : "") + "</b> — opened but nothing logged.</p>" +
           '<button class="btn btn--ghost btn--block" id="clr">Remove ' + (empty.length > 1 ? "them" : "it") + "</button></div>"
         : "") +
-      (real.length ? '<div class="list" style="margin-top:var(--space-4)">' + real.map(function (w) {
+      // Its own gap only after the "empty sessions" card; under the title, .page-title spaces it.
+      (real.length ? '<div class="list"' + (empty.length ? ' style="margin-top:var(--space-4)"' : "") + ">" + real.map(function (w) {
         var d = new Date(w.started_at);
         var detail = w.finished_at
           // A hand-logged workout can still have sets — weights typed in

@@ -94,6 +94,10 @@ h1 {
   font-size: clamp(34px, 10vw, 46px); letter-spacing: 0; line-height: 0.95;
   text-transform: uppercase;
 }
+/* A screen's title under the top bar (core.js topbar): its own space below,
+   the same on every screen, so none can put its content right against it
+   (Javier, 18 Sep 2026: Social's league card sat on the heading). */
+.page-title { margin-bottom: var(--space-5); }
 h2 {
   margin: 0; font-family: var(--font-display); font-weight: 700;
   font-size: 31px; letter-spacing: .01em; line-height: 1.02; text-transform: uppercase;
