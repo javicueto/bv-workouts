@@ -23,7 +23,7 @@
  */
 window.Sound = (function () {
   var ctx = null, master = null;
-  var createdAt = 0, resumeAt = null, closeTimer = null;
+  var createdAt = 0, closeTimer = null;
   var MUTE_KEY = "freeco.sound";              // "off" = muted; nothing stored = on
   function muted() { try { return localStorage.getItem(MUTE_KEY) === "off"; } catch (e) { return false; } }
   function setMuted(on) {
@@ -45,12 +45,12 @@ window.Sound = (function () {
   }
   function closeCtx() {
     closeTimer = null;
-    var c = ctx; ctx = null; master = null; resumeAt = null;
+    var c = ctx; ctx = null; master = null;
     if (c) { try { c.close(); } catch (e) {} }
   }
   function createCtx() {
     ctx = new (window.AudioContext || window.webkitAudioContext)();
-    createdAt = Date.now(); resumeAt = null;
+    createdAt = Date.now();
     /* Every tone goes through one chain: a master level, a low-pass that
        takes the piercing top off the square / sawtooth cues (Javier, 16 Sep
        2026: "a super high sound" in headphones), and a limiter so that two
@@ -60,24 +60,24 @@ window.Sound = (function () {
     var lim = ctx.createDynamicsCompressor();
     lim.threshold.value = -8; lim.knee.value = 0; lim.ratio.value = 20; lim.attack.value = 0.001; lim.release.value = 0.1;
     master.connect(lp).connect(lim).connect(ctx.destination);
-    ctx.addEventListener("statechange", function () { if (ctx && ctx.state === "running") resumeAt = null; });
     // Playing a silent buffer inside the gesture is what grants audio on iOS.
     var b = ctx.createBuffer(1, 1, 22050), src = ctx.createBufferSource();
     src.buffer = b; src.connect(ctx.destination); src.start(0);
   }
   function resume() {
     if (!ctx || ctx.state === "running") return;
-    if (!resumeAt) resumeAt = Date.now();
     try { ctx.resume().catch(function () {}); } catch (e) {}
   }
 
   /* MUST run inside a user gesture (a tap) — iPhone refuses to start audio at
      any other moment. It runs on every tap anywhere in the app (listeners at
      the bottom of this file). Locking the phone or switching app puts the
-     context in "interrupted"; coming back, onVisible() below resumes it, and
-     if that did not take, the next tap does — or, when a resume asked for
-     over a second ago still has not happened (iOS sometimes leaves a context
-     stuck), throws the context away and makes a new one inside this tap. */
+     context in "interrupted"; coming back, onVisible() below resumes it. A
+     tap that finds it not running builds a NEW one on the spot (Javier,
+     18 Sep 2026: sound came back only after a trip to the background): iOS
+     can refuse to resume an interrupted context for as long as it likes, and
+     a tap is the one moment a fresh one is always allowed. A context under a
+     second old is left to finish starting. */
   function unlock() {
     if (!wanted || muted()) return;
     /* "ambient", NEVER "playback" (Javier, 14 Sep 2026): "playback" makes iOS
@@ -88,7 +88,7 @@ window.Sound = (function () {
        vibrate either), and iOS cuts ambient sound while the phone is locked.
        Music that keeps playing matters more. */
     try { if (navigator.audioSession && navigator.audioSession.type !== "ambient") navigator.audioSession.type = "ambient"; } catch (e) {}
-    if (ctx && ctx.state !== "running" && resumeAt && Date.now() - resumeAt > 1000) closeCtx();
+    if (ctx && ctx.state !== "running" && Date.now() - createdAt > 1000) closeCtx();
     if (!ctx) createCtx();
     resume();
   }
@@ -104,10 +104,22 @@ window.Sound = (function () {
      fresh and plays one short beep, so the same tap repairs and proves it.
      Does nothing when muted or outside a session. */
   function repair() {
+    if (!refresh()) return false;
+    tone(880, 0.14, 0.45, "sine");
+    return true;
+  }
+  /* Refresh (Javier, 18 Sep 2026: "the action of marking an exercise as done
+     also triggers a sort of refresh for sound"). After a lock, or another
+     app's audio, iOS can leave the audio interrupted — or claiming to run
+     while making no sound, which no check can see. The session's key taps
+     (Done, Start Tabata, Resume) rebuild it inside the tap, so the next cue
+     is heard. Skipped when the audio was built under a second ago: the same
+     tap's unlock() just did it. */
+  function refresh() {
     if (!wanted || muted()) return false;
+    if (ctx && ctx.state === "running" && Date.now() - createdAt < 1000) return true;
     closeCtx();
     unlock();
-    tone(880, 0.14, 0.45, "sine");
     return true;
   }
   /* Sound should be playing and can't: wanted, not muted, but the audio has
@@ -159,6 +171,7 @@ window.Sound = (function () {
     want: want,
     state: function () { return ctx ? ctx.state : "not started"; },
     repair: repair,
+    refresh: refresh,
     stuck: stuck,
     muted: muted,
     toggleMuted: function () { setMuted(!muted()); return muted(); },

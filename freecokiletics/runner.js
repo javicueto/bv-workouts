@@ -578,7 +578,7 @@ window.Runner = (function () {
     var release = UI.overlay(ov, "Paused", resumeNow), closing = false;
     UI.enter(ov, "rise");
     function closeLayer() { if (closing) return; closing = true; release(); UI.leave(ov, function () { ov.remove(); }); }
-    function resumeNow() { closeLayer(); unpause(); }
+    function resumeNow() { Sound.refresh(); closeLayer(); unpause(); }
     ov.addEventListener("click", function (e) {
       var b = e.target.closest("[data-p]"); if (!b) return;
       var a = b.getAttribute("data-p");
@@ -627,6 +627,7 @@ window.Runner = (function () {
              two steps. */
           if (b.getAttribute("data-busy")) return;
           b.setAttribute("data-busy", "1");
+          Sound.refresh();                         // fresh audio for the cues after this step (timer.js)
           UI.bump(b.querySelector(".tick"));
           setTimeout(function () { advance(step); }, 110);
         }
@@ -1037,7 +1038,7 @@ window.Runner = (function () {
     // 3 · 2 · 1 · Go! first, naming the first movement so you can get into
     // position; the work's 20 sec start once Go! has gone.
     document.getElementById("tstart").addEventListener("click", function () {
-      Sound.unlock();
+      Sound.refresh();                             // fresh audio for the Tabata's cues
       countIn({ title: "Tabata · " + window.App.cueText((moves[0] || {}).name || ""), label: "Tabata starting", onEnd: startRun });
     });
   }
