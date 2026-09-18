@@ -202,6 +202,9 @@ window.App = (function () {
       (back ? '<a class="btn btn--quiet" href="' + esc(back) + '">' + ICONS.chevronLeft + "Back</a>" : '<div class="row"><span class="logo">' + ICONS.bicep + '</span><b>Cokiletics</b></div>') +
       '<div class="row">' +
         '<span class="faint" id="sync" style="font-size:12px"></span>' +
+        // Social (views/social.js): icon and word, and a dot when a friend did something new.
+        (menu ? '<a class="social-link" id="social-link" href="#/social">' + ICONS.futbol +
+                '<span class="social-link__label">Social</span><span class="social-link__dot" hidden></span></a>' : "") +
         (menu ? '<button class="iconbtn" id="menu-btn" type="button" aria-label="Menu" ' +
                 'aria-expanded="false" aria-controls="menu">' + ICONS.bars + '</button>' : "") +
       "</div>" +

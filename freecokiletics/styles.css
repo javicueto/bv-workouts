@@ -996,6 +996,82 @@ input[type="time"].input--inline { width: 6em; }
 .hold-screen__actions { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-3); width: 100%; max-width: 420px; }
 .hold-screen__actions > :only-child { grid-column: 1 / -1; }
 
+/* ------------------------------------------------------------ social */
+/* Social (views/social.js, 18 Sep 2026). The link on Home's top bar: icon and
+   word, and a dot when a friend did something new. Under 360px the word is
+   for screen readers only, like Pause. */
+.social-link {
+  position: relative; display: inline-flex; align-items: center; gap: var(--space-1);
+  min-height: var(--tap); padding: 0 var(--space-2); border-radius: var(--radius-sm);
+  color: var(--text-dim); text-decoration: none; font-size: 14px; font-weight: 650;
+}
+.social-link svg { width: 20px; height: 20px; flex: none; }
+.social-link:active { background: var(--bg-sunken); color: var(--text); }
+.social-link__dot { position: absolute; top: 9px; left: 22px; width: 8px; height: 8px; border-radius: 50%; background: var(--accent); }
+.social-link__dot[hidden] { display: none; }
+@media (max-width: 359px) {
+  .social-link__label { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+}
+.avatar {
+  flex: none; width: 36px; height: 36px; border-radius: 50%; display: grid; place-items: center;
+  background: var(--bg-sunken); border: 1px solid var(--line-strong); color: var(--text);
+  font-family: var(--font-display); font-size: 18px; font-weight: 800;
+}
+.avatar--me { background: var(--accent-soft); border-color: var(--accent); color: var(--accent); }
+.name-form { margin-bottom: var(--space-4); }
+
+/* The league: one card per member, the leader first. */
+.league { display: grid; gap: var(--space-3); }
+.league__card { display: grid; gap: var(--space-2); }
+.league__card--me { border-color: var(--accent-line); }
+.league__top { display: flex; align-items: center; gap: var(--space-3); }
+.league__name { font-weight: 650; }
+.league__status { font-family: var(--font-display); font-size: 26px; font-weight: 800; line-height: 1.05; color: var(--accent); }
+.league__pts { text-align: right; line-height: 1; flex: none; }
+.league__pts b { display: block; font-family: var(--font-display); font-size: 26px; font-weight: 800; }
+.league__pts span { font-size: 12px; color: var(--text-dim); }
+.league__bar { height: 6px; border-radius: 3px; background: var(--line); overflow: hidden; }
+.league__bar i { display: block; height: 100%; border-radius: 3px; background: var(--accent); }
+.league__meta { display: flex; flex-wrap: wrap; gap: var(--space-1) var(--space-3); font-size: 13px; color: var(--text-dim); }
+.league__meta span { display: inline-flex; align-items: center; gap: var(--space-1); }
+.league__meta svg { width: 14px; height: 14px; color: var(--accent); }
+.league__rename { justify-self: start; min-height: var(--tap); padding: 0 var(--space-2); font-size: 14px; }
+
+/* The feed: workouts and the achievements they earned, newest first. */
+.feed__h { margin: var(--space-6) 0 var(--space-3); font-size: 22px; }
+.feed { display: grid; gap: var(--space-3); }
+.feed__item { display: grid; gap: var(--space-3); }
+.feed__item--achievement { border-color: var(--accent-line); }
+.feed__head { display: flex; align-items: flex-start; gap: var(--space-3); }
+.feed__title { font-weight: 650; line-height: 1.3; }
+.feed__icon { display: inline-flex; vertical-align: -3px; margin-right: var(--space-1); color: var(--accent); }
+.feed__icon svg { width: 18px; height: 18px; }
+.feed__when { font-size: 13px; color: var(--text-dim); }
+.feed__meta { margin: 0; font-size: 14px; color: var(--text-dim); }
+.feed__lines { list-style: none; margin: 0; padding: 0; display: grid; gap: 2px; font-size: 14px; }
+.feed__lines li { display: flex; justify-content: space-between; gap: var(--space-3); }
+.feed__lines li > span { color: var(--text-dim); min-width: 0; }
+.feed__lines b { white-space: nowrap; }
+.feed__none { margin: 0; font-size: 14px; }
+.feed__social { display: grid; gap: var(--space-2); border-top: 1px solid var(--line-soft); padding-top: var(--space-3); }
+.reacts { display: flex; flex-wrap: wrap; gap: var(--space-2); }
+.react {
+  display: inline-flex; align-items: center; gap: 4px; min-height: var(--tap); min-width: var(--tap);
+  padding: 0 var(--space-3); border: 1px solid var(--line); border-radius: 999px;
+  background: none; color: var(--text); font-size: 17px; cursor: pointer;
+  transition: transform var(--dur-press) var(--ease-out);
+}
+.react:active { transform: scale(.94); }
+.react span { font-size: 13px; font-weight: 700; color: var(--text-dim); }
+.react.is-on { border-color: var(--accent); background: var(--accent-soft); }
+.react.is-on span { color: var(--accent); }
+.comments { list-style: none; margin: 0; padding: 0; display: grid; gap: var(--space-1); font-size: 14px; line-height: 1.4; }
+.comment { overflow-wrap: anywhere; }
+.comment b { font-weight: 650; }
+.comment__del { border: 0; background: none; padding: 0 0 0 var(--space-1); color: var(--text-faint); font-size: 12px; text-decoration: underline; cursor: pointer; }
+.comment-form { display: flex; gap: var(--space-2); }
+.comment-form .input { flex: 1; min-width: 0; }
+
 /* ------------------------------------------------------------ add to home screen */
 .install-card {
   display: grid; grid-template-columns: auto 1fr; gap: var(--space-2) var(--space-3); align-items: start;

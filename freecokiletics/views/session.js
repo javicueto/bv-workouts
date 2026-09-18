@@ -61,6 +61,7 @@
     if (d.length === 1) return d[0] + " kg";
     return vals.map(function (v) { return v != null ? String(v) : "–"; }).join(" · ") + " kg";
   }
+  A.weightsLine = weightsLine;             // the Social feed writes weights the same way
   var BY_ROUND = "Weights by round";
   function minutesLabel(seconds) { return seconds ? Math.round(seconds / 60) + " min" : ""; }
 

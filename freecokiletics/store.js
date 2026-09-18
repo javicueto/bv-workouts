@@ -99,7 +99,7 @@ window.Store = (function () {
      (theme, "not now" on the install card) are not the account's and stay. */
   async function signOut() {
     try {
-      [PLAN_KEY, LAST_KEY, Q_KEY, SESSION_KEY, MEMBER_KEY, COPY_DONE, COPY_HISTORY, COPY_WORKOUTS]
+      [PLAN_KEY, LAST_KEY, Q_KEY, SESSION_KEY, MEMBER_KEY, COPY_DONE, COPY_HISTORY, COPY_WORKOUTS, COPY_SOCIAL, "freeco.socialSeen"]
         .forEach(function (k) { localStorage.removeItem(k); });
     } catch (e) {}
     notify();
@@ -578,6 +578,97 @@ window.Store = (function () {
     keepSets(by, new Date().toISOString());
   }
 
+  // ------------------------------------------------------------- social (db/008)
+  /* Every member sees every member (db/008). ONE read for the Social screen:
+     everyone's finished workouts (all of them: the points count every one),
+     everyone's heaviest weight per movement per workout (freeco_set_best, for
+     personal bests), the full sets of the latest SOCIAL_RECENT workouts (the
+     weights on their cards), names, reactions and comments. Kept as a saved
+     copy like the other reads, so Social opens offline, dated. Reacting,
+     commenting and setting a name need the network — they are small and
+     social, and pointless to queue for later. */
+  var T_PROFILES = "freeco_profiles", T_REACTIONS = "freeco_reactions", T_COMMENTS = "freeco_comments";
+  var V_BEST = "freeco_set_best";
+  var COPY_SOCIAL = "freeco.copy.social";
+  var SOCIAL_RECENT = 30, PAGE = 1000;
+  // Every row, a page at a time: the server answers at most 1000 per request.
+  async function allRows(build) {
+    var out = [];
+    for (var from = 0; ; from += PAGE) {
+      var rows = await q(build().range(from, from + PAGE - 1));
+      out = out.concat(rows || []);
+      if (!rows || rows.length < PAGE) return out;
+    }
+  }
+  async function social(userId) {
+    if (!sb() || !userId) return null;
+    var d, at = null;
+    try {
+      needNetwork();
+      var workouts = await allRows(function () {
+        return sb().from(T_WORKOUTS).select("id, user_id, session_key, block, week_start, started_at, finished_at, duration_seconds, logged_manually")
+          .not("finished_at", "is", null).order("finished_at", { ascending: false });
+      });
+      var recent = workouts.slice(0, SOCIAL_RECENT).map(function (w) { return w.id; });
+      var got = await Promise.all([
+        allRows(function () { return sb().from(V_BEST).select("workout_id, user_id, exercise_id, weight").order("workout_id"); }),
+        recent.length ? allRows(function () {
+          return sb().from(T_SETS).select("workout_id, user_id, exercise_id, exercise_name, block_letter, round, weight")
+            .in("workout_id", recent).order("done_at");
+        }) : [],
+        allRows(function () { return sb().from(T_PROFILES).select("user_id, display_name").order("user_id"); }),
+        allRows(function () { return sb().from(T_REACTIONS).select("id, item_key, item_owner, user_id, emoji, created_at").order("created_at"); }),
+        allRows(function () { return sb().from(T_COMMENTS).select("id, item_key, item_owner, user_id, body, created_at").order("created_at"); }),
+      ]);
+      d = { workouts: workouts, bests: got[0], sets: got[1], profiles: got[2], reactions: got[3], comments: got[4] };
+      writeCopy(COPY_SOCIAL, { user: userId, at: new Date().toISOString(), d: d });
+    } catch (e) {
+      var c = readCopy(COPY_SOCIAL);
+      if (!c || c.user !== userId) throw e;
+      d = c.d; at = c.at;
+    }
+    return stamp(d, at);
+  }
+  // A reaction on (on = true) or off. A double tap can't make two: the
+  // (item, person, emoji) pair is unique, and a repeat is ignored.
+  async function react(itemKey, owner, emoji, on) {
+    needNetwork();
+    if (on) {
+      return q(sb().from(T_REACTIONS).upsert({ item_key: itemKey, item_owner: owner, emoji: emoji },
+        { onConflict: "item_key,user_id,emoji", ignoreDuplicates: true }));
+    }
+    var u = await user();
+    return q(sb().from(T_REACTIONS).delete().eq("item_key", itemKey).eq("emoji", emoji).eq("user_id", u.id));
+  }
+  async function comment(itemKey, owner, body) {
+    needNetwork();
+    return q(sb().from(T_COMMENTS).insert({ item_key: itemKey, item_owner: owner, body: body }).select().single());
+  }
+  async function deleteComment(id) {
+    needNetwork();
+    return q(sb().from(T_COMMENTS).delete().eq("id", id));
+  }
+  async function setName(name) {
+    needNetwork();
+    var u = await user();
+    return q(sb().from(T_PROFILES).upsert({ user_id: u.id, display_name: name, updated_at: new Date().toISOString() },
+      { onConflict: "user_id" }).select().single());
+  }
+  /* The newest thing a friend did — a finished workout, a reaction or a
+     comment — for the dot on Home's Social button. Online only. */
+  async function socialLatest(userId) {
+    if (!sb() || !userId || !navigator.onLine) return null;
+    var r = await Promise.all([
+      q(sb().from(T_WORKOUTS).select("finished_at").neq("user_id", userId).not("finished_at", "is", null)
+        .order("finished_at", { ascending: false }).limit(1)),
+      q(sb().from(T_REACTIONS).select("created_at").neq("user_id", userId).order("created_at", { ascending: false }).limit(1)),
+      q(sb().from(T_COMMENTS).select("created_at").neq("user_id", userId).order("created_at", { ascending: false }).limit(1)),
+    ]);
+    var times = [r[0][0] && r[0][0].finished_at, r[1][0] && r[1][0].created_at, r[2][0] && r[2][0].created_at]
+      .filter(Boolean).map(function (t) { return new Date(t).toISOString(); }).sort();
+    return times.length ? times[times.length - 1] : null;
+  }
+
   return {
     configured: configured, user: user, signIn: signIn, signUp: signUp, signOut: signOut,
     sendReset: sendReset, setPassword: setPassword, ready: ready, onAuth: onAuth,
@@ -585,6 +676,7 @@ window.Store = (function () {
     uuid: uuid, saveWorkout: saveWorkout, saveSet: saveSet, lastForExercises: lastForExercises,
     history: history, setsFor: setsFor, doneByWeek: doneByWeek, workout: workout, deleteWorkout: deleteWorkout,
     warmOffline: warmOffline, savedAt: savedAt,
+    social: social, react: react, comment: comment, deleteComment: deleteComment, setName: setName, socialLatest: socialLatest,
     flush: flush, pending: function () { return readQ().length; },
     onQueue: function (fn) { listeners.push(fn); },
   };

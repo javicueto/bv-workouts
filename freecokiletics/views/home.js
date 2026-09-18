@@ -181,6 +181,7 @@
 
     app.innerHTML = html;
     A.syncBadge();
+    A.socialDot();                 // after drawing, never blocking it (views/social.js)
     A.bindInstall();
     A.bindRetry(function () { renderHome(weekStart); });
     /* Swipe left / right = the › / ‹ arrows (Javier, 14 Sep 2026). While the

@@ -15,6 +15,7 @@
     if (!h || h === "#/" || /^#\/week\//.test(h)) return { key: "home", depth: 0 };
     if (h === "#/history") return { key: "history", depth: 0 };
     if (h === "#/plan") return { key: "plan", depth: 1 };
+    if (h === "#/social") return { key: "social", depth: 1 };
     if (/^#\/(view|h)\//.test(h)) return { key: "view", depth: 1 };
     return { key: h.split(/[/?]/)[1] || "", depth: 2 };          // #/plan/edit, #/log/…, #/run/…
   }
@@ -86,6 +87,7 @@
     if (h === "#/plan/edit") V.renderPlanEdit();
     else if (h === "#/plan") V.renderPlan();
     else if (h === "#/history") V.renderHistory();
+    else if (h === "#/social") V.renderSocial();
     else if ((m = h.match(/^#\/h\/([\w-]+)$/))) V.renderWorkout(m[1]);
     else if ((m = h.match(/^#\/view\/([\d.]+)/))) V.renderView(m[1], wParam);
     else if ((m = h.match(/^#\/log\/([\d.]+)/))) V.renderLog(m[1], wParam);
