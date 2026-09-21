@@ -1253,6 +1253,345 @@ window.PROGRAMME = {
  },
  "sessions": [
   {
+   "key": "0.1",
+   "block": 0,
+   "variant": 1,
+   "title": "Workout 0.1",
+   "warmup": {
+    "text": "Back routine mobility\n1 round, 8/10 reps each exercise:\nT-spine rotation with reach\nSide lying rotation\nLeg twist \nFloor seated trunk twist\nCat cow\nActive straight leg raise\nIleopsoas dynamic stretch\nAdductor dynamic stretch\nGlute dynamic stretch",
+    "exercises": [
+     {
+      "id": "12503061",
+      "name": "T-spine rotation with reach"
+     },
+     {
+      "id": "11249387",
+      "name": "Side lying rotation"
+     },
+     {
+      "id": "12478227",
+      "name": "Leg twist"
+     },
+     {
+      "id": "14602077",
+      "name": "Floor seated trunk twist"
+     },
+     {
+      "id": "11307749",
+      "name": "Cat cow"
+     },
+     {
+      "id": "11307746",
+      "name": "Active straight leg raise"
+     },
+     {
+      "id": "12503065",
+      "name": "Ileopsoas dynamic stretch"
+     },
+     {
+      "id": "11307759",
+      "name": "Adductor dynamic stretch"
+     },
+     {
+      "id": "12417679",
+      "name": "Glute dynamic stretch"
+     }
+    ]
+   },
+   "blocks": [
+    {
+     "letter": "A",
+     "name": "Leg extension 2 up 1 down + Three points DB row",
+     "kind": "rounds",
+     "rounds": 3,
+     "rounds_note": null,
+     "rest_seconds": 60,
+     "rest_note": null,
+     "rest_assumed": false,
+     "exercises": [
+      {
+       "reps": 8,
+       "per_side": true,
+       "id": "16256970",
+       "name": "Leg extension 2 up 1 down"
+      },
+      {
+       "reps": 10,
+       "per_side": true,
+       "id": "11577511",
+       "name": "Three points DB row"
+      }
+     ],
+     "raw": "3 rounds:\n8/side Leg extension 2 up 1 down\n10/side Three points DB row\nRest 1 min"
+    },
+    {
+     "letter": "B",
+     "name": "DB Bulgarian squat + DB bench press",
+     "kind": "rounds",
+     "rounds": 3,
+     "rounds_note": null,
+     "rest_seconds": 60,
+     "rest_note": null,
+     "rest_assumed": false,
+     "exercises": [
+      {
+       "reps": 8,
+       "per_side": true,
+       "id": "11250969",
+       "name": "DB Bulgarian squat"
+      },
+      {
+       "reps": 10,
+       "note": "RIR 3 explosivo",
+       "id": "11250730",
+       "name": "DB bench press"
+      }
+     ],
+     "raw": "3 rounds:\n8/side DB Bulgarian squat\n10 DB bench press *RIR 3 explosivo\nRest 1 min"
+    },
+    {
+     "letter": "C",
+     "name": "Hip trust machine + Floor row",
+     "kind": "rounds",
+     "rounds": 3,
+     "rounds_note": null,
+     "rest_seconds": 60,
+     "rest_note": null,
+     "rest_assumed": false,
+     "exercises": [
+      {
+       "reps": 10,
+       "id": "11293295",
+       "name": "Hip trust machine"
+      },
+      {
+       "reps": 10,
+       "note": "3 sec hold",
+       "id": "15734789",
+       "name": "Floor row",
+       "no_weight": true
+      }
+     ],
+     "raw": "3 rounds:\n10 Hip trust machine\n10 Floor row *3 sec hold\nRest 1 min"
+    },
+    {
+     "letter": "D",
+     "name": "Side bridge + Band hip to shoulder half moon",
+     "kind": "rounds",
+     "rounds": 3,
+     "rounds_note": null,
+     "rest_seconds": 0,
+     "rest_note": "Rest as little as possible",
+     "rest_assumed": false,
+     "exercises": [
+      {
+       "reps": 8,
+       "per_side": true,
+       "note": "3 sec hold",
+       "id": "11292345",
+       "name": "Side bridge",
+       "no_weight": true
+      },
+      {
+       "reps": 8,
+       "note": "Lento",
+       "id": "14645591",
+       "name": "Front band hip to shoulder half moon",
+       "no_weight": true
+      }
+     ],
+     "raw": "3 rounds:\n8/side Side bridge *3 sec hold\n8 Front band hip to shoulder half moon *Lento\nRest as little as possible"
+    },
+    {
+     "letter": "E",
+     "name": "Tabata: 20 sec work - 10 sec rest x 8 cycles",
+     "kind": "tabata",
+     "work_seconds": 20,
+     "rest_seconds": 10,
+     "cycles": 8,
+     "exercises": [
+      {
+       "id": "11479471",
+       "name": "Run back and fourth"
+      },
+      {
+       "id": "11326944",
+       "name": "Plank"
+      }
+     ],
+     "raw": "Run back and fourth\nPlank"
+    }
+   ]
+  },
+  {
+   "key": "0.2",
+   "block": 0,
+   "variant": 2,
+   "title": "Workout 0.2",
+   "warmup": {
+    "text": "Back routine mobility\n1 round, 8/10 reps each exercise:\nT-spine rotation with reach\nSide lying rotation\nLeg twist \nFloor seated trunk twist\nCat cow\nActive straight leg raise\nIleopsoas dynamic stretch\nAdductor dynamic stretch\nGlute dynamic stretch",
+    "exercises": [
+     {
+      "id": "12503061",
+      "name": "T-spine rotation with reach"
+     },
+     {
+      "id": "11249387",
+      "name": "Side lying rotation"
+     },
+     {
+      "id": "12478227",
+      "name": "Leg twist"
+     },
+     {
+      "id": "14602077",
+      "name": "Floor seated trunk twist"
+     },
+     {
+      "id": "11307749",
+      "name": "Cat cow"
+     },
+     {
+      "id": "11307746",
+      "name": "Active straight leg raise"
+     },
+     {
+      "id": "12503065",
+      "name": "Ileopsoas dynamic stretch"
+     },
+     {
+      "id": "11307759",
+      "name": "Adductor dynamic stretch"
+     },
+     {
+      "id": "12417679",
+      "name": "Glute dynamic stretch"
+     }
+    ]
+   },
+   "blocks": [
+    {
+     "letter": "A",
+     "name": "Leg curl 2 up 1 down + Cable rope high pull",
+     "kind": "rounds",
+     "rounds": 3,
+     "rounds_note": null,
+     "rest_seconds": 60,
+     "rest_note": null,
+     "rest_assumed": false,
+     "exercises": [
+      {
+       "reps": 8,
+       "per_side": true,
+       "id": "17363186",
+       "name": "Lying leg curl 2 up 1 down"
+      },
+      {
+       "reps": 10,
+       "id": "11373111",
+       "name": "Cable rope high pull"
+      }
+     ],
+     "raw": "3 rounds:\n8/side Single leg leg curl \n10 Cable rope high pull \nRest 1 min"
+    },
+    {
+     "letter": "B",
+     "name": "DB step up + DB bench cross over",
+     "kind": "rounds",
+     "rounds": 3,
+     "rounds_note": null,
+     "rest_seconds": 60,
+     "rest_note": null,
+     "rest_assumed": false,
+     "exercises": [
+      {
+       "reps": 8,
+       "per_side": true,
+       "note": "RIR 3 subida explosiva",
+       "id": "11292356",
+       "name": "Step up"
+      },
+      {
+       "reps": 10,
+       "id": "11473304",
+       "name": "DB bench cross over"
+      }
+     ],
+     "raw": "3 rounds:\n8/side DB step up *RIR 3 subida explosiva\n10 DB bench cross over\nRest 1 min"
+    },
+    {
+     "letter": "C",
+     "name": "Heels elevated goblet squat + TRX scapular row",
+     "kind": "rounds",
+     "rounds": 3,
+     "rounds_note": null,
+     "rest_seconds": 60,
+     "rest_note": null,
+     "rest_assumed": false,
+     "exercises": [
+      {
+       "reps": 10,
+       "id": "12778078",
+       "name": "Heels elevated goblet squat"
+      },
+      {
+       "reps": 8,
+       "id": "11494918",
+       "name": "TRX shoulder depression and row",
+       "no_weight": true
+      }
+     ],
+     "raw": "3 rounds:\n10 Heels elevated goblet squat\n8 TRX scapular row\nRest 1 min"
+    },
+    {
+     "letter": "D",
+     "name": "Single leg bridge + Band rhomboids openings",
+     "kind": "rounds",
+     "rounds": 3,
+     "rounds_note": null,
+     "rest_seconds": 0,
+     "rest_note": "No rest",
+     "rest_assumed": false,
+     "exercises": [
+      {
+       "reps": 10,
+       "per_side": true,
+       "id": "11292212",
+       "name": "Single leg bridge",
+       "no_weight": true
+      },
+      {
+       "reps": 10,
+       "id": "11298002",
+       "name": "Band rhomboids openings",
+       "no_weight": true
+      }
+     ],
+     "raw": "3 rounds:\n10/side Single leg bridge\n10 Band rhomboids openings"
+    },
+    {
+     "letter": "E",
+     "name": "Tabata: 20 sec work - 10 sec rest x 8 cycles",
+     "kind": "tabata",
+     "work_seconds": 20,
+     "rest_seconds": 10,
+     "cycles": 8,
+     "exercises": [
+      {
+       "id": "11479463",
+       "name": "Lateral run back and fourth"
+      },
+      {
+       "id": "11326993",
+       "name": "Side plank",
+       "per_side": true
+      }
+     ],
+     "raw": "Lateral run back and fourth\nSide plank"
+    }
+   ]
+  },
+  {
    "key": "1.1",
    "block": 1,
    "variant": 1,
@@ -4619,345 +4958,6 @@ window.PROGRAMME = {
       }
      ],
      "raw": "4 rounds:\n10 Cable rope high pull *RIR 1\n8/side DB chop *Explosivo\nRest 1:30 min"
-    }
-   ]
-  },
-  {
-   "key": "9.1",
-   "block": 9,
-   "variant": 1,
-   "title": "Workout 9.1",
-   "warmup": {
-    "text": "Back routine mobility\n1 round, 8/10 reps each exercise:\nT-spine rotation with reach\nSide lying rotation\nLeg twist \nFloor seated trunk twist\nCat cow\nActive straight leg raise\nIleopsoas dynamic stretch\nAdductor dynamic stretch\nGlute dynamic stretch",
-    "exercises": [
-     {
-      "id": "12503061",
-      "name": "T-spine rotation with reach"
-     },
-     {
-      "id": "11249387",
-      "name": "Side lying rotation"
-     },
-     {
-      "id": "12478227",
-      "name": "Leg twist"
-     },
-     {
-      "id": "14602077",
-      "name": "Floor seated trunk twist"
-     },
-     {
-      "id": "11307749",
-      "name": "Cat cow"
-     },
-     {
-      "id": "11307746",
-      "name": "Active straight leg raise"
-     },
-     {
-      "id": "12503065",
-      "name": "Ileopsoas dynamic stretch"
-     },
-     {
-      "id": "11307759",
-      "name": "Adductor dynamic stretch"
-     },
-     {
-      "id": "12417679",
-      "name": "Glute dynamic stretch"
-     }
-    ]
-   },
-   "blocks": [
-    {
-     "letter": "A",
-     "name": "Leg extension 2 up 1 down + Three points DB row",
-     "kind": "rounds",
-     "rounds": 3,
-     "rounds_note": null,
-     "rest_seconds": 60,
-     "rest_note": null,
-     "rest_assumed": false,
-     "exercises": [
-      {
-       "reps": 8,
-       "per_side": true,
-       "id": "16256970",
-       "name": "Leg extension 2 up 1 down"
-      },
-      {
-       "reps": 10,
-       "per_side": true,
-       "id": "11577511",
-       "name": "Three points DB row"
-      }
-     ],
-     "raw": "3 rounds:\n8/side Leg extension 2 up 1 down\n10/side Three points DB row\nRest 1 min"
-    },
-    {
-     "letter": "B",
-     "name": "DB Bulgarian squat + DB bench press",
-     "kind": "rounds",
-     "rounds": 3,
-     "rounds_note": null,
-     "rest_seconds": 60,
-     "rest_note": null,
-     "rest_assumed": false,
-     "exercises": [
-      {
-       "reps": 8,
-       "per_side": true,
-       "id": "11250969",
-       "name": "DB Bulgarian squat"
-      },
-      {
-       "reps": 10,
-       "note": "RIR 3 explosivo",
-       "id": "11250730",
-       "name": "DB bench press"
-      }
-     ],
-     "raw": "3 rounds:\n8/side DB Bulgarian squat\n10 DB bench press *RIR 3 explosivo\nRest 1 min"
-    },
-    {
-     "letter": "C",
-     "name": "Hip trust machine + Floor row",
-     "kind": "rounds",
-     "rounds": 3,
-     "rounds_note": null,
-     "rest_seconds": 60,
-     "rest_note": null,
-     "rest_assumed": false,
-     "exercises": [
-      {
-       "reps": 10,
-       "id": "11293295",
-       "name": "Hip trust machine"
-      },
-      {
-       "reps": 10,
-       "note": "3 sec hold",
-       "id": "15734789",
-       "name": "Floor row",
-       "no_weight": true
-      }
-     ],
-     "raw": "3 rounds:\n10 Hip trust machine\n10 Floor row *3 sec hold\nRest 1 min"
-    },
-    {
-     "letter": "D",
-     "name": "Side bridge + Band hip to shoulder half moon",
-     "kind": "rounds",
-     "rounds": 3,
-     "rounds_note": null,
-     "rest_seconds": 0,
-     "rest_note": "Rest as little as possible",
-     "rest_assumed": false,
-     "exercises": [
-      {
-       "reps": 8,
-       "per_side": true,
-       "note": "3 sec hold",
-       "id": "11292345",
-       "name": "Side bridge",
-       "no_weight": true
-      },
-      {
-       "reps": 8,
-       "note": "Lento",
-       "id": "14645591",
-       "name": "Front band hip to shoulder half moon",
-       "no_weight": true
-      }
-     ],
-     "raw": "3 rounds:\n8/side Side bridge *3 sec hold\n8 Front band hip to shoulder half moon *Lento\nRest as little as possible"
-    },
-    {
-     "letter": "E",
-     "name": "Tabata: 20 sec work - 10 sec rest x 8 cycles",
-     "kind": "tabata",
-     "work_seconds": 20,
-     "rest_seconds": 10,
-     "cycles": 8,
-     "exercises": [
-      {
-       "id": "11479471",
-       "name": "Run back and fourth"
-      },
-      {
-       "id": "11326944",
-       "name": "Plank"
-      }
-     ],
-     "raw": "Run back and fourth\nPlank"
-    }
-   ]
-  },
-  {
-   "key": "9.2",
-   "block": 9,
-   "variant": 2,
-   "title": "Workout 9.2",
-   "warmup": {
-    "text": "Back routine mobility\n1 round, 8/10 reps each exercise:\nT-spine rotation with reach\nSide lying rotation\nLeg twist \nFloor seated trunk twist\nCat cow\nActive straight leg raise\nIleopsoas dynamic stretch\nAdductor dynamic stretch\nGlute dynamic stretch",
-    "exercises": [
-     {
-      "id": "12503061",
-      "name": "T-spine rotation with reach"
-     },
-     {
-      "id": "11249387",
-      "name": "Side lying rotation"
-     },
-     {
-      "id": "12478227",
-      "name": "Leg twist"
-     },
-     {
-      "id": "14602077",
-      "name": "Floor seated trunk twist"
-     },
-     {
-      "id": "11307749",
-      "name": "Cat cow"
-     },
-     {
-      "id": "11307746",
-      "name": "Active straight leg raise"
-     },
-     {
-      "id": "12503065",
-      "name": "Ileopsoas dynamic stretch"
-     },
-     {
-      "id": "11307759",
-      "name": "Adductor dynamic stretch"
-     },
-     {
-      "id": "12417679",
-      "name": "Glute dynamic stretch"
-     }
-    ]
-   },
-   "blocks": [
-    {
-     "letter": "A",
-     "name": "Leg curl 2 up 1 down + Cable rope high pull",
-     "kind": "rounds",
-     "rounds": 3,
-     "rounds_note": null,
-     "rest_seconds": 60,
-     "rest_note": null,
-     "rest_assumed": false,
-     "exercises": [
-      {
-       "reps": 8,
-       "per_side": true,
-       "id": "17363186",
-       "name": "Lying leg curl 2 up 1 down"
-      },
-      {
-       "reps": 10,
-       "id": "11373111",
-       "name": "Cable rope high pull"
-      }
-     ],
-     "raw": "3 rounds:\n8/side Single leg leg curl \n10 Cable rope high pull \nRest 1 min"
-    },
-    {
-     "letter": "B",
-     "name": "DB step up + DB bench cross over",
-     "kind": "rounds",
-     "rounds": 3,
-     "rounds_note": null,
-     "rest_seconds": 60,
-     "rest_note": null,
-     "rest_assumed": false,
-     "exercises": [
-      {
-       "reps": 8,
-       "per_side": true,
-       "note": "RIR 3 subida explosiva",
-       "id": "11292356",
-       "name": "Step up"
-      },
-      {
-       "reps": 10,
-       "id": "11473304",
-       "name": "DB bench cross over"
-      }
-     ],
-     "raw": "3 rounds:\n8/side DB step up *RIR 3 subida explosiva\n10 DB bench cross over\nRest 1 min"
-    },
-    {
-     "letter": "C",
-     "name": "Heels elevated goblet squat + TRX scapular row",
-     "kind": "rounds",
-     "rounds": 3,
-     "rounds_note": null,
-     "rest_seconds": 60,
-     "rest_note": null,
-     "rest_assumed": false,
-     "exercises": [
-      {
-       "reps": 10,
-       "id": "12778078",
-       "name": "Heels elevated goblet squat"
-      },
-      {
-       "reps": 8,
-       "id": "11494918",
-       "name": "TRX shoulder depression and row",
-       "no_weight": true
-      }
-     ],
-     "raw": "3 rounds:\n10 Heels elevated goblet squat\n8 TRX scapular row\nRest 1 min"
-    },
-    {
-     "letter": "D",
-     "name": "Single leg bridge + Band rhomboids openings",
-     "kind": "rounds",
-     "rounds": 3,
-     "rounds_note": null,
-     "rest_seconds": 0,
-     "rest_note": "No rest",
-     "rest_assumed": false,
-     "exercises": [
-      {
-       "reps": 10,
-       "per_side": true,
-       "id": "11292212",
-       "name": "Single leg bridge",
-       "no_weight": true
-      },
-      {
-       "reps": 10,
-       "id": "11298002",
-       "name": "Band rhomboids openings",
-       "no_weight": true
-      }
-     ],
-     "raw": "3 rounds:\n10/side Single leg bridge\n10 Band rhomboids openings"
-    },
-    {
-     "letter": "E",
-     "name": "Tabata: 20 sec work - 10 sec rest x 8 cycles",
-     "kind": "tabata",
-     "work_seconds": 20,
-     "rest_seconds": 10,
-     "cycles": 8,
-     "exercises": [
-      {
-       "id": "11479463",
-       "name": "Lateral run back and fourth"
-      },
-      {
-       "id": "11326993",
-       "name": "Side plank",
-       "per_side": true
-      }
-     ],
-     "raw": "Lateral run back and fourth\nSide plank"
     }
    ]
   }

@@ -337,7 +337,7 @@ window.Store = (function () {
     if (!Array.isArray(row.blocks) || !row.blocks.length) return "The plan has no blocks.";
     for (var i = 0; i < row.blocks.length; i++) {
       var b = row.blocks[i];
-      if (!b || !Number.isInteger(b.block) || b.block < 1) return "Block " + (i + 1) + " has no number.";
+      if (!b || !Number.isInteger(b.block) || b.block < 0) return "Block " + (i + 1) + " has no number.";
       if (!Number.isInteger(b.weeks) || b.weeks < 1 || b.weeks > 12) return "Block " + b.block + " needs 1–12 weeks.";
     }
     return null;

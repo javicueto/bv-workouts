@@ -260,6 +260,24 @@ def main():
         # An override can also silence a specific warning it has dealt with.
         silenced = set(ov.get("silence", []))
         problems[:] = [p for p in problems if not any(p.startswith(s) for s in silenced)]
+        # Renumber a block the app places differently from TrueCoach — block 9
+        # is really the reset that OPENS the cycle, so the app calls it 0 (see
+        # _renumber_reasons). Done after the fixes above, which address
+        # sessions by TrueCoach's key. Keys and titles follow the new number,
+        # since the app shows both and stores the key with each workout.
+        renum = {int(k): v for k, v in ov.get("renumber_blocks", {}).items()}
+        for s in sessions:
+            if s["block"] in renum:
+                old_key, n = s["key"], renum[s["block"]]
+                s["block"] = n
+                s["key"] = f"{n}.{s['variant']}"
+                if old_key not in s["title"]:
+                    sys.exit(f"renumber: title “{s['title']}” does not carry its key {old_key}")
+                s["title"] = s["title"].replace(old_key, s["key"])
+        sessions.sort(key=lambda s: (s["block"], s["variant"]))   # block 0 first
+        keys = [s["key"] for s in sessions]
+        if len(keys) != len(set(keys)):
+            sys.exit("renumber_blocks made two sessions share a key")
 
     # Exercises with no weight to log — bodyweight, bands, TRX… (Javier's
     # review, 13 Sep 2026; see the file's _about). Marked on every block

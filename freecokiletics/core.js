@@ -25,10 +25,12 @@ window.App = (function () {
     memberFor: null,        // account id the server confirmed as a Cokiletics member (db/006)
   };
 
-  /* Francesco's names for the phases, by block. A block beyond these (10 and
+  /* Francesco's names for the phases, by block. Block 0 is his reset — TrueCoach's
+     block 9, renumbered by the build because it opens the cycle (Javier, 21 Sep
+     2026); 8 is the peak. A block beyond these (10 and
      on, when he writes it) simply has no phase label until he gives it one. */
-  var PHASE = { 1: "Base", 2: "Base", 3: "Base", 4: "Strength", 5: "Strength", 6: "Strength",
-                7: "Power", 8: "Power", 9: "Explosive" };
+  var PHASE = { 0: "Reset", 1: "Base", 2: "Base", 3: "Base", 4: "Strength", 5: "Strength", 6: "Strength",
+                7: "Power", 8: "Power" };
   /* The blocks come from the PROGRAMME, never from a list typed here: block
      10 arrives with the next TrueCoach export and has to reach the plan
      editor with no code change. The default lengths are Javier's (12 Sep
