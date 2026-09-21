@@ -210,12 +210,15 @@
   function renderHome() {
     var blocks = {};
     DATA.workouts.forEach(function (w) { (blocks[w.block] = blocks[w.block] || []).push(w); });
-    var nums = Object.keys(blocks).map(Number).sort(function (a, b) { return b - a; });   // newest first
+    // Newest first by DATE, not by number: block 0 (the reset, TrueCoach's 9 —
+    // see data/block_numbers.json) is Francesco's newest, so it leads the page.
+    function started(n) { return blocks[n].reduce(function (m, w) { return w.first_date < m ? w.first_date : m; }, '9999'); }
+    var nums = Object.keys(blocks).map(Number).sort(function (a, b) { return started(b) < started(a) ? -1 : started(b) > started(a) ? 1 : b - a; });
 
     var html = '<div class="page-head">' +
       '<span class="eyebrow">' + DATA.workout_count + ' workouts · ' + DATA.exercise_count + ' exercises</span>' +
       '<h1>Francesco’s beach volleyball workouts</h1>' +
-      '<p class="page-head__lede">Every workout from block 1 onwards, newest first. Two sessions per block.</p>' +
+      '<p class="page-head__lede">Every workout from the start, newest first. Two sessions per block.</p>' +
       '</div>';
 
     nums.forEach(function (n) {

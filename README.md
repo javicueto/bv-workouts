@@ -11,7 +11,8 @@ The published version streams the videos from YouTube instead of shipping them.
 
 ## What is in it
 
-- 18 workouts, two per block (1.1, 1.2 … 9.1, 9.2), newest block first
+- 18 workouts, two per block (0.1, 0.2 … 8.1, 8.2), newest block first. Block 0 is
+  Francesco’s reset — TrueCoach numbers it 9; `data/block_numbers.json` renumbers it
 - Each workout: warm-up, then blocks A–F with the coach's instructions as written
 - 168 exercises with a video each, downloaded to `videos/` — no signal needed in the gym
 - An exercise index with search, showing which workouts each movement appears in
@@ -25,7 +26,7 @@ it was active.
 
 ## Refreshing it when the coach adds new workouts
 
-Roughly every five weeks a new block appears (9.1, 9.2 …). To pull it in:
+Roughly every five weeks a new block appears. To pull it in:
 
 1. Open <https://app.truecoach.co/client/workouts> in Chrome and log in.
 2. Run `scripts/export_truecoach.js` in that tab — paste it into the DevTools console,
@@ -156,9 +157,9 @@ and upload the next time it is online.
 **The plan is per person.** Everyone who signs in builds their own: a start date
 and a number of weeks for each block of the programme, edited in the app (Plan →
 Edit). Two sessions a week, and the app works out the calendar from there. Javier's
-is 7 Sep 2026 → 7 Feb 2027, peaking on block 9 in the first week of February;
-block 1 starts again on 8 Feb to build for May. Nacho has his own account and
-picks his own lengths. Nobody sees anybody else's plan or logs.
+is 21 Sep 2026 → 21 Feb 2027: block 0 (the reset) first, peaking on block 8 in
+February. Nacho has his own account and picks his own lengths. Nobody sees anybody
+else's plan; finished workouts show in the shared Social feed.
 
 The fixed schedule that shipped first (`schedule.json`) is gone — the last copy
 is kept in `_archive/` on Javier’s Drive, which is not part of the public repo.

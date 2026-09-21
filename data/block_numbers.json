@@ -1,0 +1,9 @@
+{
+  "_about": "Blocks numbered differently from TrueCoach. Applied by scripts/build_site.py, so the reference site AND Cokiletics (built from data/workouts.js) both use the new number. Keys and titles follow (\"9.1\" → \"0.1\"). data/corrections.json keeps using TrueCoach's keys — it is applied before this.",
+  "renumber": {
+    "9": 0
+  },
+  "why": {
+    "9 → 0": "Javier, 21 Sep 2026: Francesco's block 9 is a reset, not a full-power block. It opens the cycle, so it is block 0 and block 8 is the peak."
+  }
+}

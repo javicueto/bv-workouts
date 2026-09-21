@@ -149,6 +149,8 @@ window.WORKOUTS = {
    "has_local_thumb": true,
    "has_preview": true,
    "used_in": [
+    "0.1",
+    "0.2",
     "1.1",
     "1.2",
     "2.1",
@@ -164,9 +166,7 @@ window.WORKOUTS = {
     "7.1",
     "7.2",
     "8.1",
-    "8.2",
-    "9.1",
-    "9.2"
+    "8.2"
    ]
   },
   "11250441": {
@@ -227,8 +227,8 @@ window.WORKOUTS = {
    "has_local_thumb": true,
    "has_preview": true,
    "used_in": [
-    "3.1",
-    "9.1"
+    "0.1",
+    "3.1"
    ]
   },
   "11250797": {
@@ -252,8 +252,8 @@ window.WORKOUTS = {
    "has_local_thumb": true,
    "has_preview": true,
    "used_in": [
-    "6.2",
-    "9.1"
+    "0.1",
+    "6.2"
    ]
   },
   "11259628": {
@@ -548,8 +548,8 @@ window.WORKOUTS = {
    "has_local_thumb": true,
    "has_preview": true,
    "used_in": [
-    "2.1",
-    "9.2"
+    "0.2",
+    "2.1"
    ]
   },
   "11292256": {
@@ -611,8 +611,8 @@ window.WORKOUTS = {
    "has_local_thumb": true,
    "has_preview": true,
    "used_in": [
-    "1.2",
-    "9.1"
+    "0.1",
+    "1.2"
    ]
   },
   "11292356": {
@@ -624,8 +624,8 @@ window.WORKOUTS = {
    "has_local_thumb": true,
    "has_preview": true,
    "used_in": [
-    "2.2",
-    "9.2"
+    "0.2",
+    "2.2"
    ]
   },
   "11292367": {
@@ -717,7 +717,7 @@ window.WORKOUTS = {
    "has_local_thumb": true,
    "has_preview": true,
    "used_in": [
-    "9.1"
+    "0.1"
    ]
   },
   "11297983": {
@@ -742,8 +742,8 @@ window.WORKOUTS = {
    "has_local_thumb": true,
    "has_preview": true,
    "used_in": [
-    "1.2",
-    "9.2"
+    "0.2",
+    "1.2"
    ]
   },
   "11307746": {
@@ -755,6 +755,8 @@ window.WORKOUTS = {
    "has_local_thumb": true,
    "has_preview": true,
    "used_in": [
+    "0.1",
+    "0.2",
     "2.1",
     "2.2",
     "3.1",
@@ -768,9 +770,7 @@ window.WORKOUTS = {
     "7.1",
     "7.2",
     "8.1",
-    "8.2",
-    "9.1",
-    "9.2"
+    "8.2"
    ]
   },
   "11307749": {
@@ -782,6 +782,8 @@ window.WORKOUTS = {
    "has_local_thumb": true,
    "has_preview": true,
    "used_in": [
+    "0.1",
+    "0.2",
     "1.1",
     "1.2",
     "2.1",
@@ -797,9 +799,7 @@ window.WORKOUTS = {
     "7.1",
     "7.2",
     "8.1",
-    "8.2",
-    "9.1",
-    "9.2"
+    "8.2"
    ]
   },
   "11307759": {
@@ -811,6 +811,8 @@ window.WORKOUTS = {
    "has_local_thumb": true,
    "has_preview": true,
    "used_in": [
+    "0.1",
+    "0.2",
     "1.1",
     "1.2",
     "2.1",
@@ -826,9 +828,7 @@ window.WORKOUTS = {
     "7.1",
     "7.2",
     "8.1",
-    "8.2",
-    "9.1",
-    "9.2"
+    "8.2"
    ]
   },
   "11307787": {
@@ -914,9 +914,9 @@ window.WORKOUTS = {
    "has_local_thumb": true,
    "has_preview": true,
    "used_in": [
+    "0.1",
     "1.1",
-    "2.1",
-    "9.1"
+    "2.1"
    ]
   },
   "11326993": {
@@ -928,9 +928,9 @@ window.WORKOUTS = {
    "has_local_thumb": true,
    "has_preview": true,
    "used_in": [
+    "0.2",
     "1.2",
-    "2.2",
-    "9.2"
+    "2.2"
    ]
   },
   "11327019": {
@@ -1175,8 +1175,8 @@ window.WORKOUTS = {
    "has_local_thumb": true,
    "has_preview": true,
    "used_in": [
-    "8.2",
-    "9.2"
+    "0.2",
+    "8.2"
    ]
   },
   "11379991": {
@@ -1273,9 +1273,9 @@ window.WORKOUTS = {
    "has_local_thumb": true,
    "has_preview": true,
    "used_in": [
+    "0.2",
     "1.2",
-    "5.1",
-    "9.2"
+    "5.1"
    ]
   },
   "11479416": {
@@ -1299,8 +1299,8 @@ window.WORKOUTS = {
    "has_local_thumb": true,
    "has_preview": true,
    "used_in": [
-    "1.2",
-    "9.2"
+    "0.2",
+    "1.2"
    ]
   },
   "11479471": {
@@ -1312,8 +1312,8 @@ window.WORKOUTS = {
    "has_local_thumb": true,
    "has_preview": true,
    "used_in": [
-    "1.1",
-    "9.1"
+    "0.1",
+    "1.1"
    ]
   },
   "11493541": {
@@ -1349,8 +1349,8 @@ window.WORKOUTS = {
    "has_local_thumb": true,
    "has_preview": true,
    "used_in": [
-    "4.2",
-    "9.2"
+    "0.2",
+    "4.2"
    ]
   },
   "11497501": {
@@ -1423,7 +1423,7 @@ window.WORKOUTS = {
    "has_local_thumb": true,
    "has_preview": true,
    "used_in": [
-    "9.1"
+    "0.1"
    ]
   },
   "11579776": {
@@ -1511,6 +1511,8 @@ window.WORKOUTS = {
    "has_local_thumb": true,
    "has_preview": true,
    "used_in": [
+    "0.1",
+    "0.2",
     "2.1",
     "2.2",
     "3.1",
@@ -1524,9 +1526,7 @@ window.WORKOUTS = {
     "7.1",
     "7.2",
     "8.1",
-    "8.2",
-    "9.1",
-    "9.2"
+    "8.2"
    ]
   },
   "12457695": {
@@ -1602,6 +1602,8 @@ window.WORKOUTS = {
    "has_local_thumb": true,
    "has_preview": true,
    "used_in": [
+    "0.1",
+    "0.2",
     "1.1",
     "1.2",
     "2.1",
@@ -1617,9 +1619,7 @@ window.WORKOUTS = {
     "7.1",
     "7.2",
     "8.1",
-    "8.2",
-    "9.1",
-    "9.2"
+    "8.2"
    ]
   },
   "12479502": {
@@ -1659,6 +1659,8 @@ window.WORKOUTS = {
    "has_local_thumb": true,
    "has_preview": true,
    "used_in": [
+    "0.1",
+    "0.2",
     "1.1",
     "1.2",
     "2.1",
@@ -1674,9 +1676,7 @@ window.WORKOUTS = {
     "7.1",
     "7.2",
     "8.1",
-    "8.2",
-    "9.1",
-    "9.2"
+    "8.2"
    ]
   },
   "12503065": {
@@ -1688,6 +1688,8 @@ window.WORKOUTS = {
    "has_local_thumb": true,
    "has_preview": true,
    "used_in": [
+    "0.1",
+    "0.2",
     "1.1",
     "1.2",
     "2.1",
@@ -1703,9 +1705,7 @@ window.WORKOUTS = {
     "7.1",
     "7.2",
     "8.1",
-    "8.2",
-    "9.1",
-    "9.2"
+    "8.2"
    ]
   },
   "12626046": {
@@ -1844,7 +1844,7 @@ window.WORKOUTS = {
    "has_local_thumb": true,
    "has_preview": true,
    "used_in": [
-    "9.2"
+    "0.2"
    ]
   },
   "12816779": {
@@ -1970,6 +1970,8 @@ window.WORKOUTS = {
    "has_local_thumb": true,
    "has_preview": true,
    "used_in": [
+    "0.1",
+    "0.2",
     "1.1",
     "1.2",
     "2.1",
@@ -1985,9 +1987,7 @@ window.WORKOUTS = {
     "7.1",
     "7.2",
     "8.1",
-    "8.2",
-    "9.1",
-    "9.2"
+    "8.2"
    ]
   },
   "14645591": {
@@ -1999,7 +1999,7 @@ window.WORKOUTS = {
    "has_local_thumb": true,
    "has_preview": true,
    "used_in": [
-    "9.1"
+    "0.1"
    ]
   },
   "14695037": {
@@ -2072,7 +2072,7 @@ window.WORKOUTS = {
    "has_local_thumb": true,
    "has_preview": true,
    "used_in": [
-    "9.1"
+    "0.1"
    ]
   },
   "15788247": {
@@ -2147,7 +2147,7 @@ window.WORKOUTS = {
    "has_local_thumb": true,
    "has_preview": true,
    "used_in": [
-    "9.1"
+    "0.1"
    ]
   },
   "16540198": {
@@ -2171,7 +2171,7 @@ window.WORKOUTS = {
    "has_local_thumb": true,
    "has_preview": true,
    "used_in": [
-    "9.2"
+    "0.2"
    ]
   },
   "17383107": {
@@ -2252,6 +2252,166 @@ window.WORKOUTS = {
   }
  },
  "workouts": [
+  {
+   "key": "0.1",
+   "block": 0,
+   "variant": 1,
+   "title": "Workout 0.1",
+   "assigned_count": 6,
+   "first_date": "2026-09-14",
+   "last_date": "2026-10-19",
+   "warmup": "Back routine mobility\n1 round, 8/10 reps each exercise:\nT-spine rotation with reach\nSide lying rotation\nLeg twist \nFloor seated trunk twist\nCat cow\nActive straight leg raise\nIleopsoas dynamic stretch\nAdductor dynamic stretch\nGlute dynamic stretch",
+   "warmup_exercises": [
+    "12503061",
+    "11249387",
+    "12478227",
+    "14602077",
+    "11307749",
+    "11307746",
+    "12503065",
+    "11307759",
+    "12417679"
+   ],
+   "cooldown": "",
+   "cooldown_exercises": [],
+   "items": [
+    {
+     "letter": "A",
+     "name": "Leg extension 2 up 1 down + Three points DB row",
+     "info": "3 rounds:\n8/side Leg extension 2 up 1 down\n10/side Three points DB row\nRest 1 min",
+     "is_circuit": true,
+     "matched_by_name": false,
+     "exercises": [
+      "16256970",
+      "11577511"
+     ]
+    },
+    {
+     "letter": "B",
+     "name": "DB Bulgarian squat + DB bench press",
+     "info": "3 rounds:\n8/side DB Bulgarian squat\n10 DB bench press *RIR 3 explosivo\nRest 1 min",
+     "is_circuit": true,
+     "matched_by_name": false,
+     "exercises": [
+      "11250969",
+      "11250730"
+     ]
+    },
+    {
+     "letter": "C",
+     "name": "Hip trust machine + Floor row",
+     "info": "3 rounds:\n10 Hip trust machine\n10 Floor row *3 sec hold\nRest 1 min",
+     "is_circuit": true,
+     "matched_by_name": false,
+     "exercises": [
+      "11293295",
+      "15734789"
+     ]
+    },
+    {
+     "letter": "D",
+     "name": "Side bridge + Band hip to shoulder half moon",
+     "info": "3 rounds:\n8/side Side bridge *3 sec hold\n8 Front band hip to shoulder half moon *Lento\nRest as little as possible",
+     "is_circuit": true,
+     "matched_by_name": false,
+     "exercises": [
+      "11292345",
+      "14645591"
+     ]
+    },
+    {
+     "letter": "E",
+     "name": "Tabata: 20 sec work - 10 sec rest x 8 cycles",
+     "info": "Run back and fourth\nPlank",
+     "is_circuit": true,
+     "matched_by_name": false,
+     "exercises": [
+      "11479471",
+      "11326944"
+     ]
+    }
+   ]
+  },
+  {
+   "key": "0.2",
+   "block": 0,
+   "variant": 2,
+   "title": "Workout 0.2",
+   "assigned_count": 6,
+   "first_date": "2026-09-16",
+   "last_date": "2026-10-21",
+   "warmup": "Back routine mobility\n1 round, 8/10 reps each exercise:\nT-spine rotation with reach\nSide lying rotation\nLeg twist \nFloor seated trunk twist\nCat cow\nActive straight leg raise\nIleopsoas dynamic stretch\nAdductor dynamic stretch\nGlute dynamic stretch",
+   "warmup_exercises": [
+    "12503061",
+    "11249387",
+    "12478227",
+    "14602077",
+    "11307749",
+    "11307746",
+    "12503065",
+    "11307759",
+    "12417679"
+   ],
+   "cooldown": "",
+   "cooldown_exercises": [],
+   "items": [
+    {
+     "letter": "A",
+     "name": "Leg curl 2 up 1 down + Cable rope high pull",
+     "info": "3 rounds:\n8/side Single leg leg curl \n10 Cable rope high pull \nRest 1 min",
+     "is_circuit": true,
+     "matched_by_name": false,
+     "exercises": [
+      "17363186",
+      "11373111"
+     ]
+    },
+    {
+     "letter": "B",
+     "name": "DB step up + DB bench cross over",
+     "info": "3 rounds:\n8/side DB step up *RIR 3 subida explosiva\n10 DB bench cross over\nRest 1 min",
+     "is_circuit": true,
+     "matched_by_name": false,
+     "exercises": [
+      "11292356",
+      "11473304"
+     ]
+    },
+    {
+     "letter": "C",
+     "name": "Heels elevated goblet squat + TRX scapular row",
+     "info": "3 rounds:\n10 Heels elevated goblet squat\n8 TRX scapular row\nRest 1 min",
+     "is_circuit": true,
+     "matched_by_name": false,
+     "exercises": [
+      "12778078",
+      "11494918"
+     ]
+    },
+    {
+     "letter": "D",
+     "name": "Single leg bridge + Band rhomboids openings",
+     "info": "3 rounds:\n10/side Single leg bridge\n10 Band rhomboids openings",
+     "is_circuit": true,
+     "matched_by_name": false,
+     "exercises": [
+      "11292212",
+      "11298002"
+     ]
+    },
+    {
+     "letter": "E",
+     "name": "Tabata: 20 sec work - 10 sec rest x 8 cycles",
+     "info": "Lateral run back and fourth\nSide plank",
+     "is_circuit": true,
+     "matched_by_name": false,
+     "exercises": [
+      "11479463",
+      "11326993"
+     ]
+    }
+   ]
+  },
   {
    "key": "1.1",
    "block": 1,
@@ -3763,166 +3923,6 @@ window.WORKOUTS = {
      "exercises": [
       "11373111",
       "11279373"
-     ]
-    }
-   ]
-  },
-  {
-   "key": "9.1",
-   "block": 9,
-   "variant": 1,
-   "title": "Workout 9.1",
-   "assigned_count": 6,
-   "first_date": "2026-09-14",
-   "last_date": "2026-10-19",
-   "warmup": "Back routine mobility\n1 round, 8/10 reps each exercise:\nT-spine rotation with reach\nSide lying rotation\nLeg twist \nFloor seated trunk twist\nCat cow\nActive straight leg raise\nIleopsoas dynamic stretch\nAdductor dynamic stretch\nGlute dynamic stretch",
-   "warmup_exercises": [
-    "12503061",
-    "11249387",
-    "12478227",
-    "14602077",
-    "11307749",
-    "11307746",
-    "12503065",
-    "11307759",
-    "12417679"
-   ],
-   "cooldown": "",
-   "cooldown_exercises": [],
-   "items": [
-    {
-     "letter": "A",
-     "name": "Leg extension 2 up 1 down + Three points DB row",
-     "info": "3 rounds:\n8/side Leg extension 2 up 1 down\n10/side Three points DB row\nRest 1 min",
-     "is_circuit": true,
-     "matched_by_name": false,
-     "exercises": [
-      "16256970",
-      "11577511"
-     ]
-    },
-    {
-     "letter": "B",
-     "name": "DB Bulgarian squat + DB bench press",
-     "info": "3 rounds:\n8/side DB Bulgarian squat\n10 DB bench press *RIR 3 explosivo\nRest 1 min",
-     "is_circuit": true,
-     "matched_by_name": false,
-     "exercises": [
-      "11250969",
-      "11250730"
-     ]
-    },
-    {
-     "letter": "C",
-     "name": "Hip trust machine + Floor row",
-     "info": "3 rounds:\n10 Hip trust machine\n10 Floor row *3 sec hold\nRest 1 min",
-     "is_circuit": true,
-     "matched_by_name": false,
-     "exercises": [
-      "11293295",
-      "15734789"
-     ]
-    },
-    {
-     "letter": "D",
-     "name": "Side bridge + Band hip to shoulder half moon",
-     "info": "3 rounds:\n8/side Side bridge *3 sec hold\n8 Front band hip to shoulder half moon *Lento\nRest as little as possible",
-     "is_circuit": true,
-     "matched_by_name": false,
-     "exercises": [
-      "11292345",
-      "14645591"
-     ]
-    },
-    {
-     "letter": "E",
-     "name": "Tabata: 20 sec work - 10 sec rest x 8 cycles",
-     "info": "Run back and fourth\nPlank",
-     "is_circuit": true,
-     "matched_by_name": false,
-     "exercises": [
-      "11479471",
-      "11326944"
-     ]
-    }
-   ]
-  },
-  {
-   "key": "9.2",
-   "block": 9,
-   "variant": 2,
-   "title": "Workout 9.2",
-   "assigned_count": 6,
-   "first_date": "2026-09-16",
-   "last_date": "2026-10-21",
-   "warmup": "Back routine mobility\n1 round, 8/10 reps each exercise:\nT-spine rotation with reach\nSide lying rotation\nLeg twist \nFloor seated trunk twist\nCat cow\nActive straight leg raise\nIleopsoas dynamic stretch\nAdductor dynamic stretch\nGlute dynamic stretch",
-   "warmup_exercises": [
-    "12503061",
-    "11249387",
-    "12478227",
-    "14602077",
-    "11307749",
-    "11307746",
-    "12503065",
-    "11307759",
-    "12417679"
-   ],
-   "cooldown": "",
-   "cooldown_exercises": [],
-   "items": [
-    {
-     "letter": "A",
-     "name": "Leg curl 2 up 1 down + Cable rope high pull",
-     "info": "3 rounds:\n8/side Single leg leg curl \n10 Cable rope high pull \nRest 1 min",
-     "is_circuit": true,
-     "matched_by_name": false,
-     "exercises": [
-      "17363186",
-      "11373111"
-     ]
-    },
-    {
-     "letter": "B",
-     "name": "DB step up + DB bench cross over",
-     "info": "3 rounds:\n8/side DB step up *RIR 3 subida explosiva\n10 DB bench cross over\nRest 1 min",
-     "is_circuit": true,
-     "matched_by_name": false,
-     "exercises": [
-      "11292356",
-      "11473304"
-     ]
-    },
-    {
-     "letter": "C",
-     "name": "Heels elevated goblet squat + TRX scapular row",
-     "info": "3 rounds:\n10 Heels elevated goblet squat\n8 TRX scapular row\nRest 1 min",
-     "is_circuit": true,
-     "matched_by_name": false,
-     "exercises": [
-      "12778078",
-      "11494918"
-     ]
-    },
-    {
-     "letter": "D",
-     "name": "Single leg bridge + Band rhomboids openings",
-     "info": "3 rounds:\n10/side Single leg bridge\n10 Band rhomboids openings",
-     "is_circuit": true,
-     "matched_by_name": false,
-     "exercises": [
-      "11292212",
-      "11298002"
-     ]
-    },
-    {
-     "letter": "E",
-     "name": "Tabata: 20 sec work - 10 sec rest x 8 cycles",
-     "info": "Lateral run back and fourth\nSide plank",
-     "is_circuit": true,
-     "matched_by_name": false,
-     "exercises": [
-      "11479463",
-      "11326993"
      ]
     }
    ]

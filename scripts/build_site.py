@@ -102,6 +102,24 @@ for ex in export["exercises"].values():
     elif not ex["has_local_thumb"]:
         missing_thumb.append(ex["name"])
 
+# --- block numbers -------------------------------------------------------------
+# Blocks numbered differently from TrueCoach — block 9 is really the reset that
+# opens the cycle, so it is block 0 (data/block_numbers.json). After the
+# corrections above, which address TrueCoach's keys; before everything that
+# records a key (the exercise index below, and Cokiletics, built from this file).
+renumber = {int(k): v for k, v in
+            json.loads((ROOT / "data" / "block_numbers.json").read_text())["renumber"].items()}
+for w in export["workouts"]:
+    if w["block"] in renumber:
+        old_key, n = w["key"], renumber[w["block"]]
+        w["block"], w["key"] = n, f"{n}.{w['variant']}"
+        if old_key not in w["title"]:
+            raise SystemExit(f"renumber: title {w['title']!r} does not carry its key {old_key}")
+        w["title"] = w["title"].replace(old_key, w["key"])
+export["workouts"].sort(key=lambda w: (w["block"], w["variant"]))
+if len({w["key"] for w in export["workouts"]}) != len(export["workouts"]):
+    raise SystemExit("data/block_numbers.json made two workouts share a key")
+
 # Which workouts use each exercise — powers the exercise index.
 used_in = {}
 for w in export["workouts"]:

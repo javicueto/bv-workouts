@@ -14,11 +14,5 @@
       "rest_note": "No rest",
       "why": "Javier, 11 Sep 2026: no rest between core rounds. Overrides Francesco's written 'rest 1 min' in block 1 (1.1 B, 1.2 B) — Javier's call as the athlete. Pattern also catches the 'Core stabiliy' typo in 4.2 and 6.2."
     }
-  ],
-  "renumber_blocks": {
-    "9": 0
-  },
-  "_renumber_reasons": {
-    "9 → 0": "Javier, 21 Sep 2026: TrueCoach's block 9 is not a full-power block but a reset — it opens the cycle, so the app calls it block 0 (sessions 0.1 / 0.2, phase Reset) and block 8 is the peak. TrueCoach and the reference site keep Francesco's own number 9."
-  }
+  ]
 }
