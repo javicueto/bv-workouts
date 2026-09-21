@@ -970,19 +970,11 @@ window.Runner = (function () {
       bind(step);
       run();
     }
-    /* The rest after the last cycle has nothing of this Tabata after it
-       (Javier, 15 Sep 2026: it said "Next: Lateral run" when the session was
-       over). It names what really follows: the next block, or the end. */
-    function afterTabata() {
-      var ni = upcomingFrom(state.i + 1);
-      return ni === -1 ? "Last rest · then you’re done" : "Last rest · next: " + upTitle(state.steps[ni], null);
-    }
     function show() {
       var n = moves.length || 1;
       var m = moves[(cycle - 1) % n] || {}, next = moves[cycle % n] || {};
       var ph = document.getElementById("ph"), gif = document.getElementById("gif");
       var mv = document.getElementById("mv"), cy = document.getElementById("cy"), sd = document.getElementById("sd");
-      var lastRest = phase === "rest" && cycle === cycles;
       ph.textContent = phase === "work" ? "Work" : "Rest";
       // Never a bare "rest" class: that is the rest screen's layout. Written
       // out whole so scripts/check_css.py can see both used.
@@ -993,14 +985,14 @@ window.Runner = (function () {
         mv.textContent = window.App.cueText(m.name || "");
       } else {
         gif.hidden = true; gif.innerHTML = "";
-        mv.textContent = lastRest ? afterTabata() : "Next: " + window.App.cueText(next.name || "");
+        mv.textContent = "Next: " + window.App.cueText(next.name || "");
       }
       /* One side per interval (data/one_side.json, Javier 15 Sep 2026): Left
          on the left, Right on the right, the side to do filled. A movement's
          1st, 3rd… interval is left, its 2nd, 4th… right. In a rest it shows
          the side coming up, so you can get into position. */
       var sideMove = phase === "work" ? m : next, sideCycle = phase === "work" ? cycle : cycle + 1;
-      if (sideMove.per_side && !lastRest) {
+      if (sideMove.per_side) {
         var right = Math.floor((sideCycle - 1) / n) % 2 === 1;
         sd.innerHTML = '<span class="tabata__side' + (right ? "" : " is-on") + '">' + ICONS.arrowLeft + "Left</span>" +
           '<span class="tabata__side' + (right ? " is-on" : "") + '">Right' + ICONS.arrowRight + "</span>";
@@ -1026,6 +1018,9 @@ window.Runner = (function () {
         },
         onDone: function () {
           countdown = null;
+          /* No rest after the last work interval (Javier, 21 Sep 2026): the
+             Tabata ends there and the session moves straight on. */
+          if (phase === "work" && cycle === cycles) { setResting(false); Sound.done(); go(1); return; }
           if (phase === "work") { phase = "rest"; Sound.halfway(); run(); }
           else {
             cycle++;

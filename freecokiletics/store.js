@@ -417,6 +417,18 @@ window.Store = (function () {
     });
     return { workouts: workouts, deleted: deleted, sets: sets };
   }
+  /* The queue as it was BEFORE a server read, merged with the queue after it.
+     Reading it only afterwards loses a row that finished uploading while the
+     read was in flight: the read began before the row existed and the queue
+     no longer holds it — in neither. That is how a workout just finished
+     stayed off Home until a refresh (Javier, 21 Sep 2026). Take `before` with
+     queued() BEFORE awaiting the read; pass it here after. */
+  function queuedAcross(before, userId) {
+    var now = queued(userId), sets = {}, out = [];
+    before.sets.concat(now.sets).forEach(function (x) { if (!sets[x.id]) { sets[x.id] = true; out.push(x); } });
+    return { workouts: Object.assign({}, before.workouts, now.workouts),
+             deleted: Object.assign({}, before.deleted, now.deleted), sets: out };
+  }
   function withQueued(rows, qd) {
     var byId = {}, order = [];
     rows.forEach(function (w) { if (!qd.deleted[w.id]) { byId[w.id] = w; order.push(w.id); } });
@@ -457,7 +469,7 @@ window.Store = (function () {
      logged yet" over a real history). The screens catch and offer Retry. */
   async function history(userId, limit) {
     if (!sb() || !userId) return [];
-    var rows, at = null;
+    var rows, at = null, before = queued(userId);        // before the read — see queuedAcross
     try {
       needNetwork();
       // Embedded count of each workout's sets, so History can spot the empty
@@ -474,8 +486,10 @@ window.Store = (function () {
       if (!c || c.user !== userId) throw e;
       rows = c.rows; at = c.at;
     }
+    // Workouts from both sides of the read; sets waiting NOW only, since one
+    // that uploaded meanwhile may already be in the server's set_count.
     var qd = queued(userId);
-    rows = withQueued(rows, qd).map(function (w) {
+    rows = withQueued(rows, queuedAcross(before, userId)).map(function (w) {
       var waiting = qd.sets.filter(function (x) { return x.workout_id === w.id; }).length;
       return waiting ? Object.assign({}, w, { set_count: (w.set_count || 0) + waiting }) : w;
     }).sort(newest("started_at")).slice(0, limit || 60);
@@ -515,7 +529,7 @@ window.Store = (function () {
      asking "what is still open from earlier weeks" costs no extra request. */
   async function doneByWeek(userId, fromWeekStart) {
     if (!sb() || !userId) return {};
-    var rows, at = null;
+    var rows, at = null, before = queued(userId);        // before the read — see queuedAcross
     try {
       needNetwork();
       rows = await q(sb().from(T_WORKOUTS).select("*")
@@ -532,7 +546,7 @@ window.Store = (function () {
       if (!c || c.user !== userId || c.from > fromWeekStart) throw e;     // no copy that covers these weeks
       rows = c.rows; at = c.at;
     }
-    rows = withQueued(rows, queued(userId))
+    rows = withQueued(rows, queuedAcross(before, userId))
       .filter(function (w) { return w.finished_at && w.week_start && w.week_start >= fromWeekStart; })
       .sort(newest("finished_at"));
     var out = {};

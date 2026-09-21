@@ -31,6 +31,9 @@
  *  12. The celebration's points input: offline it uses Social's saved copy
  *      plus the queue, so the workout just finished counts with its weights;
  *      with no copy at all it says it is partial.
+ *  13. A workout that finishes uploading WHILE Home's read is in flight still
+ *      shows as done — the read began before it existed and the queue no
+ *      longer holds it (Javier, 21 Sep 2026: done only after a refresh).
  */
 "use strict";
 var fs = require("fs"), path = require("path"), vm = require("vm");
@@ -76,7 +79,10 @@ function fakeServer() {
                              if (srv.selectHang) return new Promise(function () {}).then(ok, ko);   // a read that never answers
                              // srv.selectFor(table) answers per table; srv.selectRows answers every read.
                              var rows = srv.selectFor ? srv.selectFor(table) : (srv.selectRows || []);
-                             return Promise.resolve({ data: single ? (rows[0] || null) : rows, error: null }).then(ok, ko);
+                             // srv.selectAfter: a read that answers only once that promise settles.
+                             return Promise.resolve(srv.selectAfter).then(function () {
+                               return { data: single ? (rows[0] || null) : rows, error: null };
+                             }).then(ok, ko);
                            } };
                  return c;
                } };
@@ -285,6 +291,28 @@ async function test10_doneWeeksOffline() {
   check("offline: a deleted workout is gone at once", !after["2026-09-14"]["1.1"]);
 }
 
+async function test13_doneDuringUpload() {
+  console.log("13. a workout that uploads during Home's read still shows as done");
+  var srv = fakeServer(), w = makeWindow(srv), Store = loadStore(w);
+  var release, gate = new Promise(function (r) { release = r; });
+  srv.respond = function (op) { return gate.then(function () { srv.rows.push(op); return { data: null, error: null, status: 201 }; }); };
+  // The read answers with the server as it was when the read began (empty),
+  // and only AFTER the upload has landed and left the queue.
+  srv.selectFor = function () { return []; };
+  var answer; srv.selectAfter = new Promise(function (r) { answer = r; });
+  Store.saveWorkout({ id: "w9", user_id: "u1", session_key: "0.1", week_start: "2026-09-21",
+                      started_at: "2026-09-21T08:00:00Z", finished_at: "2026-09-21T09:00:00Z" });
+  var reading = Store.doneByWeek("u1", "2026-09-21");     // queue still holds w9 here
+  var hist = Store.history("u1");
+  release(); await sleep(30);                               // upload lands; the queue empties
+  check("the upload finished while the read was in flight", JSON.parse(w.localStorage.getItem("freeco.queue") || "[]").length === 0 && srv.rows.length === 1);
+  answer();
+  var done = await reading;
+  check("Home: the just-finished workout counts as done", !!(done["2026-09-21"] && done["2026-09-21"]["0.1"]));
+  var h = await hist;
+  check("History: it is listed too", h.some(function (x) { return x.id === "w9"; }));
+}
+
 async function test11_historyAndWorkoutOffline() {
   console.log("11. offline, History and a recent workout open from the saved copies");
   var srv = fakeServer(), w = makeWindow(srv), Store = loadStore(w);
@@ -349,6 +377,7 @@ async function test12_pointsInputCountsTheJustFinished() {
   await test8_waitingWorkoutKeepsLocalWeights();
   await test9_restartWithinMinutes();
   await test10_doneWeeksOffline();
+  await test13_doneDuringUpload();
   await test11_historyAndWorkoutOffline();
   await test12_pointsInputCountsTheJustFinished();
   console.log(failures ? "\n" + failures + " FAILED" : "\nall passed");
