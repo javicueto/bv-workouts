@@ -1026,7 +1026,11 @@ window.Runner = (function () {
             cycle++;
             if (cycle > cycles) { setResting(false); Sound.done(); go(1); return; }
             phase = "work";
-            if (cycle === cycles) Sound.lastRound(); else Sound.go();     // boxing's triple bell for the last round
+            // Boxing-style: 3 bells start the last round, 2 the one before it
+            // (only when there IS a round before it that isn't the first).
+            if (cycle === cycles) Sound.bells(3);
+            else if (cycle === cycles - 1) Sound.bells(2);
+            else Sound.go();
             run();
           }
         } });
