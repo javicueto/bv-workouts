@@ -874,9 +874,9 @@ window.Runner = (function () {
     });
   }
   function restClock(l) { return l >= 60 ? Math.floor(l / 60) + ":" + String(l % 60).padStart(2, "0") : String(l); }
-  /* Coming up, on the rest screen (Javier, 15 Sep 2026): the next round in
-     full, a preview and the reps for every movement; then, smaller, the
-     round after it by name only, and a tap opens its details with previews.
+  /* Coming up, on the rest screen (Javier, 15 Sep 2026): the next round and,
+     smaller, the round after it; a tap on that opens its details with
+     previews. Which of the two gets pictures: see restBody.
      "Round" means any screen with movements (a round or a Tabata); rests in
      between are skipped. A rest only ever sits between two rounds of one
      block, so "next" always exists; "after that" is missing only when the
@@ -907,17 +907,31 @@ window.Runner = (function () {
           (tb ? " · " + window.App.durHTML(tb.work_seconds) + " work · " + window.App.durHTML(tb.rest_seconds) + " rest · " + (tb.cycles || 8) + " cycles" : "") + "</p>" +
         '<div class="thumb-grid thumb-grid--2">' + movesOf(s).map(function (m) { return moveThumb(m, true); }).join("") + "</div>" });
   }
+  /* Pictures only for what you have NOT just been doing (Javier, 8 Oct 2026):
+     another round of the block you are resting in is a line of names and
+     reps — you know what it looks like — and the previews go to the block
+     that follows, so you can get ready for it. One set of pictures per
+     screen, so the ring and the buttons still fit a 375×812 phone. */
   function restBody(step) {
     var R = 44, C = 2 * Math.PI * R;
     var ni = upcomingFrom(state.i + 1), next = ni === -1 ? null : state.steps[ni];
     var ai = next ? upcomingFrom(ni + 1) : -1, after = ai === -1 ? null : state.steps[ai];
+    var nextKnown = !!next && next.block === step.block;
+    var afterPictures = !!after && nextKnown && after.block !== step.block;
+    function grid(s) { return '<div class="thumb-grid rest__grid">' + movesOf(s).map(function (m) { return moveThumb(m); }).join("") + "</div>"; }
+    function list(s) {
+      return '<ul class="rest__list">' + movesOf(s).map(function (m) {
+        return "<li>" + (m.reps ? "<b>" + esc(m.reps) + "</b> " : "") + window.App.cueHTML(m.name) + "</li>"; }).join("") + "</ul>";
+    }
     return '<section class="rest">' +
         '<div class="rest__ring"><svg viewBox="0 0 100 100" aria-hidden="true"><circle class="track" cx="50" cy="50" r="' + R + '"/>' +
         '<circle class="arc" id="arc" cx="50" cy="50" r="' + R + '" stroke-dasharray="' + C + '" stroke-dashoffset="0"/></svg>' +
         '<div class="rest__time" id="t" role="timer">' + restClock(step.seconds) + '</div></div>' +
         (next ? '<div class="rest__up"><div class="eyebrow">Up next · ' + esc(upTitle(next, step.block)) + "</div>" +
-          '<div class="thumb-grid rest__grid">' + movesOf(next).map(function (m) { return moveThumb(m); }).join("") + "</div></div>" : "") +
-        (after
+          (nextKnown ? list(next) : grid(next)) + "</div>" : "") +
+        (afterPictures
+          ? '<div class="rest__up"><div class="eyebrow">After that · ' + esc(upTitle(after, step.block)) + "</div>" + grid(after) + "</div>"
+          : after
           ? '<button class="rest__after" type="button" data-after="' + ai + '" aria-haspopup="dialog">' +
               '<span class="rest__after-text"><span class="rest__after-label">After that · ' + esc(upTitle(after, step.block)) + "</span>" +
               '<span class="rest__after-names">' + movesOf(after).map(function (m) { return window.App.cueHTML(m.name); }).join(" + ") + "</span></span>" +
