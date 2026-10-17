@@ -248,10 +248,10 @@ p  { margin: 0; }
 :where(.thumb, .vthumb__open, .ex-card__thumb, .rest__after, .logbtn, .logstep, .iconbtn):active { transform: scale(.97); }
 /* Cards press too, and more gently than a button: a card is big, so the same
    .97 would look like it jumped. The brightness they already had stays. */
-:where(.card--tap, .day-card__main, .day-card__acts a, .backlog__list a, .menu__item, a.week-row) {
+:where(.card--tap, .day-card__main, .day-card__link, .backlog__list a, .menu__item, a.week-row) {
   transition: transform var(--dur-press) var(--ease-out), filter var(--dur-press) var(--ease-out);
 }
-:where(.card--tap, .day-card__main, .day-card__acts a, .backlog__list a, .menu__item, a.week-row):active { transform: scale(.985); }
+:where(.card--tap, .day-card__main, .day-card__link, .backlog__list a, .menu__item, a.week-row):active { transform: scale(.985); }
 /* The ✓ on a Done button, so the tap is confirmed before the screen moves. */
 .tick { display: inline-block; }
 
@@ -683,14 +683,18 @@ body.is-resting .runner :where(a, button, input, [tabindex]):focus-visible { out
   border-top: 1px solid var(--line-soft);
 }
 .day-card__runs a:active { color: var(--text); }
-.day-card__acts { display: flex; border-top: 1px solid var(--line-soft); }
-.day-card__acts a {
-  flex: 1; padding: var(--space-4) var(--space-3); text-align: center;
-  font-size: 14px; color: var(--text-dim); text-decoration: none;
+/* Footer: the action sits bottom right — Start (primary) or Do it again
+   (secondary) — with "Mark as done" as a quiet link on the left. */
+.day-card__acts {
+  display: flex; align-items: center; justify-content: flex-end; gap: var(--space-3);
+  padding: var(--space-3) var(--space-5); border-top: 1px solid var(--line-soft);
 }
-.day-card__acts a:first-child { color: var(--accent); }
-.day-card__acts a + a { border-left: 1px solid var(--line-soft); }   /* a divider only when there are two */
-.day-card__acts a:active { background: var(--bg-sunken); }
+.day-card__acts .btn { min-width: 120px; }
+.day-card__link {
+  margin-right: auto; min-height: var(--tap); display: inline-flex; align-items: center;
+  font-size: 14px; color: var(--text-dim); text-decoration: underline; text-underline-offset: 3px;
+}
+.day-card__link:active { color: var(--text); }
 
 /* --------------------------------------------------- still open (backlog) */
 /* Sessions left over from earlier weeks, at the top of the current week. An

@@ -85,11 +85,13 @@
       '<div class="list" style="margin-top:var(--space-4)">' +
       sessions.map(function (s, sx) {
         var d = done[s.key];
-        // Done → opens that workout (view, edit times, do it again).
-        // Not done → starts the session, with "Mark as done" for a workout
-        // done without the phone.
+        // The card opens the session — its record when done, the read-only
+        // view when not. Starting is ONLY the Start button, bottom right, the
+        // one call to action (Javier, 17 Oct 2026): a stray tap on the card
+        // must never start a session. "Mark as done" (a workout done without
+        // the phone) is the quiet link beside it.
         return '<div class="card day-card' + (d ? " card--done" : "") + '">' +
-          '<a class="day-card__main" href="' + (d ? "#/h/" + esc(d.id) : "#/run/" + esc(s.key) + wq) + '">' +
+          '<a class="day-card__main" href="' + (d ? "#/h/" + esc(d.id) : "#/view/" + esc(s.key) + wq) + '">' +
           '<div class="row"><div class="grow"><div class="eyebrow">Day ' + (sx + 1) + "</div>" +
           '<h2>' + esc(s.title) + "</h2>" +
           // Done once: date on one line, times on the next (Javier, 12 Sep 2026).
@@ -99,9 +101,7 @@
             : '<p class="dim">' + (d
                 ? "Done " + d.times + " times this week"
                 : s.blocks.length + " blocks · " + s.blocks.map(function (b) { return b.letter; }).join(" ")) + "</p></div>") +
-          (d
-            ? '<span class="badge badge--good">Done ✓' + (d.times > 1 ? " ×" + d.times : "") + "</span>"
-            : '<span class="badge">Start ›</span>') + "</div>" +
+          (d ? '<span class="badge badge--good">Done ✓' + (d.times > 1 ? " ×" + d.times : "") + "</span>" : "") + "</div>" +
           // What you are about to do, so the card answers "what is today?"
           // without having to open anything.
           (d ? "" : '<ul class="day-card__blocks">' + s.blocks.map(function (b) {
@@ -123,11 +123,12 @@
             : "") +
           '<div class="day-card__acts">' +
             // Done: the card itself opens the workout with its record, so the
-            // only other thing to offer is doing it again (13 Sep 2026).
+            // only other thing to offer is doing it again (13 Sep 2026) — in
+            // the same bottom-right place as Start, as a secondary button.
             (d
-              ? '<a href="#/run/' + esc(s.key) + wq + '">Do it again</a>'
-              : '<a href="#/view/' + esc(s.key) + wq + '">View workout</a>' +
-                '<a href="#/log/' + esc(s.key) + wq + '">Mark as done</a>') +
+              ? '<a class="btn btn--ghost" href="#/run/' + esc(s.key) + wq + '">Do it again</a>'
+              : '<a class="day-card__link" href="#/log/' + esc(s.key) + wq + '">Mark as done</a>' +
+                '<a class="btn btn--primary" href="#/run/' + esc(s.key) + wq + '">Start</a>') +
           "</div>" +
           "</div>";
       }).join("") + "</div></div>";
