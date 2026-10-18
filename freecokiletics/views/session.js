@@ -151,9 +151,66 @@
      this screen and the runner's whole-workout view (runner.js showOverview,
      15 Sep 2026), which passes `status(letter)` → a line saying done / now /
      to do ("W" is the warm-up). `rec` adds what was lifted under each block. */
+  /* A cardio day's WOD as published (or as Javier did it), and what this
+     version changes — both always shown, so the real workout is never lost
+     behind the adaptation (data/cardio.json). */
+  function wodHTML(s) {
+    var w = s.wod, link = /^https?:/.test(w.source || "");
+    return '<section class="vsec cardio-wod"><h2 class="vsec__h">The WOD · ' + esc(w.name) + "</h2>" +
+      '<p class="cardio-wod__line"><span class="cardio-wod__k">' + (w.source === "Javier" ? "As you did it" : "As published") + "</span>" +
+        "“" + esc(w.original) + "”" +
+        (link ? ' <a class="cardio-wod__src" href="' + esc(w.source) + '" target="_blank" rel="noopener">Source ' + ICONS.external + "</a>" : "") + "</p>" +
+      (w.changes ? '<p class="cardio-wod__line"><span class="cardio-wod__k">This version</span>' + esc(w.changes) + "</p>" : "") +
+      "</section>";
+  }
+  /* The line under a block's heading: rest for rounds and Tabata; for a cardio
+     day's timed part, its zone and how it runs (an EMOM spells out its
+     minutes, a station circuit its timings). */
+  function blockLine(b) {
+    if (b.kind === "tabata") return A.durHTML(b.work_seconds) + " work · " + A.durHTML(b.rest_seconds) + " rest · " + b.cycles + " cycles";
+    if (b.kind === "intervals") {
+      var bits = [];
+      if (b.zone) bits.push(esc(b.zone));
+      if (b.format === "emom") {
+        var mins = b.phases.slice(0, 2).map(function (p) {
+          return p.moves.map(function (m) { var r = A.repsLabel(m); return (r ? r + " " : "") + A.cueHTML(m.name); }).join(" + ");
+        });
+        bits.push(mins.length > 1 ? "Odd minutes: " + mins[0] + " · even minutes: " + mins[1] : "Every minute: " + mins[0]);
+      }
+      if (b.format === "circuit") {
+        var sw = b.phases.find(function (p) { return p.kind === "rest"; });
+        bits.push("Each hold on the clock" + (sw ? ", " + A.durHTML(sw.sec) + " to switch" : ""));
+      }
+      if (b.format === "stations") {
+        var work = b.phases.find(function (p) { return p.kind === "work"; }), rest = b.phases.find(function (p) { return p.kind === "rest"; });
+        bits.push(A.durHTML(work.sec) + " a station" + (rest ? " · " + A.durHTML(rest.sec) + " rest between rounds" : ""));
+      }
+      if (b.format === "amrap" && b.sets > 1) {
+        var r = b.phases.find(function (p) { return p.kind === "rest"; });
+        if (r) bits.push(A.durHTML(r.sec) + " rest between sets");
+      }
+      if (b.note) bits.push(esc(b.note));
+      return bits.join(" · ");
+    }
+    return (b.rest_seconds ? A.restHTML(b.rest_seconds) + " between rounds" : esc(b.rest_note || "No rest")) +
+      (b.zone ? " · " + esc(b.zone) : "");
+  }
+  /* A WOD's score, as saved in the workout's `score` (db/012): Steve's
+     burpees set by set, an AMRAP's rounds + reps. */
+  function scoreLine(b, score) {
+    var sc = score && score[b.letter];
+    if (!sc || !sc.length || !b.score) return "";
+    var txt = b.score.kind === "rounds_reps"
+      ? sc.map(function (x) { return (x.rounds || 0) + " rounds + " + (x.reps || 0) + " reps"; }).join(" · ")
+      : sc.map(function (x) { return x.reps != null ? x.reps : "–"; }).join(" · ") + " " + String(b.score.label || "reps").toLowerCase();
+    return '<p class="cardio-score"><span class="vweights__title">' + ICONS.trophy + "Your score</span>" + esc(txt) + "</p>";
+  }
+  A.scoreLine = scoreLine;
+
   function sectionsHTML(s, o) {
     var rec = o.rec, status = o.status || function () { return ""; }, html = "";
-    if (s && s.warmup) {
+    if (A.isCardio(s)) html += wodHTML(s);
+    if (s && s.warmup && !A.isCardio(s)) {        // a cardio day's warm-up is its own block (W)
       /* The coach's warm-up text is a heading plus the list of movements, and
          the movements are already named under their own previews below — so
          only the lines that are NOT an exercise name are kept. Matching on the
@@ -175,16 +232,14 @@
         '<span class="letter">' + esc(b.letter) + "</span>" +
         '<h2 class="vsec__h grow">' + A.cueHTML(b.name) + "</h2>" +
         '<span class="badge">' + esc(A.blockCount(b)) + "</span></div>" + status(b.letter) +
-        (b.kind === "tabata"
-          ? '<p class="dim">' + A.durHTML(b.work_seconds) + " work · " + A.durHTML(b.rest_seconds) + " rest · " + b.cycles + " cycles</p>"
-          : '<p class="dim">' + (b.rest_seconds ? A.restHTML(b.rest_seconds) + " between rounds"
-                                                : esc(b.rest_note || "No rest")) + "</p>") +
+        '<p class="dim">' + blockLine(b) + "</p>" +
         '<div class="vgrid">' + (b.exercises || []).map(function (e) {
           var reps = A.repsLabel(e);
           return thumb(e, (reps ? "<b>" + esc(reps) + "</b> " : "") + A.cueHTML(e.name));
         }).join("") + "</div>" +
         // No box at all when nothing in the block takes a weight (a core circuit).
-        (rec && b.kind === "rounds" && weighable(b, rec.byKey).length ? weightsBox(b, rec.byKey) : "") +
+        (rec ? scoreLine(b, rec.w && rec.w.score) : "") +
+        (rec && (b.kind === "rounds" || b.kind === "intervals") && weighable(b, rec.byKey).length ? weightsBox(b, rec.byKey) : "") +
         "</section>";
     });
 
@@ -199,7 +254,7 @@
     var wq = ctx.weekStart ? "?w=" + encodeURIComponent(ctx.weekStart) : "";
     var html = topbar(null, ctx.back) + A.savedNotice(ctx.savedAt) +
       '<div class="stack">' +
-        '<div class="eyebrow">' + (s ? "Block " + s.block + " · session " + s.variant : "Workout") + "</div>" +
+        '<div class="eyebrow">' + (A.isCardio(s) ? "Cardio day · " + esc(s.wod.name) : s ? "Block " + s.block + " · session " + s.variant : "Workout") + "</div>" +
         "<h1>" + esc(s ? s.title : "Workout " + ctx.key) + "</h1>" +
       "</div>" +
       (rec ? recordStrip(w) : "");
@@ -417,9 +472,12 @@
       var r = A.timesFrom(f.d.value, f.st.value, f.en.value);
       if (r.error) { err.textContent = r.error; err.hidden = false; return; }
       var wf = A.weekFor(new Date(f.d.value + "T12:00"));
+      var cardio = A.isCardio(s);
       Store.saveWorkout({ id: Store.uuid(), user_id: S.me.id, session_key: s.key, block: s.block,
-        week_start: weekStart || (wf.week ? wf.week.start : null), started_at: r.start, finished_at: r.end,
-        duration_seconds: r.seconds, logged_manually: true });
+        kind: cardio ? "cardio" : "plan",
+        // A cardio day is filed under the calendar week it was done in (core.js cardioWeek).
+        week_start: cardio ? A.cardioWeek(new Date(f.d.value + "T12:00")) : weekStart || (wf.week ? wf.week.start : null),
+        started_at: r.start, finished_at: r.end, duration_seconds: r.seconds, logged_manually: true });
       f.querySelector("button[type=submit]").disabled = true;
       // Wait for the upload (if online) so Home shows the day as done at once.
       Promise.race([Store.flush(), new Promise(function (ok) { setTimeout(ok, 4000); })])
@@ -437,9 +495,12 @@
       var wf = A.weekFor(A.today());
       var ids = []; s.warmup.exercises.forEach(function (e) { ids.push(e.id); });
       s.blocks.forEach(function (b) { b.exercises.forEach(function (e) { if (e.id) ids.push(e.id); }); });
-      var last = await Store.lastForExercises(ids, S.me.id);
+      var cardio = A.isCardio(s);
+      var got = await Promise.all([Store.lastForExercises(ids, S.me.id), cardio ? Store.lastScore(key, S.me.id) : null]);
       if (A.stale(t)) return;
-      Runner.start(key, { userId: S.me.id, weekStart: weekStart || (wf.week ? wf.week.start : null), last: last });
+      Runner.start(key, { userId: S.me.id, last: got[0], lastScore: got[1],
+        // A cardio day is filed under the calendar week it is done in (core.js cardioWeek).
+        weekStart: cardio ? A.cardioWeek(A.today()) : weekStart || (wf.week ? wf.week.start : null) });
     }
     app.innerHTML = '<div class="runner" id="runner"></div>';
     Runner.mount(document.getElementById("runner"), function (result) {

@@ -16,6 +16,7 @@
     if (h === "#/history") return { key: "history", depth: 0 };
     if (h === "#/plan") return { key: "plan", depth: 1 };
     if (h === "#/social") return { key: "social", depth: 1 };
+    if (h === "#/cardio") return { key: "cardio", depth: 1 };
     if (/^#\/(view|h)\//.test(h)) return { key: "view", depth: 1 };
     return { key: h.split(/[/?]/)[1] || "", depth: 2 };          // #/plan/edit, #/log/…, #/run/…
   }
@@ -82,15 +83,17 @@
     if (!S.PLAN && h !== "#/plan/edit") { V.renderPlanEdit(); return; }
     var m;
     var wParam = (h.match(/[?&]w=(\d{4}-\d{2}-\d{2})/) || [])[1] || null;
-    if ((m = h.match(/^#\/run\/([\d.]+)/))) { V.renderRun(m[1], /[?&]resume=1/.test(h), wParam); return; }
+    // Session keys: "1.1" in the plan, "cardio-puyol" for a cardio day.
+    if ((m = h.match(/^#\/run\/([\w.-]+)/))) { V.renderRun(m[1], /[?&]resume=1/.test(h), wParam); return; }
     Runner.unmount();
     if (h === "#/plan/edit") V.renderPlanEdit();
     else if (h === "#/plan") V.renderPlan();
     else if (h === "#/history") V.renderHistory();
     else if (h === "#/social") V.renderSocial();
+    else if (h === "#/cardio") V.renderCardio();
     else if ((m = h.match(/^#\/h\/([\w-]+)$/))) V.renderWorkout(m[1]);
-    else if ((m = h.match(/^#\/view\/([\d.]+)/))) V.renderView(m[1], wParam);
-    else if ((m = h.match(/^#\/log\/([\d.]+)/))) V.renderLog(m[1], wParam);
+    else if ((m = h.match(/^#\/view\/([\w.-]+)/))) V.renderView(m[1], wParam);
+    else if ((m = h.match(/^#\/log\/([\w.-]+)/))) V.renderLog(m[1], wParam);
     else if ((m = h.match(/^#\/week\/(\d{4}-\d{2}-\d{2})$/))) V.renderHome(m[1]);
     else V.renderHome();
   }

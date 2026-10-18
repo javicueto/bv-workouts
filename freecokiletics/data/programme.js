@@ -1249,6 +1249,59 @@ window.PROGRAMME = {
    "youtube_id": "W9WFQpUyB-k",
    "has_preview": true,
    "preview_v": "9cada262"
+  },
+  "c-stairmaster": {
+   "id": "c-stairmaster",
+   "name": "Stairmaster",
+   "youtube_id": "V2EQYdMw4Do",
+   "has_preview": true,
+   "preview_v": "b60f8528",
+   "no_weight": true
+  },
+  "c-squat-snatch": {
+   "id": "c-squat-snatch",
+   "name": "Squat snatch",
+   "youtube_id": "Iy0vPROslAA",
+   "has_preview": true,
+   "preview_v": "98543bf3"
+  },
+  "c-echo-bike": {
+   "id": "c-echo-bike",
+   "name": "Echo bike",
+   "youtube_id": "Cs_50SAS3Ho",
+   "has_preview": true,
+   "preview_v": "5ba44a32",
+   "no_weight": true
+  },
+  "c-burpee-target": {
+   "id": "c-burpee-target",
+   "name": "Burpee to target",
+   "youtube_id": "7GZpMw42O8w",
+   "has_preview": true,
+   "preview_v": "6a942351",
+   "no_weight": true
+  },
+  "c-box-jump": {
+   "id": "c-box-jump",
+   "name": "Box jump",
+   "youtube_id": "d9g06_FQv2Y",
+   "has_preview": true,
+   "preview_v": "dde73f4f",
+   "no_weight": true
+  },
+  "c-wall-ball": {
+   "id": "c-wall-ball",
+   "name": "Wall ball",
+   "youtube_id": "yn6QLKMtzTM",
+   "has_preview": true,
+   "preview_v": "99f50965"
+  },
+  "c-kb-swing": {
+   "id": "c-kb-swing",
+   "name": "Kettlebell swing",
+   "youtube_id": "TkFu9S2i2z4",
+   "has_preview": true,
+   "preview_v": "72add996"
   }
  },
  "sessions": [
@@ -4958,6 +5011,3106 @@ window.PROGRAMME = {
       }
      ],
      "raw": "4 rounds:\n10 Cable rope high pull *RIR 1\n8/side DB chop *Explosivo\nRest 1:30 min"
+    }
+   ]
+  }
+ ],
+ "cardio": [
+  {
+   "key": "cardio-puyol",
+   "kind": "cardio",
+   "block": null,
+   "variant": null,
+   "title": "Puyol",
+   "wod": {
+    "name": "Steve",
+    "format": "AMRAP 4 min × 5",
+    "source": "Javier",
+    "original": "AMRAP 4 min × 4: 8 squat snatches, 16/12 cal Echo bike, AMRAP burpees to target. 2 min rest.",
+    "changes": "5 sets instead of 4 (Javier, 18 Oct 2026)."
+   },
+   "warmup": {
+    "text": "",
+    "exercises": []
+   },
+   "blocks": [
+    {
+     "letter": "W",
+     "name": "Warm-up",
+     "zone": "Zone 2",
+     "note": "Easy, steady climb — you can still talk in full sentences.",
+     "kind": "intervals",
+     "format": "timer",
+     "phases": [
+      {
+       "kind": "work",
+       "sec": 720,
+       "label": "Warm-up",
+       "moves": [
+        {
+         "id": "c-stairmaster",
+         "name": "Stairmaster",
+         "no_weight": true
+        }
+       ]
+      }
+     ],
+     "exercises": [
+      {
+       "id": "c-stairmaster",
+       "name": "Stairmaster",
+       "no_weight": true
+      }
+     ],
+     "seconds": 720,
+     "autostart": true,
+     "rounds": null
+    },
+    {
+     "letter": "A",
+     "name": "Steve",
+     "zone": "Zone 3 · short Zone 4 spikes",
+     "note": "Each set: the snatches and the bike, then burpees until the 4 minutes are up.",
+     "kind": "intervals",
+     "format": "amrap",
+     "phases": [
+      {
+       "kind": "work",
+       "sec": 240,
+       "set": 1,
+       "moves": [
+        {
+         "id": "c-squat-snatch",
+         "name": "Squat snatch",
+         "reps": 8
+        },
+        {
+         "id": "c-echo-bike",
+         "name": "Echo bike",
+         "amount": "16/12",
+         "unit": "cal",
+         "no_weight": true
+        },
+        {
+         "id": "c-burpee-target",
+         "name": "Burpee to target",
+         "reps": "MAX",
+         "no_weight": true
+        }
+       ],
+       "label": "Set 1 of 5"
+      },
+      {
+       "kind": "rest",
+       "sec": 120,
+       "after": 1,
+       "label": "Rest"
+      },
+      {
+       "kind": "work",
+       "sec": 240,
+       "set": 2,
+       "moves": [
+        {
+         "id": "c-squat-snatch",
+         "name": "Squat snatch",
+         "reps": 8
+        },
+        {
+         "id": "c-echo-bike",
+         "name": "Echo bike",
+         "amount": "16/12",
+         "unit": "cal",
+         "no_weight": true
+        },
+        {
+         "id": "c-burpee-target",
+         "name": "Burpee to target",
+         "reps": "MAX",
+         "no_weight": true
+        }
+       ],
+       "label": "Set 2 of 5"
+      },
+      {
+       "kind": "rest",
+       "sec": 120,
+       "after": 2,
+       "label": "Rest"
+      },
+      {
+       "kind": "work",
+       "sec": 240,
+       "set": 3,
+       "moves": [
+        {
+         "id": "c-squat-snatch",
+         "name": "Squat snatch",
+         "reps": 8
+        },
+        {
+         "id": "c-echo-bike",
+         "name": "Echo bike",
+         "amount": "16/12",
+         "unit": "cal",
+         "no_weight": true
+        },
+        {
+         "id": "c-burpee-target",
+         "name": "Burpee to target",
+         "reps": "MAX",
+         "no_weight": true
+        }
+       ],
+       "label": "Set 3 of 5"
+      },
+      {
+       "kind": "rest",
+       "sec": 120,
+       "after": 3,
+       "label": "Rest"
+      },
+      {
+       "kind": "work",
+       "sec": 240,
+       "set": 4,
+       "moves": [
+        {
+         "id": "c-squat-snatch",
+         "name": "Squat snatch",
+         "reps": 8
+        },
+        {
+         "id": "c-echo-bike",
+         "name": "Echo bike",
+         "amount": "16/12",
+         "unit": "cal",
+         "no_weight": true
+        },
+        {
+         "id": "c-burpee-target",
+         "name": "Burpee to target",
+         "reps": "MAX",
+         "no_weight": true
+        }
+       ],
+       "label": "Set 4 of 5"
+      },
+      {
+       "kind": "rest",
+       "sec": 120,
+       "after": 4,
+       "label": "Rest"
+      },
+      {
+       "kind": "work",
+       "sec": 240,
+       "set": 5,
+       "moves": [
+        {
+         "id": "c-squat-snatch",
+         "name": "Squat snatch",
+         "reps": 8
+        },
+        {
+         "id": "c-echo-bike",
+         "name": "Echo bike",
+         "amount": "16/12",
+         "unit": "cal",
+         "no_weight": true
+        },
+        {
+         "id": "c-burpee-target",
+         "name": "Burpee to target",
+         "reps": "MAX",
+         "no_weight": true
+        }
+       ],
+       "label": "Set 5 of 5"
+      }
+     ],
+     "exercises": [
+      {
+       "id": "c-squat-snatch",
+       "name": "Squat snatch",
+       "reps": 8
+      },
+      {
+       "id": "c-echo-bike",
+       "name": "Echo bike",
+       "amount": "16/12",
+       "unit": "cal",
+       "no_weight": true
+      },
+      {
+       "id": "c-burpee-target",
+       "name": "Burpee to target",
+       "reps": "MAX",
+       "no_weight": true
+      }
+     ],
+     "seconds": 1680,
+     "score": {
+      "kind": "reps",
+      "label": "Burpees"
+     },
+     "sets": 5,
+     "rounds": 5
+    },
+    {
+     "letter": "B",
+     "name": "Cooldown",
+     "zone": "Zone 1",
+     "note": "Easy bike or rower, then stretch calves, hips and shoulders.",
+     "kind": "intervals",
+     "format": "timer",
+     "phases": [
+      {
+       "kind": "work",
+       "sec": 480,
+       "label": "Cooldown",
+       "moves": [
+        {
+         "id": "c-echo-bike",
+         "name": "Echo bike",
+         "no_weight": true
+        }
+       ]
+      }
+     ],
+     "exercises": [
+      {
+       "id": "c-echo-bike",
+       "name": "Echo bike",
+       "no_weight": true
+      }
+     ],
+     "seconds": 480,
+     "autostart": true,
+     "rounds": null
+    },
+    {
+     "letter": "C",
+     "name": "Core",
+     "zone": "Optional",
+     "note": "Each hold on the clock, 10 sec to switch between them.",
+     "kind": "intervals",
+     "format": "circuit",
+     "phases": [
+      {
+       "kind": "work",
+       "sec": 45,
+       "moves": [
+        {
+         "id": "11326944",
+         "name": "Plank",
+         "seconds": 45,
+         "no_weight": true
+        }
+       ],
+       "round": 1,
+       "station": 1,
+       "label": "Round 1 of 2"
+      },
+      {
+       "kind": "rest",
+       "sec": 10,
+       "label": "Switch"
+      },
+      {
+       "kind": "work",
+       "sec": 30,
+       "moves": [
+        {
+         "id": "11326993",
+         "name": "Side plank",
+         "seconds": 30,
+         "per_side": true,
+         "no_weight": true
+        }
+       ],
+       "round": 1,
+       "station": 2,
+       "label": "Round 1 of 2 · left side"
+      },
+      {
+       "kind": "rest",
+       "sec": 10,
+       "label": "Switch"
+      },
+      {
+       "kind": "work",
+       "sec": 30,
+       "moves": [
+        {
+         "id": "11326993",
+         "name": "Side plank",
+         "seconds": 30,
+         "per_side": true,
+         "no_weight": true
+        }
+       ],
+       "round": 1,
+       "station": 2,
+       "label": "Round 1 of 2 · right side"
+      },
+      {
+       "kind": "rest",
+       "sec": 10,
+       "label": "Switch"
+      },
+      {
+       "kind": "work",
+       "sec": 30,
+       "moves": [
+        {
+         "id": "11288977",
+         "name": "Isometric deadbug",
+         "seconds": 30,
+         "no_weight": true
+        }
+       ],
+       "round": 1,
+       "station": 3,
+       "label": "Round 1 of 2"
+      },
+      {
+       "kind": "rest",
+       "sec": 10,
+       "label": "Switch"
+      },
+      {
+       "kind": "work",
+       "sec": 20,
+       "moves": [
+        {
+         "id": "12626046",
+         "name": "Hollow body flutter kicks",
+         "seconds": 20,
+         "no_weight": true
+        }
+       ],
+       "round": 1,
+       "station": 4,
+       "label": "Round 1 of 2"
+      },
+      {
+       "kind": "rest",
+       "sec": 10,
+       "label": "Switch"
+      },
+      {
+       "kind": "work",
+       "sec": 45,
+       "moves": [
+        {
+         "id": "11326944",
+         "name": "Plank",
+         "seconds": 45,
+         "no_weight": true
+        }
+       ],
+       "round": 2,
+       "station": 1,
+       "label": "Round 2 of 2"
+      },
+      {
+       "kind": "rest",
+       "sec": 10,
+       "label": "Switch"
+      },
+      {
+       "kind": "work",
+       "sec": 30,
+       "moves": [
+        {
+         "id": "11326993",
+         "name": "Side plank",
+         "seconds": 30,
+         "per_side": true,
+         "no_weight": true
+        }
+       ],
+       "round": 2,
+       "station": 2,
+       "label": "Round 2 of 2 · left side"
+      },
+      {
+       "kind": "rest",
+       "sec": 10,
+       "label": "Switch"
+      },
+      {
+       "kind": "work",
+       "sec": 30,
+       "moves": [
+        {
+         "id": "11326993",
+         "name": "Side plank",
+         "seconds": 30,
+         "per_side": true,
+         "no_weight": true
+        }
+       ],
+       "round": 2,
+       "station": 2,
+       "label": "Round 2 of 2 · right side"
+      },
+      {
+       "kind": "rest",
+       "sec": 10,
+       "label": "Switch"
+      },
+      {
+       "kind": "work",
+       "sec": 30,
+       "moves": [
+        {
+         "id": "11288977",
+         "name": "Isometric deadbug",
+         "seconds": 30,
+         "no_weight": true
+        }
+       ],
+       "round": 2,
+       "station": 3,
+       "label": "Round 2 of 2"
+      },
+      {
+       "kind": "rest",
+       "sec": 10,
+       "label": "Switch"
+      },
+      {
+       "kind": "work",
+       "sec": 20,
+       "moves": [
+        {
+         "id": "12626046",
+         "name": "Hollow body flutter kicks",
+         "seconds": 20,
+         "no_weight": true
+        }
+       ],
+       "round": 2,
+       "station": 4,
+       "label": "Round 2 of 2"
+      }
+     ],
+     "exercises": [
+      {
+       "id": "11326944",
+       "name": "Plank",
+       "seconds": 45,
+       "no_weight": true
+      },
+      {
+       "id": "11326993",
+       "name": "Side plank",
+       "seconds": 30,
+       "per_side": true,
+       "no_weight": true
+      },
+      {
+       "id": "11288977",
+       "name": "Isometric deadbug",
+       "seconds": 30,
+       "no_weight": true
+      },
+      {
+       "id": "12626046",
+       "name": "Hollow body flutter kicks",
+       "seconds": 20,
+       "no_weight": true
+      }
+     ],
+     "seconds": 400,
+     "optional": true,
+     "rounds": 2
+    }
+   ]
+  },
+  {
+   "key": "cardio-casillas",
+   "kind": "cardio",
+   "block": null,
+   "variant": null,
+   "title": "Casillas",
+   "wod": {
+    "name": "Kelly",
+    "format": "4 rounds, steady",
+    "source": "https://www.crossfit.com/benchmark/kelly",
+    "original": "5 rounds for time: run 400 meters, 30 box jumps (24 / 20 in.), 30 wall ball shots (20 / 14 lb.).",
+    "changes": "Row instead of run, 4 rounds not for time, 20 + 20 reps, step down from the box — Zone 3, and easier on the Achilles after a strength day."
+   },
+   "warmup": {
+    "text": "",
+    "exercises": []
+   },
+   "blocks": [
+    {
+     "letter": "W",
+     "name": "Warm-up",
+     "zone": "Zone 2",
+     "note": "Easy, steady climb — you can still talk in full sentences.",
+     "kind": "intervals",
+     "format": "timer",
+     "phases": [
+      {
+       "kind": "work",
+       "sec": 720,
+       "label": "Warm-up",
+       "moves": [
+        {
+         "id": "c-stairmaster",
+         "name": "Stairmaster",
+         "no_weight": true
+        }
+       ]
+      }
+     ],
+     "exercises": [
+      {
+       "id": "c-stairmaster",
+       "name": "Stairmaster",
+       "no_weight": true
+      }
+     ],
+     "seconds": 720,
+     "autostart": true,
+     "rounds": null
+    },
+    {
+     "letter": "A",
+     "name": "Kelly",
+     "zone": "Zone 3 · steady",
+     "note": null,
+     "kind": "rounds",
+     "rounds": 4,
+     "rounds_note": null,
+     "rest_seconds": 0,
+     "rest_note": "No rest",
+     "rest_assumed": false,
+     "exercises": [
+      {
+       "id": "11379991",
+       "name": "Row machine",
+       "amount": 500,
+       "unit": "m",
+       "no_weight": true
+      },
+      {
+       "id": "c-box-jump",
+       "name": "Box jump",
+       "reps": 20,
+       "note": "Step down",
+       "no_weight": true
+      },
+      {
+       "id": "c-wall-ball",
+       "name": "Wall ball",
+       "reps": 20,
+       "note": "Two sets of 10"
+      }
+     ],
+     "raw": ""
+    },
+    {
+     "letter": "B",
+     "name": "Cooldown",
+     "zone": "Zone 1",
+     "note": "Easy bike or rower, then stretch calves, hips and shoulders.",
+     "kind": "intervals",
+     "format": "timer",
+     "phases": [
+      {
+       "kind": "work",
+       "sec": 480,
+       "label": "Cooldown",
+       "moves": [
+        {
+         "id": "c-echo-bike",
+         "name": "Echo bike",
+         "no_weight": true
+        }
+       ]
+      }
+     ],
+     "exercises": [
+      {
+       "id": "c-echo-bike",
+       "name": "Echo bike",
+       "no_weight": true
+      }
+     ],
+     "seconds": 480,
+     "autostart": true,
+     "rounds": null
+    },
+    {
+     "letter": "C",
+     "name": "Core",
+     "zone": "Optional",
+     "note": "Each hold on the clock, 10 sec to switch between them.",
+     "kind": "intervals",
+     "format": "circuit",
+     "phases": [
+      {
+       "kind": "work",
+       "sec": 45,
+       "moves": [
+        {
+         "id": "11326944",
+         "name": "Plank",
+         "seconds": 45,
+         "no_weight": true
+        }
+       ],
+       "round": 1,
+       "station": 1,
+       "label": "Round 1 of 2"
+      },
+      {
+       "kind": "rest",
+       "sec": 10,
+       "label": "Switch"
+      },
+      {
+       "kind": "work",
+       "sec": 30,
+       "moves": [
+        {
+         "id": "11326993",
+         "name": "Side plank",
+         "seconds": 30,
+         "per_side": true,
+         "no_weight": true
+        }
+       ],
+       "round": 1,
+       "station": 2,
+       "label": "Round 1 of 2 · left side"
+      },
+      {
+       "kind": "rest",
+       "sec": 10,
+       "label": "Switch"
+      },
+      {
+       "kind": "work",
+       "sec": 30,
+       "moves": [
+        {
+         "id": "11326993",
+         "name": "Side plank",
+         "seconds": 30,
+         "per_side": true,
+         "no_weight": true
+        }
+       ],
+       "round": 1,
+       "station": 2,
+       "label": "Round 1 of 2 · right side"
+      },
+      {
+       "kind": "rest",
+       "sec": 10,
+       "label": "Switch"
+      },
+      {
+       "kind": "work",
+       "sec": 30,
+       "moves": [
+        {
+         "id": "11288977",
+         "name": "Isometric deadbug",
+         "seconds": 30,
+         "no_weight": true
+        }
+       ],
+       "round": 1,
+       "station": 3,
+       "label": "Round 1 of 2"
+      },
+      {
+       "kind": "rest",
+       "sec": 10,
+       "label": "Switch"
+      },
+      {
+       "kind": "work",
+       "sec": 20,
+       "moves": [
+        {
+         "id": "12626046",
+         "name": "Hollow body flutter kicks",
+         "seconds": 20,
+         "no_weight": true
+        }
+       ],
+       "round": 1,
+       "station": 4,
+       "label": "Round 1 of 2"
+      },
+      {
+       "kind": "rest",
+       "sec": 10,
+       "label": "Switch"
+      },
+      {
+       "kind": "work",
+       "sec": 45,
+       "moves": [
+        {
+         "id": "11326944",
+         "name": "Plank",
+         "seconds": 45,
+         "no_weight": true
+        }
+       ],
+       "round": 2,
+       "station": 1,
+       "label": "Round 2 of 2"
+      },
+      {
+       "kind": "rest",
+       "sec": 10,
+       "label": "Switch"
+      },
+      {
+       "kind": "work",
+       "sec": 30,
+       "moves": [
+        {
+         "id": "11326993",
+         "name": "Side plank",
+         "seconds": 30,
+         "per_side": true,
+         "no_weight": true
+        }
+       ],
+       "round": 2,
+       "station": 2,
+       "label": "Round 2 of 2 · left side"
+      },
+      {
+       "kind": "rest",
+       "sec": 10,
+       "label": "Switch"
+      },
+      {
+       "kind": "work",
+       "sec": 30,
+       "moves": [
+        {
+         "id": "11326993",
+         "name": "Side plank",
+         "seconds": 30,
+         "per_side": true,
+         "no_weight": true
+        }
+       ],
+       "round": 2,
+       "station": 2,
+       "label": "Round 2 of 2 · right side"
+      },
+      {
+       "kind": "rest",
+       "sec": 10,
+       "label": "Switch"
+      },
+      {
+       "kind": "work",
+       "sec": 30,
+       "moves": [
+        {
+         "id": "11288977",
+         "name": "Isometric deadbug",
+         "seconds": 30,
+         "no_weight": true
+        }
+       ],
+       "round": 2,
+       "station": 3,
+       "label": "Round 2 of 2"
+      },
+      {
+       "kind": "rest",
+       "sec": 10,
+       "label": "Switch"
+      },
+      {
+       "kind": "work",
+       "sec": 20,
+       "moves": [
+        {
+         "id": "12626046",
+         "name": "Hollow body flutter kicks",
+         "seconds": 20,
+         "no_weight": true
+        }
+       ],
+       "round": 2,
+       "station": 4,
+       "label": "Round 2 of 2"
+      }
+     ],
+     "exercises": [
+      {
+       "id": "11326944",
+       "name": "Plank",
+       "seconds": 45,
+       "no_weight": true
+      },
+      {
+       "id": "11326993",
+       "name": "Side plank",
+       "seconds": 30,
+       "per_side": true,
+       "no_weight": true
+      },
+      {
+       "id": "11288977",
+       "name": "Isometric deadbug",
+       "seconds": 30,
+       "no_weight": true
+      },
+      {
+       "id": "12626046",
+       "name": "Hollow body flutter kicks",
+       "seconds": 20,
+       "no_weight": true
+      }
+     ],
+     "seconds": 400,
+     "optional": true,
+     "rounds": 2
+    }
+   ]
+  },
+  {
+   "key": "cardio-kante",
+   "kind": "cardio",
+   "block": null,
+   "variant": null,
+   "title": "Kanté",
+   "wod": {
+    "name": "Karen",
+    "format": "EMOM 30 min",
+    "source": "https://www.crossfit.com/benchmark/karen",
+    "original": "For time: 150 wall-ball shots (20-lb ball to 10 ft / 14-lb ball to 9 ft).",
+    "changes": "Spread over a 30-minute EMOM: the same 150 wall balls on the odd minutes, lateral footwork on the even ones."
+   },
+   "warmup": {
+    "text": "",
+    "exercises": []
+   },
+   "blocks": [
+    {
+     "letter": "W",
+     "name": "Warm-up",
+     "zone": "Zone 2",
+     "note": "Easy, steady climb — you can still talk in full sentences.",
+     "kind": "intervals",
+     "format": "timer",
+     "phases": [
+      {
+       "kind": "work",
+       "sec": 720,
+       "label": "Warm-up",
+       "moves": [
+        {
+         "id": "c-stairmaster",
+         "name": "Stairmaster",
+         "no_weight": true
+        }
+       ]
+      }
+     ],
+     "exercises": [
+      {
+       "id": "c-stairmaster",
+       "name": "Stairmaster",
+       "no_weight": true
+      }
+     ],
+     "seconds": 720,
+     "autostart": true,
+     "rounds": null
+    },
+    {
+     "letter": "A",
+     "name": "Karen",
+     "zone": "Zone 3",
+     "note": "Start each minute on the beep; rest for whatever is left of it.",
+     "kind": "intervals",
+     "format": "emom",
+     "phases": [
+      {
+       "kind": "work",
+       "sec": 60,
+       "minute": 1,
+       "label": "Minute 1 of 30",
+       "moves": [
+        {
+         "id": "c-wall-ball",
+         "name": "Wall ball",
+         "reps": 10
+        }
+       ]
+      },
+      {
+       "kind": "work",
+       "sec": 60,
+       "minute": 2,
+       "label": "Minute 2 of 30",
+       "moves": [
+        {
+         "id": "11479463",
+         "name": "Lateral run back and fourth",
+         "seconds": 30,
+         "no_weight": true
+        }
+       ]
+      },
+      {
+       "kind": "work",
+       "sec": 60,
+       "minute": 3,
+       "label": "Minute 3 of 30",
+       "moves": [
+        {
+         "id": "c-wall-ball",
+         "name": "Wall ball",
+         "reps": 10
+        }
+       ]
+      },
+      {
+       "kind": "work",
+       "sec": 60,
+       "minute": 4,
+       "label": "Minute 4 of 30",
+       "moves": [
+        {
+         "id": "11479463",
+         "name": "Lateral run back and fourth",
+         "seconds": 30,
+         "no_weight": true
+        }
+       ]
+      },
+      {
+       "kind": "work",
+       "sec": 60,
+       "minute": 5,
+       "label": "Minute 5 of 30",
+       "moves": [
+        {
+         "id": "c-wall-ball",
+         "name": "Wall ball",
+         "reps": 10
+        }
+       ]
+      },
+      {
+       "kind": "work",
+       "sec": 60,
+       "minute": 6,
+       "label": "Minute 6 of 30",
+       "moves": [
+        {
+         "id": "11479463",
+         "name": "Lateral run back and fourth",
+         "seconds": 30,
+         "no_weight": true
+        }
+       ]
+      },
+      {
+       "kind": "work",
+       "sec": 60,
+       "minute": 7,
+       "label": "Minute 7 of 30",
+       "moves": [
+        {
+         "id": "c-wall-ball",
+         "name": "Wall ball",
+         "reps": 10
+        }
+       ]
+      },
+      {
+       "kind": "work",
+       "sec": 60,
+       "minute": 8,
+       "label": "Minute 8 of 30",
+       "moves": [
+        {
+         "id": "11479463",
+         "name": "Lateral run back and fourth",
+         "seconds": 30,
+         "no_weight": true
+        }
+       ]
+      },
+      {
+       "kind": "work",
+       "sec": 60,
+       "minute": 9,
+       "label": "Minute 9 of 30",
+       "moves": [
+        {
+         "id": "c-wall-ball",
+         "name": "Wall ball",
+         "reps": 10
+        }
+       ]
+      },
+      {
+       "kind": "work",
+       "sec": 60,
+       "minute": 10,
+       "label": "Minute 10 of 30",
+       "moves": [
+        {
+         "id": "11479463",
+         "name": "Lateral run back and fourth",
+         "seconds": 30,
+         "no_weight": true
+        }
+       ]
+      },
+      {
+       "kind": "work",
+       "sec": 60,
+       "minute": 11,
+       "label": "Minute 11 of 30",
+       "moves": [
+        {
+         "id": "c-wall-ball",
+         "name": "Wall ball",
+         "reps": 10
+        }
+       ]
+      },
+      {
+       "kind": "work",
+       "sec": 60,
+       "minute": 12,
+       "label": "Minute 12 of 30",
+       "moves": [
+        {
+         "id": "11479463",
+         "name": "Lateral run back and fourth",
+         "seconds": 30,
+         "no_weight": true
+        }
+       ]
+      },
+      {
+       "kind": "work",
+       "sec": 60,
+       "minute": 13,
+       "label": "Minute 13 of 30",
+       "moves": [
+        {
+         "id": "c-wall-ball",
+         "name": "Wall ball",
+         "reps": 10
+        }
+       ]
+      },
+      {
+       "kind": "work",
+       "sec": 60,
+       "minute": 14,
+       "label": "Minute 14 of 30",
+       "moves": [
+        {
+         "id": "11479463",
+         "name": "Lateral run back and fourth",
+         "seconds": 30,
+         "no_weight": true
+        }
+       ]
+      },
+      {
+       "kind": "work",
+       "sec": 60,
+       "minute": 15,
+       "label": "Minute 15 of 30",
+       "moves": [
+        {
+         "id": "c-wall-ball",
+         "name": "Wall ball",
+         "reps": 10
+        }
+       ]
+      },
+      {
+       "kind": "work",
+       "sec": 60,
+       "minute": 16,
+       "label": "Minute 16 of 30",
+       "moves": [
+        {
+         "id": "11479463",
+         "name": "Lateral run back and fourth",
+         "seconds": 30,
+         "no_weight": true
+        }
+       ]
+      },
+      {
+       "kind": "work",
+       "sec": 60,
+       "minute": 17,
+       "label": "Minute 17 of 30",
+       "moves": [
+        {
+         "id": "c-wall-ball",
+         "name": "Wall ball",
+         "reps": 10
+        }
+       ]
+      },
+      {
+       "kind": "work",
+       "sec": 60,
+       "minute": 18,
+       "label": "Minute 18 of 30",
+       "moves": [
+        {
+         "id": "11479463",
+         "name": "Lateral run back and fourth",
+         "seconds": 30,
+         "no_weight": true
+        }
+       ]
+      },
+      {
+       "kind": "work",
+       "sec": 60,
+       "minute": 19,
+       "label": "Minute 19 of 30",
+       "moves": [
+        {
+         "id": "c-wall-ball",
+         "name": "Wall ball",
+         "reps": 10
+        }
+       ]
+      },
+      {
+       "kind": "work",
+       "sec": 60,
+       "minute": 20,
+       "label": "Minute 20 of 30",
+       "moves": [
+        {
+         "id": "11479463",
+         "name": "Lateral run back and fourth",
+         "seconds": 30,
+         "no_weight": true
+        }
+       ]
+      },
+      {
+       "kind": "work",
+       "sec": 60,
+       "minute": 21,
+       "label": "Minute 21 of 30",
+       "moves": [
+        {
+         "id": "c-wall-ball",
+         "name": "Wall ball",
+         "reps": 10
+        }
+       ]
+      },
+      {
+       "kind": "work",
+       "sec": 60,
+       "minute": 22,
+       "label": "Minute 22 of 30",
+       "moves": [
+        {
+         "id": "11479463",
+         "name": "Lateral run back and fourth",
+         "seconds": 30,
+         "no_weight": true
+        }
+       ]
+      },
+      {
+       "kind": "work",
+       "sec": 60,
+       "minute": 23,
+       "label": "Minute 23 of 30",
+       "moves": [
+        {
+         "id": "c-wall-ball",
+         "name": "Wall ball",
+         "reps": 10
+        }
+       ]
+      },
+      {
+       "kind": "work",
+       "sec": 60,
+       "minute": 24,
+       "label": "Minute 24 of 30",
+       "moves": [
+        {
+         "id": "11479463",
+         "name": "Lateral run back and fourth",
+         "seconds": 30,
+         "no_weight": true
+        }
+       ]
+      },
+      {
+       "kind": "work",
+       "sec": 60,
+       "minute": 25,
+       "label": "Minute 25 of 30",
+       "moves": [
+        {
+         "id": "c-wall-ball",
+         "name": "Wall ball",
+         "reps": 10
+        }
+       ]
+      },
+      {
+       "kind": "work",
+       "sec": 60,
+       "minute": 26,
+       "label": "Minute 26 of 30",
+       "moves": [
+        {
+         "id": "11479463",
+         "name": "Lateral run back and fourth",
+         "seconds": 30,
+         "no_weight": true
+        }
+       ]
+      },
+      {
+       "kind": "work",
+       "sec": 60,
+       "minute": 27,
+       "label": "Minute 27 of 30",
+       "moves": [
+        {
+         "id": "c-wall-ball",
+         "name": "Wall ball",
+         "reps": 10
+        }
+       ]
+      },
+      {
+       "kind": "work",
+       "sec": 60,
+       "minute": 28,
+       "label": "Minute 28 of 30",
+       "moves": [
+        {
+         "id": "11479463",
+         "name": "Lateral run back and fourth",
+         "seconds": 30,
+         "no_weight": true
+        }
+       ]
+      },
+      {
+       "kind": "work",
+       "sec": 60,
+       "minute": 29,
+       "label": "Minute 29 of 30",
+       "moves": [
+        {
+         "id": "c-wall-ball",
+         "name": "Wall ball",
+         "reps": 10
+        }
+       ]
+      },
+      {
+       "kind": "work",
+       "sec": 60,
+       "minute": 30,
+       "label": "Minute 30 of 30",
+       "moves": [
+        {
+         "id": "11479463",
+         "name": "Lateral run back and fourth",
+         "seconds": 30,
+         "no_weight": true
+        }
+       ]
+      }
+     ],
+     "exercises": [
+      {
+       "id": "c-wall-ball",
+       "name": "Wall ball",
+       "reps": 10
+      },
+      {
+       "id": "11479463",
+       "name": "Lateral run back and fourth",
+       "seconds": 30,
+       "no_weight": true
+      }
+     ],
+     "seconds": 1800,
+     "rounds": null
+    },
+    {
+     "letter": "B",
+     "name": "Cooldown",
+     "zone": "Zone 1",
+     "note": "Easy bike or rower, then stretch calves, hips and shoulders.",
+     "kind": "intervals",
+     "format": "timer",
+     "phases": [
+      {
+       "kind": "work",
+       "sec": 480,
+       "label": "Cooldown",
+       "moves": [
+        {
+         "id": "c-echo-bike",
+         "name": "Echo bike",
+         "no_weight": true
+        }
+       ]
+      }
+     ],
+     "exercises": [
+      {
+       "id": "c-echo-bike",
+       "name": "Echo bike",
+       "no_weight": true
+      }
+     ],
+     "seconds": 480,
+     "autostart": true,
+     "rounds": null
+    },
+    {
+     "letter": "C",
+     "name": "Core",
+     "zone": "Optional",
+     "note": "Each hold on the clock, 10 sec to switch between them.",
+     "kind": "intervals",
+     "format": "circuit",
+     "phases": [
+      {
+       "kind": "work",
+       "sec": 45,
+       "moves": [
+        {
+         "id": "11326944",
+         "name": "Plank",
+         "seconds": 45,
+         "no_weight": true
+        }
+       ],
+       "round": 1,
+       "station": 1,
+       "label": "Round 1 of 2"
+      },
+      {
+       "kind": "rest",
+       "sec": 10,
+       "label": "Switch"
+      },
+      {
+       "kind": "work",
+       "sec": 30,
+       "moves": [
+        {
+         "id": "11326993",
+         "name": "Side plank",
+         "seconds": 30,
+         "per_side": true,
+         "no_weight": true
+        }
+       ],
+       "round": 1,
+       "station": 2,
+       "label": "Round 1 of 2 · left side"
+      },
+      {
+       "kind": "rest",
+       "sec": 10,
+       "label": "Switch"
+      },
+      {
+       "kind": "work",
+       "sec": 30,
+       "moves": [
+        {
+         "id": "11326993",
+         "name": "Side plank",
+         "seconds": 30,
+         "per_side": true,
+         "no_weight": true
+        }
+       ],
+       "round": 1,
+       "station": 2,
+       "label": "Round 1 of 2 · right side"
+      },
+      {
+       "kind": "rest",
+       "sec": 10,
+       "label": "Switch"
+      },
+      {
+       "kind": "work",
+       "sec": 30,
+       "moves": [
+        {
+         "id": "11288977",
+         "name": "Isometric deadbug",
+         "seconds": 30,
+         "no_weight": true
+        }
+       ],
+       "round": 1,
+       "station": 3,
+       "label": "Round 1 of 2"
+      },
+      {
+       "kind": "rest",
+       "sec": 10,
+       "label": "Switch"
+      },
+      {
+       "kind": "work",
+       "sec": 20,
+       "moves": [
+        {
+         "id": "12626046",
+         "name": "Hollow body flutter kicks",
+         "seconds": 20,
+         "no_weight": true
+        }
+       ],
+       "round": 1,
+       "station": 4,
+       "label": "Round 1 of 2"
+      },
+      {
+       "kind": "rest",
+       "sec": 10,
+       "label": "Switch"
+      },
+      {
+       "kind": "work",
+       "sec": 45,
+       "moves": [
+        {
+         "id": "11326944",
+         "name": "Plank",
+         "seconds": 45,
+         "no_weight": true
+        }
+       ],
+       "round": 2,
+       "station": 1,
+       "label": "Round 2 of 2"
+      },
+      {
+       "kind": "rest",
+       "sec": 10,
+       "label": "Switch"
+      },
+      {
+       "kind": "work",
+       "sec": 30,
+       "moves": [
+        {
+         "id": "11326993",
+         "name": "Side plank",
+         "seconds": 30,
+         "per_side": true,
+         "no_weight": true
+        }
+       ],
+       "round": 2,
+       "station": 2,
+       "label": "Round 2 of 2 · left side"
+      },
+      {
+       "kind": "rest",
+       "sec": 10,
+       "label": "Switch"
+      },
+      {
+       "kind": "work",
+       "sec": 30,
+       "moves": [
+        {
+         "id": "11326993",
+         "name": "Side plank",
+         "seconds": 30,
+         "per_side": true,
+         "no_weight": true
+        }
+       ],
+       "round": 2,
+       "station": 2,
+       "label": "Round 2 of 2 · right side"
+      },
+      {
+       "kind": "rest",
+       "sec": 10,
+       "label": "Switch"
+      },
+      {
+       "kind": "work",
+       "sec": 30,
+       "moves": [
+        {
+         "id": "11288977",
+         "name": "Isometric deadbug",
+         "seconds": 30,
+         "no_weight": true
+        }
+       ],
+       "round": 2,
+       "station": 3,
+       "label": "Round 2 of 2"
+      },
+      {
+       "kind": "rest",
+       "sec": 10,
+       "label": "Switch"
+      },
+      {
+       "kind": "work",
+       "sec": 20,
+       "moves": [
+        {
+         "id": "12626046",
+         "name": "Hollow body flutter kicks",
+         "seconds": 20,
+         "no_weight": true
+        }
+       ],
+       "round": 2,
+       "station": 4,
+       "label": "Round 2 of 2"
+      }
+     ],
+     "exercises": [
+      {
+       "id": "11326944",
+       "name": "Plank",
+       "seconds": 45,
+       "no_weight": true
+      },
+      {
+       "id": "11326993",
+       "name": "Side plank",
+       "seconds": 30,
+       "per_side": true,
+       "no_weight": true
+      },
+      {
+       "id": "11288977",
+       "name": "Isometric deadbug",
+       "seconds": 30,
+       "no_weight": true
+      },
+      {
+       "id": "12626046",
+       "name": "Hollow body flutter kicks",
+       "seconds": 20,
+       "no_weight": true
+      }
+     ],
+     "seconds": 400,
+     "optional": true,
+     "rounds": 2
+    }
+   ]
+  },
+  {
+   "key": "cardio-gattuso",
+   "kind": "cardio",
+   "block": null,
+   "variant": null,
+   "title": "Gattuso",
+   "wod": {
+    "name": "Fight Gone Bad",
+    "format": "5 rounds of 5 stations",
+    "source": "https://www.crossfit.com/benchmark/fight-gone-bad",
+    "original": "3 rounds for max reps of: 1 minute of wall-ball shots, 1 minute of sumo deadlift high pulls, 1 minute of box jumps, 1 minute of push presses, 1 minute of rowing (calories), rest 1 minute.",
+    "changes": "5 rounds at a steady 70% instead of 3 for max reps; kettlebell swings instead of the barbell high pull; light barbell push press; step down from the box."
+   },
+   "warmup": {
+    "text": "",
+    "exercises": []
+   },
+   "blocks": [
+    {
+     "letter": "W",
+     "name": "Warm-up",
+     "zone": "Zone 2",
+     "note": "Easy, steady climb — you can still talk in full sentences.",
+     "kind": "intervals",
+     "format": "timer",
+     "phases": [
+      {
+       "kind": "work",
+       "sec": 720,
+       "label": "Warm-up",
+       "moves": [
+        {
+         "id": "c-stairmaster",
+         "name": "Stairmaster",
+         "no_weight": true
+        }
+       ]
+      }
+     ],
+     "exercises": [
+      {
+       "id": "c-stairmaster",
+       "name": "Stairmaster",
+       "no_weight": true
+      }
+     ],
+     "seconds": 720,
+     "autostart": true,
+     "rounds": null
+    },
+    {
+     "letter": "A",
+     "name": "Fight Gone Bad",
+     "zone": "Zone 3 · steady 70%",
+     "note": null,
+     "kind": "intervals",
+     "format": "stations",
+     "phases": [
+      {
+       "kind": "work",
+       "sec": 60,
+       "moves": [
+        {
+         "id": "c-wall-ball",
+         "name": "Wall ball"
+        }
+       ],
+       "round": 1,
+       "station": 1,
+       "label": "Round 1 of 5 · station 1 of 5"
+      },
+      {
+       "kind": "work",
+       "sec": 60,
+       "moves": [
+        {
+         "id": "c-kb-swing",
+         "name": "Kettlebell swing"
+        }
+       ],
+       "round": 1,
+       "station": 2,
+       "label": "Round 1 of 5 · station 2 of 5"
+      },
+      {
+       "kind": "work",
+       "sec": 60,
+       "moves": [
+        {
+         "id": "c-box-jump",
+         "name": "Box jump",
+         "note": "Step down",
+         "no_weight": true
+        }
+       ],
+       "round": 1,
+       "station": 3,
+       "label": "Round 1 of 5 · station 3 of 5"
+      },
+      {
+       "kind": "work",
+       "sec": 60,
+       "moves": [
+        {
+         "id": "11279962",
+         "name": "BB push press",
+         "note": "Light bar"
+        }
+       ],
+       "round": 1,
+       "station": 4,
+       "label": "Round 1 of 5 · station 4 of 5"
+      },
+      {
+       "kind": "work",
+       "sec": 60,
+       "moves": [
+        {
+         "id": "11379991",
+         "name": "Row machine",
+         "unit": "cal",
+         "no_weight": true
+        }
+       ],
+       "round": 1,
+       "station": 5,
+       "label": "Round 1 of 5 · station 5 of 5"
+      },
+      {
+       "kind": "rest",
+       "sec": 60,
+       "label": "Rest"
+      },
+      {
+       "kind": "work",
+       "sec": 60,
+       "moves": [
+        {
+         "id": "c-wall-ball",
+         "name": "Wall ball"
+        }
+       ],
+       "round": 2,
+       "station": 1,
+       "label": "Round 2 of 5 · station 1 of 5"
+      },
+      {
+       "kind": "work",
+       "sec": 60,
+       "moves": [
+        {
+         "id": "c-kb-swing",
+         "name": "Kettlebell swing"
+        }
+       ],
+       "round": 2,
+       "station": 2,
+       "label": "Round 2 of 5 · station 2 of 5"
+      },
+      {
+       "kind": "work",
+       "sec": 60,
+       "moves": [
+        {
+         "id": "c-box-jump",
+         "name": "Box jump",
+         "note": "Step down",
+         "no_weight": true
+        }
+       ],
+       "round": 2,
+       "station": 3,
+       "label": "Round 2 of 5 · station 3 of 5"
+      },
+      {
+       "kind": "work",
+       "sec": 60,
+       "moves": [
+        {
+         "id": "11279962",
+         "name": "BB push press",
+         "note": "Light bar"
+        }
+       ],
+       "round": 2,
+       "station": 4,
+       "label": "Round 2 of 5 · station 4 of 5"
+      },
+      {
+       "kind": "work",
+       "sec": 60,
+       "moves": [
+        {
+         "id": "11379991",
+         "name": "Row machine",
+         "unit": "cal",
+         "no_weight": true
+        }
+       ],
+       "round": 2,
+       "station": 5,
+       "label": "Round 2 of 5 · station 5 of 5"
+      },
+      {
+       "kind": "rest",
+       "sec": 60,
+       "label": "Rest"
+      },
+      {
+       "kind": "work",
+       "sec": 60,
+       "moves": [
+        {
+         "id": "c-wall-ball",
+         "name": "Wall ball"
+        }
+       ],
+       "round": 3,
+       "station": 1,
+       "label": "Round 3 of 5 · station 1 of 5"
+      },
+      {
+       "kind": "work",
+       "sec": 60,
+       "moves": [
+        {
+         "id": "c-kb-swing",
+         "name": "Kettlebell swing"
+        }
+       ],
+       "round": 3,
+       "station": 2,
+       "label": "Round 3 of 5 · station 2 of 5"
+      },
+      {
+       "kind": "work",
+       "sec": 60,
+       "moves": [
+        {
+         "id": "c-box-jump",
+         "name": "Box jump",
+         "note": "Step down",
+         "no_weight": true
+        }
+       ],
+       "round": 3,
+       "station": 3,
+       "label": "Round 3 of 5 · station 3 of 5"
+      },
+      {
+       "kind": "work",
+       "sec": 60,
+       "moves": [
+        {
+         "id": "11279962",
+         "name": "BB push press",
+         "note": "Light bar"
+        }
+       ],
+       "round": 3,
+       "station": 4,
+       "label": "Round 3 of 5 · station 4 of 5"
+      },
+      {
+       "kind": "work",
+       "sec": 60,
+       "moves": [
+        {
+         "id": "11379991",
+         "name": "Row machine",
+         "unit": "cal",
+         "no_weight": true
+        }
+       ],
+       "round": 3,
+       "station": 5,
+       "label": "Round 3 of 5 · station 5 of 5"
+      },
+      {
+       "kind": "rest",
+       "sec": 60,
+       "label": "Rest"
+      },
+      {
+       "kind": "work",
+       "sec": 60,
+       "moves": [
+        {
+         "id": "c-wall-ball",
+         "name": "Wall ball"
+        }
+       ],
+       "round": 4,
+       "station": 1,
+       "label": "Round 4 of 5 · station 1 of 5"
+      },
+      {
+       "kind": "work",
+       "sec": 60,
+       "moves": [
+        {
+         "id": "c-kb-swing",
+         "name": "Kettlebell swing"
+        }
+       ],
+       "round": 4,
+       "station": 2,
+       "label": "Round 4 of 5 · station 2 of 5"
+      },
+      {
+       "kind": "work",
+       "sec": 60,
+       "moves": [
+        {
+         "id": "c-box-jump",
+         "name": "Box jump",
+         "note": "Step down",
+         "no_weight": true
+        }
+       ],
+       "round": 4,
+       "station": 3,
+       "label": "Round 4 of 5 · station 3 of 5"
+      },
+      {
+       "kind": "work",
+       "sec": 60,
+       "moves": [
+        {
+         "id": "11279962",
+         "name": "BB push press",
+         "note": "Light bar"
+        }
+       ],
+       "round": 4,
+       "station": 4,
+       "label": "Round 4 of 5 · station 4 of 5"
+      },
+      {
+       "kind": "work",
+       "sec": 60,
+       "moves": [
+        {
+         "id": "11379991",
+         "name": "Row machine",
+         "unit": "cal",
+         "no_weight": true
+        }
+       ],
+       "round": 4,
+       "station": 5,
+       "label": "Round 4 of 5 · station 5 of 5"
+      },
+      {
+       "kind": "rest",
+       "sec": 60,
+       "label": "Rest"
+      },
+      {
+       "kind": "work",
+       "sec": 60,
+       "moves": [
+        {
+         "id": "c-wall-ball",
+         "name": "Wall ball"
+        }
+       ],
+       "round": 5,
+       "station": 1,
+       "label": "Round 5 of 5 · station 1 of 5"
+      },
+      {
+       "kind": "work",
+       "sec": 60,
+       "moves": [
+        {
+         "id": "c-kb-swing",
+         "name": "Kettlebell swing"
+        }
+       ],
+       "round": 5,
+       "station": 2,
+       "label": "Round 5 of 5 · station 2 of 5"
+      },
+      {
+       "kind": "work",
+       "sec": 60,
+       "moves": [
+        {
+         "id": "c-box-jump",
+         "name": "Box jump",
+         "note": "Step down",
+         "no_weight": true
+        }
+       ],
+       "round": 5,
+       "station": 3,
+       "label": "Round 5 of 5 · station 3 of 5"
+      },
+      {
+       "kind": "work",
+       "sec": 60,
+       "moves": [
+        {
+         "id": "11279962",
+         "name": "BB push press",
+         "note": "Light bar"
+        }
+       ],
+       "round": 5,
+       "station": 4,
+       "label": "Round 5 of 5 · station 4 of 5"
+      },
+      {
+       "kind": "work",
+       "sec": 60,
+       "moves": [
+        {
+         "id": "11379991",
+         "name": "Row machine",
+         "unit": "cal",
+         "no_weight": true
+        }
+       ],
+       "round": 5,
+       "station": 5,
+       "label": "Round 5 of 5 · station 5 of 5"
+      }
+     ],
+     "exercises": [
+      {
+       "id": "c-wall-ball",
+       "name": "Wall ball"
+      },
+      {
+       "id": "c-kb-swing",
+       "name": "Kettlebell swing"
+      },
+      {
+       "id": "c-box-jump",
+       "name": "Box jump",
+       "note": "Step down",
+       "no_weight": true
+      },
+      {
+       "id": "11279962",
+       "name": "BB push press",
+       "note": "Light bar"
+      },
+      {
+       "id": "11379991",
+       "name": "Row machine",
+       "unit": "cal",
+       "no_weight": true
+      }
+     ],
+     "seconds": 1740,
+     "rounds": 5
+    },
+    {
+     "letter": "B",
+     "name": "Cooldown",
+     "zone": "Zone 1",
+     "note": "Easy bike or rower, then stretch calves, hips and shoulders.",
+     "kind": "intervals",
+     "format": "timer",
+     "phases": [
+      {
+       "kind": "work",
+       "sec": 480,
+       "label": "Cooldown",
+       "moves": [
+        {
+         "id": "c-echo-bike",
+         "name": "Echo bike",
+         "no_weight": true
+        }
+       ]
+      }
+     ],
+     "exercises": [
+      {
+       "id": "c-echo-bike",
+       "name": "Echo bike",
+       "no_weight": true
+      }
+     ],
+     "seconds": 480,
+     "autostart": true,
+     "rounds": null
+    },
+    {
+     "letter": "C",
+     "name": "Core",
+     "zone": "Optional",
+     "note": "Each hold on the clock, 10 sec to switch between them.",
+     "kind": "intervals",
+     "format": "circuit",
+     "phases": [
+      {
+       "kind": "work",
+       "sec": 45,
+       "moves": [
+        {
+         "id": "11326944",
+         "name": "Plank",
+         "seconds": 45,
+         "no_weight": true
+        }
+       ],
+       "round": 1,
+       "station": 1,
+       "label": "Round 1 of 2"
+      },
+      {
+       "kind": "rest",
+       "sec": 10,
+       "label": "Switch"
+      },
+      {
+       "kind": "work",
+       "sec": 30,
+       "moves": [
+        {
+         "id": "11326993",
+         "name": "Side plank",
+         "seconds": 30,
+         "per_side": true,
+         "no_weight": true
+        }
+       ],
+       "round": 1,
+       "station": 2,
+       "label": "Round 1 of 2 · left side"
+      },
+      {
+       "kind": "rest",
+       "sec": 10,
+       "label": "Switch"
+      },
+      {
+       "kind": "work",
+       "sec": 30,
+       "moves": [
+        {
+         "id": "11326993",
+         "name": "Side plank",
+         "seconds": 30,
+         "per_side": true,
+         "no_weight": true
+        }
+       ],
+       "round": 1,
+       "station": 2,
+       "label": "Round 1 of 2 · right side"
+      },
+      {
+       "kind": "rest",
+       "sec": 10,
+       "label": "Switch"
+      },
+      {
+       "kind": "work",
+       "sec": 30,
+       "moves": [
+        {
+         "id": "11288977",
+         "name": "Isometric deadbug",
+         "seconds": 30,
+         "no_weight": true
+        }
+       ],
+       "round": 1,
+       "station": 3,
+       "label": "Round 1 of 2"
+      },
+      {
+       "kind": "rest",
+       "sec": 10,
+       "label": "Switch"
+      },
+      {
+       "kind": "work",
+       "sec": 20,
+       "moves": [
+        {
+         "id": "12626046",
+         "name": "Hollow body flutter kicks",
+         "seconds": 20,
+         "no_weight": true
+        }
+       ],
+       "round": 1,
+       "station": 4,
+       "label": "Round 1 of 2"
+      },
+      {
+       "kind": "rest",
+       "sec": 10,
+       "label": "Switch"
+      },
+      {
+       "kind": "work",
+       "sec": 45,
+       "moves": [
+        {
+         "id": "11326944",
+         "name": "Plank",
+         "seconds": 45,
+         "no_weight": true
+        }
+       ],
+       "round": 2,
+       "station": 1,
+       "label": "Round 2 of 2"
+      },
+      {
+       "kind": "rest",
+       "sec": 10,
+       "label": "Switch"
+      },
+      {
+       "kind": "work",
+       "sec": 30,
+       "moves": [
+        {
+         "id": "11326993",
+         "name": "Side plank",
+         "seconds": 30,
+         "per_side": true,
+         "no_weight": true
+        }
+       ],
+       "round": 2,
+       "station": 2,
+       "label": "Round 2 of 2 · left side"
+      },
+      {
+       "kind": "rest",
+       "sec": 10,
+       "label": "Switch"
+      },
+      {
+       "kind": "work",
+       "sec": 30,
+       "moves": [
+        {
+         "id": "11326993",
+         "name": "Side plank",
+         "seconds": 30,
+         "per_side": true,
+         "no_weight": true
+        }
+       ],
+       "round": 2,
+       "station": 2,
+       "label": "Round 2 of 2 · right side"
+      },
+      {
+       "kind": "rest",
+       "sec": 10,
+       "label": "Switch"
+      },
+      {
+       "kind": "work",
+       "sec": 30,
+       "moves": [
+        {
+         "id": "11288977",
+         "name": "Isometric deadbug",
+         "seconds": 30,
+         "no_weight": true
+        }
+       ],
+       "round": 2,
+       "station": 3,
+       "label": "Round 2 of 2"
+      },
+      {
+       "kind": "rest",
+       "sec": 10,
+       "label": "Switch"
+      },
+      {
+       "kind": "work",
+       "sec": 20,
+       "moves": [
+        {
+         "id": "12626046",
+         "name": "Hollow body flutter kicks",
+         "seconds": 20,
+         "no_weight": true
+        }
+       ],
+       "round": 2,
+       "station": 4,
+       "label": "Round 2 of 2"
+      }
+     ],
+     "exercises": [
+      {
+       "id": "11326944",
+       "name": "Plank",
+       "seconds": 45,
+       "no_weight": true
+      },
+      {
+       "id": "11326993",
+       "name": "Side plank",
+       "seconds": 30,
+       "per_side": true,
+       "no_weight": true
+      },
+      {
+       "id": "11288977",
+       "name": "Isometric deadbug",
+       "seconds": 30,
+       "no_weight": true
+      },
+      {
+       "id": "12626046",
+       "name": "Hollow body flutter kicks",
+       "seconds": 20,
+       "no_weight": true
+      }
+     ],
+     "seconds": 400,
+     "optional": true,
+     "rounds": 2
+    }
+   ]
+  },
+  {
+   "key": "cardio-zidane",
+   "kind": "cardio",
+   "block": null,
+   "variant": null,
+   "title": "Zidane",
+   "wod": {
+    "name": "Jack",
+    "format": "AMRAP 30 min",
+    "source": "https://www.crossfit.com/benchmark/jack",
+    "original": "AMRAP in 20 minutes: 10 push presses, 10 kettlebell swings, 10 box jumps (115-lb / 75-lb barbell, 1.5 / 1 pood kettlebell, 24 / 20 in. box).",
+    "changes": "30 minutes instead of 20, a lighter bar, step down from the box — keep moving at a steady pace, no rests."
+   },
+   "warmup": {
+    "text": "",
+    "exercises": []
+   },
+   "blocks": [
+    {
+     "letter": "W",
+     "name": "Warm-up",
+     "zone": "Zone 2",
+     "note": "Easy, steady climb — you can still talk in full sentences.",
+     "kind": "intervals",
+     "format": "timer",
+     "phases": [
+      {
+       "kind": "work",
+       "sec": 720,
+       "label": "Warm-up",
+       "moves": [
+        {
+         "id": "c-stairmaster",
+         "name": "Stairmaster",
+         "no_weight": true
+        }
+       ]
+      }
+     ],
+     "exercises": [
+      {
+       "id": "c-stairmaster",
+       "name": "Stairmaster",
+       "no_weight": true
+      }
+     ],
+     "seconds": 720,
+     "autostart": true,
+     "rounds": null
+    },
+    {
+     "letter": "A",
+     "name": "Jack",
+     "zone": "Zone 3 · steady",
+     "note": null,
+     "kind": "intervals",
+     "format": "amrap",
+     "phases": [
+      {
+       "kind": "work",
+       "sec": 1800,
+       "set": 1,
+       "moves": [
+        {
+         "id": "11279962",
+         "name": "BB push press",
+         "reps": 10,
+         "note": "Light bar"
+        },
+        {
+         "id": "c-kb-swing",
+         "name": "Kettlebell swing",
+         "reps": 10
+        },
+        {
+         "id": "c-box-jump",
+         "name": "Box jump",
+         "reps": 10,
+         "note": "Step down",
+         "no_weight": true
+        }
+       ],
+       "label": "AMRAP 30 min"
+      }
+     ],
+     "exercises": [
+      {
+       "id": "11279962",
+       "name": "BB push press",
+       "reps": 10,
+       "note": "Light bar"
+      },
+      {
+       "id": "c-kb-swing",
+       "name": "Kettlebell swing",
+       "reps": 10
+      },
+      {
+       "id": "c-box-jump",
+       "name": "Box jump",
+       "reps": 10,
+       "note": "Step down",
+       "no_weight": true
+      }
+     ],
+     "seconds": 1800,
+     "score": {
+      "kind": "rounds_reps"
+     },
+     "sets": 1,
+     "rounds": 1
+    },
+    {
+     "letter": "B",
+     "name": "Cooldown",
+     "zone": "Zone 1",
+     "note": "Easy bike or rower, then stretch calves, hips and shoulders.",
+     "kind": "intervals",
+     "format": "timer",
+     "phases": [
+      {
+       "kind": "work",
+       "sec": 480,
+       "label": "Cooldown",
+       "moves": [
+        {
+         "id": "c-echo-bike",
+         "name": "Echo bike",
+         "no_weight": true
+        }
+       ]
+      }
+     ],
+     "exercises": [
+      {
+       "id": "c-echo-bike",
+       "name": "Echo bike",
+       "no_weight": true
+      }
+     ],
+     "seconds": 480,
+     "autostart": true,
+     "rounds": null
+    },
+    {
+     "letter": "C",
+     "name": "Core",
+     "zone": "Optional",
+     "note": "Each hold on the clock, 10 sec to switch between them.",
+     "kind": "intervals",
+     "format": "circuit",
+     "phases": [
+      {
+       "kind": "work",
+       "sec": 45,
+       "moves": [
+        {
+         "id": "11326944",
+         "name": "Plank",
+         "seconds": 45,
+         "no_weight": true
+        }
+       ],
+       "round": 1,
+       "station": 1,
+       "label": "Round 1 of 2"
+      },
+      {
+       "kind": "rest",
+       "sec": 10,
+       "label": "Switch"
+      },
+      {
+       "kind": "work",
+       "sec": 30,
+       "moves": [
+        {
+         "id": "11326993",
+         "name": "Side plank",
+         "seconds": 30,
+         "per_side": true,
+         "no_weight": true
+        }
+       ],
+       "round": 1,
+       "station": 2,
+       "label": "Round 1 of 2 · left side"
+      },
+      {
+       "kind": "rest",
+       "sec": 10,
+       "label": "Switch"
+      },
+      {
+       "kind": "work",
+       "sec": 30,
+       "moves": [
+        {
+         "id": "11326993",
+         "name": "Side plank",
+         "seconds": 30,
+         "per_side": true,
+         "no_weight": true
+        }
+       ],
+       "round": 1,
+       "station": 2,
+       "label": "Round 1 of 2 · right side"
+      },
+      {
+       "kind": "rest",
+       "sec": 10,
+       "label": "Switch"
+      },
+      {
+       "kind": "work",
+       "sec": 30,
+       "moves": [
+        {
+         "id": "11288977",
+         "name": "Isometric deadbug",
+         "seconds": 30,
+         "no_weight": true
+        }
+       ],
+       "round": 1,
+       "station": 3,
+       "label": "Round 1 of 2"
+      },
+      {
+       "kind": "rest",
+       "sec": 10,
+       "label": "Switch"
+      },
+      {
+       "kind": "work",
+       "sec": 20,
+       "moves": [
+        {
+         "id": "12626046",
+         "name": "Hollow body flutter kicks",
+         "seconds": 20,
+         "no_weight": true
+        }
+       ],
+       "round": 1,
+       "station": 4,
+       "label": "Round 1 of 2"
+      },
+      {
+       "kind": "rest",
+       "sec": 10,
+       "label": "Switch"
+      },
+      {
+       "kind": "work",
+       "sec": 45,
+       "moves": [
+        {
+         "id": "11326944",
+         "name": "Plank",
+         "seconds": 45,
+         "no_weight": true
+        }
+       ],
+       "round": 2,
+       "station": 1,
+       "label": "Round 2 of 2"
+      },
+      {
+       "kind": "rest",
+       "sec": 10,
+       "label": "Switch"
+      },
+      {
+       "kind": "work",
+       "sec": 30,
+       "moves": [
+        {
+         "id": "11326993",
+         "name": "Side plank",
+         "seconds": 30,
+         "per_side": true,
+         "no_weight": true
+        }
+       ],
+       "round": 2,
+       "station": 2,
+       "label": "Round 2 of 2 · left side"
+      },
+      {
+       "kind": "rest",
+       "sec": 10,
+       "label": "Switch"
+      },
+      {
+       "kind": "work",
+       "sec": 30,
+       "moves": [
+        {
+         "id": "11326993",
+         "name": "Side plank",
+         "seconds": 30,
+         "per_side": true,
+         "no_weight": true
+        }
+       ],
+       "round": 2,
+       "station": 2,
+       "label": "Round 2 of 2 · right side"
+      },
+      {
+       "kind": "rest",
+       "sec": 10,
+       "label": "Switch"
+      },
+      {
+       "kind": "work",
+       "sec": 30,
+       "moves": [
+        {
+         "id": "11288977",
+         "name": "Isometric deadbug",
+         "seconds": 30,
+         "no_weight": true
+        }
+       ],
+       "round": 2,
+       "station": 3,
+       "label": "Round 2 of 2"
+      },
+      {
+       "kind": "rest",
+       "sec": 10,
+       "label": "Switch"
+      },
+      {
+       "kind": "work",
+       "sec": 20,
+       "moves": [
+        {
+         "id": "12626046",
+         "name": "Hollow body flutter kicks",
+         "seconds": 20,
+         "no_weight": true
+        }
+       ],
+       "round": 2,
+       "station": 4,
+       "label": "Round 2 of 2"
+      }
+     ],
+     "exercises": [
+      {
+       "id": "11326944",
+       "name": "Plank",
+       "seconds": 45,
+       "no_weight": true
+      },
+      {
+       "id": "11326993",
+       "name": "Side plank",
+       "seconds": 30,
+       "per_side": true,
+       "no_weight": true
+      },
+      {
+       "id": "11288977",
+       "name": "Isometric deadbug",
+       "seconds": 30,
+       "no_weight": true
+      },
+      {
+       "id": "12626046",
+       "name": "Hollow body flutter kicks",
+       "seconds": 20,
+       "no_weight": true
+      }
+     ],
+     "seconds": 400,
+     "optional": true,
+     "rounds": 2
+    }
+   ]
+  },
+  {
+   "key": "cardio-maldini",
+   "kind": "cardio",
+   "block": null,
+   "variant": null,
+   "title": "Maldini",
+   "wod": {
+    "name": "Michael",
+    "format": "3 rounds, steady",
+    "source": "https://www.crossfit.com/benchmark/michael",
+    "original": "3 rounds for time of: run 800 meters, 50 back extensions, 50 sit-ups.",
+    "changes": "Row instead of run, 25 + 25 reps, not for time — the low-jump day, for after heavy legs."
+   },
+   "warmup": {
+    "text": "",
+    "exercises": []
+   },
+   "blocks": [
+    {
+     "letter": "W",
+     "name": "Warm-up",
+     "zone": "Zone 2",
+     "note": "Easy, steady climb — you can still talk in full sentences.",
+     "kind": "intervals",
+     "format": "timer",
+     "phases": [
+      {
+       "kind": "work",
+       "sec": 720,
+       "label": "Warm-up",
+       "moves": [
+        {
+         "id": "c-stairmaster",
+         "name": "Stairmaster",
+         "no_weight": true
+        }
+       ]
+      }
+     ],
+     "exercises": [
+      {
+       "id": "c-stairmaster",
+       "name": "Stairmaster",
+       "no_weight": true
+      }
+     ],
+     "seconds": 720,
+     "autostart": true,
+     "rounds": null
+    },
+    {
+     "letter": "A",
+     "name": "Michael",
+     "zone": "Zone 3 · easy-steady",
+     "note": null,
+     "kind": "rounds",
+     "rounds": 3,
+     "rounds_note": null,
+     "rest_seconds": 0,
+     "rest_note": "No rest",
+     "rest_assumed": false,
+     "exercises": [
+      {
+       "id": "11379991",
+       "name": "Row machine",
+       "amount": 1000,
+       "unit": "m",
+       "no_weight": true
+      },
+      {
+       "id": "11372994",
+       "name": "Hyper extension",
+       "reps": 25
+      },
+      {
+       "id": "11329535",
+       "name": "Sit up",
+       "reps": 25,
+       "no_weight": true
+      }
+     ],
+     "raw": ""
+    },
+    {
+     "letter": "B",
+     "name": "Cooldown",
+     "zone": "Zone 1",
+     "note": "Easy bike or rower, then stretch calves, hips and shoulders.",
+     "kind": "intervals",
+     "format": "timer",
+     "phases": [
+      {
+       "kind": "work",
+       "sec": 480,
+       "label": "Cooldown",
+       "moves": [
+        {
+         "id": "c-echo-bike",
+         "name": "Echo bike",
+         "no_weight": true
+        }
+       ]
+      }
+     ],
+     "exercises": [
+      {
+       "id": "c-echo-bike",
+       "name": "Echo bike",
+       "no_weight": true
+      }
+     ],
+     "seconds": 480,
+     "autostart": true,
+     "rounds": null
+    },
+    {
+     "letter": "C",
+     "name": "Core",
+     "zone": "Optional",
+     "note": "Each hold on the clock, 10 sec to switch between them.",
+     "kind": "intervals",
+     "format": "circuit",
+     "phases": [
+      {
+       "kind": "work",
+       "sec": 45,
+       "moves": [
+        {
+         "id": "11326944",
+         "name": "Plank",
+         "seconds": 45,
+         "no_weight": true
+        }
+       ],
+       "round": 1,
+       "station": 1,
+       "label": "Round 1 of 2"
+      },
+      {
+       "kind": "rest",
+       "sec": 10,
+       "label": "Switch"
+      },
+      {
+       "kind": "work",
+       "sec": 30,
+       "moves": [
+        {
+         "id": "11326993",
+         "name": "Side plank",
+         "seconds": 30,
+         "per_side": true,
+         "no_weight": true
+        }
+       ],
+       "round": 1,
+       "station": 2,
+       "label": "Round 1 of 2 · left side"
+      },
+      {
+       "kind": "rest",
+       "sec": 10,
+       "label": "Switch"
+      },
+      {
+       "kind": "work",
+       "sec": 30,
+       "moves": [
+        {
+         "id": "11326993",
+         "name": "Side plank",
+         "seconds": 30,
+         "per_side": true,
+         "no_weight": true
+        }
+       ],
+       "round": 1,
+       "station": 2,
+       "label": "Round 1 of 2 · right side"
+      },
+      {
+       "kind": "rest",
+       "sec": 10,
+       "label": "Switch"
+      },
+      {
+       "kind": "work",
+       "sec": 30,
+       "moves": [
+        {
+         "id": "11288977",
+         "name": "Isometric deadbug",
+         "seconds": 30,
+         "no_weight": true
+        }
+       ],
+       "round": 1,
+       "station": 3,
+       "label": "Round 1 of 2"
+      },
+      {
+       "kind": "rest",
+       "sec": 10,
+       "label": "Switch"
+      },
+      {
+       "kind": "work",
+       "sec": 20,
+       "moves": [
+        {
+         "id": "12626046",
+         "name": "Hollow body flutter kicks",
+         "seconds": 20,
+         "no_weight": true
+        }
+       ],
+       "round": 1,
+       "station": 4,
+       "label": "Round 1 of 2"
+      },
+      {
+       "kind": "rest",
+       "sec": 10,
+       "label": "Switch"
+      },
+      {
+       "kind": "work",
+       "sec": 45,
+       "moves": [
+        {
+         "id": "11326944",
+         "name": "Plank",
+         "seconds": 45,
+         "no_weight": true
+        }
+       ],
+       "round": 2,
+       "station": 1,
+       "label": "Round 2 of 2"
+      },
+      {
+       "kind": "rest",
+       "sec": 10,
+       "label": "Switch"
+      },
+      {
+       "kind": "work",
+       "sec": 30,
+       "moves": [
+        {
+         "id": "11326993",
+         "name": "Side plank",
+         "seconds": 30,
+         "per_side": true,
+         "no_weight": true
+        }
+       ],
+       "round": 2,
+       "station": 2,
+       "label": "Round 2 of 2 · left side"
+      },
+      {
+       "kind": "rest",
+       "sec": 10,
+       "label": "Switch"
+      },
+      {
+       "kind": "work",
+       "sec": 30,
+       "moves": [
+        {
+         "id": "11326993",
+         "name": "Side plank",
+         "seconds": 30,
+         "per_side": true,
+         "no_weight": true
+        }
+       ],
+       "round": 2,
+       "station": 2,
+       "label": "Round 2 of 2 · right side"
+      },
+      {
+       "kind": "rest",
+       "sec": 10,
+       "label": "Switch"
+      },
+      {
+       "kind": "work",
+       "sec": 30,
+       "moves": [
+        {
+         "id": "11288977",
+         "name": "Isometric deadbug",
+         "seconds": 30,
+         "no_weight": true
+        }
+       ],
+       "round": 2,
+       "station": 3,
+       "label": "Round 2 of 2"
+      },
+      {
+       "kind": "rest",
+       "sec": 10,
+       "label": "Switch"
+      },
+      {
+       "kind": "work",
+       "sec": 20,
+       "moves": [
+        {
+         "id": "12626046",
+         "name": "Hollow body flutter kicks",
+         "seconds": 20,
+         "no_weight": true
+        }
+       ],
+       "round": 2,
+       "station": 4,
+       "label": "Round 2 of 2"
+      }
+     ],
+     "exercises": [
+      {
+       "id": "11326944",
+       "name": "Plank",
+       "seconds": 45,
+       "no_weight": true
+      },
+      {
+       "id": "11326993",
+       "name": "Side plank",
+       "seconds": 30,
+       "per_side": true,
+       "no_weight": true
+      },
+      {
+       "id": "11288977",
+       "name": "Isometric deadbug",
+       "seconds": 30,
+       "no_weight": true
+      },
+      {
+       "id": "12626046",
+       "name": "Hollow body flutter kicks",
+       "seconds": 20,
+       "no_weight": true
+      }
+     ],
+     "seconds": 400,
+     "optional": true,
+     "rounds": 2
     }
    ]
   }

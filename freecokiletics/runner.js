@@ -11,6 +11,9 @@
  *                last round. Core/shoulder blocks with no rest written go
  *                straight to the next round with no timer.
  *   tabata       one timer-driven screen, 8 × 20″/10″, movements alternating
+ *   intervals    a cardio day's timed part (data/cardio.json): warm-up and
+ *                cooldown timers, an AMRAP with its rests, an EMOM, a station
+ *                circuit — one screen, one clock, phase after phase
  *   done         summary
  *
  * Progress is saved after every step so a session survives the app being
@@ -31,6 +34,7 @@ window.Runner = (function () {
 
   // ---------------------------------------------------------------- steps
   function targetFor(e, round) {
+    if (e.amount != null) return { n: e.amount, unit: e.unit };          // cardio: 500 m, 16/12 cal
     if (e.reps_per_round) return { n: e.reps_per_round[round - 1], unit: "reps" };
     if (e.holds) return { n: e.holds, unit: "× " + e.seconds + " sec hold" };
     if (e.seconds) return { n: e.seconds, unit: e.per_side ? "sec / side" : "sec", timed: true };
@@ -49,6 +53,13 @@ window.Runner = (function () {
     session.blocks.forEach(function (b) {
       var seg = segments.length; segments.push(b.letter);
       if (b.kind === "tabata") { steps.push({ kind: "tabata", seg: seg, block: b.letter, tabata: b }); return; }
+      if (b.kind === "intervals") {
+        steps.push({ kind: "intervals", seg: seg, block: b.letter, blockName: b.name, format: b.format,
+          phases: b.phases, exercises: b.exercises, seconds: b.seconds, sets: b.sets, rounds: b.rounds,
+          score: b.score || null, zone: b.zone || "", note: b.note || "", autostart: !!b.autostart,
+          optional: !!b.optional, setIds: {} });
+        return;
+      }
       var rounds = b.rounds || 1;
       for (var r = 1; r <= rounds; r++) {
         steps.push({ kind: "round", seg: seg, block: b.letter, blockName: b.name, round: r, rounds: rounds,
@@ -84,12 +95,13 @@ window.Runner = (function () {
 
   // ---------------------------------------------------------------- lifecycle
   function start(sessionKey, opts) {
-    var session = P.sessions.find(function (s) { return s.key === sessionKey; });
+    var session = window.App.sessionByKey(sessionKey);       // a plan session or a cardio day
     if (!session) throw new Error("no session " + sessionKey);
     var built = buildSteps(session);
     state = { v: STATE_VERSION, key: sessionKey, title: session.title, workoutId: Store.uuid(), userId: opts.userId,
       weekStart: opts.weekStart || null, startedAt: new Date().toISOString(), i: 0,
       steps: built.steps, segments: built.segments, last: opts.last || {}, logs: {},
+      kind: session.kind === "cardio" ? "cardio" : "plan", scores: {}, lastScore: opts.lastScore || null,
       // Not written to the database yet. Opening a session just to look at it
       // used to create an "unfinished" workout every time; now the row only
       // appears once a round is actually logged (or the session is finished).
@@ -98,9 +110,9 @@ window.Runner = (function () {
   }
   function ensureWorkout() {
     if (state.workoutSaved !== false) return;       // undefined = older saved session, already written
-    var session = P.sessions.find(function (s) { return s.key === state.key; });
+    var session = window.App.sessionByKey(state.key);
     Store.saveWorkout({ id: state.workoutId, user_id: state.userId, session_key: state.key,
-      block: session.block, week_start: state.weekStart, started_at: state.startedAt });
+      block: session.block, kind: state.kind || "plan", week_start: state.weekStart, started_at: state.startedAt });
     state.workoutSaved = true; save();
   }
   function resume() { state = pending(); return !!state; }
@@ -111,6 +123,9 @@ window.Runner = (function () {
     container = el; onExit = exit; Sound.want(true); Sound.unlock(); WakeLock.on();
     // Back from "Go home, resume later": the time away was a pause.
     if (state.pausedAt) { state.pausedMs = (state.pausedMs || 0) + Date.now() - state.pausedAt; delete state.pausedAt; save(); }
+    // Set BEFORE the first render, so a part that starts its own clock (a
+    // cardio warm-up) waits for Go! instead of running under the 3 · 2 · 1.
+    if (opts && opts.countIn) state.counting = true;
     render();
     startClock();
     if (opts && opts.countIn) sessionCountIn();
@@ -235,9 +250,11 @@ window.Runner = (function () {
       state.startedAt = new Date().toISOString(); state.counting = false; save();
       paintClock();
       container.querySelectorAll("[data-started]").forEach(function (el) { el.textContent = startedText(); });
-    } });
+    }, onEnd: function () { if (afterCountIn) { var f = afterCountIn; afterCountIn = null; f(); } } });
   }
+  var afterCountIn = null;     // a clock waiting for the session's Go! (renderIntervals)
   function stopCountIn() {
+    afterCountIn = null;
     if (countInTimer) { clearTimeout(countInTimer); countInTimer = null; }
     var ov = document.querySelector(".countin"); if (ov) ov.remove();
     document.body.classList.remove("is-counting");
@@ -257,11 +274,12 @@ window.Runner = (function () {
   function finish() {
     var finished = new Date().toISOString();
     var dur = Math.round(activeMs() / 1000);                 // paused time is not workout time
-    var session = P.sessions.find(function (s) { return s.key === state.key; });
+    var session = window.App.sessionByKey(state.key);
     var sets = Object.keys(state.logs).length;
+    var hasScore = state.scores && Object.keys(state.scores).length;
     Store.saveWorkout({ id: state.workoutId, user_id: state.userId, session_key: state.key,
-      block: session.block, week_start: state.weekStart, started_at: state.startedAt,
-      finished_at: finished, duration_seconds: dur });
+      block: session.block, kind: state.kind || "plan", week_start: state.weekStart, started_at: state.startedAt,
+      finished_at: finished, duration_seconds: dur, score: hasScore ? state.scores : null });
     var id = state.workoutId, key = state.key;                 // clear() forgets them
     Sound.done(); unmount(); clear();
     onExit && onExit({ finished: true, duration: dur, sets: sets, workoutId: id, key: key });
@@ -295,11 +313,13 @@ window.Runner = (function () {
     var step = state.steps[state.i];
     setResting(step.kind === "rest");
     UI.announce(step.kind === "round" ? "Block " + step.block + ", round " + step.round + " of " + step.rounds
-      : step.kind === "rest" ? "Rest" : step.kind === "warmup" ? "Warm-up" : step.kind === "tabata" ? "Tabata" : "Session complete");
+      : step.kind === "rest" ? "Rest" : step.kind === "warmup" ? "Warm-up" : step.kind === "tabata" ? "Tabata"
+      : step.kind === "intervals" ? step.blockName : "Session complete");
     if (step.kind === "warmup") renderWarmup(step);
     else if (step.kind === "round") renderRound(step);
     else if (step.kind === "rest") renderRest(step);
     else if (step.kind === "tabata") renderTabata(step);
+    else if (step.kind === "intervals") renderIntervals(step);
     else renderDone();
     /* Motion: only the body moves (the header and progress bar are drawn
        again identical, so they stay still), and it starts at the top — the
@@ -614,6 +634,7 @@ window.Runner = (function () {
   // ---------------------------------------------------------------- wiring
   function advance(step) {
     if (step.kind === "round") logRound(step);
+    if (step.kind === "intervals") logIntervals(step);
     go(1);
   }
 
@@ -884,11 +905,12 @@ window.Runner = (function () {
   function upcomingFrom(n) {
     for (; n < state.steps.length; n++) {
       var k = state.steps[n].kind;
-      if (k === "round" || k === "tabata") return n;
+      if (k === "round" || k === "tabata" || k === "intervals") return n;
     }
     return -1;
   }
   function movesOf(s) {
+    if (s.kind === "intervals") return s.exercises.map(function (m) { return { id: m.id, name: m.name, reps: window.App.repsLabel(m) }; });
     if (s.kind === "tabata") return s.tabata.exercises.map(function (m) { return { id: m.id, name: m.name }; });
     return s.items.map(function (it) {
       var t = it.target;
@@ -897,6 +919,7 @@ window.Runner = (function () {
   }
   // "Round 3 of 3" inside the block you are resting in, with the block otherwise.
   function upTitle(s, block) {
+    if (s.kind === "intervals") return s.blockName;
     var head = s.block === block ? "" : "Block " + s.block + " · ";
     return s.kind === "tabata" ? head + "Tabata" : head + (head ? "round " : "Round ") + s.round + " of " + s.rounds;
   }
@@ -1055,6 +1078,248 @@ window.Runner = (function () {
       Sound.refresh();                             // fresh audio for the Tabata's cues
       countIn({ title: "Tabata · " + window.App.cueText((moves[0] || {}).name || ""), label: "Tabata starting", onEnd: startRun });
     });
+  }
+
+  // ---------------------------------------------------------------- intervals
+  /* A cardio day's timed part (Javier, 18 Oct 2026; data/cardio.json, built
+     into "intervals" blocks by build_freeco.py). One clock runs the whole
+     part, phase after phase: the warm-up and cooldown (one phase, starting on
+     its own), an AMRAP's sets with their rests, an EMOM's minutes, a station
+     circuit's stations and rests. Rest phases are blue, like every rest.
+     Sounds: 3 · 2 · 1 at the end of every phase; "go" as work starts (2 bells
+     for the round before the last, 3 for the last, as in Tabata); the low dong
+     as a rest starts; a chime halfway through a long work phase; the done
+     jingle at the end.
+     What is kept: an AMRAP's score — typed during the rest after each set, and
+     for the last set on the screen at the end — and the weight used for each
+     movement that takes one, on that same end screen. A part with nothing to
+     record (warm-up, cooldown) moves on by itself when its time is up. */
+  function scoreList(step) {
+    var all = state.scores || (state.scores = {});
+    return all[step.block] || (all[step.block] = []);
+  }
+  function scoreFor(step, set) {
+    var sc = scoreList(step);
+    return sc[set - 1] || (sc[set - 1] = step.score.kind === "rounds_reps" ? { rounds: 0, reps: null } : { reps: null });
+  }
+  function lastScoreFor(step, set) {
+    var ls = state.lastScore && state.lastScore[step.block];
+    return ls && ls[set - 1] ? ls[set - 1] : null;
+  }
+  function scoreText(step, x) {
+    if (!x) return "";
+    return step.score.kind === "rounds_reps" ? (x.rounds || 0) + " rounds + " + (x.reps || 0) + " reps"
+      : (x.reps != null ? x.reps + " " + String(step.score.label || "reps").toLowerCase() : "");
+  }
+  /* The score boxes for one set, wherever they are shown (the rest after it,
+     or the end screen). Written to state on every keystroke — nothing else
+     has to remember to save them. */
+  function scoreFields(step, set) {
+    if (!step.score) return "";
+    var x = scoreFor(step, set), last = lastScoreFor(step, set);
+    var head = (step.sets > 1 ? "Set " + set + " · " : "") + (step.score.kind === "rounds_reps" ? "Your score" : step.score.label);
+    var lastLine = last ? '<span class="iv-score__last">Last time: ' + esc(scoreText(step, last)) + "</span>" : "";
+    if (step.score.kind === "rounds_reps") {
+      return '<div class="iv-score"><span class="iv-score__head">' + esc(head) + "</span>" +
+        '<span class="iv-score__row">' +
+          '<input class="input input--sm input--num" inputmode="numeric" data-score-rounds="' + set + '" aria-label="Rounds" value="' + esc(x.rounds) + '"><span>rounds +</span>' +
+          '<input class="input input--sm input--num" inputmode="numeric" data-score-reps="' + set + '" aria-label="Extra reps" placeholder="0" value="' + esc(x.reps == null ? "" : x.reps) + '"><span>reps</span>' +
+        "</span>" + lastLine + "</div>";
+    }
+    // One number: the label on the left, the box on the right — the same row
+    // as a weight below it, so the end screen reads as one list.
+    return '<div class="iv-score iv-score--one"><label class="iv-score__head" for="sc' + set + '">' + esc(head) + "</label>" +
+      '<span class="iv-score__row"><input class="input input--sm input--num" id="sc' + set + '" inputmode="numeric" data-score-reps="' + set + '"' +
+        ' placeholder="—" value="' + esc(x.reps == null ? "" : x.reps) + '"></span>' + lastLine + "</div>";
+  }
+  function bindScore(step, root) {
+    function num(v) { v = String(v).trim(); if (v === "") return null; var n = parseInt(v, 10); return isNaN(n) ? null : Math.max(0, n); }
+    root.querySelectorAll("[data-score-reps]").forEach(function (inp) {
+      inp.addEventListener("input", function () { scoreFor(step, +inp.getAttribute("data-score-reps")).reps = num(inp.value); save(); });
+    });
+    root.querySelectorAll("[data-score-rounds]").forEach(function (inp) {
+      inp.addEventListener("input", function () { scoreFor(step, +inp.getAttribute("data-score-rounds")).rounds = num(inp.value) || 0; save(); });
+    });
+  }
+  // The movements that take a weight, for the end screen.
+  function weighted(step) { return step.exercises.filter(function (m) { return !m.no_weight; }); }
+  function needsRecord(step) { return !!step.score || weighted(step).length > 0; }
+  function moveTile(m) { return moveThumb({ id: m.id, name: m.name, reps: window.App.repsLabel(m) }); }
+  // One, two or four tiles go two across: none left alone on a row, and a
+  // single one (an EMOM minute) not shrunk to a third of the width.
+  function tileGrid(moves) {
+    return '<div class="thumb-grid' + (moves.length <= 2 || moves.length === 4 ? " thumb-grid--2" : "") + '">' + moves.map(moveTile).join("") + "</div>";
+  }
+
+  function renderIntervals(step) {
+    container.innerHTML = header(step, step.blockName + " · " + window.App.intervalsLabel(step)) + intervalsBody(step);
+    bind(step);
+    if (step.autostart) {
+      if (state.counting) afterCountIn = function () { runIntervals(step); };   // starts at Go!
+      else runIntervals(step);
+      return;
+    }
+    document.getElementById("ivstart").addEventListener("click", function () {
+      Sound.refresh();                             // fresh audio for the cues (timer.js)
+      countIn({ title: step.blockName, label: step.blockName + " starting", onEnd: function () { runIntervals(step); } });
+    });
+  }
+  /* Before the clock starts: what this part is, every movement with its
+     reps, and Start (3 · 2 · 1 · Go! first). An EMOM shows its minutes as
+     they alternate, so "odd" and "even" never have to be worked out. */
+  function intervalsBody(step) {
+    var moves;
+    if (step.format === "emom") {
+      var mins = step.phases.slice(0, 2);
+      moves = mins.map(function (p, i) {
+        return '<div class="iv-group"><div class="eyebrow">' + (mins.length > 1 ? (i ? "Even minutes" : "Odd minutes") : "Every minute") + "</div>" +
+          tileGrid(p.moves) + "</div>";
+      }).join("");
+    } else {
+      moves = tileGrid(step.exercises);
+    }
+    return '<section class="intervals" id="iv">' +
+        ((step.zone || step.note) ? '<p class="iv-zone">' + esc([step.zone, step.note].filter(Boolean).join(" · ")) + "</p>" : "") +
+        moves +
+        (step.autostart ? "" :
+          '<button class="btn btn--primary btn--big btn--block" id="ivstart">Start</button>' +
+          // An optional part (a cardio day's core) says so on its Skip.
+          '<button class="btn btn--quiet" data-act="skip">' + (step.optional ? "Skip " + esc(step.blockName.toLowerCase()) + " · it’s optional" : "Skip this part") + "</button>") +
+        startedLine() +
+      "</section>";
+  }
+
+  function runIntervals(step) {
+    var R = 44, C = 2 * Math.PI * R, ix = 0;
+    var iv = document.getElementById("iv");
+    iv.classList.add("is-running");
+    iv.innerHTML =
+      '<div class="iv-phase" id="ph"></div>' +
+      '<div class="rest__ring iv-ring"><svg viewBox="0 0 100 100" aria-hidden="true">' +
+        '<circle class="track" cx="50" cy="50" r="' + R + '"/>' +
+        '<circle class="arc" id="tarc" cx="50" cy="50" r="' + R + '" stroke-dasharray="' + C + '" stroke-dashoffset="0"/></svg>' +
+        '<div class="rest__time" id="t" role="timer"></div></div>' +
+      '<div class="iv-body" id="ivb"></div>' +
+      '<p class="iv-next" id="nx"></p>' +
+      '<div class="iv-acts" id="iva"></div>';
+    phase();
+
+    function phase() {
+      var p = step.phases[ix], next = step.phases[ix + 1];
+      paint(p, next);
+      // The phase change is said out loud too (the timer itself is role=timer).
+      UI.announce(p.kind === "rest" ? (p.label || "Rest") : p.label);
+      setResting(p.kind === "rest");
+      if (ix > 0 || step.autostart) cue(p);
+      var t = document.getElementById("t"), arc = document.getElementById("tarc");
+      t.textContent = restClock(p.sec);
+      // A new phase starts with a full ring AT ONCE (see renderTabata).
+      arc.style.transition = "none"; arc.style.strokeDashoffset = "0";
+      void arc.getBoundingClientRect(); arc.style.transition = "";
+      countdown = new Countdown(p.sec, { cues: false,
+        onTick: function (l, total) {
+          t.textContent = restClock(l);
+          arc.style.strokeDashoffset = String(C * (1 - l / total));
+          if (l <= 3 && l > 0) { Sound.count(); UI.bump(t); }
+          else if (p.kind === "work" && total >= 180 && l === Math.round(total / 2)) Sound.midway();
+        },
+        onDone: function () { countdown = null; ix++; if (ix < step.phases.length) phase(); else complete(); } });
+    }
+    /* Boxing-style bells where a part counts down rounds (an AMRAP's sets, the
+       station circuit): 2 as the round before the last starts, 3 as the last
+       one starts. Every other work phase gets "go"; a rest gets the dong. */
+    function cue(p) {
+      if (p.kind === "rest") { Sound.halfway(); return; }
+      if (step.format === "timer") return;
+      var r = step.format === "amrap" ? p.set : (step.format === "stations" || step.format === "circuit") && p.station === 1 && !p.label.includes("right") ? p.round : null;
+      if (r && step.rounds > 1 && r === step.rounds) Sound.bells(3);
+      else if (r && step.rounds > 2 && r === step.rounds - 1) Sound.bells(2);
+      else Sound.go();
+    }
+    function paint(p, next) {
+      var ph = document.getElementById("ph"), body = document.getElementById("ivb");
+      var nx = document.getElementById("nx"), acts = document.getElementById("iva");
+      ph.innerHTML = '<span class="iv-phase__label' + (p.kind === "rest" ? " is-rest" : "") + '">' + esc(p.kind === "rest" ? p.label || "Rest" : p.label) + "</span>" +
+        (p.kind === "work" && step.zone ? '<span class="iv-phase__zone">' + esc(step.zone) + "</span>" : "");
+      if (p.kind === "rest") {
+        // The rest after an AMRAP set is where its score is typed.
+        body.innerHTML = p.after && step.score ? scoreFields(step, p.after) : "";
+        bindScore(step, body);
+      } else if (p.moves.length === 1) {
+        var m = p.moves[0], img = preview(m.id), reps = window.App.repsLabel(m);
+        body.innerHTML = (img ? '<button class="iv-gif" type="button" data-zoom="' + esc(m.id) + '" aria-label="Show ' + esc(window.App.cueText(m.name)) + ' larger"><img src="' + img + '" alt=""></button>' : "") +
+          '<div class="iv-move">' + (reps ? "<b>" + esc(reps) + "</b> " : "") + window.App.cueHTML(m.name) + "</div>" +
+          (m.note ? '<div class="iv-move__note">' + esc(m.note) + "</div>" : "");
+      } else {
+        body.innerHTML = tileGrid(p.moves);
+      }
+      body.querySelectorAll("[data-zoom]").forEach(function (b) {
+        b.addEventListener("click", function (ev) { ev.stopPropagation(); zoom(b.getAttribute("data-zoom")); });
+      });
+      // What comes after this phase: the rest, the next set (an AMRAP repeats
+      // the same movements), or the next minute's / station's movement.
+      nx.textContent = !next ? "" : next.kind === "rest" ? (next.label === "Switch" ? "Then switch · " : "Then rest ") + window.App.dur(next.sec)
+        : "Next: " + (step.format === "amrap" ? next.label
+            : next.moves.map(function (m) { var r = window.App.repsLabel(m); return (r ? r + " " : "") + window.App.cueText(m.name); }).join(" + "));
+      // A timer can end early or run on; an AMRAP counts its rounds as you go.
+      var rr = p.kind === "work" && step.score && step.score.kind === "rounds_reps";
+      acts.innerHTML =
+        (rr ? '<button class="btn btn--ghost btn--big btn--block" type="button" id="ivround">' + ICONS.plus + 'Round done <span class="iv-count" id="ivcount">' + scoreFor(step, p.set).rounds + "</span></button>" : "") +
+        (step.format === "timer"
+          ? '<div class="actions"><button class="btn btn--ghost" type="button" id="ivmore">+1 min</button>' +
+            '<button class="btn btn--primary btn--big" type="button" id="ivend">' + esc(step.blockName) + ' done<span class="tick">✓</span></button></div>'
+          : '<button class="btn btn--quiet" type="button" id="ivend">Finish this part now</button>');
+      var more = document.getElementById("ivmore");
+      if (more) more.addEventListener("click", function () { if (countdown) { countdown.extend(60); UI.bump(document.getElementById("t")); } });
+      document.getElementById("ivend").addEventListener("click", function () {
+        if (countdown) { countdown.stop(); countdown = null; }
+        complete();
+      });
+      var rb = document.getElementById("ivround");
+      if (rb) rb.addEventListener("click", function () {
+        var x = scoreFor(step, p.set); x.rounds = (x.rounds || 0) + 1; save();
+        var c = document.getElementById("ivcount"); c.textContent = x.rounds; UI.bump(c);
+      });
+    }
+    function complete() {
+      setResting(false);
+      Sound.done();
+      if (!needsRecord(step)) { advance(step); return; }
+      iv.classList.remove("is-running");
+      var lastSet = step.score ? (step.sets || 1) : 0;
+      iv.innerHTML = '<div class="eyebrow">Time’s up</div><h2 class="iv-done__h">' + esc(step.blockName) + " done</h2>" +
+        (lastSet ? scoreFields(step, lastSet) : "") +
+        (weighted(step).length
+          ? '<div class="iv-weights"><div class="iv-score__head">' + ICONS.dumbbell + "Weights used</div>" +
+              weighted(step).map(function (m) {
+                var log = step.setIds[m.id] && state.logs[step.setIds[m.id]];
+                var last = state.last[m.id];
+                var v = log && log.weight != null ? log.weight : last && last.weight != null ? last.weight : "";
+                return '<label class="iv-weight"><span>' + window.App.cueHTML(m.name) + "</span>" +
+                  '<span class="iv-score__row"><input class="input input--sm input--num" inputmode="decimal" data-ivw="' + esc(m.id) + '" placeholder="—" value="' + esc(v) + '"><span>kg</span></span></label>';
+              }).join("") + "</div>"
+          : "") +
+        footer(step.blockName + " done ✓");
+      bindScore(step, iv);
+      bind(step);
+    }
+  }
+  /* The end screen's weights → one set row per movement (round 1, like a
+     movement's single weight in "Your weights"); the scores are already in
+     state.scores and go with the workout row at the finish. */
+  function logIntervals(step) {
+    ensureWorkout();
+    container.querySelectorAll("[data-ivw]").forEach(function (inp) {
+      var id = inp.getAttribute("data-ivw"), m = step.exercises.find(function (x) { return x.id === id; });
+      var v = inp.value.trim() === "" ? null : parseFloat(inp.value.replace(",", "."));
+      if (v != null && isNaN(v)) v = null;
+      var setId = step.setIds[id] || (step.setIds[id] = Store.uuid());
+      state.logs[setId] = { weight: v, reps: typeof m.reps === "number" ? m.reps : null };
+      Store.saveSet({ id: setId, workout_id: state.workoutId, user_id: state.userId, block_letter: step.block,
+        round: 1, exercise_id: id, exercise_name: m.name, weight: v,
+        reps: typeof m.reps === "number" ? m.reps : null, seconds: null, skipped: false, done_at: new Date().toISOString() });
+    });
+    save();
   }
 
   // ---------------------------------------------------------------- done

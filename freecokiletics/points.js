@@ -53,7 +53,11 @@
 
   /* One person's points.
      workouts: their workouts (only finished ones count), with id, session_key,
-               week_start, finished_at, duration_seconds, logged_manually.
+               week_start, finished_at, duration_seconds, logged_manually, kind.
+               A cardio day (kind "cardio", Javier 18 Oct 2026) counts like a
+               workout — points, heavier-than-ever, milestones — but never
+               toward a full week (that is the two plan sessions) and never
+               "faster" (its clocks run a fixed time, so the time says nothing).
      bests:    their heaviest weight per movement per workout — rows of the
                freeco_set_best view: { workout_id, exercise_id, weight }.
      today:    "YYYY-MM-DD", for whether the streak is still alive.
@@ -73,7 +77,8 @@
       add("workout", RULES.workout);
       count++;
 
-      var timed = w.duration_seconds > 0 && !w.logged_manually;
+      var cardio = w.kind === "cardio";
+      var timed = w.duration_seconds > 0 && !w.logged_manually && !cardio;
       var prev = lastTimed[w.session_key];
       if (timed && prev && w.duration_seconds < prev.duration_seconds) {
         add("faster", RULES.faster, { was: prev.duration_seconds, now: w.duration_seconds });
@@ -89,7 +94,7 @@
       });
       if (pbs.length) add("best", RULES.best * pbs.length, { bests: pbs });
 
-      if (w.week_start) {
+      if (w.week_start && !cardio) {
         var seen = weekDone[w.week_start] || (weekDone[w.week_start] = {});
         var had = Object.keys(seen).length;
         seen[w.session_key] = true;

@@ -27,6 +27,7 @@ OVERRIDES = ROOT / "freecokiletics" / "data" / "programme_overrides.json"
 NO_WEIGHT = ROOT / "freecokiletics" / "data" / "no_weight.json"    # exercises with no weight to log
 ONE_SIDE = ROOT / "freecokiletics" / "data" / "one_side.json"      # Tabata movements done one side per interval
 OUT = ROOT / "freecokiletics" / "data" / "programme.js"
+CARDIO = ROOT / "freecokiletics" / "data" / "cardio.json"           # cardio days, hand-written (not TrueCoach)
 
 # Blocks with no rest written are the prehab/core circuits. Javier's call
 # (11 Sep 2026): no rest written means no timer — he swipes straight into the
@@ -152,6 +153,135 @@ def match_lines_to_videos(lines, videos, key, letter):
     if len(videos) != len(used):
         warn(key, letter, f"{len(videos) - len(used)} video(s) not used by any movement line")
     return pairs
+
+
+def build_cardio(ex, no_weight):
+    """Cardio days (Javier, 18 Oct 2026): freecokiletics/data/cardio.json →
+    PROGRAMME.cardio, in the same session shape the runner already walks.
+
+    Every timed part — the warm-up and cooldown, an AMRAP with its rests, an
+    EMOM, a station circuit — becomes ONE "intervals" block: a list of phases
+    (work or rest, seconds, what to do), so the runner has one clock engine for
+    all of them. "rounds" blocks (Kelly, Michael, the core) stay round-by-round
+    screens with Done, exactly like Francesco's.
+
+    Returns (sessions, new_exercises). Stops the build on an unknown movement or
+    a malformed block — a typo must never become a silently empty screen."""
+    src = json.loads(CARDIO.read_text())
+    own = src["exercises"]
+    for i in own:
+        if i in ex:
+            sys.exit(f"cardio.json: {i} clashes with a TrueCoach exercise id")
+
+    def move(m, where):
+        i = m.get("id")
+        if i in own:
+            base = own[i]
+            nw = bool(base.get("no_weight"))
+        elif i in ex:
+            base = ex[i]
+            nw = i in no_weight
+        else:
+            sys.exit(f"cardio.json: {where} uses unknown exercise {i!r}")
+        out = {"id": i, "name": base["name"]}
+        for k in ("reps", "seconds", "per_side", "note", "amount", "unit"):
+            if k in m:
+                out[k] = m[k]
+        # A movement can be weightless HERE even if Francesco's version takes a
+        # weight (the rower is a machine) — cardio.json says so per use.
+        if nw or m.get("no_weight"):
+            out["no_weight"] = True
+        return out
+
+    def check(cond, where, msg):
+        if not cond:
+            sys.exit(f"cardio.json: {where}: {msg}")
+
+    def block(b, letter, where):
+        kind = b.get("kind")
+        base = {"letter": letter, "name": b["name"], "zone": b.get("zone"), "note": b.get("note")}
+        if kind == "rounds":
+            check(isinstance(b.get("rounds"), int) and b["rounds"] >= 1, where, "rounds must be a whole number ≥ 1")
+            exs = [move(m, where) for m in b["exercises"]]
+            return dict(base, kind="rounds", rounds=b["rounds"], rounds_note=None,
+                        rest_seconds=b.get("rest_seconds", 0), rest_note="No rest" if not b.get("rest_seconds") else None,
+                        rest_assumed=False, exercises=exs, raw="")
+        phases = []
+        if kind == "timer":
+            exs = [move(m, where) for m in b["exercises"]]
+            phases.append({"kind": "work", "sec": b["seconds"], "label": b["name"], "moves": exs})
+            extra = {"autostart": True}
+        elif kind == "amrap":
+            exs = [move(m, where) for m in b["exercises"]]
+            sets, rest = b["sets"], b.get("rest_seconds", 0)
+            for s in range(1, sets + 1):
+                phases.append({"kind": "work", "sec": b["minutes"] * 60, "set": s, "moves": exs,
+                               "label": f"Set {s} of {sets}" if sets > 1 else f"AMRAP {b['minutes']} min"})
+                if s < sets and rest:
+                    phases.append({"kind": "rest", "sec": rest, "after": s, "label": "Rest"})
+            check(b.get("score", {}).get("kind") in ("reps", "rounds_reps"), where, "an AMRAP needs score.kind reps or rounds_reps")
+            extra = {"score": b["score"], "sets": sets}
+        elif kind == "emom":
+            pattern = [[move(m, where) for m in minute] for minute in b["pattern"]]
+            check(pattern and all(pattern), where, "an EMOM needs a non-empty pattern")
+            for mnt in range(1, b["minutes"] + 1):
+                phases.append({"kind": "work", "sec": 60, "minute": mnt, "label": f"Minute {mnt} of {b['minutes']}",
+                               "moves": pattern[(mnt - 1) % len(pattern)]})
+            seen, exs = set(), []
+            for minute in pattern:
+                for m in minute:
+                    if m["id"] not in seen:
+                        seen.add(m["id"]); exs.append(m)
+            extra = {}
+        elif kind == "circuit":
+            # Timed holds, one after another on the clock (the cardio core):
+            # a hold done per side is two phases, left then right, and a short
+            # "switch" rest sits between holds — never after the very last.
+            exs = [move(m, where) for m in b["exercises"]]
+            check(all(m.get("seconds") for m in exs), where, "every circuit movement needs seconds")
+            rounds = b["rounds"]
+            for r in range(1, rounds + 1):
+                for k, m in enumerate(exs, 1):
+                    for side in (["left", "right"] if m.get("per_side") else [None]):
+                        if phases and b.get("switch_seconds"):
+                            phases.append({"kind": "rest", "sec": b["switch_seconds"], "label": "Switch"})
+                        phases.append({"kind": "work", "sec": m["seconds"], "moves": [m], "round": r, "station": k,
+                                       "label": f"Round {r} of {rounds}" + (f" · {side} side" if side else "")})
+            extra = {"optional": bool(b.get("optional"))}
+        elif kind == "stations":
+            exs = [move(m, where) for m in b["exercises"]]
+            rounds, n = b["rounds"], len(exs)
+            for r in range(1, rounds + 1):
+                for k, m in enumerate(exs, 1):
+                    phases.append({"kind": "work", "sec": b["station_seconds"], "moves": [m], "round": r, "station": k,
+                                   "label": f"Round {r} of {rounds} · station {k} of {n}"})
+                if r < rounds and b.get("rest_seconds"):
+                    phases.append({"kind": "rest", "sec": b["rest_seconds"], "label": "Rest"})
+            extra = {}
+        else:
+            sys.exit(f"cardio.json: {where}: unknown block kind {kind!r}")
+        check(all(p["sec"] > 0 for p in phases), where, "every phase needs seconds > 0")
+        # rounds: how many work rounds the block has, for the runner's
+        # boxing-style bells (2 bells: the round before the last; 3: the last).
+        extra.setdefault("rounds", {"amrap": b.get("sets"), "stations": b.get("rounds"), "circuit": b.get("rounds")}.get(kind))
+        return dict(base, kind="intervals", format=kind, phases=phases, exercises=exs,
+                    seconds=sum(p["sec"] for p in phases), **extra)
+
+    common = src["common"]
+    sessions = []
+    keys = set()
+    for r in src["routines"]:
+        where = r["key"]
+        check(r["key"].startswith("cardio-") and r["key"] not in keys, where, "keys start with cardio- and are unique")
+        keys.add(r["key"])
+        blocks = [block(common["warmup"], "W", where + " warm-up"),
+                  block(r["block"], "A", where),
+                  block(common["cooldown"], "B", where + " cooldown"),
+                  block(common["core"], "C", where + " core")]
+        sessions.append({"key": r["key"], "kind": "cardio", "block": None, "variant": None,
+                         "title": r["title"], "wod": r["wod"],
+                         "warmup": {"text": "", "exercises": []}, "blocks": blocks})
+    return sessions, own
 
 
 def main():
@@ -301,6 +431,15 @@ def main():
     # the offline copy on the phone (the freeco-previews cache) fetches it again
     # and drops the old one, and nothing unchanged downloads twice. Run this
     # build after make_previews.py (refresh.sh does).
+    cardio, cardio_ex = build_cardio(ex, no_weight) if CARDIO.exists() else ([], {})
+    for i, e in cardio_ex.items():
+        ex[i] = {"name": e["name"], "youtube_id": e["youtube_id"],
+                 "has_preview": (ROOT / "previews" / f"{i}.webp").exists()}
+        if e.get("no_weight"):
+            no_weight.add(i)
+        if not ex[i]["has_preview"]:
+            print(f"  cardio movement {i} has no preview yet (videos/{i}.mp4 → scripts/make_previews.py)")
+
     exercises = {}
     for i, e in ex.items():
         row = {"id": i, "name": e["name"], "youtube_id": e["youtube_id"], "has_preview": e["has_preview"]}
@@ -314,13 +453,13 @@ def main():
         exercises[i] = row
     print(f"  {sum(1 for i in ex if i in no_weight)} exercises marked no weight")
     payload = {"generated_from": "data/workouts.js", "session_count": len(sessions),
-               "exercises": exercises, "sessions": sessions}
+               "exercises": exercises, "sessions": sessions, "cardio": cardio}
     OUT.parent.mkdir(parents=True, exist_ok=True)
     OUT.write_text("window.PROGRAMME = " + json.dumps(payload, indent=1, ensure_ascii=False) + ";\n")
 
     n_blocks = sum(len(s["blocks"]) for s in sessions)
     no_timer = sum(1 for s in sessions for b in s["blocks"] if b.get("kind") == "rounds" and not b.get("rest_seconds"))
-    print(f"wrote {OUT.relative_to(ROOT)} — {len(sessions)} sessions, {n_blocks} blocks")
+    print(f"wrote {OUT.relative_to(ROOT)} — {len(sessions)} sessions, {n_blocks} blocks, {len(cardio)} cardio routines")
     print(f"  {no_timer} blocks run with no rest timer (none written, or 'no rest')")
     if problems:
         print(f"\n  !! {len(problems)} thing(s) the parser could not read — fix in {OVERRIDES.relative_to(ROOT)}:")

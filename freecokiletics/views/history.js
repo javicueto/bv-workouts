@@ -34,7 +34,7 @@
             (w.logged_manually ? " · logged by hand" : "") +
             (w.set_count || !w.logged_manually ? " · " + w.set_count + " sets" : "")
           : "Stopped early · " + w.set_count + " sets";
-        return '<a class="card card--tap" href="#/h/' + esc(w.id) + '"><div class="row"><div class="grow"><h2>Workout ' + esc(w.session_key) + "</h2>" +
+        return '<a class="card card--tap" href="#/h/' + esc(w.id) + '"><div class="row"><div class="grow"><h2>' + esc(A.sessionTitle(w.session_key)) + "</h2>" +
           '<p class="dim">' + d.toLocaleDateString([], { weekday: "short", day: "numeric", month: "short" }) + " · " + detail + "</p></div>" +
           (w.finished_at ? '<span class="badge badge--good">Done ✓</span>' : '<span class="badge">Partial</span>') + "</div></a>";
       }).join("") + "</div>" : (empty.length ? "" : '<p class="dim">Nothing logged yet.</p>'));

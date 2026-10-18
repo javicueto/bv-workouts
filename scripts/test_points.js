@@ -78,5 +78,22 @@ check("level 4 is Buffon (Javier, 18 Sep 2026)", P.tierFor(2200).name === "Gianl
 check("every level has its own icon; Messi's is the crown",
   P.LADDER.every(function (l) { return l.icon; }) && new Set(P.LADDER.map(function (l) { return l.icon; })).size === 10 && P.tierFor(16000).icon === "crown");
 
+console.log("6. a cardio day (Javier, 18 Oct 2026): like a workout, but never a full week and never faster");
+n = 0;
+var c1 = w("1.1", "2026-10-12", "2026-10-12T09:00:00Z", 3600);
+var cd = w("cardio-puyol", "2026-10-12", "2026-10-14T09:00:00Z", 3000, { kind: "cardio" });
+r = P.compute([c1, cd], [], "2026-10-15");
+check("100 points for the cardio day", r.byWorkout[cd.id].points === 100);
+check("plan session + cardio day is not a full week", !r.events.some(function (e) { return e.kind === "week"; }));
+var c2 = w("1.2", "2026-10-12", "2026-10-15T09:00:00Z", 3600);
+r = P.compute([c1, cd, c2], [], "2026-10-16");
+check("the second PLAN session still completes the week", r.byWorkout[c2.id].parts.some(function (x) { return x.kind === "week"; }));
+var cdA = w("cardio-puyol", "2026-10-05", "2026-10-05T09:00:00Z", 3200, { kind: "cardio" });
+var cdB = w("cardio-puyol", "2026-10-12", "2026-10-12T09:00:00Z", 3000, { kind: "cardio" });
+check("a quicker cardio day is not \u201cfaster\u201d", !P.compute([cdA, cdB], [], "2026-10-15").events.some(function (e) { return e.kind === "faster"; }));
+check("it counts toward the milestones", P.compute([cdA], [], "2026-10-15").workouts === 1);
+var cbest = [{ workout_id: cdA.id, exercise_id: "c-kb-swing", weight: 16 }, { workout_id: cdB.id, exercise_id: "c-kb-swing", weight: 20 }];
+check("heavier than ever counts on a cardio day", P.compute([cdA, cdB], cbest, "2026-10-15").byWorkout[cdB.id].points === 110);
+
 console.log(failures ? "\n" + failures + " FAILED" : "\nall passed");
 process.exit(failures ? 1 : 0);

@@ -41,7 +41,7 @@
   function minutes(sec) { return Math.round(sec / 60) + " min"; }       // as History and the record strip
   function num(n) { return Number(n).toLocaleString("en"); }
   function exName(id, fallback) { var e = A.P.exercises[id]; return A.cueText(e ? e.name : (fallback || "A movement")); }
-  function title(key) { var s = A.sessionByKey(key); return s ? s.title : "Workout " + key; }
+  var title = A.sessionTitle;
   function initial(name) { return (String(name || "?").trim().charAt(0) || "?").toUpperCase(); }
   function newestFinished(a, b) { return a.finished_at < b.finished_at ? 1 : a.finished_at > b.finished_at ? -1 : 0; }
 

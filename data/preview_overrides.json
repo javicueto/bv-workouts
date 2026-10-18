@@ -9,6 +9,22 @@
       "start": 14,
       "length": 3.8,
       "why": "Pogo jumps — the reps only start at 14s; the clip ends at 17.9s so the loop is shortened to fit."
+    },
+    "c-box-jump": {
+      "start": 1,
+      "why": "Cardio day — the clip fades in from black over the first second; the step-down version runs from 1s."
+    },
+    "c-kb-swing": {
+      "start": 15,
+      "why": "Cardio day — intro and talking until ~14s; the swings run 15–23s."
+    },
+    "c-stairmaster": {
+      "start": 5.5,
+      "why": "Cardio day — the title card runs to ~5s and the control panel starts ~14s; climbing in between."
+    },
+    "c-burpee-target": {
+      "start": 0.8,
+      "why": "Cardio day — the reps end at ~9s, then the OPEX end card."
     }
   }
 }

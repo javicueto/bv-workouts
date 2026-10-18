@@ -244,6 +244,28 @@ window.Store = (function () {
      a 10-8-6 pyramid the weight rises each round, and prefilling round 1 with
      last session's round-3 weight was wrong. Online: one query. Offline or
      signed out: the local copy. */
+  /* A cardio day's last score, to beat (Javier, 18 Oct 2026): the `score` of
+     the most recent finished workout of that routine that has one. Online:
+     one small query. Offline: History's saved copy. Never throws — no score
+     to show is fine. */
+  async function lastScore(sessionKey, userId) {
+    function fromRows(rows) {
+      var hit = (rows || []).filter(function (w) { return w.session_key === sessionKey && w.finished_at && w.score; })
+        .sort(newest("finished_at"))[0];
+      return hit ? hit.score : null;
+    }
+    if (!sb() || !userId) return null;
+    try {
+      needNetwork();
+      var rows = await q(sb().from(T_WORKOUTS).select("session_key, finished_at, score")
+        .eq("user_id", userId).eq("session_key", sessionKey).not("score", "is", null).not("finished_at", "is", null)
+        .order("finished_at", { ascending: false }).limit(1));
+      return fromRows(rows);
+    } catch (e) {
+      var c = readCopy(COPY_HISTORY);
+      return c && c.user === userId ? fromRows(c.rows) : null;
+    }
+  }
   async function lastForExercises(exerciseIds, userId) {
     var local = lastWeights();
     var out = {};
@@ -620,7 +642,7 @@ window.Store = (function () {
     try {
       needNetwork();
       var workouts = await allRows(function () {
-        return sb().from(T_WORKOUTS).select("id, user_id, session_key, block, week_start, started_at, finished_at, duration_seconds, logged_manually")
+        return sb().from(T_WORKOUTS).select("id, user_id, session_key, block, kind, week_start, started_at, finished_at, duration_seconds, logged_manually")
           .not("finished_at", "is", null).order("finished_at", { ascending: false });
       });
       var recent = workouts.slice(0, SOCIAL_RECENT).map(function (w) { return w.id; });
@@ -681,7 +703,7 @@ window.Store = (function () {
       needNetwork();
       var got = await Promise.all([
         allRows(function () {
-          return sb().from(T_WORKOUTS).select("id, user_id, session_key, week_start, started_at, finished_at, duration_seconds, logged_manually")
+          return sb().from(T_WORKOUTS).select("id, user_id, session_key, kind, week_start, started_at, finished_at, duration_seconds, logged_manually")
             .eq("user_id", userId).not("finished_at", "is", null).order("finished_at");
         }),
         allRows(function () { return sb().from(V_BEST).select("workout_id, user_id, exercise_id, weight").eq("user_id", userId).order("workout_id"); }),
@@ -724,7 +746,7 @@ window.Store = (function () {
     configured: configured, user: user, signIn: signIn, signUp: signUp, signOut: signOut,
     sendReset: sendReset, setPassword: setPassword, ready: ready, onAuth: onAuth,
     plan: plan, savePlan: savePlan, isMember: isMember,
-    uuid: uuid, saveWorkout: saveWorkout, saveSet: saveSet, lastForExercises: lastForExercises,
+    uuid: uuid, saveWorkout: saveWorkout, saveSet: saveSet, lastForExercises: lastForExercises, lastScore: lastScore,
     history: history, setsFor: setsFor, doneByWeek: doneByWeek, workout: workout, deleteWorkout: deleteWorkout,
     warmOffline: warmOffline, savedAt: savedAt,
     social: social, react: react, comment: comment, deleteComment: deleteComment, setName: setName, socialLatest: socialLatest,

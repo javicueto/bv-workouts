@@ -131,8 +131,28 @@
                 '<a class="btn btn--primary" href="#/run/' + esc(s.key) + wq + '">Start</a>') +
           "</div>" +
           "</div>";
-      }).join("") + "</div></div>";
+      }).join("") + "</div>" + extrasHTML(done) + "</div>";
     return html;
+  }
+
+  /* Cardio days done this week (Javier, 18 Oct 2026: "yes, as an extra
+     line"): one line each under the two days, opening that workout. They
+     never fill Day 1 / Day 2 and never appear in "Still open" — those read
+     the plan's own session keys only. */
+  function extrasHTML(done) {
+    var runs = [];
+    Object.keys(done).forEach(function (k) {
+      var s = A.sessionByKey(k);
+      if (A.isCardio(s)) done[k].runs.forEach(function (r) { runs.push({ s: s, r: r }); });
+    });
+    if (!runs.length) return "";
+    runs.sort(function (a, b) { return a.r.started_at < b.r.started_at ? -1 : 1; });
+    return '<ul class="extras">' + runs.map(function (x) {
+      return '<li><a class="extras__row" href="#/h/' + esc(x.r.id) + '">' +
+        '<span class="extras__tag">Extra</span>' +
+        '<span class="grow"><b>' + esc(x.s.title) + "</b> ✓ " + '<span class="dim">' + esc(x.s.wod.name) + "</span></span>" +
+        '<span class="faint">' + esc(A.dayDate(x.r.started_at)) + "</span></a></li>";
+    }).join("") + "</ul>";
   }
 
   /* Home shows one plan week — this week by default, or any other picked with

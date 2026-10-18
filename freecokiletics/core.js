@@ -94,6 +94,8 @@ window.App = (function () {
     return e && e.has_preview ? "../previews/" + id + ".webp" + (e.preview_v ? "?v=" + e.preview_v : "") : "";
   }
   function repsLabel(e) {
+    if (e.amount != null) return e.amount + " " + e.unit;                 // cardio: 500 m, 16/12 cal
+    if (e.reps === "MAX") return "Max";
     if (e.holds && e.seconds) return e.holds + " × " + dur(e.seconds);
     if (e.seconds) return dur(e.seconds) + (e.per_side ? " / side" : "");
     if (e.reps != null) return e.reps + (e.per_side ? " / side" : "");
@@ -141,7 +143,19 @@ window.App = (function () {
   function restLabel(sec) { return sec ? "Rest " + dur(sec) : ""; }
   function restHTML(sec) { return sec ? "Rest " + durHTML(sec) : ""; }
   function blockCount(b) {
+    if (b.kind === "intervals") return intervalsLabel(b);
     return b.kind === "tabata" ? b.cycles + " × " + dur(b.work_seconds) : b.rounds + " rounds";
+  }
+  /* A cardio day's timed part, in one line (data/cardio.json, built into
+     "intervals" blocks by build_freeco.py): "12 min", "AMRAP 4 min × 5",
+     "EMOM 30 min", "5 rounds × 5 stations". */
+  function intervalsLabel(b) {
+    var work = b.phases.filter(function (p) { return p.kind === "work"; });
+    if (b.format === "amrap") return "AMRAP " + dur(work[0].sec) + (b.sets > 1 ? " × " + b.sets : "");
+    if (b.format === "emom") return "EMOM " + work.length + " min";
+    if (b.format === "stations") return work.length / b.exercises.length + " rounds × " + b.exercises.length + " stations";
+    if (b.format === "circuit") return b.rounds + " rounds · " + dur(b.seconds);
+    return dur(b.seconds);
   }
 
   // ---------------------------------------------------------------- dates
@@ -195,7 +209,20 @@ window.App = (function () {
     return { week: null, index: -1, status: "after" };
   }
   function sessionsFor(block) { return P.sessions.filter(function (s) { return s.block === block; }); }
-  function sessionByKey(k) { return P.sessions.find(function (s) { return s.key === k; }); }
+  /* A plan session ("1.1") or a cardio day ("cardio-puyol", data/cardio.json).
+     Both have the same shape, so every screen that shows or runs one works
+     for both; s.kind === "cardio" is how the few that differ tell them apart. */
+  function sessionByKey(k) {
+    return P.sessions.find(function (s) { return s.key === k; }) ||
+      (P.cardio || []).find(function (s) { return s.key === k; });
+  }
+  function isCardio(s) { return !!s && s.kind === "cardio"; }
+  // "Workout 1.1", "Puyol" — or the bare key for one no longer in the programme.
+  function sessionTitle(k) { var s = sessionByKey(k); return s ? s.title : "Workout " + k; }
+  /* A cardio day is filed under the calendar week it was done in — not a plan
+     week, since it belongs to no block. Plan weeks start on Mondays too, so it
+     lands on the week screen it was done in (Home's "Extra" line). */
+  function cardioWeek(d) { return isoDate(mondayOf(d)); }
 
   // ---------------------------------------------------------------- chrome
   function topbar(title, back, menu) {
@@ -224,6 +251,7 @@ window.App = (function () {
   function menuPanel() {
     return '<div class="menu" id="menu" hidden>' +
       '<a class="menu__item" href="#/plan">Plan · all weeks</a>' +
+      '<a class="menu__item" href="#/cardio">Cardio days</a>' +
       '<a class="menu__item" href="#/history">History</a>' +
       '<a class="menu__item" href="../">Programme reference ↗</a>' +
       '<div class="menu__sep"></div>' +
@@ -388,7 +416,8 @@ window.App = (function () {
     dur: dur, durSpoken: durSpoken, durHTML: durHTML, cueHTML: cueHTML, cueText: cueText,
     fmt: fmt, fmtRange: fmtRange, dateVal: dateVal, timeVal: timeVal, hhmm: hhmm, longDate: longDate,
     dayDate: dayDate, today: today, isoDate: isoDate, mondayOf: mondayOf, nextMonday: nextMonday, timesFrom: timesFrom,
-    weekFor: weekFor, sessionsFor: sessionsFor, sessionByKey: sessionByKey,
+    weekFor: weekFor, sessionsFor: sessionsFor, sessionByKey: sessionByKey, isCardio: isCardio, cardioWeek: cardioWeek, sessionTitle: sessionTitle,
+    intervalsLabel: intervalsLabel,
     topbar: topbar, renderSetup: renderSetup, loadError: loadError, bindRetry: bindRetry, savedNotice: savedNotice,
     isInstalled: isInstalled, installCard: installCard, bindInstall: bindInstall, syncBadge: syncBadge,
   };

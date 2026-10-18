@@ -24,6 +24,15 @@ Each numbered workout is assigned six to eight times with identical content, so 
 site shows one entry per number, keeping the most recent version plus the date range
 it was active.
 
+## Cardio days
+
+Besides Francesco's plan, Cokiletics has six conditioning routines to pick whenever you want one
+(☰ → Cardio days). Each is a Stairmaster warm-up, a WOD, an easy cooldown and an optional core
+circuit, and each is named after a football legend. The WODs are Javier's "Steve" and five CrossFit
+benchmark workouts, adapted to a controlled Zone 3 day with no running; the app shows each one as
+published and what this version changes. They live in `freecokiletics/data/cardio.json`, and
+`scripts/build_freeco.py` builds them into the app.
+
 ## Refreshing it when the coach adds new workouts
 
 Roughly every five weeks a new block appears. To pull it in:

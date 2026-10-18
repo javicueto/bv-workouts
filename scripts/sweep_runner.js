@@ -45,8 +45,10 @@ window.sweepRunner = async function (opts) {
     return m;
   }
 
-  for (var s = 0; s < P.sessions.length; s++) {
-    var key = P.sessions[s].key;
+  // The plan's sessions and the cardio days (data/cardio.json) alike.
+  var all = P.sessions.concat(P.cardio || []);
+  for (var s = 0; s < all.length; s++) {
+    var key = all[s].key;
     R.start(key, { userId: "sweep", weekStart: null, last: fill === "empty" ? {} : last() });
     var st = R.current();
     if (fill === "logged") {
@@ -70,7 +72,7 @@ window.sweepRunner = async function (opts) {
       void host.offsetHeight;
       var kind = st.steps[i].kind;
       var docW = document.documentElement.scrollWidth, over = docW - innerWidth;
-      var act = host.querySelector(".actions .btn--primary, [data-act='finish'], #tstart, [data-act='skip']");
+      var act = host.querySelector(".actions .btn--primary, [data-act='finish'], #tstart, #ivstart, #ivend, [data-act='skip']");
       var bottom = act ? act.getBoundingClientRect().bottom + scrollY : 0;
       out.screens++;
       if (over > 0) out.wide.push(key + " step " + i + " (" + kind + ") +" + over + "px");
