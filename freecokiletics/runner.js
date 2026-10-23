@@ -638,8 +638,14 @@ window.Runner = (function () {
     go(1);
   }
 
-  function bind(step) {
-    container.querySelectorAll("[data-act]").forEach(function (b) {
+  /* Wires every control inside `root` (the whole runner by default). A part
+     that redraws only its own body — a Tabata or a cardio part starting —
+     passes that body: binding the whole container again gave the header's
+     buttons a second listener, so the title opened the workout twice and it
+     took two taps to close (Javier, 24 Oct 2026: "I need to tap twice"). */
+  function bind(step, root) {
+    root = root || container;
+    root.querySelectorAll("[data-act]").forEach(function (b) {
       b.addEventListener("click", function () {
         var a = b.getAttribute("data-act");
         if (a === "next") {
@@ -661,16 +667,16 @@ window.Runner = (function () {
         else if (a === "pause") pause();
       });
     });
-    container.querySelectorAll("[data-after]").forEach(function (b) {
+    root.querySelectorAll("[data-after]").forEach(function (b) {
       b.addEventListener("click", function () { showUpcoming(state.steps[+b.getAttribute("data-after")]); });
     });
-    container.querySelectorAll("[data-zoom]").forEach(function (b) {
+    root.querySelectorAll("[data-zoom]").forEach(function (b) {
       b.addEventListener("click", function (ev) { ev.stopPropagation(); zoom(b.getAttribute("data-zoom")); });
     });
     /* Fold the weight open, and the reps one level below it. The inputs stay
        in the DOM either way, so logRound still reads them by data-w/data-r —
        hiding them must never change what gets saved. */
-    container.querySelectorAll("[data-logtoggle]").forEach(function (b) {
+    root.querySelectorAll("[data-logtoggle]").forEach(function (b) {
       b.addEventListener("click", function () {
         var ix = b.getAttribute("data-logtoggle");
         var panel = container.querySelector('[data-logpanel="' + ix + '"]');
@@ -680,7 +686,7 @@ window.Runner = (function () {
         if (open) { var f = panel.querySelector("input"); if (f) { f.focus(); f.select(); } }
       });
     });
-    container.querySelectorAll("[data-repstoggle]").forEach(function (b) {
+    root.querySelectorAll("[data-repstoggle]").forEach(function (b) {
       b.addEventListener("click", function () {
         var box = container.querySelector('[data-repsbox="' + b.getAttribute("data-repstoggle") + '"]');
         var open = box.hidden;
@@ -691,7 +697,7 @@ window.Runner = (function () {
     });
     /* The tick is "I'm done typing" — it folds the panel away. The value is
        already held by the input; the round is what actually saves it. */
-    container.querySelectorAll("[data-logdone]").forEach(function (b) {
+    root.querySelectorAll("[data-logdone]").forEach(function (b) {
       b.addEventListener("click", function () {
         var ix = b.getAttribute("data-logdone");
         var panel = container.querySelector('[data-logpanel="' + ix + '"]');
@@ -700,7 +706,7 @@ window.Runner = (function () {
         if (t) t.setAttribute("aria-expanded", "false");
       });
     });
-    container.querySelectorAll("[data-repsdone]").forEach(function (b) {
+    root.querySelectorAll("[data-repsdone]").forEach(function (b) {
       b.addEventListener("click", function () {
         var ix = b.getAttribute("data-repsdone");
         var box = container.querySelector('[data-repsbox="' + ix + '"]');
@@ -709,7 +715,7 @@ window.Runner = (function () {
         if (t) t.setAttribute("aria-expanded", "false");
       });
     });
-    container.querySelectorAll("[data-repsreset]").forEach(function (b) {
+    root.querySelectorAll("[data-repsreset]").forEach(function (b) {
       b.addEventListener("click", function (ev) {
         ev.stopPropagation();
         var ix = b.getAttribute("data-repsreset");
@@ -720,12 +726,12 @@ window.Runner = (function () {
     });
     // The folded button and the big target line both mirror what is typed, so
     // closing the panel never hides a change you just made.
-    container.querySelectorAll("[data-w]").forEach(function (inp) {
+    root.querySelectorAll("[data-w]").forEach(function (inp) {
       inp.addEventListener("input", function () { syncChip(inp.getAttribute("data-w")); });
     });
     // − / +: 1 kg from whatever is in the box, never below 0; 20.5 + 1 = 21.5.
     // Focus stays on the button, so the phone keyboard does not pop up.
-    container.querySelectorAll("[data-wstep]").forEach(function (b) {
+    root.querySelectorAll("[data-wstep]").forEach(function (b) {
       b.addEventListener("click", function () {
         var inp = container.querySelector('[data-w="' + b.getAttribute("data-for") + '"]');
         var cur = parseFloat(inp.value.replace(",", "."));
@@ -735,10 +741,10 @@ window.Runner = (function () {
         UI.bump(container.querySelector('[data-logtoggle="' + b.getAttribute("data-for") + '"] .logbtn__num'));
       });
     });
-    container.querySelectorAll("[data-r]").forEach(function (inp) {
+    root.querySelectorAll("[data-r]").forEach(function (inp) {
       inp.addEventListener("input", function () { syncTarget(inp.getAttribute("data-r")); });
     });
-    container.querySelectorAll("[data-hold]").forEach(function (b) {
+    root.querySelectorAll("[data-hold]").forEach(function (b) {
       b.addEventListener("click", function () { startHold(step.items[+b.getAttribute("data-hold")], b); });
     });
   }
@@ -1004,7 +1010,7 @@ window.Runner = (function () {
         '<div class="tabata__sides" id="sd" hidden></div>' +
         '<div class="tabata__cycle" id="cy"></div>' +
         '<button class="btn btn--quiet" data-act="skip">Skip block</button>';
-      bind(step);
+      bind(step, tab);                  // only the new body: the header is already wired
       run();
     }
     function show() {
@@ -1301,7 +1307,7 @@ window.Runner = (function () {
           : "") +
         footer(step.blockName + " done ✓");
       bindScore(step, iv);
-      bind(step);
+      bind(step, iv);                   // only the end screen: the header is already wired
     }
   }
   /* The end screen's weights → one set row per movement (round 1, like a

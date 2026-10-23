@@ -218,6 +218,13 @@ window.UI = (function () {
 
   function swipePages(el, opts) {
     var THRESHOLD = 80;                  // px
+    /* A tap is not a swipe until the finger has really travelled (Javier,
+       24 Oct 2026: "sometimes I need to tap twice"). Fingers drift a few
+       pixels on any tap; at the old 8px a slightly sideways tap on Start or a
+       day card turned into a tiny swipe and its click was thrown away. 12px
+       before a direction is decided, and a click is only cancelled once the
+       page itself has moved SLOP px — the same distance iOS allows a tap. */
+    var SLOP = 16;                       // px
     var OUT_MS = 260;                    // matches .week-swipe.is-leaving
     var GAP = 16;                        // px between the page and its neighbour
     var root = document.documentElement;
@@ -283,7 +290,7 @@ window.UI = (function () {
     el.addEventListener("touchmove", function (e) {
       if (!active) return;
       var mx = e.touches[0].clientX - x0, my = e.touches[0].clientY - y0;
-      if (horizontal === null && (Math.abs(mx) > 8 || Math.abs(my) > 8)) horizontal = Math.abs(mx) > Math.abs(my) * 1.3;
+      if (horizontal === null && (Math.abs(mx) > 12 || Math.abs(my) > 12)) horizontal = Math.abs(mx) > Math.abs(my) * 1.3;
       if (!horizontal) return;
       /* Once a drag is sideways it never also scrolls the page (Javier,
          14 Sep 2026: the side scroll bar flashed while swiping weeks — the
@@ -307,7 +314,7 @@ window.UI = (function () {
     });
     el.addEventListener("touchcancel", function () { active = false; if (horizontal) settle(); });
     el.addEventListener("click", function (e) {
-      if (horizontal) { e.preventDefault(); e.stopPropagation(); }
+      if (horizontal && Math.abs(dx) >= SLOP) { e.preventDefault(); e.stopPropagation(); }
     }, true);
     return { go: leave };
   }

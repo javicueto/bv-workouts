@@ -255,10 +255,8 @@ window.App = (function () {
       '<a class="menu__item" href="#/history">History</a>' +
       '<a class="menu__item" href="../">Programme reference ↗</a>' +
       '<div class="menu__sep"></div>' +
-      '<button class="menu__item menu__item--icon" type="button" id="theme">' +
-        themeLabel() + "</button>" +
-      '<button class="menu__item menu__item--icon" type="button" id="sound">' +
-        soundLabel() + "</button>" +
+      switchItem("theme", ICONS.moon, "Dark mode", Theme.current() === "dark") +
+      switchItem("sound", ICONS.volumeHigh, "Sound", !Sound.muted()) +
       // How much is saved for offline (offline.js keeps it current).
       '<div class="menu__note" id="offline-note"' + (offlineText() ? "" : " hidden") + ">" + UI.esc(offlineText()) + "</div>" +
       '<div class="menu__sep"></div>' +
@@ -267,18 +265,20 @@ window.App = (function () {
       "</div>";
   }
   function offlineText() { return window.Offline ? window.Offline.label() : ""; }
-  // Offers the mode you would be switching TO, which is the thing you are choosing.
-  function themeLabel() {
-    return Theme.current() === "dark"
-      ? '<span class="menu__icon">' + ICONS.sun + "</span>Light mode"
-      : '<span class="menu__icon">' + ICONS.moon + "</span>Dark mode";
+  /* A setting in the menu is a switch that shows its CURRENT state (Javier,
+     24 Oct 2026: the old items named the action instead — "Mute sound"
+     beside a crossed-out speaker while sound was on — and read backwards).
+     Fixed icon and label; the switch and its "On" / "Off" say the state, so
+     it never rests on colour alone; role="switch" + aria-checked say it to a
+     screen reader. Both remembered on this phone (Theme, Sound.muted). */
+  function switchItem(id, icon, label, on) {
+    return '<button class="menu__item menu__item--icon menu__item--switch" type="button" role="switch" id="' + id + '" aria-checked="' + on + '">' +
+      '<span class="menu__icon">' + icon + '</span><span class="grow">' + label + "</span>" +
+      '<span class="switch__state">' + (on ? "On" : "Off") + '</span><span class="switch" aria-hidden="true"><i></i></span></button>';
   }
-  /* Same rule as the theme: offers what you would switch TO. Remembered on
-     this phone until switched back (Sound.muted, timer.js). */
-  function soundLabel() {
-    return Sound.muted()
-      ? '<span class="menu__icon">' + ICONS.volumeHigh + "</span>Turn sound on"
-      : '<span class="menu__icon">' + ICONS.volumeXmark + "</span>Mute sound";
+  function setSwitch(el, on) {
+    el.setAttribute("aria-checked", String(on));
+    el.querySelector(".switch__state").textContent = on ? "On" : "Off";
   }
   function closeMenu() {
     var btn = document.getElementById("menu-btn"), panel = document.getElementById("menu");
@@ -301,14 +301,14 @@ window.App = (function () {
     }
     var theme = e.target.closest && e.target.closest("#theme");
     if (theme) {
-      Theme.toggle();
-      theme.innerHTML = themeLabel();     // the menu stays open so the switch is visible
+      setSwitch(theme, Theme.toggle() === "dark");     // the menu stays open so the switch is seen
       return;
     }
     var sound = e.target.closest && e.target.closest("#sound");
     if (sound) {
-      if (!Sound.toggleMuted()) Sound.introCount();   // turned on: one soft blip says so
-      sound.innerHTML = soundLabel();
+      var muted = Sound.toggleMuted();
+      if (!muted) Sound.introCount();                   // turned on: one soft blip says so
+      setSwitch(sound, !muted);
       return;
     }
     // Picking an item closes it too, and so does a tap anywhere outside.
