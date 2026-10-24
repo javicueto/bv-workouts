@@ -210,7 +210,7 @@
   function sectionsHTML(s, o) {
     var rec = o.rec, status = o.status || function () { return ""; }, html = "";
     if (A.isCardio(s)) html += wodHTML(s);
-    if (s && s.warmup && !A.isCardio(s)) {        // a cardio day's warm-up is its own block (W)
+    if (s && s.warmup && (s.warmup.exercises || []).length) {
       /* The coach's warm-up text is a heading plus the list of movements, and
          the movements are already named under their own previews below — so
          only the lines that are NOT an exercise name are kept. Matching on the

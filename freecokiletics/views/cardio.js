@@ -15,9 +15,9 @@
     A.ticket();
     var list = A.P.cardio || [];
     app.innerHTML = topbar("Cardio days", "#/") +
-      '<p class="dim cardio-intro">Outside the plan, whenever you want one. Each starts with a Stairmaster warm-up and ends with an easy cooldown, plus optional core.</p>' +
+      '<p class="dim cardio-intro">Outside the plan, whenever you want one. Each starts with the usual mobility warm-up and the Stairmaster, and ends with an easy cooldown, plus optional core.</p>' +
       '<div class="list">' + list.map(function (s) {
-        var wod = s.blocks.find(function (b) { return b.letter === "A"; });
+        var wod = s.blocks.find(function (b) { return b.wod; });
         return '<a class="card card--tap cardio-card" href="#/view/' + esc(s.key) + '">' +
           '<div class="eyebrow">' + esc(s.wod.format) + "</div>" +
           "<h2>" + esc(s.title) + "</h2>" +

@@ -5029,13 +5029,54 @@ window.PROGRAMME = {
     "changes": "5 sets instead of 4 (Javier, 18 Oct 2026)."
    },
    "warmup": {
-    "text": "",
-    "exercises": []
+    "text": "Back routine mobility\n1 round, 8/10 reps each exercise:\nT-spine rotation with reach\nSide lying rotation\nLeg twist \nFloor seated trunk twist\nCat cow\nActive straight leg raise\nIleopsoas dynamic stretch\nAdductor dynamic stretch\nGlute dynamic stretch",
+    "exercises": [
+     {
+      "id": "12503061",
+      "name": "T-spine rotation with reach"
+     },
+     {
+      "id": "11249387",
+      "name": "Side lying rotation"
+     },
+     {
+      "id": "12478227",
+      "name": "Leg twist"
+     },
+     {
+      "id": "14602077",
+      "name": "Floor seated trunk twist"
+     },
+     {
+      "id": "11307749",
+      "name": "Cat cow"
+     },
+     {
+      "id": "11307746",
+      "name": "Active straight leg raise"
+     },
+     {
+      "id": "12503065",
+      "name": "Ileopsoas dynamic stretch"
+     },
+     {
+      "id": "11307759",
+      "name": "Adductor dynamic stretch"
+     },
+     {
+      "id": "12417679",
+      "name": "Glute dynamic stretch"
+     },
+     {
+      "id": "12755748",
+      "name": "Bw squat"
+     }
+    ]
    },
    "blocks": [
     {
-     "letter": "W",
-     "name": "Warm-up",
+     "letter": "A",
+     "name": "Stairmaster",
      "zone": "Zone 2",
      "note": "Easy, steady climb — you can still talk in full sentences.",
      "kind": "intervals",
@@ -5044,7 +5085,7 @@ window.PROGRAMME = {
       {
        "kind": "work",
        "sec": 720,
-       "label": "Warm-up",
+       "label": "Stairmaster",
        "moves": [
         {
          "id": "c-stairmaster",
@@ -5062,11 +5103,11 @@ window.PROGRAMME = {
       }
      ],
      "seconds": 720,
-     "autostart": true,
+     "autostart": false,
      "rounds": null
     },
     {
-     "letter": "A",
+     "letter": "B",
      "name": "WOD",
      "zone": "Zone 3 · short Zone 4 spikes",
      "note": "Each set: the snatches and the bike, then burpees until the 4 minutes are up.",
@@ -5254,10 +5295,11 @@ window.PROGRAMME = {
       "label": "Burpees"
      },
      "sets": 5,
-     "rounds": 5
+     "rounds": 5,
+     "wod": true
     },
     {
-     "letter": "B",
+     "letter": "C",
      "name": "Cooldown",
      "zone": "Zone 1",
      "note": "Easy bike or rower, then stretch calves, hips and shoulders.",
@@ -5289,7 +5331,7 @@ window.PROGRAMME = {
      "rounds": null
     },
     {
-     "letter": "C",
+     "letter": "D",
      "name": "Core",
      "zone": "Optional",
      "note": "Each hold on the clock, 10 sec to switch between them.",
@@ -5542,13 +5584,54 @@ window.PROGRAMME = {
     "changes": "Row instead of run, 4 rounds not for time, 20 + 20 reps, step down from the box — Zone 3, and easier on the Achilles after a strength day."
    },
    "warmup": {
-    "text": "",
-    "exercises": []
+    "text": "Back routine mobility\n1 round, 8/10 reps each exercise:\nT-spine rotation with reach\nSide lying rotation\nLeg twist \nFloor seated trunk twist\nCat cow\nActive straight leg raise\nIleopsoas dynamic stretch\nAdductor dynamic stretch\nGlute dynamic stretch",
+    "exercises": [
+     {
+      "id": "12503061",
+      "name": "T-spine rotation with reach"
+     },
+     {
+      "id": "11249387",
+      "name": "Side lying rotation"
+     },
+     {
+      "id": "12478227",
+      "name": "Leg twist"
+     },
+     {
+      "id": "14602077",
+      "name": "Floor seated trunk twist"
+     },
+     {
+      "id": "11307749",
+      "name": "Cat cow"
+     },
+     {
+      "id": "11307746",
+      "name": "Active straight leg raise"
+     },
+     {
+      "id": "12503065",
+      "name": "Ileopsoas dynamic stretch"
+     },
+     {
+      "id": "11307759",
+      "name": "Adductor dynamic stretch"
+     },
+     {
+      "id": "12417679",
+      "name": "Glute dynamic stretch"
+     },
+     {
+      "id": "12755748",
+      "name": "Bw squat"
+     }
+    ]
    },
    "blocks": [
     {
-     "letter": "W",
-     "name": "Warm-up",
+     "letter": "A",
+     "name": "Stairmaster",
      "zone": "Zone 2",
      "note": "Easy, steady climb — you can still talk in full sentences.",
      "kind": "intervals",
@@ -5557,7 +5640,7 @@ window.PROGRAMME = {
       {
        "kind": "work",
        "sec": 720,
-       "label": "Warm-up",
+       "label": "Stairmaster",
        "moves": [
         {
          "id": "c-stairmaster",
@@ -5575,11 +5658,11 @@ window.PROGRAMME = {
       }
      ],
      "seconds": 720,
-     "autostart": true,
+     "autostart": false,
      "rounds": null
     },
     {
-     "letter": "A",
+     "letter": "B",
      "name": "WOD",
      "zone": "Zone 3 · steady",
      "note": null,
@@ -5611,10 +5694,11 @@ window.PROGRAMME = {
        "note": "Two sets of 10"
       }
      ],
-     "raw": ""
+     "raw": "",
+     "wod": true
     },
     {
-     "letter": "B",
+     "letter": "C",
      "name": "Cooldown",
      "zone": "Zone 1",
      "note": "Easy bike or rower, then stretch calves, hips and shoulders.",
@@ -5646,7 +5730,7 @@ window.PROGRAMME = {
      "rounds": null
     },
     {
-     "letter": "C",
+     "letter": "D",
      "name": "Core",
      "zone": "Optional",
      "note": "Each hold on the clock, 10 sec to switch between them.",
@@ -5899,13 +5983,54 @@ window.PROGRAMME = {
     "changes": "Spread over a 30-minute EMOM: the same 150 wall balls on the odd minutes, lateral footwork on the even ones."
    },
    "warmup": {
-    "text": "",
-    "exercises": []
+    "text": "Back routine mobility\n1 round, 8/10 reps each exercise:\nT-spine rotation with reach\nSide lying rotation\nLeg twist \nFloor seated trunk twist\nCat cow\nActive straight leg raise\nIleopsoas dynamic stretch\nAdductor dynamic stretch\nGlute dynamic stretch",
+    "exercises": [
+     {
+      "id": "12503061",
+      "name": "T-spine rotation with reach"
+     },
+     {
+      "id": "11249387",
+      "name": "Side lying rotation"
+     },
+     {
+      "id": "12478227",
+      "name": "Leg twist"
+     },
+     {
+      "id": "14602077",
+      "name": "Floor seated trunk twist"
+     },
+     {
+      "id": "11307749",
+      "name": "Cat cow"
+     },
+     {
+      "id": "11307746",
+      "name": "Active straight leg raise"
+     },
+     {
+      "id": "12503065",
+      "name": "Ileopsoas dynamic stretch"
+     },
+     {
+      "id": "11307759",
+      "name": "Adductor dynamic stretch"
+     },
+     {
+      "id": "12417679",
+      "name": "Glute dynamic stretch"
+     },
+     {
+      "id": "12755748",
+      "name": "Bw squat"
+     }
+    ]
    },
    "blocks": [
     {
-     "letter": "W",
-     "name": "Warm-up",
+     "letter": "A",
+     "name": "Stairmaster",
      "zone": "Zone 2",
      "note": "Easy, steady climb — you can still talk in full sentences.",
      "kind": "intervals",
@@ -5914,7 +6039,7 @@ window.PROGRAMME = {
       {
        "kind": "work",
        "sec": 720,
-       "label": "Warm-up",
+       "label": "Stairmaster",
        "moves": [
         {
          "id": "c-stairmaster",
@@ -5932,11 +6057,11 @@ window.PROGRAMME = {
       }
      ],
      "seconds": 720,
-     "autostart": true,
+     "autostart": false,
      "rounds": null
     },
     {
-     "letter": "A",
+     "letter": "B",
      "name": "WOD",
      "zone": "Zone 3",
      "note": "Start each minute on the beep; rest for whatever is left of it.",
@@ -6363,10 +6488,11 @@ window.PROGRAMME = {
       }
      ],
      "seconds": 1800,
-     "rounds": null
+     "rounds": null,
+     "wod": true
     },
     {
-     "letter": "B",
+     "letter": "C",
      "name": "Cooldown",
      "zone": "Zone 1",
      "note": "Easy bike or rower, then stretch calves, hips and shoulders.",
@@ -6398,7 +6524,7 @@ window.PROGRAMME = {
      "rounds": null
     },
     {
-     "letter": "C",
+     "letter": "D",
      "name": "Core",
      "zone": "Optional",
      "note": "Each hold on the clock, 10 sec to switch between them.",
@@ -6651,13 +6777,54 @@ window.PROGRAMME = {
     "changes": "5 rounds at a steady 70% instead of 3 for max reps; kettlebell swings instead of the barbell high pull; light barbell push press; step down from the box."
    },
    "warmup": {
-    "text": "",
-    "exercises": []
+    "text": "Back routine mobility\n1 round, 8/10 reps each exercise:\nT-spine rotation with reach\nSide lying rotation\nLeg twist \nFloor seated trunk twist\nCat cow\nActive straight leg raise\nIleopsoas dynamic stretch\nAdductor dynamic stretch\nGlute dynamic stretch",
+    "exercises": [
+     {
+      "id": "12503061",
+      "name": "T-spine rotation with reach"
+     },
+     {
+      "id": "11249387",
+      "name": "Side lying rotation"
+     },
+     {
+      "id": "12478227",
+      "name": "Leg twist"
+     },
+     {
+      "id": "14602077",
+      "name": "Floor seated trunk twist"
+     },
+     {
+      "id": "11307749",
+      "name": "Cat cow"
+     },
+     {
+      "id": "11307746",
+      "name": "Active straight leg raise"
+     },
+     {
+      "id": "12503065",
+      "name": "Ileopsoas dynamic stretch"
+     },
+     {
+      "id": "11307759",
+      "name": "Adductor dynamic stretch"
+     },
+     {
+      "id": "12417679",
+      "name": "Glute dynamic stretch"
+     },
+     {
+      "id": "12755748",
+      "name": "Bw squat"
+     }
+    ]
    },
    "blocks": [
     {
-     "letter": "W",
-     "name": "Warm-up",
+     "letter": "A",
+     "name": "Stairmaster",
      "zone": "Zone 2",
      "note": "Easy, steady climb — you can still talk in full sentences.",
      "kind": "intervals",
@@ -6666,7 +6833,7 @@ window.PROGRAMME = {
       {
        "kind": "work",
        "sec": 720,
-       "label": "Warm-up",
+       "label": "Stairmaster",
        "moves": [
         {
          "id": "c-stairmaster",
@@ -6684,11 +6851,11 @@ window.PROGRAMME = {
       }
      ],
      "seconds": 720,
-     "autostart": true,
+     "autostart": false,
      "rounds": null
     },
     {
-     "letter": "A",
+     "letter": "B",
      "name": "WOD",
      "zone": "Zone 3 · steady 70%",
      "note": null,
@@ -7094,10 +7261,11 @@ window.PROGRAMME = {
       }
      ],
      "seconds": 1740,
-     "rounds": 5
+     "rounds": 5,
+     "wod": true
     },
     {
-     "letter": "B",
+     "letter": "C",
      "name": "Cooldown",
      "zone": "Zone 1",
      "note": "Easy bike or rower, then stretch calves, hips and shoulders.",
@@ -7129,7 +7297,7 @@ window.PROGRAMME = {
      "rounds": null
     },
     {
-     "letter": "C",
+     "letter": "D",
      "name": "Core",
      "zone": "Optional",
      "note": "Each hold on the clock, 10 sec to switch between them.",
@@ -7382,13 +7550,54 @@ window.PROGRAMME = {
     "changes": "30 minutes instead of 20, a lighter bar, step down from the box — keep moving at a steady pace, no rests."
    },
    "warmup": {
-    "text": "",
-    "exercises": []
+    "text": "Back routine mobility\n1 round, 8/10 reps each exercise:\nT-spine rotation with reach\nSide lying rotation\nLeg twist \nFloor seated trunk twist\nCat cow\nActive straight leg raise\nIleopsoas dynamic stretch\nAdductor dynamic stretch\nGlute dynamic stretch",
+    "exercises": [
+     {
+      "id": "12503061",
+      "name": "T-spine rotation with reach"
+     },
+     {
+      "id": "11249387",
+      "name": "Side lying rotation"
+     },
+     {
+      "id": "12478227",
+      "name": "Leg twist"
+     },
+     {
+      "id": "14602077",
+      "name": "Floor seated trunk twist"
+     },
+     {
+      "id": "11307749",
+      "name": "Cat cow"
+     },
+     {
+      "id": "11307746",
+      "name": "Active straight leg raise"
+     },
+     {
+      "id": "12503065",
+      "name": "Ileopsoas dynamic stretch"
+     },
+     {
+      "id": "11307759",
+      "name": "Adductor dynamic stretch"
+     },
+     {
+      "id": "12417679",
+      "name": "Glute dynamic stretch"
+     },
+     {
+      "id": "12755748",
+      "name": "Bw squat"
+     }
+    ]
    },
    "blocks": [
     {
-     "letter": "W",
-     "name": "Warm-up",
+     "letter": "A",
+     "name": "Stairmaster",
      "zone": "Zone 2",
      "note": "Easy, steady climb — you can still talk in full sentences.",
      "kind": "intervals",
@@ -7397,7 +7606,7 @@ window.PROGRAMME = {
       {
        "kind": "work",
        "sec": 720,
-       "label": "Warm-up",
+       "label": "Stairmaster",
        "moves": [
         {
          "id": "c-stairmaster",
@@ -7415,11 +7624,11 @@ window.PROGRAMME = {
       }
      ],
      "seconds": 720,
-     "autostart": true,
+     "autostart": false,
      "rounds": null
     },
     {
-     "letter": "A",
+     "letter": "B",
      "name": "WOD",
      "zone": "Zone 3 · steady",
      "note": null,
@@ -7478,10 +7687,11 @@ window.PROGRAMME = {
       "kind": "rounds_reps"
      },
      "sets": 1,
-     "rounds": 1
+     "rounds": 1,
+     "wod": true
     },
     {
-     "letter": "B",
+     "letter": "C",
      "name": "Cooldown",
      "zone": "Zone 1",
      "note": "Easy bike or rower, then stretch calves, hips and shoulders.",
@@ -7513,7 +7723,7 @@ window.PROGRAMME = {
      "rounds": null
     },
     {
-     "letter": "C",
+     "letter": "D",
      "name": "Core",
      "zone": "Optional",
      "note": "Each hold on the clock, 10 sec to switch between them.",
@@ -7766,13 +7976,54 @@ window.PROGRAMME = {
     "changes": "Row instead of run, 25 + 25 reps, not for time — the low-jump day, for after heavy legs."
    },
    "warmup": {
-    "text": "",
-    "exercises": []
+    "text": "Back routine mobility\n1 round, 8/10 reps each exercise:\nT-spine rotation with reach\nSide lying rotation\nLeg twist \nFloor seated trunk twist\nCat cow\nActive straight leg raise\nIleopsoas dynamic stretch\nAdductor dynamic stretch\nGlute dynamic stretch",
+    "exercises": [
+     {
+      "id": "12503061",
+      "name": "T-spine rotation with reach"
+     },
+     {
+      "id": "11249387",
+      "name": "Side lying rotation"
+     },
+     {
+      "id": "12478227",
+      "name": "Leg twist"
+     },
+     {
+      "id": "14602077",
+      "name": "Floor seated trunk twist"
+     },
+     {
+      "id": "11307749",
+      "name": "Cat cow"
+     },
+     {
+      "id": "11307746",
+      "name": "Active straight leg raise"
+     },
+     {
+      "id": "12503065",
+      "name": "Ileopsoas dynamic stretch"
+     },
+     {
+      "id": "11307759",
+      "name": "Adductor dynamic stretch"
+     },
+     {
+      "id": "12417679",
+      "name": "Glute dynamic stretch"
+     },
+     {
+      "id": "12755748",
+      "name": "Bw squat"
+     }
+    ]
    },
    "blocks": [
     {
-     "letter": "W",
-     "name": "Warm-up",
+     "letter": "A",
+     "name": "Stairmaster",
      "zone": "Zone 2",
      "note": "Easy, steady climb — you can still talk in full sentences.",
      "kind": "intervals",
@@ -7781,7 +8032,7 @@ window.PROGRAMME = {
       {
        "kind": "work",
        "sec": 720,
-       "label": "Warm-up",
+       "label": "Stairmaster",
        "moves": [
         {
          "id": "c-stairmaster",
@@ -7799,11 +8050,11 @@ window.PROGRAMME = {
       }
      ],
      "seconds": 720,
-     "autostart": true,
+     "autostart": false,
      "rounds": null
     },
     {
-     "letter": "A",
+     "letter": "B",
      "name": "WOD",
      "zone": "Zone 3 · easy-steady",
      "note": null,
@@ -7833,10 +8084,11 @@ window.PROGRAMME = {
        "no_weight": true
       }
      ],
-     "raw": ""
+     "raw": "",
+     "wod": true
     },
     {
-     "letter": "B",
+     "letter": "C",
      "name": "Cooldown",
      "zone": "Zone 1",
      "note": "Easy bike or rower, then stretch calves, hips and shoulders.",
@@ -7868,7 +8120,7 @@ window.PROGRAMME = {
      "rounds": null
     },
     {
-     "letter": "C",
+     "letter": "D",
      "name": "Core",
      "zone": "Optional",
      "note": "Each hold on the clock, 10 sec to switch between them.",

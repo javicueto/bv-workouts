@@ -1,5 +1,5 @@
 {
-  "_about": "Cardio days (Javier, 18 Oct 2026): conditioning routines OUTSIDE Francesco's plan, picked from the menu. Hand-written, not from TrueCoach. scripts/build_freeco.py validates this file and writes it into data/programme.js as PROGRAMME.cardio (and its new movements into PROGRAMME.exercises). Every routine is: Stairmaster warm-up (Zone 2) → the WOD (mostly Zone 3, short Zone 4 spikes) → easy cooldown → optional core, run on the clock (a 'circuit': four holds were too tall for one round screen with a timer button each). Each is named after a football legend; the WODs themselves go by no name in the app (Javier, 24 Oct 2026: “no need for it”) — only their format, the original text and the source link. 'wod.original' is the workout as published (or as Javier did it), verbatim; 'wod.changes' says what this version changes and why — the app shows both. Steve came from Javier; the others are CrossFit benchmark workouts, adapted to a controlled Zone 3 day, no running (Javier: 'just bike or rowing').",
+  "_about": "Cardio days (Javier, 18 Oct 2026): conditioning routines OUTSIDE Francesco's plan, picked from the menu. Hand-written, not from TrueCoach. scripts/build_freeco.py validates this file and writes it into data/programme.js as PROGRAMME.cardio (and its new movements into PROGRAMME.exercises). Every routine is: the usual mobility warm-up (the one from blocks 5 and 6, read from the plan so it follows refreshes) → Stairmaster (Zone 2) → the WOD (mostly Zone 3, short Zone 4 spikes) → easy cooldown → optional core, run on the clock (a 'circuit': four holds were too tall for one round screen with a timer button each). Each is named after a football legend; the WODs themselves go by no name in the app (Javier, 24 Oct 2026: “no need for it”) — only their format, the original text and the source link. 'wod.original' is the workout as published (or as Javier did it), verbatim; 'wod.changes' says what this version changes and why — the app shows both. Steve came from Javier; the others are CrossFit benchmark workouts, adapted to a controlled Zone 3 day, no running (Javier: 'just bike or rowing').",
 
   "exercises": {
     "c-stairmaster":   { "name": "Stairmaster",       "youtube_id": "V2EQYdMw4Do", "no_weight": true },
@@ -12,7 +12,8 @@
   },
 
   "common": {
-    "warmup":   { "kind": "timer", "name": "Warm-up", "seconds": 720, "zone": "Zone 2",
+    "mobility_from": "5.1",
+    "stairmaster": { "kind": "timer", "name": "Stairmaster", "seconds": 720, "zone": "Zone 2", "autostart": false,
                   "note": "Easy, steady climb — you can still talk in full sentences.",
                   "exercises": [{ "id": "c-stairmaster" }] },
     "cooldown": { "kind": "timer", "name": "Cooldown", "seconds": 480, "zone": "Zone 1",
