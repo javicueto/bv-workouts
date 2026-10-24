@@ -150,7 +150,7 @@
     return '<ul class="extras">' + runs.map(function (x) {
       return '<li><a class="extras__row" href="#/h/' + esc(x.r.id) + '">' +
         '<span class="extras__tag">Extra</span>' +
-        '<span class="grow"><b>' + esc(x.s.title) + "</b> ✓ " + '<span class="dim">' + esc(x.s.wod.name) + "</span></span>" +
+        '<span class="grow"><b>' + esc(x.s.title) + "</b> ✓ " + '<span class="dim">' + esc(x.s.wod.format) + "</span></span>" +
         '<span class="faint">' + esc(A.dayDate(x.r.started_at)) + "</span></a></li>";
     }).join("") + "</ul>";
   }

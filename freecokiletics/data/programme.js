@@ -5023,7 +5023,6 @@ window.PROGRAMME = {
    "variant": null,
    "title": "Puyol",
    "wod": {
-    "name": "Steve",
     "format": "AMRAP 4 min × 5",
     "source": "Javier",
     "original": "AMRAP 4 min × 4: 8 squat snatches, 16/12 cal Echo bike, AMRAP burpees to target. 2 min rest.",
@@ -5068,7 +5067,7 @@ window.PROGRAMME = {
     },
     {
      "letter": "A",
-     "name": "Steve",
+     "name": "WOD",
      "zone": "Zone 3 · short Zone 4 spikes",
      "note": "Each set: the snatches and the bike, then burpees until the 4 minutes are up.",
      "kind": "intervals",
@@ -5537,7 +5536,6 @@ window.PROGRAMME = {
    "variant": null,
    "title": "Casillas",
    "wod": {
-    "name": "Kelly",
     "format": "4 rounds, steady",
     "source": "https://www.crossfit.com/benchmark/kelly",
     "original": "5 rounds for time: run 400 meters, 30 box jumps (24 / 20 in.), 30 wall ball shots (20 / 14 lb.).",
@@ -5582,7 +5580,7 @@ window.PROGRAMME = {
     },
     {
      "letter": "A",
-     "name": "Kelly",
+     "name": "WOD",
      "zone": "Zone 3 · steady",
      "note": null,
      "kind": "rounds",
@@ -5895,7 +5893,6 @@ window.PROGRAMME = {
    "variant": null,
    "title": "Kanté",
    "wod": {
-    "name": "Karen",
     "format": "EMOM 30 min",
     "source": "https://www.crossfit.com/benchmark/karen",
     "original": "For time: 150 wall-ball shots (20-lb ball to 10 ft / 14-lb ball to 9 ft).",
@@ -5940,7 +5937,7 @@ window.PROGRAMME = {
     },
     {
      "letter": "A",
-     "name": "Karen",
+     "name": "WOD",
      "zone": "Zone 3",
      "note": "Start each minute on the beep; rest for whatever is left of it.",
      "kind": "intervals",
@@ -6648,7 +6645,6 @@ window.PROGRAMME = {
    "variant": null,
    "title": "Gattuso",
    "wod": {
-    "name": "Fight Gone Bad",
     "format": "5 rounds of 5 stations",
     "source": "https://www.crossfit.com/benchmark/fight-gone-bad",
     "original": "3 rounds for max reps of: 1 minute of wall-ball shots, 1 minute of sumo deadlift high pulls, 1 minute of box jumps, 1 minute of push presses, 1 minute of rowing (calories), rest 1 minute.",
@@ -6693,7 +6689,7 @@ window.PROGRAMME = {
     },
     {
      "letter": "A",
-     "name": "Fight Gone Bad",
+     "name": "WOD",
      "zone": "Zone 3 · steady 70%",
      "note": null,
      "kind": "intervals",
@@ -7380,7 +7376,6 @@ window.PROGRAMME = {
    "variant": null,
    "title": "Zidane",
    "wod": {
-    "name": "Jack",
     "format": "AMRAP 30 min",
     "source": "https://www.crossfit.com/benchmark/jack",
     "original": "AMRAP in 20 minutes: 10 push presses, 10 kettlebell swings, 10 box jumps (115-lb / 75-lb barbell, 1.5 / 1 pood kettlebell, 24 / 20 in. box).",
@@ -7425,7 +7420,7 @@ window.PROGRAMME = {
     },
     {
      "letter": "A",
-     "name": "Jack",
+     "name": "WOD",
      "zone": "Zone 3 · steady",
      "note": null,
      "kind": "intervals",
@@ -7765,7 +7760,6 @@ window.PROGRAMME = {
    "variant": null,
    "title": "Maldini",
    "wod": {
-    "name": "Michael",
     "format": "3 rounds, steady",
     "source": "https://www.crossfit.com/benchmark/michael",
     "original": "3 rounds for time of: run 800 meters, 50 back extensions, 50 sit-ups.",
@@ -7810,7 +7804,7 @@ window.PROGRAMME = {
     },
     {
      "letter": "A",
-     "name": "Michael",
+     "name": "WOD",
      "zone": "Zone 3 · easy-steady",
      "note": null,
      "kind": "rounds",

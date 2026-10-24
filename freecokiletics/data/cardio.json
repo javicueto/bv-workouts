@@ -1,5 +1,5 @@
 {
-  "_about": "Cardio days (Javier, 18 Oct 2026): conditioning routines OUTSIDE Francesco's plan, picked from the menu. Hand-written, not from TrueCoach. scripts/build_freeco.py validates this file and writes it into data/programme.js as PROGRAMME.cardio (and its new movements into PROGRAMME.exercises). Every routine is: Stairmaster warm-up (Zone 2) → the WOD (mostly Zone 3, short Zone 4 spikes) → easy cooldown → optional core, run on the clock (a 'circuit': four holds were too tall for one round screen with a timer button each). Each is named after a football legend. 'wod.original' is the workout as published (or as Javier did it), verbatim; 'wod.changes' says what this version changes and why — the app shows both. Steve came from Javier; the others are CrossFit benchmark workouts, adapted to a controlled Zone 3 day, no running (Javier: 'just bike or rowing').",
+  "_about": "Cardio days (Javier, 18 Oct 2026): conditioning routines OUTSIDE Francesco's plan, picked from the menu. Hand-written, not from TrueCoach. scripts/build_freeco.py validates this file and writes it into data/programme.js as PROGRAMME.cardio (and its new movements into PROGRAMME.exercises). Every routine is: Stairmaster warm-up (Zone 2) → the WOD (mostly Zone 3, short Zone 4 spikes) → easy cooldown → optional core, run on the clock (a 'circuit': four holds were too tall for one round screen with a timer button each). Each is named after a football legend; the WODs themselves go by no name in the app (Javier, 24 Oct 2026: “no need for it”) — only their format, the original text and the source link. 'wod.original' is the workout as published (or as Javier did it), verbatim; 'wod.changes' says what this version changes and why — the app shows both. Steve came from Javier; the others are CrossFit benchmark workouts, adapted to a controlled Zone 3 day, no running (Javier: 'just bike or rowing').",
 
   "exercises": {
     "c-stairmaster":   { "name": "Stairmaster",       "youtube_id": "V2EQYdMw4Do", "no_weight": true },
@@ -33,12 +33,12 @@
     {
       "key": "cardio-puyol", "title": "Puyol",
       "wod": {
-        "name": "Steve", "format": "AMRAP 4 min × 5",
+        "format": "AMRAP 4 min × 5",
         "source": "Javier",
         "original": "AMRAP 4 min × 4: 8 squat snatches, 16/12 cal Echo bike, AMRAP burpees to target. 2 min rest.",
         "changes": "5 sets instead of 4 (Javier, 18 Oct 2026)."
       },
-      "block": { "kind": "amrap", "name": "Steve", "minutes": 4, "sets": 5, "rest_seconds": 120,
+      "block": { "kind": "amrap", "name": "WOD", "minutes": 4, "sets": 5, "rest_seconds": 120,
                  "zone": "Zone 3 · short Zone 4 spikes",
                  "note": "Each set: the snatches and the bike, then burpees until the 4 minutes are up.",
                  "score": { "kind": "reps", "label": "Burpees" },
@@ -51,12 +51,12 @@
     {
       "key": "cardio-casillas", "title": "Casillas",
       "wod": {
-        "name": "Kelly", "format": "4 rounds, steady",
+        "format": "4 rounds, steady",
         "source": "https://www.crossfit.com/benchmark/kelly",
         "original": "5 rounds for time: run 400 meters, 30 box jumps (24 / 20 in.), 30 wall ball shots (20 / 14 lb.).",
         "changes": "Row instead of run, 4 rounds not for time, 20 + 20 reps, step down from the box — Zone 3, and easier on the Achilles after a strength day."
       },
-      "block": { "kind": "rounds", "name": "Kelly", "rounds": 4, "rest_seconds": 0,
+      "block": { "kind": "rounds", "name": "WOD", "rounds": 4, "rest_seconds": 0,
                  "zone": "Zone 3 · steady",
                  "exercises": [
                    { "id": "11379991", "amount": 500, "unit": "m", "no_weight": true },
@@ -67,12 +67,12 @@
     {
       "key": "cardio-kante", "title": "Kanté",
       "wod": {
-        "name": "Karen", "format": "EMOM 30 min",
+        "format": "EMOM 30 min",
         "source": "https://www.crossfit.com/benchmark/karen",
         "original": "For time: 150 wall-ball shots (20-lb ball to 10 ft / 14-lb ball to 9 ft).",
         "changes": "Spread over a 30-minute EMOM: the same 150 wall balls on the odd minutes, lateral footwork on the even ones."
       },
-      "block": { "kind": "emom", "name": "Karen", "minutes": 30,
+      "block": { "kind": "emom", "name": "WOD", "minutes": 30,
                  "zone": "Zone 3",
                  "note": "Start each minute on the beep; rest for whatever is left of it.",
                  "pattern": [
@@ -83,12 +83,12 @@
     {
       "key": "cardio-gattuso", "title": "Gattuso",
       "wod": {
-        "name": "Fight Gone Bad", "format": "5 rounds of 5 stations",
+        "format": "5 rounds of 5 stations",
         "source": "https://www.crossfit.com/benchmark/fight-gone-bad",
         "original": "3 rounds for max reps of: 1 minute of wall-ball shots, 1 minute of sumo deadlift high pulls, 1 minute of box jumps, 1 minute of push presses, 1 minute of rowing (calories), rest 1 minute.",
         "changes": "5 rounds at a steady 70% instead of 3 for max reps; kettlebell swings instead of the barbell high pull; light barbell push press; step down from the box."
       },
-      "block": { "kind": "stations", "name": "Fight Gone Bad", "rounds": 5, "station_seconds": 60, "rest_seconds": 60,
+      "block": { "kind": "stations", "name": "WOD", "rounds": 5, "station_seconds": 60, "rest_seconds": 60,
                  "zone": "Zone 3 · steady 70%",
                  "exercises": [
                    { "id": "c-wall-ball" },
@@ -101,12 +101,12 @@
     {
       "key": "cardio-zidane", "title": "Zidane",
       "wod": {
-        "name": "Jack", "format": "AMRAP 30 min",
+        "format": "AMRAP 30 min",
         "source": "https://www.crossfit.com/benchmark/jack",
         "original": "AMRAP in 20 minutes: 10 push presses, 10 kettlebell swings, 10 box jumps (115-lb / 75-lb barbell, 1.5 / 1 pood kettlebell, 24 / 20 in. box).",
         "changes": "30 minutes instead of 20, a lighter bar, step down from the box — keep moving at a steady pace, no rests."
       },
-      "block": { "kind": "amrap", "name": "Jack", "minutes": 30, "sets": 1, "rest_seconds": 0,
+      "block": { "kind": "amrap", "name": "WOD", "minutes": 30, "sets": 1, "rest_seconds": 0,
                  "zone": "Zone 3 · steady",
                  "score": { "kind": "rounds_reps" },
                  "exercises": [
@@ -118,12 +118,12 @@
     {
       "key": "cardio-maldini", "title": "Maldini",
       "wod": {
-        "name": "Michael", "format": "3 rounds, steady",
+        "format": "3 rounds, steady",
         "source": "https://www.crossfit.com/benchmark/michael",
         "original": "3 rounds for time of: run 800 meters, 50 back extensions, 50 sit-ups.",
         "changes": "Row instead of run, 25 + 25 reps, not for time — the low-jump day, for after heavy legs."
       },
-      "block": { "kind": "rounds", "name": "Michael", "rounds": 3, "rest_seconds": 0,
+      "block": { "kind": "rounds", "name": "WOD", "rounds": 3, "rest_seconds": 0,
                  "zone": "Zone 3 · easy-steady",
                  "exercises": [
                    { "id": "11379991", "amount": 1000, "unit": "m", "no_weight": true },

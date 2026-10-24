@@ -19,7 +19,7 @@
       '<div class="list">' + list.map(function (s) {
         var wod = s.blocks.find(function (b) { return b.letter === "A"; });
         return '<a class="card card--tap cardio-card" href="#/view/' + esc(s.key) + '">' +
-          '<div class="eyebrow">' + esc(s.wod.name) + " · " + esc(s.wod.format) + "</div>" +
+          '<div class="eyebrow">' + esc(s.wod.format) + "</div>" +
           "<h2>" + esc(s.title) + "</h2>" +
           '<ul class="day-card__blocks">' + wod.exercises.map(function (e) {
             var reps = A.repsLabel(e);

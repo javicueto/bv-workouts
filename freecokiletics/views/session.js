@@ -156,7 +156,7 @@
      behind the adaptation (data/cardio.json). */
   function wodHTML(s) {
     var w = s.wod, link = /^https?:/.test(w.source || "");
-    return '<section class="vsec cardio-wod"><h2 class="vsec__h">The WOD · ' + esc(w.name) + "</h2>" +
+    return '<section class="vsec cardio-wod"><h2 class="vsec__h">The WOD</h2>' +
       '<p class="cardio-wod__line"><span class="cardio-wod__k">' + (w.source === "Javier" ? "As you did it" : "As published") + "</span>" +
         "“" + esc(w.original) + "”" +
         (link ? ' <a class="cardio-wod__src" href="' + esc(w.source) + '" target="_blank" rel="noopener">Source ' + ICONS.external + "</a>" : "") + "</p>" +
@@ -195,7 +195,7 @@
     return (b.rest_seconds ? A.restHTML(b.rest_seconds) + " between rounds" : esc(b.rest_note || "No rest")) +
       (b.zone ? " · " + esc(b.zone) : "");
   }
-  /* A WOD's score, as saved in the workout's `score` (db/012): Steve's
+  /* A WOD's score, as saved in the workout's `score` (db/012): the burpee AMRAP's
      burpees set by set, an AMRAP's rounds + reps. */
   function scoreLine(b, score) {
     var sc = score && score[b.letter];
@@ -254,7 +254,7 @@
     var wq = ctx.weekStart ? "?w=" + encodeURIComponent(ctx.weekStart) : "";
     var html = topbar(null, ctx.back) + A.savedNotice(ctx.savedAt) +
       '<div class="stack">' +
-        '<div class="eyebrow">' + (A.isCardio(s) ? "Cardio day · " + esc(s.wod.name) : s ? "Block " + s.block + " · session " + s.variant : "Workout") + "</div>" +
+        '<div class="eyebrow">' + (A.isCardio(s) ? "Cardio day · " + esc(s.wod.format) : s ? "Block " + s.block + " · session " + s.variant : "Workout") + "</div>" +
         "<h1>" + esc(s ? s.title : "Workout " + ctx.key) + "</h1>" +
       "</div>" +
       (rec ? recordStrip(w) : "");

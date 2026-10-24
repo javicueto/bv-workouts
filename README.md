@@ -28,7 +28,7 @@ it was active.
 
 Besides Francesco's plan, Cokiletics has six conditioning routines to pick whenever you want one
 (☰ → Cardio days). Each is a Stairmaster warm-up, a WOD, an easy cooldown and an optional core
-circuit, and each is named after a football legend. The WODs are Javier's "Steve" and five CrossFit
+circuit, and each is named after a football legend. The WODs are Javier's own and five CrossFit
 benchmark workouts, adapted to a controlled Zone 3 day with no running; the app shows each one as
 published and what this version changes. They live in `freecokiletics/data/cardio.json`, and
 `scripts/build_freeco.py` builds them into the app.
