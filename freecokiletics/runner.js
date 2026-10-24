@@ -132,7 +132,7 @@ window.Runner = (function () {
   }
   function unmount() {
     Sound.want(false);                     // hand the phone's audio back (timer.js)
-    stopClock(); stopCountIn();
+    stopClock(); stopCountIn(); stopRoundIntro();
     if (countdown) { countdown.stop(); countdown = null; }
     var hs = document.querySelector(".hold-screen"); if (hs) hs.remove();   // leaving mid-hold
     setResting(false); WakeLock.off();
@@ -290,13 +290,13 @@ window.Runner = (function () {
     return '<div class="progress" aria-hidden="true">' + state.segments.map(function (s, ix) {
       return '<i class="' + (ix < step.seg ? "done" : ix === step.seg ? "now" : "") + '"></i>'; }).join("") + "</div>";
   }
-  function header(step, sub) {
+  function header(step, sub, tone) {
     return '<div class="row">' +
       '<button class="btn btn--ghost btn--pause" data-act="pause">' + ICONS.pause + '<span class="pause-label">Pause</span></button>' +
       '<div class="grow" style="text-align:center">' +
       // The title opens the whole workout (showOverview), on every screen.
       '<button class="eyebrow head-title" type="button" data-act="overview" aria-haspopup="dialog">' + esc(state.title) + "</button>" +
-      '<div class="dim" style="font-size:13px">' + esc(sub || "") + "</div></div>" +
+      '<div class="' + (tone === "last" ? "dim is-last" : "dim") + '" style="font-size:13px">' + esc(sub || "") + "</div></div>" +
       // The running time sits where a spacer balanced the close button.
       '<span class="head-clock" data-clock role="timer" aria-label="Time in this session">' + clockText() + "</span></div>" +
       progressBar(step);
@@ -311,6 +311,10 @@ window.Runner = (function () {
 
   function render() {
     var step = state.steps[state.i];
+    stopRoundIntro();
+    // A new round announces itself (see roundIntro) — only when you arrive at
+    // it by Done, never on Back, a resume or the session's very first screen.
+    var intro = step.kind === "round" && stepMove === "stepForward" && state.i > 0 && !state.counting;
     setResting(step.kind === "rest");
     UI.announce(step.kind === "round" ? "Block " + step.block + ", round " + step.round + " of " + step.rounds
       : step.kind === "rest" ? "Rest" : step.kind === "warmup" ? "Warm-up" : step.kind === "tabata" ? "Tabata"
@@ -325,6 +329,48 @@ window.Runner = (function () {
        again identical, so they stay still), and it starts at the top — the
        Done button of a long round sits low on the page. */
     if (stepMove) { window.scrollTo(0, 0); UI.enter(container.lastElementChild, stepMove); stepMove = null; }
+    if (intro) roundIntro(step);
+  }
+
+  /* "Round 2 · Go!" (Javier, 24 Oct 2026): after Done two rounds of a block
+     look almost the same, so it was hard to see that a new one had begun. A
+     short layer over the new round says which it is, then "Go!", and is gone
+     in about a second and a half; a tap skips it. Silent — sounds are for
+     clocks only. The LAST round of a block is red, the same red the round's
+     own screen then keeps (.screen--last), so it is never missed. A one-round
+     block has no "last", only "Round 1". The layer is for the eyes only
+     (aria-hidden): UI.announce in render() already says the round aloud. */
+  var introTimers = [], introEl = null;
+  function stopRoundIntro() {
+    introTimers.forEach(clearTimeout); introTimers = [];
+    if (introEl) { introEl.remove(); introEl = null; }
+    document.body.classList.remove("is-lastintro");
+    var meta = document.querySelector('meta[name="theme-color"]');
+    if (meta && !document.body.classList.contains("is-resting") && !document.body.classList.contains("is-counting")) meta.setAttribute("content", Theme.uiColor());
+  }
+  function isLastRound(step) { return step.rounds > 1 && step.round === step.rounds; }
+  function roundIntro(step) {
+    var last = isLastRound(step);
+    var ov = document.createElement("div");
+    ov.className = last ? "roundintro roundintro--last" : "roundintro";
+    ov.setAttribute("aria-hidden", "true");
+    ov.innerHTML = '<div class="roundintro__block">' + window.App.cueHTML(step.blockName) + "</div>" +
+      '<div class="roundintro__n pop">' + (last ? "Last round" : "Round " + step.round) + "</div>" +
+      '<div class="roundintro__of">' + (step.rounds > 1 ? (last ? "Round " + step.round + " of " + step.rounds : "of " + step.rounds) : "") + "</div>";
+    document.body.appendChild(ov); introEl = ov;
+    if (last) {
+      document.body.classList.add("is-lastintro");           // the status bar and page edges turn red with it
+      var meta = document.querySelector('meta[name="theme-color"]');
+      if (meta) meta.setAttribute("content", getComputedStyle(document.documentElement).getPropertyValue("--danger").trim());
+    }
+    function go() {
+      var n = ov.querySelector(".roundintro__n");
+      n.textContent = "Go!"; n.classList.remove("pop"); void n.offsetWidth; n.classList.add("pop");
+      ov.querySelector(".roundintro__of").textContent = "";
+    }
+    function end() { stopRoundIntro(); }
+    ov.addEventListener("click", end);
+    introTimers.push(setTimeout(go, 850), setTimeout(end, 1500));
   }
 
   // ---------------------------------------------------------------- warm-up
@@ -358,11 +404,12 @@ window.Runner = (function () {
 
   // ---------------------------------------------------------------- one round
   function renderRound(step) {
-    container.innerHTML = header(step, "Block " + step.block + " · round " + step.round + " of " + step.rounds) + roundBody(step);
+    container.innerHTML = header(step, "Block " + step.block + " · " + (isLastRound(step) ? "last round " : "round ") + step.round + " of " + step.rounds,
+      isLastRound(step) ? "last" : "") + roundBody(step);
     bind(step);
   }
   function roundBody(step) {
-    return '<section class="screen" id="scr">' +
+    return '<section class="' + (isLastRound(step) ? "screen screen--last" : "screen") + '" id="scr">' +
         '<div class="round-head"><h2>' + window.App.cueHTML(step.blockName) + "</h2>" +
           (step.restRef ? '<span class="badge badge--cool">' +
             (step.restSeconds ? window.App.restHTML(step.restSeconds) : esc(step.restRef)) + "</span>" : "") + "</div>" +
@@ -1043,6 +1090,7 @@ window.Runner = (function () {
         sd.hidden = false;
       } else { sd.hidden = true; sd.innerHTML = ""; }
       cy.textContent = "Cycle " + cycle + " of " + cycles + (cycle === cycles ? " · last round" : "");
+      cy.className = cycle === cycles ? "tabata__cycle is-last" : "tabata__cycle";
       setResting(phase === "rest");
     }
     function run() {

@@ -474,6 +474,27 @@ body.is-counting::before { background: var(--accent); }   /* the status-bar band
    body blue; this does the same in orange while the intro plays. */
 body.is-counting { background: var(--accent); }
 
+/* "Round 2 · Go!" over a new round (runner.js roundIntro). Neutral — orange
+   is the session's 3 · 2 · 1 · Go! — except the LAST round, which is red. */
+.roundintro {
+  position: fixed; inset: 0; z-index: 55;
+  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: var(--space-2);
+  padding: calc(var(--safe-top) + var(--space-6)) var(--space-4) calc(var(--safe-bottom) + var(--space-6));
+  background: var(--bg); color: var(--text); text-align: center; cursor: pointer;
+  box-shadow: 0 0 0 100vmax var(--bg);
+  animation: roundintro-in var(--dur-leave) var(--ease-enter) both;
+}
+.roundintro--last { background: var(--danger); color: var(--danger-ink); box-shadow: 0 0 0 100vmax var(--danger); }
+.roundintro__block { font-size: 14px; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; max-width: 100%; opacity: .85; }
+.roundintro__n { font-family: var(--font-display); font-size: clamp(72px, 24vw, 112px); font-weight: 800; line-height: 1; text-transform: uppercase; }
+.roundintro:not(.roundintro--last) .roundintro__n { color: var(--accent); }
+.roundintro__of { font-size: 20px; font-weight: 700; min-height: 1.3em; }
+.roundintro__n.pop { animation: countin-pop .5s cubic-bezier(.2, .8, .2, 1) both; }
+@keyframes roundintro-in { from { opacity: 0; } to { opacity: 1; } }
+@media (prefers-reduced-motion: reduce) { .roundintro, .roundintro__n.pop { animation: none; } }
+body.is-lastintro::before { background: var(--danger); }   /* the status-bar band and the page edges turn with it */
+body.is-lastintro { background: var(--danger); }
+
 /* Dense variant for 3+ movement rounds: tighter padding, smaller numbers and
    inputs, and the narrow preview at every width. Measured at 375×812 — the
    normal card overflowed by 55px. */
@@ -585,6 +606,11 @@ div.thumb { cursor: default; }
 .tabata__time { font-size: clamp(80px, 30vw, 128px); font-weight: 800; letter-spacing: -.05em; line-height: 1; font-variant-numeric: tabular-nums; }
 .tabata__move { font-size: 24px; font-weight: 700; }
 .tabata__cycle { color: var(--text-dim); }
+/* The last round / cycle is red (Javier, 24 Oct 2026) — the word is there too. */
+.is-last, .tabata__cycle.is-last { color: var(--danger-text); font-weight: 700; }
+.screen--last .ex-card { border-color: var(--danger); }
+.screen--last .round-head h2 { color: var(--danger-text); }
+body.is-resting .runner .tabata__cycle.is-last { color: var(--rest-ink); }
 /* The running Tabata's seconds in a ring (runner.js renderTabata), the same
    ring as the rest and hold timers, smaller: the preview and Left / Right
    share the screen. The arc's colours follow rest mode like the rest timer's. */
