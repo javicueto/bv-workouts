@@ -1226,8 +1226,16 @@ window.Runner = (function () {
         onTick: function (l, total) {
           t.textContent = restClock(l);
           arc.style.strokeDashoffset = String(C * (1 - l / total));
+          /* The usual countdown sounds (Javier, 24 Oct 2026: "cardio exercises
+             didn't have sound"): 3 · 2 · 1 at the end, the double beep at 10
+             seconds left, and the halfway chime in a work phase (a rest has
+             already given its low dong as it started). Before this only the
+             3 · 2 · 1 and, past 3 minutes, the chime sounded — a 12 minute
+             climb was silent for the first six. Same thresholds as the rest
+             timer (timer.js Countdown): halfway from 20 sec, ten-left over 13. */
           if (l <= 3 && l > 0) { Sound.count(); UI.bump(t); }
-          else if (p.kind === "work" && total >= 180 && l === Math.round(total / 2)) Sound.midway();
+          else if (l === 10 && total > 13) Sound.tenLeft();
+          else if (p.kind === "work" && total >= 20 && l === Math.round(total / 2)) Sound.midway();
         },
         onDone: function () { countdown = null; ix++; if (ix < step.phases.length) phase(); else complete(); } });
     }
