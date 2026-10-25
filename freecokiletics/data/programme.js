@@ -8360,5 +8360,260 @@ window.PROGRAMME = {
     }
    ]
   }
+ ],
+ "spin": [
+  {
+   "key": "spin-z2-45",
+   "kind": "cardio",
+   "spin": true,
+   "block": null,
+   "variant": null,
+   "title": "Zone 2 ride",
+   "wod": {
+    "format": "Spin · 45 min · Zone 2"
+   },
+   "warmup": {
+    "text": "",
+    "exercises": []
+   },
+   "blocks": [],
+   "ride": {
+    "zone": 2,
+    "seconds": 2700.0,
+    "segments": [
+     {
+      "min": 3,
+      "position": "seated",
+      "terrain": "warm-up",
+      "resistance": 20,
+      "rpm": [
+       80,
+       90
+      ],
+      "zone": 1,
+      "say": "Easy, loosen up.",
+      "start": 0.0,
+      "seconds": 180
+     },
+     {
+      "min": 3,
+      "position": "seated",
+      "terrain": "flat",
+      "resistance": 25,
+      "rpm": [
+       85,
+       90
+      ],
+      "zone": 2,
+      "start": 180.0,
+      "seconds": 180
+     },
+     {
+      "min": 4,
+      "position": "seated",
+      "terrain": "flat",
+      "resistance": 30,
+      "rpm": [
+       85,
+       95
+      ],
+      "zone": 2,
+      "say": "Settle in.",
+      "start": 360.0,
+      "seconds": 240
+     },
+     {
+      "min": 3,
+      "position": "seated",
+      "terrain": "climb",
+      "resistance": 38,
+      "rpm": [
+       70,
+       80
+      ],
+      "zone": 2,
+      "start": 600.0,
+      "seconds": 180
+     },
+     {
+      "min": 1,
+      "position": "standing",
+      "terrain": "climb",
+      "resistance": 42,
+      "rpm": [
+       60,
+       70
+      ],
+      "zone": 2,
+      "start": 780.0,
+      "seconds": 60
+     },
+     {
+      "min": 3,
+      "position": "seated",
+      "terrain": "flat",
+      "resistance": 30,
+      "rpm": [
+       85,
+       95
+      ],
+      "zone": 2,
+      "start": 840.0,
+      "seconds": 180
+     },
+     {
+      "min": 3,
+      "position": "seated",
+      "terrain": "climb",
+      "resistance": 40,
+      "rpm": [
+       70,
+       80
+      ],
+      "zone": 2,
+      "start": 1020.0,
+      "seconds": 180
+     },
+     {
+      "min": 1.5,
+      "position": "standing",
+      "terrain": "climb",
+      "resistance": 44,
+      "rpm": [
+       60,
+       70
+      ],
+      "zone": 2,
+      "start": 1200.0,
+      "seconds": 90.0
+     },
+     {
+      "min": 3.5,
+      "position": "seated",
+      "terrain": "recovery",
+      "resistance": 28,
+      "rpm": [
+       85,
+       90
+      ],
+      "zone": 2,
+      "say": "Breathe, recover.",
+      "start": 1290.0,
+      "seconds": 210.0
+     },
+     {
+      "min": 3,
+      "position": "seated",
+      "terrain": "climb",
+      "resistance": 40,
+      "rpm": [
+       70,
+       80
+      ],
+      "zone": 2,
+      "start": 1500.0,
+      "seconds": 180
+     },
+     {
+      "min": 1,
+      "position": "standing",
+      "terrain": "climb",
+      "resistance": 45,
+      "rpm": [
+       60,
+       70
+      ],
+      "zone": 2,
+      "start": 1680.0,
+      "seconds": 60
+     },
+     {
+      "min": 1,
+      "position": "seated",
+      "terrain": "climb",
+      "resistance": 40,
+      "rpm": [
+       70,
+       80
+      ],
+      "zone": 2,
+      "start": 1740.0,
+      "seconds": 60
+     },
+     {
+      "min": 1,
+      "position": "standing",
+      "terrain": "climb",
+      "resistance": 45,
+      "rpm": [
+       60,
+       70
+      ],
+      "zone": 2,
+      "start": 1800.0,
+      "seconds": 60
+     },
+     {
+      "min": 4,
+      "position": "seated",
+      "terrain": "flat",
+      "resistance": 30,
+      "rpm": [
+       85,
+       95
+      ],
+      "zone": 2,
+      "start": 1860.0,
+      "seconds": 240
+     },
+     {
+      "min": 3,
+      "position": "seated",
+      "terrain": "fast flat",
+      "resistance": 25,
+      "rpm": [
+       95,
+       105
+      ],
+      "zone": 2,
+      "say": "Light and fast.",
+      "start": 2100.0,
+      "seconds": 180
+     },
+     {
+      "min": 2,
+      "position": "seated",
+      "terrain": "flat",
+      "resistance": 30,
+      "rpm": [
+       85,
+       95
+      ],
+      "zone": 2,
+      "start": 2280.0,
+      "seconds": 120
+     },
+     {
+      "min": 5,
+      "position": "seated",
+      "terrain": "cool-down",
+      "resistance": 15,
+      "rpm": [
+       75,
+       85
+      ],
+      "zone": 1,
+      "say": "Easy now, bring it down.",
+      "start": 2400.0,
+      "seconds": 300
+     }
+    ],
+    "audio": {
+     "file": "audio/spin-z2-45.mp3",
+     "v": "fec1e48b",
+     "seconds": 2703.31
+    }
+   }
+  }
  ]
 };

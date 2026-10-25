@@ -28,7 +28,18 @@
           }).join("") + "</ul>" +
           '<p class="dim cardio-card__zone">' + esc(wod.zone || "") + "</p>" +
         "</a>";
-      }).join("") + "</div>";
+      }).join("") + "</div>" +
+      // Spin rides (views/spin.js): on the same screen, after the routines.
+      ((A.P.spin || []).length
+        ? '<h2 class="cardio-sub">Spin rides</h2>' +
+          '<div class="list">' + A.P.spin.map(function (s) {
+            return '<a class="card card--tap cardio-card" href="#/view/' + esc(s.key) + '">' +
+              '<div class="eyebrow">' + esc(s.wod.format) + "</div>" +
+              "<h2>" + esc(s.title) + "</h2>" +
+              '<p class="dim cardio-card__zone">Schwinn IC8 · ' + s.ride.segments.length + " parts · seated and standing, flats and climbs</p>" +
+            "</a>";
+          }).join("") + "</div>"
+        : "");
     A.syncBadge();
   };
 })();

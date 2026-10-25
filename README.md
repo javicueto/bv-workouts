@@ -33,6 +33,15 @@ benchmark workouts, adapted to a controlled Zone 3 day with no running; the app 
 published and what this version changes. They live in `freecokiletics/data/cardio.json`, and
 `scripts/build_freeco.py` builds them into the app.
 
+## Spin rides
+
+Guided rides for a home Schwinn IC8 (☰ → Cardio days → Spin rides): seated and standing, flats and
+climbs, with the IC8's resistance level and a cadence for every part, and a coach's voice, bells and
+beeps at each change. Each ride is one audio track that the screen follows, so the cues can keep
+going with another app in front or the phone locked. Rides are written in
+`freecokiletics/data/spin.json`; `scripts/build_spin.py` makes the tracks (ElevenLabs voice), then
+`scripts/build_freeco.py` adds them to the app.
+
 ## Refreshing it when the coach adds new workouts
 
 Roughly every five weeks a new block appears. To pull it in:

@@ -214,7 +214,8 @@ window.App = (function () {
      for both; s.kind === "cardio" is how the few that differ tell them apart. */
   function sessionByKey(k) {
     return P.sessions.find(function (s) { return s.key === k; }) ||
-      (P.cardio || []).find(function (s) { return s.key === k; });
+      (P.cardio || []).find(function (s) { return s.key === k; }) ||
+      (P.spin || []).find(function (s) { return s.key === k; });       // spin rides are cardio days too (views/spin.js)
   }
   function isCardio(s) { return !!s && s.kind === "cardio"; }
   // "Workout 1.1", "Puyol" — or the bare key for one no longer in the programme.

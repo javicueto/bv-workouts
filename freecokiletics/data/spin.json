@@ -1,0 +1,35 @@
+{
+  "_about": "Spin rides (Javier, 25 Oct 2026) for his home Schwinn IC8: resistance is the console's 1–100 level, cadence is RPM. Hand-written here; scripts/build_spin.py turns each ride into ONE audio track (ElevenLabs voice + bells + beeps at every change) in freecokiletics/audio/, and scripts/build_freeco.py puts the rides into data/programme.js as PROGRAMME.spin. The track is the ride's clock: the screen follows it, so cues keep their timing in the background. Segment fields: min (length in minutes), position seated|standing, terrain, resistance (IC8 level), rpm [low, high], zone (heart-rate zone 1–5), say (optional extra words for the voice).",
+
+  "voice": { "id": "IKne3meq5aSn9XLyUdCD", "name": "Charlie", "model": "eleven_multilingual_v2" },
+
+  "rides": [
+    {
+      "key": "spin-z2-45",
+      "title": "Zone 2 ride",
+      "zone": 2,
+      "intro": "Zone 2 ride. Forty-five minutes. Keep it conversational: if you can't talk in full sentences, drop the resistance by five.",
+      "outro": "Ride done. Great work.",
+      "halfway": "Halfway. Nice and steady.",
+      "segments": [
+        { "min": 3,   "position": "seated",   "terrain": "warm-up",   "resistance": 20, "rpm": [80, 90],  "zone": 1, "say": "Easy, loosen up." },
+        { "min": 3,   "position": "seated",   "terrain": "flat",      "resistance": 25, "rpm": [85, 90],  "zone": 2 },
+        { "min": 4,   "position": "seated",   "terrain": "flat",      "resistance": 30, "rpm": [85, 95],  "zone": 2, "say": "Settle in." },
+        { "min": 3,   "position": "seated",   "terrain": "climb",     "resistance": 38, "rpm": [70, 80],  "zone": 2 },
+        { "min": 1,   "position": "standing", "terrain": "climb",     "resistance": 42, "rpm": [60, 70],  "zone": 2 },
+        { "min": 3,   "position": "seated",   "terrain": "flat",      "resistance": 30, "rpm": [85, 95],  "zone": 2 },
+        { "min": 3,   "position": "seated",   "terrain": "climb",     "resistance": 40, "rpm": [70, 80],  "zone": 2 },
+        { "min": 1.5, "position": "standing", "terrain": "climb",     "resistance": 44, "rpm": [60, 70],  "zone": 2 },
+        { "min": 3.5, "position": "seated",   "terrain": "recovery",  "resistance": 28, "rpm": [85, 90],  "zone": 2, "say": "Breathe, recover." },
+        { "min": 3,   "position": "seated",   "terrain": "climb",     "resistance": 40, "rpm": [70, 80],  "zone": 2 },
+        { "min": 1,   "position": "standing", "terrain": "climb",     "resistance": 45, "rpm": [60, 70],  "zone": 2 },
+        { "min": 1,   "position": "seated",   "terrain": "climb",     "resistance": 40, "rpm": [70, 80],  "zone": 2 },
+        { "min": 1,   "position": "standing", "terrain": "climb",     "resistance": 45, "rpm": [60, 70],  "zone": 2 },
+        { "min": 4,   "position": "seated",   "terrain": "flat",      "resistance": 30, "rpm": [85, 95],  "zone": 2 },
+        { "min": 3,   "position": "seated",   "terrain": "fast flat", "resistance": 25, "rpm": [95, 105], "zone": 2, "say": "Light and fast." },
+        { "min": 2,   "position": "seated",   "terrain": "flat",      "resistance": 30, "rpm": [85, 95],  "zone": 2 },
+        { "min": 5,   "position": "seated",   "terrain": "cool-down", "resistance": 15, "rpm": [75, 85],  "zone": 1, "say": "Easy now, bring it down." }
+      ]
+    }
+  ]
+}

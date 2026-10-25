@@ -28,6 +28,8 @@ NO_WEIGHT = ROOT / "freecokiletics" / "data" / "no_weight.json"    # exercises w
 ONE_SIDE = ROOT / "freecokiletics" / "data" / "one_side.json"      # Tabata movements done one side per interval
 OUT = ROOT / "freecokiletics" / "data" / "programme.js"
 CARDIO = ROOT / "freecokiletics" / "data" / "cardio.json"           # cardio days, hand-written (not TrueCoach)
+SPIN = ROOT / "freecokiletics" / "data" / "spin.json"               # spin rides, hand-written
+SPIN_AUDIO = ROOT / "freecokiletics" / "data" / "spin_audio.json"   # their tracks, from scripts/build_spin.py
 
 # Blocks with no rest written are the prehab/core circuits. Javier's call
 # (11 Sep 2026): no rest written means no timer — he swipes straight into the
@@ -155,7 +157,7 @@ def match_lines_to_videos(lines, videos, key, letter):
     return pairs
 
 
-def build_cardio(ex, no_weight):
+def build_cardio(ex, no_weight, plan_sessions):
     """Cardio days (Javier, 18 Oct 2026): freecokiletics/data/cardio.json →
     PROGRAMME.cardio, in the same session shape the runner already walks.
 
@@ -210,7 +212,9 @@ def build_cardio(ex, no_weight):
         if kind == "timer":
             exs = [move(m, where) for m in b["exercises"]]
             phases.append({"kind": "work", "sec": b["seconds"], "label": b["name"], "moves": exs})
-            extra = {"autostart": True}
+            # Starts on its own unless the block says otherwise (a machine you
+            # walk to needs its own Start and 3 · 2 · 1).
+            extra = {"autostart": b.get("autostart", True)}
         elif kind == "amrap":
             exs = [move(m, where) for m in b["exercises"]]
             sets, rest = b["sets"], b.get("rest_seconds", 0)
@@ -268,20 +272,57 @@ def build_cardio(ex, no_weight):
                     seconds=sum(p["sec"] for p in phases), **extra)
 
     common = src["common"]
+    # The usual mobility warm-up (Javier, 24 Oct 2026: "the one from block
+    # 5, 6, 7…"): taken from a plan session BY KEY, never retyped, so it follows
+    # a TrueCoach refresh. It is the session's own warm-up, so the runner and
+    # the session screen treat it exactly like a plan session's.
+    mob_key = common["mobility_from"]
+    mob = next((s for s in plan_sessions if s["key"] == mob_key), None)
+    check(mob and mob["warmup"]["exercises"], "common", f"mobility_from {mob_key!r} is not a plan session with a warm-up")
+    mobility = {"text": mob["warmup"]["text"], "exercises": mob["warmup"]["exercises"]}
     sessions = []
     keys = set()
     for r in src["routines"]:
         where = r["key"]
         check(r["key"].startswith("cardio-") and r["key"] not in keys, where, "keys start with cardio- and are unique")
         keys.add(r["key"])
-        blocks = [block(common["warmup"], "W", where + " warm-up"),
-                  block(r["block"], "A", where),
-                  block(common["cooldown"], "B", where + " cooldown"),
-                  block(common["core"], "C", where + " core")]
+        # "W" is the mobility warm-up (the session's own); the blocks are A–D.
+        # `wod` marks the main part, which is where scores are kept.
+        blocks = [block(common["stairmaster"], "A", where + " stairmaster"),
+                  dict(block(r["block"], "B", where), wod=True),
+                  block(common["cooldown"], "C", where + " cooldown"),
+                  block(common["core"], "D", where + " core")]
         sessions.append({"key": r["key"], "kind": "cardio", "block": None, "variant": None,
                          "title": r["title"], "wod": r["wod"],
-                         "warmup": {"text": "", "exercises": []}, "blocks": blocks})
+                         "warmup": mobility, "blocks": blocks})
     return sessions, own
+
+
+def build_spin():
+    """Spin rides (Javier, 25 Oct 2026) → PROGRAMME.spin. A ride is a cardio day
+    (kind "cardio", so it saves, scores and shows like one) with `spin: true`,
+    its segments with their start times, and its audio track. The track must
+    have been built from THIS version of the ride: its length is checked, so an
+    edited ride with an old track stops the build instead of drifting."""
+    src = json.loads(SPIN.read_text())
+    audio = json.loads(SPIN_AUDIO.read_text()) if SPIN_AUDIO.exists() else {}
+    rides = []
+    for r in src["rides"]:
+        t, segs = 0.0, []
+        for s in r["segments"]:
+            segs.append(dict(s, start=t, seconds=s["min"] * 60))
+            t += s["min"] * 60
+        a = audio.get(r["key"])
+        if not a or abs(a["ride_seconds"] - t) > 0.5:
+            sys.exit(f"spin: the track for {r['key']} is missing or out of date — run scripts/build_spin.py")
+        minutes = round(t / 60)
+        rides.append({"key": r["key"], "kind": "cardio", "spin": True, "block": None, "variant": None,
+                      "title": r["title"],
+                      "wod": {"format": f"Spin · {minutes} min · Zone {r['zone']}"},
+                      "warmup": {"text": "", "exercises": []}, "blocks": [],
+                      "ride": {"zone": r["zone"], "seconds": t, "segments": segs,
+                               "audio": {"file": a["file"], "v": a["v"], "seconds": a["seconds"]}}})
+    return rides
 
 
 def main():
@@ -431,7 +472,7 @@ def main():
     # the offline copy on the phone (the freeco-previews cache) fetches it again
     # and drops the old one, and nothing unchanged downloads twice. Run this
     # build after make_previews.py (refresh.sh does).
-    cardio, cardio_ex = build_cardio(ex, no_weight) if CARDIO.exists() else ([], {})
+    cardio, cardio_ex = build_cardio(ex, no_weight, sessions) if CARDIO.exists() else ([], {})
     for i, e in cardio_ex.items():
         ex[i] = {"name": e["name"], "youtube_id": e["youtube_id"],
                  "has_preview": (ROOT / "previews" / f"{i}.webp").exists()}
@@ -453,7 +494,8 @@ def main():
         exercises[i] = row
     print(f"  {sum(1 for i in ex if i in no_weight)} exercises marked no weight")
     payload = {"generated_from": "data/workouts.js", "session_count": len(sessions),
-               "exercises": exercises, "sessions": sessions, "cardio": cardio}
+               "exercises": exercises, "sessions": sessions, "cardio": cardio,
+               "spin": build_spin() if SPIN.exists() else []}
     OUT.parent.mkdir(parents=True, exist_ok=True)
     OUT.write_text("window.PROGRAMME = " + json.dumps(payload, indent=1, ensure_ascii=False) + ";\n")
 
