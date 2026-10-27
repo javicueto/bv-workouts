@@ -119,9 +119,7 @@
     } catch (e) {}
   }
   function readMode() { try { return localStorage.getItem(MODE) === "mix" ? "mix" : "background"; } catch (e) { return "background"; } }
-  function setSession(type) {
-    try { if (navigator.audioSession) navigator.audioSession.type = type; } catch (e) {}
-  }
+  function setSession(type) { Sound.setSession(type); }      // timer.js owns the audio category
 
   // ------------------------------------------------------------ before the start
   var pending = null;      // { audio, url } loaded but not started
@@ -333,13 +331,18 @@
   /* Leaving the ride's screen inside the app (Back, another screen) stops it
      and keeps the progress for "Resume at …". Leaving the APP does not come
      through here — that is the background case, and the track keeps playing. */
+  /* Let go of an <audio> completely: paused is not enough — a loaded
+     element can keep iOS treating the page as a music player. */
+  function release(audio) {
+    try { audio.pause(); audio.removeAttribute("src"); audio.load(); } catch (e) {}
+  }
   function stop() {
-    if (pending) { pending.audio.pause(); URL.revokeObjectURL(pending.url); pending = null; }
-    if (!cur) return;
+    if (pending) { release(pending.audio); URL.revokeObjectURL(pending.url); pending = null; }
+    if (!cur) { setSession("ambient"); return; }
     persist();
     clearInterval(cur.tick); clearInterval(cur.save);
     document.removeEventListener("visibilitychange", cur.onVis);
-    cur.audio.pause();
+    release(cur.audio);
     URL.revokeObjectURL(cur.url);
     clearMediaSession();
     WakeLock.off();

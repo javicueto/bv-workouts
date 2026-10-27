@@ -38,8 +38,19 @@ window.Sound = (function () {
      rather than suspending it: a suspended context kept every tone fired
      while it was suspended and played them all at once when the next session
      resumed it. */
+  /* The ONE place the page's audio category is set (Javier, 27 Oct 2026:
+     "cardio days must work with Spotify; only spin rides are different").
+     Every session — plan or cardio day — is "ambient": it mixes over the
+     user's music. Only a spin ride in background mode asks for "playback"
+     (views/spin.js), and it hands back "ambient" when it stops. ensureAmbient()
+     runs on every session start as a guard, so nothing a ride left behind can
+     make a workout pause the music. */
+  function setSession(type) {
+    try { if (navigator.audioSession && navigator.audioSession.type !== type) navigator.audioSession.type = type; } catch (e) {}
+  }
   var wanted = false;
   function want(on) {
+    if (on) setSession("ambient");
     wanted = !!on;
     if (closeTimer) { clearTimeout(closeTimer); closeTimer = null; }
     if (!wanted && ctx) closeTimer = setTimeout(closeCtx, 1500);
@@ -88,7 +99,7 @@ window.Sound = (function () {
        with the phone on silent the cues are silent (iPhone web apps cannot
        vibrate either), and iOS cuts ambient sound while the phone is locked.
        Music that keeps playing matters more. */
-    try { if (navigator.audioSession && navigator.audioSession.type !== "ambient") navigator.audioSession.type = "ambient"; } catch (e) {}
+    setSession("ambient");
     if (ctx && ctx.state !== "running" && Date.now() - createdAt > 1000) closeCtx();
     if (!ctx) createCtx();
     resume();
@@ -170,6 +181,7 @@ window.Sound = (function () {
   return {
     unlock: unlock,
     want: want,
+    setSession: setSession,
     state: function () { return ctx ? ctx.state : "not started"; },
     repair: repair,
     refresh: refresh,
