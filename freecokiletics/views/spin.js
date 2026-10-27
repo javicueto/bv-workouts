@@ -338,7 +338,10 @@
   }
   function stop() {
     if (pending) { release(pending.audio); URL.revokeObjectURL(pending.url); pending = null; }
-    if (!cur) { setSession("ambient"); return; }
+    /* No ride playing: touch NOTHING. This runs on every screen change, from
+       the moment the app opens; setting the audio category here (outside any
+       tap) is what made workouts pause Spotify in the home-screen app. */
+    if (!cur) return;
     persist();
     clearInterval(cur.tick); clearInterval(cur.save);
     document.removeEventListener("visibilitychange", cur.onVis);

@@ -40,17 +40,18 @@ window.Sound = (function () {
      resumed it. */
   /* The ONE place the page's audio category is set (Javier, 27 Oct 2026:
      "cardio days must work with Spotify; only spin rides are different").
-     Every session — plan or cardio day — is "ambient": it mixes over the
-     user's music. Only a spin ride in background mode asks for "playback"
-     (views/spin.js), and it hands back "ambient" when it stops. ensureAmbient()
-     runs on every session start as a guard, so nothing a ride left behind can
-     make a workout pause the music. */
+     Every session — plan or cardio day — is "ambient", set in unlock() INSIDE
+     the tap, right before the audio is built: that is how it worked before
+     spin rides, and Spotify kept playing. Never set it anywhere else for a
+     workout — not at app start, not on a screen change: after spin arrived,
+     setting it on every screen change (outside any tap) is when the home-screen
+     app started pausing Spotify. Only a spin ride that actually played changes
+     it (views/spin.js) and hands "ambient" back when it stops. */
   function setSession(type) {
     try { if (navigator.audioSession && navigator.audioSession.type !== type) navigator.audioSession.type = type; } catch (e) {}
   }
   var wanted = false;
   function want(on) {
-    if (on) setSession("ambient");
     wanted = !!on;
     if (closeTimer) { clearTimeout(closeTimer); closeTimer = null; }
     if (!wanted && ctx) closeTimer = setTimeout(closeCtx, 1500);
@@ -308,13 +309,7 @@ window.Countdown = function (totalSeconds, opts) {
 window.WakeLock = (function () {
   var lock = null;
   var wanted = false;
-  /* TEMPORARY TEST (Javier, 27 Oct 2026): Spotify stops when a workout starts
-     in the home-screen app but not in a Chrome tab, and keeping the screen on
-     is the one thing that only works in the home-screen app. Off for one test;
-     restore (or replace) once the result is in. */
-  var DISABLED_FOR_TEST = true;
   async function acquire() {
-    if (DISABLED_FOR_TEST) return;
     if (!wanted || !("wakeLock" in navigator)) return;
     try { lock = await navigator.wakeLock.request("screen"); } catch (e) { lock = null; }
   }
