@@ -256,14 +256,10 @@
       '<div class="stack">' +
         '<div class="eyebrow">' + (A.isCardio(s) ? "Cardio day · " + esc(s.wod.format) : s ? "Block " + s.block + " · session " + s.variant : "Workout") + "</div>" +
         "<h1>" + esc(s ? s.title : "Workout " + ctx.key) + "</h1>" +
-        (s && s.estimate ? '<p class="dim">' + esc(A.estimateLong(s)) + "</p>" : "") +
       "</div>" +
       (rec ? recordStrip(w) : "");
 
-    // A spin ride is one track, not blocks: its own shape and parts (views/spin.js).
-    var spin = !!(s && s.spin);
-    html += spin ? A.spinSectionsHTML(s) : sectionsHTML(s, { rec: rec });
-    var run = spin ? "#/ride/" : "#/run/";
+    html += sectionsHTML(s, { rec: rec });
 
     if (rec && !s) {
       html += '<p class="dim" style="margin-top:var(--space-6)">This session is no longer in the programme, so only its times are shown.</p>';
@@ -271,9 +267,9 @@
 
     html += '<div class="stack" style="margin-top:var(--space-6)">' +
       (rec
-        ? (s ? '<a class="btn btn--primary btn--big btn--block" href="' + run + esc(s.key) + (spin ? "" : wq) + '">Do it again</a>' : "") +
+        ? (s ? '<a class="btn btn--primary btn--big btn--block" href="#/run/' + esc(s.key) + wq + '">Do it again</a>' : "") +
           '<button class="btn btn--quiet btn--block btn--danger-text" type="button" id="del">Delete this workout</button>'
-        : '<a class="btn btn--primary btn--big btn--block" href="' + run + esc(ctx.key) + (spin ? "" : wq) + '">' + (spin ? "Start this ride" : "Start this session") + "</a>" +
+        : '<a class="btn btn--primary btn--big btn--block" href="#/run/' + esc(ctx.key) + wq + '">Start this session</a>' +
           '<a class="btn btn--quiet btn--block" href="#/log/' + esc(ctx.key) + wq + '">Did it without the phone? Mark as done</a>') +
       "</div>";
 

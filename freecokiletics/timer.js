@@ -38,18 +38,6 @@ window.Sound = (function () {
      rather than suspending it: a suspended context kept every tone fired
      while it was suspended and played them all at once when the next session
      resumed it. */
-  /* The ONE place the page's audio category is set (Javier, 27 Oct 2026:
-     "cardio days must work with Spotify; only spin rides are different").
-     Every session — plan or cardio day — is "ambient", set in unlock() INSIDE
-     the tap, right before the audio is built: that is how it worked before
-     spin rides, and Spotify kept playing. Never set it anywhere else for a
-     workout — not at app start, not on a screen change: after spin arrived,
-     setting it on every screen change (outside any tap) is when the home-screen
-     app started pausing Spotify. Only a spin ride that actually played changes
-     it (views/spin.js) and hands "ambient" back when it stops. */
-  function setSession(type) {
-    try { if (navigator.audioSession && navigator.audioSession.type !== type) navigator.audioSession.type = type; } catch (e) {}
-  }
   var wanted = false;
   function want(on) {
     wanted = !!on;
@@ -100,7 +88,7 @@ window.Sound = (function () {
        with the phone on silent the cues are silent (iPhone web apps cannot
        vibrate either), and iOS cuts ambient sound while the phone is locked.
        Music that keeps playing matters more. */
-    setSession("ambient");
+    try { if (navigator.audioSession && navigator.audioSession.type !== "ambient") navigator.audioSession.type = "ambient"; } catch (e) {}
     if (ctx && ctx.state !== "running" && Date.now() - createdAt > 1000) closeCtx();
     if (!ctx) createCtx();
     resume();
@@ -182,14 +170,6 @@ window.Sound = (function () {
   return {
     unlock: unlock,
     want: want,
-    setSession: setSession,
-    /* What the phone actually reports (Javier, 27 Oct 2026: Spotify still
-       stopped). Without navigator.audioSession the page cannot ask iOS to mix
-       with other audio at all, and Web Audio then pauses the music. */
-    mixInfo: function () {
-      var s = navigator.audioSession;
-      return { supported: !!s, type: s ? s.type : null };
-    },
     state: function () { return ctx ? ctx.state : "not started"; },
     repair: repair,
     refresh: refresh,
