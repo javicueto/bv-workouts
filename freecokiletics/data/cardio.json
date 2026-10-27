@@ -13,6 +13,7 @@
 
   "common": {
     "mobility_from": "5.1",
+    "mobility_minutes": 5,
     "stairmaster": { "kind": "timer", "name": "Stairmaster", "seconds": 720, "zone": "Zone 2", "autostart": false,
                   "note": "Easy, steady climb — you can still talk in full sentences.",
                   "exercises": [{ "id": "c-stairmaster" }] },
@@ -57,7 +58,7 @@
         "original": "5 rounds for time: run 400 meters, 30 box jumps (24 / 20 in.), 30 wall ball shots (20 / 14 lb.).",
         "changes": "Row instead of run, 4 rounds not for time, 20 + 20 reps, step down from the box — Zone 3, and easier on the Achilles after a strength day."
       },
-      "block": { "kind": "rounds", "name": "WOD", "rounds": 4, "rest_seconds": 0,
+      "block": { "kind": "rounds", "name": "WOD", "rounds": 4, "rest_seconds": 0, "minutes_per_round": 5,
                  "zone": "Zone 3 · steady",
                  "exercises": [
                    { "id": "11379991", "amount": 500, "unit": "m", "no_weight": true },
@@ -124,7 +125,7 @@
         "original": "3 rounds for time of: run 800 meters, 50 back extensions, 50 sit-ups.",
         "changes": "Row instead of run, 25 + 25 reps, not for time — the low-jump day, for after heavy legs."
       },
-      "block": { "kind": "rounds", "name": "WOD", "rounds": 3, "rest_seconds": 0,
+      "block": { "kind": "rounds", "name": "WOD", "rounds": 3, "rest_seconds": 0, "minutes_per_round": 7,
                  "zone": "Zone 3 · easy-steady",
                  "exercises": [
                    { "id": "11379991", "amount": 1000, "unit": "m", "no_weight": true },

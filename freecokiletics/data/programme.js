@@ -5028,6 +5028,11 @@ window.PROGRAMME = {
     "original": "AMRAP 4 min × 4: 8 squat snatches, 16/12 cal Echo bike, AMRAP burpees to target. 2 min rest.",
     "changes": "5 sets instead of 4 (Javier, 18 Oct 2026)."
    },
+   "estimate": {
+    "minutes": 55,
+    "core_minutes": 7,
+    "wod_timed": true
+   },
    "warmup": {
     "text": "Back routine mobility\n1 round, 8/10 reps each exercise:\nT-spine rotation with reach\nSide lying rotation\nLeg twist \nFloor seated trunk twist\nCat cow\nActive straight leg raise\nIleopsoas dynamic stretch\nAdductor dynamic stretch\nGlute dynamic stretch",
     "exercises": [
@@ -5583,6 +5588,11 @@ window.PROGRAMME = {
     "original": "5 rounds for time: run 400 meters, 30 box jumps (24 / 20 in.), 30 wall ball shots (20 / 14 lb.).",
     "changes": "Row instead of run, 4 rounds not for time, 20 + 20 reps, step down from the box — Zone 3, and easier on the Achilles after a strength day."
    },
+   "estimate": {
+    "minutes": 45,
+    "core_minutes": 7,
+    "wod_timed": false
+   },
    "warmup": {
     "text": "Back routine mobility\n1 round, 8/10 reps each exercise:\nT-spine rotation with reach\nSide lying rotation\nLeg twist \nFloor seated trunk twist\nCat cow\nActive straight leg raise\nIleopsoas dynamic stretch\nAdductor dynamic stretch\nGlute dynamic stretch",
     "exercises": [
@@ -5981,6 +5991,11 @@ window.PROGRAMME = {
     "source": "https://www.crossfit.com/benchmark/karen",
     "original": "For time: 150 wall-ball shots (20-lb ball to 10 ft / 14-lb ball to 9 ft).",
     "changes": "Spread over a 30-minute EMOM: the same 150 wall balls on the odd minutes, lateral footwork on the even ones."
+   },
+   "estimate": {
+    "minutes": 55,
+    "core_minutes": 7,
+    "wod_timed": true
    },
    "warmup": {
     "text": "Back routine mobility\n1 round, 8/10 reps each exercise:\nT-spine rotation with reach\nSide lying rotation\nLeg twist \nFloor seated trunk twist\nCat cow\nActive straight leg raise\nIleopsoas dynamic stretch\nAdductor dynamic stretch\nGlute dynamic stretch",
@@ -6776,6 +6791,11 @@ window.PROGRAMME = {
     "original": "3 rounds for max reps of: 1 minute of wall-ball shots, 1 minute of sumo deadlift high pulls, 1 minute of box jumps, 1 minute of push presses, 1 minute of rowing (calories), rest 1 minute.",
     "changes": "5 rounds at a steady 70% instead of 3 for max reps; kettlebell swings instead of the barbell high pull; light barbell push press; step down from the box."
    },
+   "estimate": {
+    "minutes": 55,
+    "core_minutes": 7,
+    "wod_timed": true
+   },
    "warmup": {
     "text": "Back routine mobility\n1 round, 8/10 reps each exercise:\nT-spine rotation with reach\nSide lying rotation\nLeg twist \nFloor seated trunk twist\nCat cow\nActive straight leg raise\nIleopsoas dynamic stretch\nAdductor dynamic stretch\nGlute dynamic stretch",
     "exercises": [
@@ -7549,6 +7569,11 @@ window.PROGRAMME = {
     "original": "AMRAP in 20 minutes: 10 push presses, 10 kettlebell swings, 10 box jumps (115-lb / 75-lb barbell, 1.5 / 1 pood kettlebell, 24 / 20 in. box).",
     "changes": "30 minutes instead of 20, a lighter bar, step down from the box — keep moving at a steady pace, no rests."
    },
+   "estimate": {
+    "minutes": 55,
+    "core_minutes": 7,
+    "wod_timed": true
+   },
    "warmup": {
     "text": "Back routine mobility\n1 round, 8/10 reps each exercise:\nT-spine rotation with reach\nSide lying rotation\nLeg twist \nFloor seated trunk twist\nCat cow\nActive straight leg raise\nIleopsoas dynamic stretch\nAdductor dynamic stretch\nGlute dynamic stretch",
     "exercises": [
@@ -7974,6 +7999,11 @@ window.PROGRAMME = {
     "source": "https://www.crossfit.com/benchmark/michael",
     "original": "3 rounds for time of: run 800 meters, 50 back extensions, 50 sit-ups.",
     "changes": "Row instead of run, 25 + 25 reps, not for time — the low-jump day, for after heavy legs."
+   },
+   "estimate": {
+    "minutes": 45,
+    "core_minutes": 7,
+    "wod_timed": false
    },
    "warmup": {
     "text": "Back routine mobility\n1 round, 8/10 reps each exercise:\nT-spine rotation with reach\nSide lying rotation\nLeg twist \nFloor seated trunk twist\nCat cow\nActive straight leg raise\nIleopsoas dynamic stretch\nAdductor dynamic stretch\nGlute dynamic stretch",
