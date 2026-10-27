@@ -268,6 +268,7 @@ window.App = (function () {
       '<div class="menu__sep"></div>' +
       switchItem("theme", ICONS.moon, "Dark mode", Theme.current() === "dark") +
       switchItem("sound", ICONS.volumeHigh, "Sound", !Sound.muted()) +
+      '<a class="menu__item" href="#/soundcheck">Sound check</a>' +
       // How much is saved for offline (offline.js keeps it current).
       '<div class="menu__note" id="offline-note"' + (offlineText() ? "" : " hidden") + ">" + UI.esc(offlineText()) + "</div>" +
       '<div class="menu__sep"></div>' +

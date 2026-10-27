@@ -17,6 +17,7 @@
     if (h === "#/plan") return { key: "plan", depth: 1 };
     if (h === "#/social") return { key: "social", depth: 1 };
     if (h === "#/cardio") return { key: "cardio", depth: 1 };
+    if (h === "#/soundcheck") return { key: "soundcheck", depth: 1 };
     if (/^#\/ride\//.test(h)) return { key: "ride", depth: 2 };
     if (/^#\/(view|h)\//.test(h)) return { key: "view", depth: 1 };
     return { key: h.split(/[/?]/)[1] || "", depth: 2 };          // #/plan/edit, #/log/…, #/run/…
@@ -96,6 +97,7 @@
     else if (h === "#/history") V.renderHistory();
     else if (h === "#/social") V.renderSocial();
     else if (h === "#/cardio") V.renderCardio();
+    else if (h === "#/soundcheck") V.renderSoundcheck();
     else if ((m = h.match(/^#\/h\/([\w-]+)$/))) V.renderWorkout(m[1]);
     else if ((m = h.match(/^#\/view\/([\w.-]+)/))) V.renderView(m[1], wParam);
     else if ((m = h.match(/^#\/log\/([\w.-]+)/))) V.renderLog(m[1], wParam);

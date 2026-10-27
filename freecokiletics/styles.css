@@ -1360,3 +1360,11 @@ body.is-resting .runner .iv-score .input { background: transparent; border-color
 .ride__ring .rest__time { font-size: clamp(32px, 10vw, 44px); }
 .ride__next { margin: 0; text-align: center; font-size: 14px; color: var(--text-dim); min-height: 2.6em; }
 .ride__note { margin: 0; text-align: center; font-size: 12px; }
+
+/* Sound check (views/soundcheck.js): one button per step, the log under them. */
+.scheck__steps { display: grid; gap: var(--space-2); }
+.scheck__step { justify-content: flex-start; }
+.scheck__mark { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: var(--space-2); }
+.scheck__log { min-height: 120px; max-height: 40svh; overflow: auto; padding: var(--space-3); margin: 0;
+  background: var(--bg-sunken); border: 1px solid var(--line); border-radius: var(--radius);
+  font-size: 12px; line-height: 1.5; white-space: pre-wrap; overflow-wrap: anywhere; color: var(--text); }
