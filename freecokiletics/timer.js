@@ -308,7 +308,13 @@ window.Countdown = function (totalSeconds, opts) {
 window.WakeLock = (function () {
   var lock = null;
   var wanted = false;
+  /* TEMPORARY TEST (Javier, 27 Oct 2026): Spotify stops when a workout starts
+     in the home-screen app but not in a Chrome tab, and keeping the screen on
+     is the one thing that only works in the home-screen app. Off for one test;
+     restore (or replace) once the result is in. */
+  var DISABLED_FOR_TEST = true;
   async function acquire() {
+    if (DISABLED_FOR_TEST) return;
     if (!wanted || !("wakeLock" in navigator)) return;
     try { lock = await navigator.wakeLock.request("screen"); } catch (e) { lock = null; }
   }
