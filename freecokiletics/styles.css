@@ -1012,6 +1012,7 @@ input[type="time"].input--inline { width: 6em; }
 .pause-sound__state { font-size: 14px; color: var(--text-dim); margin-right: var(--space-1); }
 .pause-sound__state.is-stuck { color: var(--accent); font-weight: 650; }
 .pause-sound__btn { min-height: var(--tap); padding: 0 var(--space-3); font-size: 15px; }
+.pause-sound__mix { flex-basis: 100%; text-align: center; font-size: 13px; color: var(--text-dim); }
 
 .hold-screen {
   position: fixed; inset: 0; z-index: 55;

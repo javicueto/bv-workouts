@@ -182,6 +182,13 @@ window.Sound = (function () {
     unlock: unlock,
     want: want,
     setSession: setSession,
+    /* What the phone actually reports (Javier, 27 Oct 2026: Spotify still
+       stopped). Without navigator.audioSession the page cannot ask iOS to mix
+       with other audio at all, and Web Audio then pauses the music. */
+    mixInfo: function () {
+      var s = navigator.audioSession;
+      return { supported: !!s, type: s ? s.type : null };
+    },
     state: function () { return ctx ? ctx.state : "not started"; },
     repair: repair,
     refresh: refresh,
