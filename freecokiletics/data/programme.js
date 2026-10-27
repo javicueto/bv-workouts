@@ -5028,6 +5028,11 @@ window.PROGRAMME = {
     "original": "AMRAP 4 min × 4: 8 squat snatches, 16/12 cal Echo bike, AMRAP burpees to target. 2 min rest.",
     "changes": "5 sets instead of 4 (Javier, 18 Oct 2026)."
    },
+   "estimate": {
+    "minutes": 55,
+    "core_minutes": 7,
+    "wod_timed": true
+   },
    "warmup": {
     "text": "Back routine mobility\n1 round, 8/10 reps each exercise:\nT-spine rotation with reach\nSide lying rotation\nLeg twist \nFloor seated trunk twist\nCat cow\nActive straight leg raise\nIleopsoas dynamic stretch\nAdductor dynamic stretch\nGlute dynamic stretch",
     "exercises": [
@@ -5075,6 +5080,38 @@ window.PROGRAMME = {
    },
    "blocks": [
     {
+     "letter": "S",
+     "name": "Shoulder stability",
+     "kind": "rounds",
+     "rounds": 2,
+     "rounds_note": null,
+     "rest_seconds": 0,
+     "rest_note": "No rest",
+     "rest_assumed": false,
+     "exercises": [
+      {
+       "reps": 8,
+       "per_side": true,
+       "id": "12479502",
+       "name": "High elbow band internal rotation",
+       "no_weight": true
+      },
+      {
+       "reps": 8,
+       "per_side": true,
+       "id": "12479504",
+       "name": "High elbow band external rotation",
+       "no_weight": true
+      },
+      {
+       "reps": 12,
+       "id": "14374824",
+       "name": "Floor DB rhomboids openings"
+      }
+     ],
+     "raw": "2 round\n8/side High elbow band internal rotation \n8/side High elbow band external rotation \n12 Floor DB rhomboids openings"
+    },
+    {
      "letter": "A",
      "name": "Stairmaster",
      "zone": "Zone 2",
@@ -5084,7 +5121,7 @@ window.PROGRAMME = {
      "phases": [
       {
        "kind": "work",
-       "sec": 720,
+       "sec": 540,
        "label": "Stairmaster",
        "moves": [
         {
@@ -5102,7 +5139,7 @@ window.PROGRAMME = {
        "no_weight": true
       }
      ],
-     "seconds": 720,
+     "seconds": 540,
      "autostart": false,
      "rounds": null
     },
@@ -5583,6 +5620,11 @@ window.PROGRAMME = {
     "original": "5 rounds for time: run 400 meters, 30 box jumps (24 / 20 in.), 30 wall ball shots (20 / 14 lb.).",
     "changes": "Row instead of run, 4 rounds not for time, 20 + 20 reps, step down from the box — Zone 3, and easier on the Achilles after a strength day."
    },
+   "estimate": {
+    "minutes": 45,
+    "core_minutes": 7,
+    "wod_timed": false
+   },
    "warmup": {
     "text": "Back routine mobility\n1 round, 8/10 reps each exercise:\nT-spine rotation with reach\nSide lying rotation\nLeg twist \nFloor seated trunk twist\nCat cow\nActive straight leg raise\nIleopsoas dynamic stretch\nAdductor dynamic stretch\nGlute dynamic stretch",
     "exercises": [
@@ -5630,6 +5672,38 @@ window.PROGRAMME = {
    },
    "blocks": [
     {
+     "letter": "S",
+     "name": "Shoulder stability",
+     "kind": "rounds",
+     "rounds": 2,
+     "rounds_note": null,
+     "rest_seconds": 0,
+     "rest_note": "No rest",
+     "rest_assumed": false,
+     "exercises": [
+      {
+       "reps": 8,
+       "per_side": true,
+       "id": "12479502",
+       "name": "High elbow band internal rotation",
+       "no_weight": true
+      },
+      {
+       "reps": 8,
+       "per_side": true,
+       "id": "12479504",
+       "name": "High elbow band external rotation",
+       "no_weight": true
+      },
+      {
+       "reps": 12,
+       "id": "14374824",
+       "name": "Floor DB rhomboids openings"
+      }
+     ],
+     "raw": "2 round\n8/side High elbow band internal rotation \n8/side High elbow band external rotation \n12 Floor DB rhomboids openings"
+    },
+    {
      "letter": "A",
      "name": "Stairmaster",
      "zone": "Zone 2",
@@ -5639,7 +5713,7 @@ window.PROGRAMME = {
      "phases": [
       {
        "kind": "work",
-       "sec": 720,
+       "sec": 540,
        "label": "Stairmaster",
        "moves": [
         {
@@ -5657,7 +5731,7 @@ window.PROGRAMME = {
        "no_weight": true
       }
      ],
-     "seconds": 720,
+     "seconds": 540,
      "autostart": false,
      "rounds": null
     },
@@ -5982,6 +6056,11 @@ window.PROGRAMME = {
     "original": "For time: 150 wall-ball shots (20-lb ball to 10 ft / 14-lb ball to 9 ft).",
     "changes": "Spread over a 30-minute EMOM: the same 150 wall balls on the odd minutes, lateral footwork on the even ones."
    },
+   "estimate": {
+    "minutes": 55,
+    "core_minutes": 7,
+    "wod_timed": true
+   },
    "warmup": {
     "text": "Back routine mobility\n1 round, 8/10 reps each exercise:\nT-spine rotation with reach\nSide lying rotation\nLeg twist \nFloor seated trunk twist\nCat cow\nActive straight leg raise\nIleopsoas dynamic stretch\nAdductor dynamic stretch\nGlute dynamic stretch",
     "exercises": [
@@ -6029,6 +6108,38 @@ window.PROGRAMME = {
    },
    "blocks": [
     {
+     "letter": "S",
+     "name": "Shoulder stability",
+     "kind": "rounds",
+     "rounds": 2,
+     "rounds_note": null,
+     "rest_seconds": 0,
+     "rest_note": "No rest",
+     "rest_assumed": false,
+     "exercises": [
+      {
+       "reps": 8,
+       "per_side": true,
+       "id": "12479502",
+       "name": "High elbow band internal rotation",
+       "no_weight": true
+      },
+      {
+       "reps": 8,
+       "per_side": true,
+       "id": "12479504",
+       "name": "High elbow band external rotation",
+       "no_weight": true
+      },
+      {
+       "reps": 12,
+       "id": "14374824",
+       "name": "Floor DB rhomboids openings"
+      }
+     ],
+     "raw": "2 round\n8/side High elbow band internal rotation \n8/side High elbow band external rotation \n12 Floor DB rhomboids openings"
+    },
+    {
      "letter": "A",
      "name": "Stairmaster",
      "zone": "Zone 2",
@@ -6038,7 +6149,7 @@ window.PROGRAMME = {
      "phases": [
       {
        "kind": "work",
-       "sec": 720,
+       "sec": 540,
        "label": "Stairmaster",
        "moves": [
         {
@@ -6056,7 +6167,7 @@ window.PROGRAMME = {
        "no_weight": true
       }
      ],
-     "seconds": 720,
+     "seconds": 540,
      "autostart": false,
      "rounds": null
     },
@@ -6776,6 +6887,11 @@ window.PROGRAMME = {
     "original": "3 rounds for max reps of: 1 minute of wall-ball shots, 1 minute of sumo deadlift high pulls, 1 minute of box jumps, 1 minute of push presses, 1 minute of rowing (calories), rest 1 minute.",
     "changes": "5 rounds at a steady 70% instead of 3 for max reps; kettlebell swings instead of the barbell high pull; light barbell push press; step down from the box."
    },
+   "estimate": {
+    "minutes": 55,
+    "core_minutes": 7,
+    "wod_timed": true
+   },
    "warmup": {
     "text": "Back routine mobility\n1 round, 8/10 reps each exercise:\nT-spine rotation with reach\nSide lying rotation\nLeg twist \nFloor seated trunk twist\nCat cow\nActive straight leg raise\nIleopsoas dynamic stretch\nAdductor dynamic stretch\nGlute dynamic stretch",
     "exercises": [
@@ -6823,6 +6939,38 @@ window.PROGRAMME = {
    },
    "blocks": [
     {
+     "letter": "S",
+     "name": "Shoulder stability",
+     "kind": "rounds",
+     "rounds": 2,
+     "rounds_note": null,
+     "rest_seconds": 0,
+     "rest_note": "No rest",
+     "rest_assumed": false,
+     "exercises": [
+      {
+       "reps": 8,
+       "per_side": true,
+       "id": "12479502",
+       "name": "High elbow band internal rotation",
+       "no_weight": true
+      },
+      {
+       "reps": 8,
+       "per_side": true,
+       "id": "12479504",
+       "name": "High elbow band external rotation",
+       "no_weight": true
+      },
+      {
+       "reps": 12,
+       "id": "14374824",
+       "name": "Floor DB rhomboids openings"
+      }
+     ],
+     "raw": "2 round\n8/side High elbow band internal rotation \n8/side High elbow band external rotation \n12 Floor DB rhomboids openings"
+    },
+    {
      "letter": "A",
      "name": "Stairmaster",
      "zone": "Zone 2",
@@ -6832,7 +6980,7 @@ window.PROGRAMME = {
      "phases": [
       {
        "kind": "work",
-       "sec": 720,
+       "sec": 540,
        "label": "Stairmaster",
        "moves": [
         {
@@ -6850,7 +6998,7 @@ window.PROGRAMME = {
        "no_weight": true
       }
      ],
-     "seconds": 720,
+     "seconds": 540,
      "autostart": false,
      "rounds": null
     },
@@ -7549,6 +7697,11 @@ window.PROGRAMME = {
     "original": "AMRAP in 20 minutes: 10 push presses, 10 kettlebell swings, 10 box jumps (115-lb / 75-lb barbell, 1.5 / 1 pood kettlebell, 24 / 20 in. box).",
     "changes": "30 minutes instead of 20, a lighter bar, step down from the box — keep moving at a steady pace, no rests."
    },
+   "estimate": {
+    "minutes": 55,
+    "core_minutes": 7,
+    "wod_timed": true
+   },
    "warmup": {
     "text": "Back routine mobility\n1 round, 8/10 reps each exercise:\nT-spine rotation with reach\nSide lying rotation\nLeg twist \nFloor seated trunk twist\nCat cow\nActive straight leg raise\nIleopsoas dynamic stretch\nAdductor dynamic stretch\nGlute dynamic stretch",
     "exercises": [
@@ -7596,6 +7749,38 @@ window.PROGRAMME = {
    },
    "blocks": [
     {
+     "letter": "S",
+     "name": "Shoulder stability",
+     "kind": "rounds",
+     "rounds": 2,
+     "rounds_note": null,
+     "rest_seconds": 0,
+     "rest_note": "No rest",
+     "rest_assumed": false,
+     "exercises": [
+      {
+       "reps": 8,
+       "per_side": true,
+       "id": "12479502",
+       "name": "High elbow band internal rotation",
+       "no_weight": true
+      },
+      {
+       "reps": 8,
+       "per_side": true,
+       "id": "12479504",
+       "name": "High elbow band external rotation",
+       "no_weight": true
+      },
+      {
+       "reps": 12,
+       "id": "14374824",
+       "name": "Floor DB rhomboids openings"
+      }
+     ],
+     "raw": "2 round\n8/side High elbow band internal rotation \n8/side High elbow band external rotation \n12 Floor DB rhomboids openings"
+    },
+    {
      "letter": "A",
      "name": "Stairmaster",
      "zone": "Zone 2",
@@ -7605,7 +7790,7 @@ window.PROGRAMME = {
      "phases": [
       {
        "kind": "work",
-       "sec": 720,
+       "sec": 540,
        "label": "Stairmaster",
        "moves": [
         {
@@ -7623,7 +7808,7 @@ window.PROGRAMME = {
        "no_weight": true
       }
      ],
-     "seconds": 720,
+     "seconds": 540,
      "autostart": false,
      "rounds": null
     },
@@ -7975,6 +8160,11 @@ window.PROGRAMME = {
     "original": "3 rounds for time of: run 800 meters, 50 back extensions, 50 sit-ups.",
     "changes": "Row instead of run, 25 + 25 reps, not for time — the low-jump day, for after heavy legs."
    },
+   "estimate": {
+    "minutes": 45,
+    "core_minutes": 7,
+    "wod_timed": false
+   },
    "warmup": {
     "text": "Back routine mobility\n1 round, 8/10 reps each exercise:\nT-spine rotation with reach\nSide lying rotation\nLeg twist \nFloor seated trunk twist\nCat cow\nActive straight leg raise\nIleopsoas dynamic stretch\nAdductor dynamic stretch\nGlute dynamic stretch",
     "exercises": [
@@ -8022,6 +8212,38 @@ window.PROGRAMME = {
    },
    "blocks": [
     {
+     "letter": "S",
+     "name": "Shoulder stability",
+     "kind": "rounds",
+     "rounds": 2,
+     "rounds_note": null,
+     "rest_seconds": 0,
+     "rest_note": "No rest",
+     "rest_assumed": false,
+     "exercises": [
+      {
+       "reps": 8,
+       "per_side": true,
+       "id": "12479502",
+       "name": "High elbow band internal rotation",
+       "no_weight": true
+      },
+      {
+       "reps": 8,
+       "per_side": true,
+       "id": "12479504",
+       "name": "High elbow band external rotation",
+       "no_weight": true
+      },
+      {
+       "reps": 12,
+       "id": "14374824",
+       "name": "Floor DB rhomboids openings"
+      }
+     ],
+     "raw": "2 round\n8/side High elbow band internal rotation \n8/side High elbow band external rotation \n12 Floor DB rhomboids openings"
+    },
+    {
      "letter": "A",
      "name": "Stairmaster",
      "zone": "Zone 2",
@@ -8031,7 +8253,7 @@ window.PROGRAMME = {
      "phases": [
       {
        "kind": "work",
-       "sec": 720,
+       "sec": 540,
        "label": "Stairmaster",
        "moves": [
         {
@@ -8049,7 +8271,7 @@ window.PROGRAMME = {
        "no_weight": true
       }
      ],
-     "seconds": 720,
+     "seconds": 540,
      "autostart": false,
      "rounds": null
     },
@@ -8359,6 +8581,261 @@ window.PROGRAMME = {
      "rounds": 2
     }
    ]
+  }
+ ],
+ "spin": [
+  {
+   "key": "spin-z2-45",
+   "kind": "cardio",
+   "spin": true,
+   "block": null,
+   "variant": null,
+   "title": "Zone 2 ride",
+   "wod": {
+    "format": "Spin · 45 min · Zone 2"
+   },
+   "warmup": {
+    "text": "",
+    "exercises": []
+   },
+   "blocks": [],
+   "ride": {
+    "zone": 2,
+    "seconds": 2700.0,
+    "segments": [
+     {
+      "min": 3,
+      "position": "seated",
+      "terrain": "warm-up",
+      "resistance": 20,
+      "rpm": [
+       80,
+       90
+      ],
+      "zone": 1,
+      "say": "Easy, loosen up.",
+      "start": 0.0,
+      "seconds": 180
+     },
+     {
+      "min": 3,
+      "position": "seated",
+      "terrain": "flat",
+      "resistance": 25,
+      "rpm": [
+       85,
+       90
+      ],
+      "zone": 2,
+      "start": 180.0,
+      "seconds": 180
+     },
+     {
+      "min": 4,
+      "position": "seated",
+      "terrain": "flat",
+      "resistance": 30,
+      "rpm": [
+       85,
+       95
+      ],
+      "zone": 2,
+      "say": "Settle in.",
+      "start": 360.0,
+      "seconds": 240
+     },
+     {
+      "min": 3,
+      "position": "seated",
+      "terrain": "climb",
+      "resistance": 38,
+      "rpm": [
+       70,
+       80
+      ],
+      "zone": 2,
+      "start": 600.0,
+      "seconds": 180
+     },
+     {
+      "min": 1,
+      "position": "standing",
+      "terrain": "climb",
+      "resistance": 42,
+      "rpm": [
+       60,
+       70
+      ],
+      "zone": 2,
+      "start": 780.0,
+      "seconds": 60
+     },
+     {
+      "min": 3,
+      "position": "seated",
+      "terrain": "flat",
+      "resistance": 30,
+      "rpm": [
+       85,
+       95
+      ],
+      "zone": 2,
+      "start": 840.0,
+      "seconds": 180
+     },
+     {
+      "min": 3,
+      "position": "seated",
+      "terrain": "climb",
+      "resistance": 40,
+      "rpm": [
+       70,
+       80
+      ],
+      "zone": 2,
+      "start": 1020.0,
+      "seconds": 180
+     },
+     {
+      "min": 1.5,
+      "position": "standing",
+      "terrain": "climb",
+      "resistance": 44,
+      "rpm": [
+       60,
+       70
+      ],
+      "zone": 2,
+      "start": 1200.0,
+      "seconds": 90.0
+     },
+     {
+      "min": 3.5,
+      "position": "seated",
+      "terrain": "recovery",
+      "resistance": 28,
+      "rpm": [
+       85,
+       90
+      ],
+      "zone": 2,
+      "say": "Breathe, recover.",
+      "start": 1290.0,
+      "seconds": 210.0
+     },
+     {
+      "min": 3,
+      "position": "seated",
+      "terrain": "climb",
+      "resistance": 40,
+      "rpm": [
+       70,
+       80
+      ],
+      "zone": 2,
+      "start": 1500.0,
+      "seconds": 180
+     },
+     {
+      "min": 1,
+      "position": "standing",
+      "terrain": "climb",
+      "resistance": 45,
+      "rpm": [
+       60,
+       70
+      ],
+      "zone": 2,
+      "start": 1680.0,
+      "seconds": 60
+     },
+     {
+      "min": 1,
+      "position": "seated",
+      "terrain": "climb",
+      "resistance": 40,
+      "rpm": [
+       70,
+       80
+      ],
+      "zone": 2,
+      "start": 1740.0,
+      "seconds": 60
+     },
+     {
+      "min": 1,
+      "position": "standing",
+      "terrain": "climb",
+      "resistance": 45,
+      "rpm": [
+       60,
+       70
+      ],
+      "zone": 2,
+      "start": 1800.0,
+      "seconds": 60
+     },
+     {
+      "min": 4,
+      "position": "seated",
+      "terrain": "flat",
+      "resistance": 30,
+      "rpm": [
+       85,
+       95
+      ],
+      "zone": 2,
+      "start": 1860.0,
+      "seconds": 240
+     },
+     {
+      "min": 3,
+      "position": "seated",
+      "terrain": "fast flat",
+      "resistance": 25,
+      "rpm": [
+       95,
+       105
+      ],
+      "zone": 2,
+      "say": "Light and fast.",
+      "start": 2100.0,
+      "seconds": 180
+     },
+     {
+      "min": 2,
+      "position": "seated",
+      "terrain": "flat",
+      "resistance": 30,
+      "rpm": [
+       85,
+       95
+      ],
+      "zone": 2,
+      "start": 2280.0,
+      "seconds": 120
+     },
+     {
+      "min": 5,
+      "position": "seated",
+      "terrain": "cool-down",
+      "resistance": 15,
+      "rpm": [
+       75,
+       85
+      ],
+      "zone": 1,
+      "say": "Easy now, bring it down.",
+      "start": 2400.0,
+      "seconds": 300
+     }
+    ],
+    "audio": {
+     "file": "audio/spin-z2-45.mp3",
+     "v": "fec1e48b",
+     "seconds": 2703.31
+    }
+   }
   }
  ]
 };

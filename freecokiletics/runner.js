@@ -622,7 +622,17 @@ window.Runner = (function () {
         (off ? "Sound off" : stuck ? "Sound stopped · tap Test" : "Sound on") + "</span>" +
       (off ? "" : '<button class="btn btn--quiet pause-sound__btn" type="button" data-p="sound-test">' + ICONS.volumeHigh + "Test</button>") +
       '<button class="btn btn--quiet pause-sound__btn" type="button" data-p="sound-mute">' +
-        (off ? ICONS.volumeHigh + "Turn on" : ICONS.volumeXmark + "Mute") + "</button>";
+        (off ? ICONS.volumeHigh + "Turn on" : ICONS.volumeXmark + "Mute") + "</button>" +
+      mixLine();
+  }
+  /* Whether this phone lets the app play over Spotify (Sound.mixInfo). Says
+     plainly when it can't, so a paused song has an explanation on screen. */
+  function mixLine() {
+    var m = Sound.mixInfo();
+    var text = !m.supported ? "Music: this app can’t mix with Spotify here (audio mode not available)"
+      : m.type === "ambient" ? "Music: mixes with Spotify"
+      : "Music: audio mode is “" + m.type + "”, not mixing";
+    return '<span class="pause-sound__mix">' + esc(text) + "</span>";
   }
   function pause() {
     if (!state || state.pausedAt) return;

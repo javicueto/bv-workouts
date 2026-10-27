@@ -214,9 +214,20 @@ window.App = (function () {
      for both; s.kind === "cardio" is how the few that differ tell them apart. */
   function sessionByKey(k) {
     return P.sessions.find(function (s) { return s.key === k; }) ||
-      (P.cardio || []).find(function (s) { return s.key === k; });
+      (P.cardio || []).find(function (s) { return s.key === k; }) ||
+      (P.spin || []).find(function (s) { return s.key === k; });       // spin rides are cardio days too (views/spin.js)
   }
   function isCardio(s) { return !!s && s.kind === "cardio"; }
+  /* A cardio day's estimated length (build_freeco.py estimate): "~55 min" short,
+     or in full with the optional core. Rounded to 5 minutes; a rounds WOD has
+     no clock, so its part is our estimate, and the full line says so. */
+  function estimateShort(s) { return s && s.estimate ? "~" + s.estimate.minutes + " min" : ""; }
+  function estimateLong(s) {
+    if (!s || !s.estimate) return "";
+    var e = s.estimate;
+    return "About " + e.minutes + " min, +" + e.core_minutes + " min with the optional core." +
+      (e.wod_timed ? "" : " The WOD has no clock, so its time is an estimate.");
+  }
   // "Workout 1.1", "Puyol" — or the bare key for one no longer in the programme.
   function sessionTitle(k) { var s = sessionByKey(k); return s ? s.title : "Workout " + k; }
   /* A cardio day is filed under the calendar week it was done in — not a plan
@@ -416,7 +427,7 @@ window.App = (function () {
     dur: dur, durSpoken: durSpoken, durHTML: durHTML, cueHTML: cueHTML, cueText: cueText,
     fmt: fmt, fmtRange: fmtRange, dateVal: dateVal, timeVal: timeVal, hhmm: hhmm, longDate: longDate,
     dayDate: dayDate, today: today, isoDate: isoDate, mondayOf: mondayOf, nextMonday: nextMonday, timesFrom: timesFrom,
-    weekFor: weekFor, sessionsFor: sessionsFor, sessionByKey: sessionByKey, isCardio: isCardio, cardioWeek: cardioWeek, sessionTitle: sessionTitle,
+    weekFor: weekFor, sessionsFor: sessionsFor, sessionByKey: sessionByKey, isCardio: isCardio, estimateShort: estimateShort, estimateLong: estimateLong, cardioWeek: cardioWeek, sessionTitle: sessionTitle,
     intervalsLabel: intervalsLabel,
     topbar: topbar, renderSetup: renderSetup, loadError: loadError, bindRetry: bindRetry, savedNotice: savedNotice,
     isInstalled: isInstalled, installCard: installCard, bindInstall: bindInstall, syncBadge: syncBadge,

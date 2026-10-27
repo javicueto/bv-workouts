@@ -86,6 +86,7 @@ window.Offline = (function () {
         if (navigator.storage && navigator.storage.persist) { try { await navigator.storage.persist(); } catch (e) {} }
         if (navigator.onLine) { try { await Store.warmOffline(window.App.S.me.id); } catch (e) {} }
         await previews();
+        if (window.Ride) { try { await Ride.cacheTracks(); } catch (e) {} }   // spin-ride tracks (views/spin.js)
         if (total && saved >= total) lastComplete = Date.now();
       } catch (e) {
         /* nothing saved this time; the next screen change tries again */

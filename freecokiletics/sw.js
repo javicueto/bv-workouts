@@ -13,13 +13,14 @@
  *   vendor/ and precached with the shell like any other file — no CDN, so
  *   the precache cannot half-fail on a third party at install time.
  */
-const CACHE = "freeco-v100";
+const CACHE = "freeco-v107";
 const PREVIEWS = "freeco-previews";     // not versioned with CACHE — see above; same name in offline.js
+const MEDIA = "freeco-media";           // spin-ride tracks, filled by views/spin.js; also kept across CACHE bumps
 const SHELL = [
   "./", "./index.html", "./styles.css", "../shared/tokens.css", "./config.js",
   "./theme.js", "./icons.js", "./ui.js", "./store.js", "./timer.js", "./runner.js",
   "./core.js", "./points.js", "./views/auth.js", "./views/home.js", "./views/plan.js", "./views/session.js",
-  "./views/history.js", "./views/social.js", "./views/celebrate.js", "./views/cardio.js", "./offline.js", "./app.js",
+  "./views/history.js", "./views/social.js", "./views/celebrate.js", "./views/cardio.js", "./views/spin.js", "./offline.js", "./app.js",
   "./data/programme.js",
   "./vendor/supabase-js-2.116.0.min.js",     // keep in step with index.html
   // Self-hosted type. Both are variable fonts — one file per family.
@@ -40,7 +41,7 @@ self.addEventListener("install", (e) => {
 
 self.addEventListener("activate", (e) => {
   e.waitUntil(
-    caches.keys().then((keys) => Promise.all(keys.filter((k) => k !== CACHE && k !== PREVIEWS).map((k) => caches.delete(k))))
+    caches.keys().then((keys) => Promise.all(keys.filter((k) => k !== CACHE && k !== PREVIEWS && k !== MEDIA).map((k) => caches.delete(k))))
       .then(() => self.clients.claim())
   );
 });
@@ -51,6 +52,10 @@ self.addEventListener("fetch", (e) => {
   if (url.hostname.endsWith("supabase.co")) return;          // live data, never cached
   if (url.origin !== location.origin) return;
   if (url.pathname.includes("/previews/")) { e.respondWith(previewFirst(e.request)); return; }
+  // Spin-ride tracks: views/spin.js keeps them in MEDIA itself and plays them
+  // from a blob, so the worker stays out of it (an <audio> range request
+  // answered from a cache is what breaks playback on iPhone).
+  if (url.pathname.includes("/audio/")) return;
   e.respondWith(networkFirst(e.request));
 });
 
