@@ -14,7 +14,9 @@
   "common": {
     "mobility_from": "5.1",
     "mobility_minutes": 5,
-    "stairmaster": { "kind": "timer", "name": "Stairmaster", "seconds": 720, "zone": "Zone 2", "autostart": false,
+    "shoulders_from": "3.1:A",
+    "shoulders_minutes": 3,
+    "stairmaster": { "kind": "timer", "name": "Stairmaster", "seconds": 540, "zone": "Zone 2", "autostart": false,
                   "note": "Easy, steady climb — you can still talk in full sentences.",
                   "exercises": [{ "id": "c-stairmaster" }] },
     "cooldown": { "kind": "timer", "name": "Cooldown", "seconds": 480, "zone": "Zone 1",

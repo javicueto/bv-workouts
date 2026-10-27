@@ -5080,6 +5080,38 @@ window.PROGRAMME = {
    },
    "blocks": [
     {
+     "letter": "S",
+     "name": "Shoulder stability",
+     "kind": "rounds",
+     "rounds": 2,
+     "rounds_note": null,
+     "rest_seconds": 0,
+     "rest_note": "No rest",
+     "rest_assumed": false,
+     "exercises": [
+      {
+       "reps": 8,
+       "per_side": true,
+       "id": "12479502",
+       "name": "High elbow band internal rotation",
+       "no_weight": true
+      },
+      {
+       "reps": 8,
+       "per_side": true,
+       "id": "12479504",
+       "name": "High elbow band external rotation",
+       "no_weight": true
+      },
+      {
+       "reps": 12,
+       "id": "14374824",
+       "name": "Floor DB rhomboids openings"
+      }
+     ],
+     "raw": "2 round\n8/side High elbow band internal rotation \n8/side High elbow band external rotation \n12 Floor DB rhomboids openings"
+    },
+    {
      "letter": "A",
      "name": "Stairmaster",
      "zone": "Zone 2",
@@ -5089,7 +5121,7 @@ window.PROGRAMME = {
      "phases": [
       {
        "kind": "work",
-       "sec": 720,
+       "sec": 540,
        "label": "Stairmaster",
        "moves": [
         {
@@ -5107,7 +5139,7 @@ window.PROGRAMME = {
        "no_weight": true
       }
      ],
-     "seconds": 720,
+     "seconds": 540,
      "autostart": false,
      "rounds": null
     },
@@ -5640,6 +5672,38 @@ window.PROGRAMME = {
    },
    "blocks": [
     {
+     "letter": "S",
+     "name": "Shoulder stability",
+     "kind": "rounds",
+     "rounds": 2,
+     "rounds_note": null,
+     "rest_seconds": 0,
+     "rest_note": "No rest",
+     "rest_assumed": false,
+     "exercises": [
+      {
+       "reps": 8,
+       "per_side": true,
+       "id": "12479502",
+       "name": "High elbow band internal rotation",
+       "no_weight": true
+      },
+      {
+       "reps": 8,
+       "per_side": true,
+       "id": "12479504",
+       "name": "High elbow band external rotation",
+       "no_weight": true
+      },
+      {
+       "reps": 12,
+       "id": "14374824",
+       "name": "Floor DB rhomboids openings"
+      }
+     ],
+     "raw": "2 round\n8/side High elbow band internal rotation \n8/side High elbow band external rotation \n12 Floor DB rhomboids openings"
+    },
+    {
      "letter": "A",
      "name": "Stairmaster",
      "zone": "Zone 2",
@@ -5649,7 +5713,7 @@ window.PROGRAMME = {
      "phases": [
       {
        "kind": "work",
-       "sec": 720,
+       "sec": 540,
        "label": "Stairmaster",
        "moves": [
         {
@@ -5667,7 +5731,7 @@ window.PROGRAMME = {
        "no_weight": true
       }
      ],
-     "seconds": 720,
+     "seconds": 540,
      "autostart": false,
      "rounds": null
     },
@@ -6044,6 +6108,38 @@ window.PROGRAMME = {
    },
    "blocks": [
     {
+     "letter": "S",
+     "name": "Shoulder stability",
+     "kind": "rounds",
+     "rounds": 2,
+     "rounds_note": null,
+     "rest_seconds": 0,
+     "rest_note": "No rest",
+     "rest_assumed": false,
+     "exercises": [
+      {
+       "reps": 8,
+       "per_side": true,
+       "id": "12479502",
+       "name": "High elbow band internal rotation",
+       "no_weight": true
+      },
+      {
+       "reps": 8,
+       "per_side": true,
+       "id": "12479504",
+       "name": "High elbow band external rotation",
+       "no_weight": true
+      },
+      {
+       "reps": 12,
+       "id": "14374824",
+       "name": "Floor DB rhomboids openings"
+      }
+     ],
+     "raw": "2 round\n8/side High elbow band internal rotation \n8/side High elbow band external rotation \n12 Floor DB rhomboids openings"
+    },
+    {
      "letter": "A",
      "name": "Stairmaster",
      "zone": "Zone 2",
@@ -6053,7 +6149,7 @@ window.PROGRAMME = {
      "phases": [
       {
        "kind": "work",
-       "sec": 720,
+       "sec": 540,
        "label": "Stairmaster",
        "moves": [
         {
@@ -6071,7 +6167,7 @@ window.PROGRAMME = {
        "no_weight": true
       }
      ],
-     "seconds": 720,
+     "seconds": 540,
      "autostart": false,
      "rounds": null
     },
@@ -6843,6 +6939,38 @@ window.PROGRAMME = {
    },
    "blocks": [
     {
+     "letter": "S",
+     "name": "Shoulder stability",
+     "kind": "rounds",
+     "rounds": 2,
+     "rounds_note": null,
+     "rest_seconds": 0,
+     "rest_note": "No rest",
+     "rest_assumed": false,
+     "exercises": [
+      {
+       "reps": 8,
+       "per_side": true,
+       "id": "12479502",
+       "name": "High elbow band internal rotation",
+       "no_weight": true
+      },
+      {
+       "reps": 8,
+       "per_side": true,
+       "id": "12479504",
+       "name": "High elbow band external rotation",
+       "no_weight": true
+      },
+      {
+       "reps": 12,
+       "id": "14374824",
+       "name": "Floor DB rhomboids openings"
+      }
+     ],
+     "raw": "2 round\n8/side High elbow band internal rotation \n8/side High elbow band external rotation \n12 Floor DB rhomboids openings"
+    },
+    {
      "letter": "A",
      "name": "Stairmaster",
      "zone": "Zone 2",
@@ -6852,7 +6980,7 @@ window.PROGRAMME = {
      "phases": [
       {
        "kind": "work",
-       "sec": 720,
+       "sec": 540,
        "label": "Stairmaster",
        "moves": [
         {
@@ -6870,7 +6998,7 @@ window.PROGRAMME = {
        "no_weight": true
       }
      ],
-     "seconds": 720,
+     "seconds": 540,
      "autostart": false,
      "rounds": null
     },
@@ -7621,6 +7749,38 @@ window.PROGRAMME = {
    },
    "blocks": [
     {
+     "letter": "S",
+     "name": "Shoulder stability",
+     "kind": "rounds",
+     "rounds": 2,
+     "rounds_note": null,
+     "rest_seconds": 0,
+     "rest_note": "No rest",
+     "rest_assumed": false,
+     "exercises": [
+      {
+       "reps": 8,
+       "per_side": true,
+       "id": "12479502",
+       "name": "High elbow band internal rotation",
+       "no_weight": true
+      },
+      {
+       "reps": 8,
+       "per_side": true,
+       "id": "12479504",
+       "name": "High elbow band external rotation",
+       "no_weight": true
+      },
+      {
+       "reps": 12,
+       "id": "14374824",
+       "name": "Floor DB rhomboids openings"
+      }
+     ],
+     "raw": "2 round\n8/side High elbow band internal rotation \n8/side High elbow band external rotation \n12 Floor DB rhomboids openings"
+    },
+    {
      "letter": "A",
      "name": "Stairmaster",
      "zone": "Zone 2",
@@ -7630,7 +7790,7 @@ window.PROGRAMME = {
      "phases": [
       {
        "kind": "work",
-       "sec": 720,
+       "sec": 540,
        "label": "Stairmaster",
        "moves": [
         {
@@ -7648,7 +7808,7 @@ window.PROGRAMME = {
        "no_weight": true
       }
      ],
-     "seconds": 720,
+     "seconds": 540,
      "autostart": false,
      "rounds": null
     },
@@ -8052,6 +8212,38 @@ window.PROGRAMME = {
    },
    "blocks": [
     {
+     "letter": "S",
+     "name": "Shoulder stability",
+     "kind": "rounds",
+     "rounds": 2,
+     "rounds_note": null,
+     "rest_seconds": 0,
+     "rest_note": "No rest",
+     "rest_assumed": false,
+     "exercises": [
+      {
+       "reps": 8,
+       "per_side": true,
+       "id": "12479502",
+       "name": "High elbow band internal rotation",
+       "no_weight": true
+      },
+      {
+       "reps": 8,
+       "per_side": true,
+       "id": "12479504",
+       "name": "High elbow band external rotation",
+       "no_weight": true
+      },
+      {
+       "reps": 12,
+       "id": "14374824",
+       "name": "Floor DB rhomboids openings"
+      }
+     ],
+     "raw": "2 round\n8/side High elbow band internal rotation \n8/side High elbow band external rotation \n12 Floor DB rhomboids openings"
+    },
+    {
      "letter": "A",
      "name": "Stairmaster",
      "zone": "Zone 2",
@@ -8061,7 +8253,7 @@ window.PROGRAMME = {
      "phases": [
       {
        "kind": "work",
-       "sec": 720,
+       "sec": 540,
        "label": "Stairmaster",
        "moves": [
         {
@@ -8079,7 +8271,7 @@ window.PROGRAMME = {
        "no_weight": true
       }
      ],
-     "seconds": 720,
+     "seconds": 540,
      "autostart": false,
      "rounds": null
     },

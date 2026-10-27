@@ -280,6 +280,17 @@ def build_cardio(ex, no_weight, plan_sessions):
     mob = next((s for s in plan_sessions if s["key"] == mob_key), None)
     check(mob and mob["warmup"]["exercises"], "common", f"mobility_from {mob_key!r} is not a plan session with a warm-up")
     mobility = {"text": mob["warmup"]["text"], "exercises": mob["warmup"]["exercises"]}
+    # The band shoulder work (Javier, 27 Oct 2026): the plan's "Shoulder stability"
+    # block, copied BY KEY ("3.1:A" = session 3.1, block A), never retyped. It
+    # follows the mobility warm-up as part of the warm-up, so the Stairmaster is
+    # shorter by about its length. Letter "S": the other letters stay put, because
+    # a finished workout's weights and scores are filed under them.
+    sh_key, sh_letter = common["shoulders_from"].split(":")
+    sh_src = next((s for s in plan_sessions if s["key"] == sh_key), None)
+    sh_blk = next((b for b in (sh_src["blocks"] if sh_src else []) if b["letter"] == sh_letter), None)
+    check(sh_blk and sh_blk["kind"] == "rounds", "common", f"shoulders_from {common['shoulders_from']!r} is not a rounds block of a plan session")
+    import copy
+    shoulders = dict(copy.deepcopy(sh_blk), letter="S")
     sessions = []
     keys = set()
     for r in src["routines"]:
@@ -288,12 +299,27 @@ def build_cardio(ex, no_weight, plan_sessions):
         keys.add(r["key"])
         # "W" is the mobility warm-up (the session's own); the blocks are A–D.
         # `wod` marks the main part, which is where scores are kept.
-        blocks = [block(common["stairmaster"], "A", where + " stairmaster"),
+        # Estimated total (Javier, 27 Oct 2026): the timed parts are exact (their
+        # phases), a rounds block has no clock so it says minutes_per_round (OUR
+        # estimate, marked as such in the app), the mobility warm-up has no clock
+        # either (common.mobility_minutes / shoulders_minutes). The optional core is counted apart.
+        wb = r["block"]
+        if wb["kind"] == "rounds":
+            check(wb.get("minutes_per_round"), where, "a rounds WOD needs minutes_per_round for the estimate")
+            wod_min = wb["rounds"] * wb["minutes_per_round"]
+        else:
+            wod_min = None
+        blocks = [copy.deepcopy(shoulders),
+                  block(common["stairmaster"], "A", where + " stairmaster"),
                   dict(block(r["block"], "B", where), wod=True),
                   block(common["cooldown"], "C", where + " cooldown"),
                   block(common["core"], "D", where + " core")]
+        secs = {b["letter"]: b.get("seconds") for b in blocks if b["kind"] == "intervals"}
+        main = common["mobility_minutes"] + common["shoulders_minutes"] + (secs["A"] + secs["C"]) / 60 + (wod_min if wod_min is not None else secs["B"] / 60)
+        estimate = {"minutes": int(round(main / 5.0) * 5), "core_minutes": int(round(secs["D"] / 60)),
+                    "wod_timed": wod_min is None}
         sessions.append({"key": r["key"], "kind": "cardio", "block": None, "variant": None,
-                         "title": r["title"], "wod": r["wod"],
+                         "title": r["title"], "wod": r["wod"], "estimate": estimate,
                          "warmup": mobility, "blocks": blocks})
     return sessions, own
 
