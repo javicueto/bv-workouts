@@ -308,8 +308,10 @@ def build_cardio(ex, no_weight, plan_sessions):
         # the whole session … including optional core"): every part, in order.
         # Timed parts are exact (their phases); parts with no clock — the mobility
         # warm-up, the band shoulders, a rounds WOD — are OUR estimates
-        # (common.*_minutes, minutes_per_round) and say so; change_minutes is the
-        # walk between parts (to the Stairmaster, the WOD kit, the bike, the mat).
+        # (common.*_minutes, minutes_per_round) and say so. Between parts there is a
+        # real break, not just the walk (Javier, 31 Oct 2026: "after a 30 min AMRAP
+        # I can't just jump to the next ex"): break_minutes at each change, the
+        # longer break_after_wod_minutes after the WOD.
         wb = r["block"]
         if wb["kind"] == "rounds":
             check(wb.get("minutes_per_round"), where, "a rounds WOD needs minutes_per_round for the estimate")
@@ -328,8 +330,9 @@ def build_cardio(ex, no_weight, plan_sessions):
                  {"name": "WOD", "minutes": wod_min if wod_min is not None else secs["B"] / 60, "estimated": wod_min is not None},
                  {"name": "Cooldown", "minutes": secs["C"] / 60, "estimated": False},
                  {"name": "Core", "minutes": secs["D"] / 60, "estimated": False, "optional": True}]
-        changes = common["change_minutes"] * 4            # shoulders → Stairmaster → WOD → cooldown → core
-        parts.append({"name": "Moving between parts", "minutes": changes, "estimated": True})
+        # Four changes: shoulders → Stairmaster → WOD → (longer) cooldown → core.
+        breaks = common["break_minutes"] * 3 + common["break_after_wod_minutes"]
+        parts.append({"name": "Breaks between parts", "minutes": breaks, "estimated": True})
         total = sum(p["minutes"] for p in parts)
         for p in parts:
             p["minutes"] = int(round(p["minutes"]))
