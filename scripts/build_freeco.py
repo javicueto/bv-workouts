@@ -337,8 +337,12 @@ def build_cardio(ex, no_weight, plan_sessions):
         for p in parts:
             p["minutes"] = int(round(p["minutes"]))
         estimate = {"minutes": int(round(total / 5.0) * 5), "parts": parts}
+        # Intensity 1–5 (Javier, 31 Oct 2026): our rating of how hard the day is,
+        # shown as dumbbells + a word (App.intensityHTML). Required, so a new
+        # routine can't ship without one.
+        check(r.get("intensity") in (1, 2, 3, 4, 5), where, "intensity must be 1–5")
         sessions.append({"key": r["key"], "kind": "cardio", "block": None, "variant": None,
-                         "title": r["title"], "wod": r["wod"], "estimate": estimate,
+                         "title": r["title"], "wod": r["wod"], "estimate": estimate, "intensity": r["intensity"],
                          "warmup": mobility, "blocks": blocks})
     return sessions, own
 
@@ -361,8 +365,10 @@ def build_spin():
         if not a or abs(a["ride_seconds"] - t) > 0.5:
             sys.exit(f"spin: the track for {r['key']} is missing or out of date — run scripts/build_spin.py")
         minutes = round(t / 60)
+        if r.get("intensity") not in (1, 2, 3, 4, 5):
+            sys.exit(f"spin: {r['key']}: intensity must be 1–5")
         rides.append({"key": r["key"], "kind": "cardio", "spin": True, "block": None, "variant": None,
-                      "title": r["title"],
+                      "title": r["title"], "intensity": r["intensity"],
                       "wod": {"format": f"Spin · {minutes} min · Zone {r['zone']}"},
                       "warmup": {"text": "", "exercises": []}, "blocks": [],
                       "ride": {"zone": r["zone"], "seconds": t, "segments": segs,

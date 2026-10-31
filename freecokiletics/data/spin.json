@@ -6,6 +6,7 @@
   "rides": [
     {
       "key": "spin-z2-45",
+      "intensity": 1,
       "title": "Zone 2 ride",
       "zone": 2,
       "intro": "Zone 2 ride. Forty-five minutes. Keep it conversational: if you can't talk in full sentences, drop the resistance by five.",

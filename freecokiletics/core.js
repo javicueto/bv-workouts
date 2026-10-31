@@ -223,6 +223,17 @@ window.App = (function () {
      screen. Kept apart from the WOD's format ("AMRAP 30 min") — side by side
      they read as a range ("30 · ~55 min"). */
   function estimateShort(s) { return s && s.estimate ? "About " + s.estimate.minutes + " min in all, core included" : ""; }
+  /* How hard a cardio day is, 1–5 (data/cardio.json, spin.json): five
+     dumbbells, the first n in the accent, the rest faint — and the word, so it
+     is never told by colour alone. */
+  var INTENSITY = ["Easy", "Moderate", "Hard", "Very hard", "All out"];
+  function intensityHTML(s) {
+    if (!s || !s.intensity) return "";
+    var n = s.intensity, word = INTENSITY[n - 1], icons = "";
+    for (var i = 1; i <= 5; i++) icons += '<span class="' + (i <= n ? "intensity__on" : "intensity__off") + '">' + ICONS.dumbbell + "</span>";
+    return '<p class="intensity" role="img" aria-label="Intensity ' + n + " of 5: " + word + '">' +
+      '<span class="intensity__icons">' + icons + "</span>" + '<span class="intensity__word">' + word + "</span></p>";
+  }
   // Part by part: "Mobility ~5 min · … · WOD 30 min · …" — "~" marks a part with no clock.
   function estimateLong(s) {
     if (!s || !s.estimate) return "";
@@ -430,7 +441,7 @@ window.App = (function () {
     dur: dur, durSpoken: durSpoken, durHTML: durHTML, cueHTML: cueHTML, cueText: cueText,
     fmt: fmt, fmtRange: fmtRange, dateVal: dateVal, timeVal: timeVal, hhmm: hhmm, longDate: longDate,
     dayDate: dayDate, today: today, isoDate: isoDate, mondayOf: mondayOf, nextMonday: nextMonday, timesFrom: timesFrom,
-    weekFor: weekFor, sessionsFor: sessionsFor, sessionByKey: sessionByKey, isCardio: isCardio, estimateShort: estimateShort, estimateLong: estimateLong, cardioWeek: cardioWeek, sessionTitle: sessionTitle,
+    weekFor: weekFor, sessionsFor: sessionsFor, sessionByKey: sessionByKey, isCardio: isCardio, estimateShort: estimateShort, estimateLong: estimateLong, intensityHTML: intensityHTML, cardioWeek: cardioWeek, sessionTitle: sessionTitle,
     intervalsLabel: intervalsLabel,
     topbar: topbar, renderSetup: renderSetup, loadError: loadError, bindRetry: bindRetry, savedNotice: savedNotice,
     isInstalled: isInstalled, installCard: installCard, bindInstall: bindInstall, syncBadge: syncBadge,

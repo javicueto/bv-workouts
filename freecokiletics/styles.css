@@ -1371,3 +1371,11 @@ body.is-resting .runner .iv-score .input { background: transparent; border-color
 
 /* A cardio day's whole length on the list, under its name (views/cardio.js). */
 .cardio-card__time { margin: var(--space-1) 0 0; font-size: 14px; }
+
+/* Intensity, 1–5 dumbbells + a word (core.js intensityHTML): cardio list and the day's screen. */
+.intensity { display: flex; align-items: center; gap: var(--space-2); margin: var(--space-2) 0 0; }
+.intensity__icons { display: inline-flex; gap: 6px; }
+.intensity__icons svg { width: 20px; height: 20px; display: block; }
+.intensity__on { color: var(--accent); }
+.intensity__off { color: var(--text-faint); opacity: .45; }
+.intensity__word { font-family: var(--font-display); font-weight: 700; text-transform: uppercase; letter-spacing: .06em; font-size: 14px; color: var(--text); }

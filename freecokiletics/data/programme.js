@@ -5069,6 +5069,7 @@ window.PROGRAMME = {
      }
     ]
    },
+   "intensity": 5,
    "warmup": {
     "text": "Back routine mobility\n1 round, 8/10 reps each exercise:\nT-spine rotation with reach\nSide lying rotation\nLeg twist \nFloor seated trunk twist\nCat cow\nActive straight leg raise\nIleopsoas dynamic stretch\nAdductor dynamic stretch\nGlute dynamic stretch",
     "exercises": [
@@ -5697,6 +5698,7 @@ window.PROGRAMME = {
      }
     ]
    },
+   "intensity": 3,
    "warmup": {
     "text": "Back routine mobility\n1 round, 8/10 reps each exercise:\nT-spine rotation with reach\nSide lying rotation\nLeg twist \nFloor seated trunk twist\nCat cow\nActive straight leg raise\nIleopsoas dynamic stretch\nAdductor dynamic stretch\nGlute dynamic stretch",
     "exercises": [
@@ -6169,6 +6171,7 @@ window.PROGRAMME = {
      }
     ]
    },
+   "intensity": 3,
    "warmup": {
     "text": "Back routine mobility\n1 round, 8/10 reps each exercise:\nT-spine rotation with reach\nSide lying rotation\nLeg twist \nFloor seated trunk twist\nCat cow\nActive straight leg raise\nIleopsoas dynamic stretch\nAdductor dynamic stretch\nGlute dynamic stretch",
     "exercises": [
@@ -7036,6 +7039,7 @@ window.PROGRAMME = {
      }
     ]
    },
+   "intensity": 4,
    "warmup": {
     "text": "Back routine mobility\n1 round, 8/10 reps each exercise:\nT-spine rotation with reach\nSide lying rotation\nLeg twist \nFloor seated trunk twist\nCat cow\nActive straight leg raise\nIleopsoas dynamic stretch\nAdductor dynamic stretch\nGlute dynamic stretch",
     "exercises": [
@@ -7982,6 +7986,7 @@ window.PROGRAMME = {
      }
     ]
    },
+   "intensity": 4,
    "warmup": {
     "text": "Back routine mobility\n1 round, 8/10 reps each exercise:\nT-spine rotation with reach\nSide lying rotation\nLeg twist \nFloor seated trunk twist\nCat cow\nActive straight leg raise\nIleopsoas dynamic stretch\nAdductor dynamic stretch\nGlute dynamic stretch",
     "exercises": [
@@ -8481,6 +8486,7 @@ window.PROGRAMME = {
      }
     ]
    },
+   "intensity": 2,
    "warmup": {
     "text": "Back routine mobility\n1 round, 8/10 reps each exercise:\nT-spine rotation with reach\nSide lying rotation\nLeg twist \nFloor seated trunk twist\nCat cow\nActive straight leg raise\nIleopsoas dynamic stretch\nAdductor dynamic stretch\nGlute dynamic stretch",
     "exercises": [
@@ -8907,6 +8913,7 @@ window.PROGRAMME = {
    "block": null,
    "variant": null,
    "title": "Zone 2 ride",
+   "intensity": 1,
    "wod": {
     "format": "Spin · 45 min · Zone 2"
    },

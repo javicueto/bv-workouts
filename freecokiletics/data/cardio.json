@@ -37,7 +37,7 @@
 
   "routines": [
     {
-      "key": "cardio-puyol", "title": "Puyol",
+      "key": "cardio-puyol", "intensity": 5, "title": "Puyol",
       "wod": {
         "format": "AMRAP 4 min × 5",
         "source": "Javier",
@@ -55,7 +55,7 @@
                  ] }
     },
     {
-      "key": "cardio-casillas", "title": "Casillas",
+      "key": "cardio-casillas", "intensity": 3, "title": "Casillas",
       "wod": {
         "format": "4 rounds, steady",
         "source": "https://www.crossfit.com/benchmark/kelly",
@@ -71,7 +71,7 @@
                  ] }
     },
     {
-      "key": "cardio-kante", "title": "Kanté",
+      "key": "cardio-kante", "intensity": 3, "title": "Kanté",
       "wod": {
         "format": "EMOM 30 min",
         "source": "https://www.crossfit.com/benchmark/karen",
@@ -87,7 +87,7 @@
                  ] }
     },
     {
-      "key": "cardio-gattuso", "title": "Gattuso",
+      "key": "cardio-gattuso", "intensity": 4, "title": "Gattuso",
       "wod": {
         "format": "5 rounds of 5 stations",
         "source": "https://www.crossfit.com/benchmark/fight-gone-bad",
@@ -106,7 +106,7 @@
                  ] }
     },
     {
-      "key": "cardio-zidane", "title": "Zidane",
+      "key": "cardio-zidane", "intensity": 4, "title": "Zidane",
       "wod": {
         "format": "AMRAP 30 min",
         "source": "https://www.crossfit.com/benchmark/jack",
@@ -123,7 +123,7 @@
                  ] }
     },
     {
-      "key": "cardio-maldini", "title": "Maldini",
+      "key": "cardio-maldini", "intensity": 2, "title": "Maldini",
       "wod": {
         "format": "3 rounds, steady",
         "source": "https://www.crossfit.com/benchmark/michael",

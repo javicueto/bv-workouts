@@ -259,6 +259,7 @@
       '<div class="stack">' +
         '<div class="eyebrow">' + (A.isCardio(s) ? "Cardio day · " + esc(s.wod.format) : s ? "Block " + s.block + " · session " + s.variant : "Workout") + "</div>" +
         "<h1>" + esc(s ? s.title : "Workout " + ctx.key) + "</h1>" +
+        (s ? A.intensityHTML(s) : "") +
         (s && s.estimate ? '<p class="dim">' + esc(A.estimateLong(s)) + "</p>" : "") +
       "</div>" +
       (rec ? recordStrip(w) : "");

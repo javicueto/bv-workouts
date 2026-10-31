@@ -21,6 +21,7 @@
         return '<a class="card card--tap cardio-card" href="#/view/' + esc(s.key) + '">' +
           '<div class="eyebrow">' + esc(s.wod.format) + "</div>" +
           "<h2>" + esc(s.title) + "</h2>" +
+          A.intensityHTML(s) +
           '<p class="dim cardio-card__time">' + esc(A.estimateShort(s)) + "</p>" +
           '<ul class="day-card__blocks">' + wod.exercises.map(function (e) {
             var reps = A.repsLabel(e);
@@ -37,6 +38,7 @@
             return '<a class="card card--tap cardio-card" href="#/view/' + esc(s.key) + '">' +
               '<div class="eyebrow">' + esc(s.wod.format) + "</div>" +
               "<h2>" + esc(s.title) + "</h2>" +
+              A.intensityHTML(s) +
               '<p class="dim cardio-card__zone">Schwinn IC8 · ' + s.ride.segments.length + " parts · seated and standing, flats and climbs</p>" +
             "</a>";
           }).join("") + "</div>"
