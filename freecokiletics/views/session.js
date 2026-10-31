@@ -182,8 +182,11 @@
         bits.push("Each hold on the clock" + (sw ? ", " + A.durHTML(sw.sec) + " to switch" : ""));
       }
       if (b.format === "stations") {
-        var work = b.phases.find(function (p) { return p.kind === "work"; }), rest = b.phases.find(function (p) { return p.kind === "rest"; });
-        bits.push(A.durHTML(work.sec) + " a station" + (rest ? " · " + A.durHTML(rest.sec) + " rest between rounds" : ""));
+        var work = b.phases.find(function (p) { return p.kind === "work"; }),
+          swap = b.phases.find(function (p) { return p.kind === "rest" && p.label === "Switch"; }),
+          rest = b.phases.find(function (p) { return p.kind === "rest" && p.label !== "Switch"; });
+        bits.push(A.durHTML(work.sec) + " a station" + (swap ? ", " + A.durHTML(swap.sec) + " to switch" : "") +
+          (rest ? " · " + A.durHTML(rest.sec) + " rest between rounds" : ""));
       }
       if (b.format === "amrap" && b.sets > 1) {
         var r = b.phases.find(function (p) { return p.kind === "rest"; });

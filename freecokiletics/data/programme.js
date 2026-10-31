@@ -6885,7 +6885,7 @@ window.PROGRAMME = {
     "format": "5 rounds of 5 stations",
     "source": "https://www.crossfit.com/benchmark/fight-gone-bad",
     "original": "3 rounds for max reps of: 1 minute of wall-ball shots, 1 minute of sumo deadlift high pulls, 1 minute of box jumps, 1 minute of push presses, 1 minute of rowing (calories), rest 1 minute.",
-    "changes": "5 rounds at a steady 70% instead of 3 for max reps; kettlebell swings instead of the barbell high pull; light barbell push press; step down from the box."
+    "changes": "5 rounds at a steady 70% instead of 3 for max reps; kettlebell swings instead of the barbell high pull; light barbell push press; step down from the box; 45 sec a station with 15 sec to switch instead of a full minute."
    },
    "estimate": {
     "minutes": 55,
@@ -7012,7 +7012,7 @@ window.PROGRAMME = {
      "phases": [
       {
        "kind": "work",
-       "sec": 60,
+       "sec": 45,
        "moves": [
         {
          "id": "c-wall-ball",
@@ -7024,8 +7024,13 @@ window.PROGRAMME = {
        "label": "Round 1 of 5 · station 1 of 5"
       },
       {
+       "kind": "rest",
+       "sec": 15,
+       "label": "Switch"
+      },
+      {
        "kind": "work",
-       "sec": 60,
+       "sec": 45,
        "moves": [
         {
          "id": "c-kb-swing",
@@ -7037,8 +7042,13 @@ window.PROGRAMME = {
        "label": "Round 1 of 5 · station 2 of 5"
       },
       {
+       "kind": "rest",
+       "sec": 15,
+       "label": "Switch"
+      },
+      {
        "kind": "work",
-       "sec": 60,
+       "sec": 45,
        "moves": [
         {
          "id": "c-box-jump",
@@ -7052,8 +7062,13 @@ window.PROGRAMME = {
        "label": "Round 1 of 5 · station 3 of 5"
       },
       {
+       "kind": "rest",
+       "sec": 15,
+       "label": "Switch"
+      },
+      {
        "kind": "work",
-       "sec": 60,
+       "sec": 45,
        "moves": [
         {
          "id": "11279962",
@@ -7066,8 +7081,13 @@ window.PROGRAMME = {
        "label": "Round 1 of 5 · station 4 of 5"
       },
       {
+       "kind": "rest",
+       "sec": 15,
+       "label": "Switch"
+      },
+      {
        "kind": "work",
-       "sec": 60,
+       "sec": 45,
        "moves": [
         {
          "id": "11379991",
@@ -7087,7 +7107,7 @@ window.PROGRAMME = {
       },
       {
        "kind": "work",
-       "sec": 60,
+       "sec": 45,
        "moves": [
         {
          "id": "c-wall-ball",
@@ -7099,8 +7119,13 @@ window.PROGRAMME = {
        "label": "Round 2 of 5 · station 1 of 5"
       },
       {
+       "kind": "rest",
+       "sec": 15,
+       "label": "Switch"
+      },
+      {
        "kind": "work",
-       "sec": 60,
+       "sec": 45,
        "moves": [
         {
          "id": "c-kb-swing",
@@ -7112,8 +7137,13 @@ window.PROGRAMME = {
        "label": "Round 2 of 5 · station 2 of 5"
       },
       {
+       "kind": "rest",
+       "sec": 15,
+       "label": "Switch"
+      },
+      {
        "kind": "work",
-       "sec": 60,
+       "sec": 45,
        "moves": [
         {
          "id": "c-box-jump",
@@ -7127,8 +7157,13 @@ window.PROGRAMME = {
        "label": "Round 2 of 5 · station 3 of 5"
       },
       {
+       "kind": "rest",
+       "sec": 15,
+       "label": "Switch"
+      },
+      {
        "kind": "work",
-       "sec": 60,
+       "sec": 45,
        "moves": [
         {
          "id": "11279962",
@@ -7141,8 +7176,13 @@ window.PROGRAMME = {
        "label": "Round 2 of 5 · station 4 of 5"
       },
       {
+       "kind": "rest",
+       "sec": 15,
+       "label": "Switch"
+      },
+      {
        "kind": "work",
-       "sec": 60,
+       "sec": 45,
        "moves": [
         {
          "id": "11379991",
@@ -7162,7 +7202,7 @@ window.PROGRAMME = {
       },
       {
        "kind": "work",
-       "sec": 60,
+       "sec": 45,
        "moves": [
         {
          "id": "c-wall-ball",
@@ -7174,8 +7214,13 @@ window.PROGRAMME = {
        "label": "Round 3 of 5 · station 1 of 5"
       },
       {
+       "kind": "rest",
+       "sec": 15,
+       "label": "Switch"
+      },
+      {
        "kind": "work",
-       "sec": 60,
+       "sec": 45,
        "moves": [
         {
          "id": "c-kb-swing",
@@ -7187,8 +7232,13 @@ window.PROGRAMME = {
        "label": "Round 3 of 5 · station 2 of 5"
       },
       {
+       "kind": "rest",
+       "sec": 15,
+       "label": "Switch"
+      },
+      {
        "kind": "work",
-       "sec": 60,
+       "sec": 45,
        "moves": [
         {
          "id": "c-box-jump",
@@ -7202,8 +7252,13 @@ window.PROGRAMME = {
        "label": "Round 3 of 5 · station 3 of 5"
       },
       {
+       "kind": "rest",
+       "sec": 15,
+       "label": "Switch"
+      },
+      {
        "kind": "work",
-       "sec": 60,
+       "sec": 45,
        "moves": [
         {
          "id": "11279962",
@@ -7216,8 +7271,13 @@ window.PROGRAMME = {
        "label": "Round 3 of 5 · station 4 of 5"
       },
       {
+       "kind": "rest",
+       "sec": 15,
+       "label": "Switch"
+      },
+      {
        "kind": "work",
-       "sec": 60,
+       "sec": 45,
        "moves": [
         {
          "id": "11379991",
@@ -7237,7 +7297,7 @@ window.PROGRAMME = {
       },
       {
        "kind": "work",
-       "sec": 60,
+       "sec": 45,
        "moves": [
         {
          "id": "c-wall-ball",
@@ -7249,8 +7309,13 @@ window.PROGRAMME = {
        "label": "Round 4 of 5 · station 1 of 5"
       },
       {
+       "kind": "rest",
+       "sec": 15,
+       "label": "Switch"
+      },
+      {
        "kind": "work",
-       "sec": 60,
+       "sec": 45,
        "moves": [
         {
          "id": "c-kb-swing",
@@ -7262,8 +7327,13 @@ window.PROGRAMME = {
        "label": "Round 4 of 5 · station 2 of 5"
       },
       {
+       "kind": "rest",
+       "sec": 15,
+       "label": "Switch"
+      },
+      {
        "kind": "work",
-       "sec": 60,
+       "sec": 45,
        "moves": [
         {
          "id": "c-box-jump",
@@ -7277,8 +7347,13 @@ window.PROGRAMME = {
        "label": "Round 4 of 5 · station 3 of 5"
       },
       {
+       "kind": "rest",
+       "sec": 15,
+       "label": "Switch"
+      },
+      {
        "kind": "work",
-       "sec": 60,
+       "sec": 45,
        "moves": [
         {
          "id": "11279962",
@@ -7291,8 +7366,13 @@ window.PROGRAMME = {
        "label": "Round 4 of 5 · station 4 of 5"
       },
       {
+       "kind": "rest",
+       "sec": 15,
+       "label": "Switch"
+      },
+      {
        "kind": "work",
-       "sec": 60,
+       "sec": 45,
        "moves": [
         {
          "id": "11379991",
@@ -7312,7 +7392,7 @@ window.PROGRAMME = {
       },
       {
        "kind": "work",
-       "sec": 60,
+       "sec": 45,
        "moves": [
         {
          "id": "c-wall-ball",
@@ -7324,8 +7404,13 @@ window.PROGRAMME = {
        "label": "Round 5 of 5 · station 1 of 5"
       },
       {
+       "kind": "rest",
+       "sec": 15,
+       "label": "Switch"
+      },
+      {
        "kind": "work",
-       "sec": 60,
+       "sec": 45,
        "moves": [
         {
          "id": "c-kb-swing",
@@ -7337,8 +7422,13 @@ window.PROGRAMME = {
        "label": "Round 5 of 5 · station 2 of 5"
       },
       {
+       "kind": "rest",
+       "sec": 15,
+       "label": "Switch"
+      },
+      {
        "kind": "work",
-       "sec": 60,
+       "sec": 45,
        "moves": [
         {
          "id": "c-box-jump",
@@ -7352,8 +7442,13 @@ window.PROGRAMME = {
        "label": "Round 5 of 5 · station 3 of 5"
       },
       {
+       "kind": "rest",
+       "sec": 15,
+       "label": "Switch"
+      },
+      {
        "kind": "work",
-       "sec": 60,
+       "sec": 45,
        "moves": [
         {
          "id": "11279962",
@@ -7366,8 +7461,13 @@ window.PROGRAMME = {
        "label": "Round 5 of 5 · station 4 of 5"
       },
       {
+       "kind": "rest",
+       "sec": 15,
+       "label": "Switch"
+      },
+      {
        "kind": "work",
-       "sec": 60,
+       "sec": 45,
        "moves": [
         {
          "id": "11379991",
@@ -7408,7 +7508,7 @@ window.PROGRAMME = {
        "no_weight": true
       }
      ],
-     "seconds": 1740,
+     "seconds": 1665,
      "rounds": 5,
      "wod": true
     },

@@ -253,10 +253,15 @@ def build_cardio(ex, no_weight, plan_sessions):
                                        "label": f"Round {r} of {rounds}" + (f" · {side} side" if side else "")})
             extra = {"optional": bool(b.get("optional"))}
         elif kind == "stations":
+            # A short "switch" rest between stations (Javier, 31 Oct 2026: Gattuso
+            # left no time to move to the next station) — never after a round's
+            # last station, where the round's own rest follows.
             exs = [move(m, where) for m in b["exercises"]]
             rounds, n = b["rounds"], len(exs)
             for r in range(1, rounds + 1):
                 for k, m in enumerate(exs, 1):
+                    if k > 1 and b.get("switch_seconds"):
+                        phases.append({"kind": "rest", "sec": b["switch_seconds"], "label": "Switch"})
                     phases.append({"kind": "work", "sec": b["station_seconds"], "moves": [m], "round": r, "station": k,
                                    "label": f"Round {r} of {rounds} · station {k} of {n}"})
                 if r < rounds and b.get("rest_seconds"):
