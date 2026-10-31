@@ -7946,7 +7946,7 @@ window.PROGRAMME = {
     "changes": "30 minutes instead of 20, a lighter bar, step down from the box — keep moving at a steady pace, no rests."
    },
    "estimate": {
-    "minutes": 70,
+    "minutes": 80,
     "parts": [
      {
       "name": "Mobility",
@@ -7981,12 +7981,12 @@ window.PROGRAMME = {
      },
      {
       "name": "Breaks between parts",
-      "minutes": 9,
+      "minutes": 18,
       "estimated": true
      }
     ]
    },
-   "intensity": 4,
+   "intensity": 5,
    "warmup": {
     "text": "Back routine mobility\n1 round, 8/10 reps each exercise:\nT-spine rotation with reach\nSide lying rotation\nLeg twist \nFloor seated trunk twist\nCat cow\nActive straight leg raise\nIleopsoas dynamic stretch\nAdductor dynamic stretch\nGlute dynamic stretch",
     "exercises": [

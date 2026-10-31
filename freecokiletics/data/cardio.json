@@ -106,7 +106,7 @@
                  ] }
     },
     {
-      "key": "cardio-zidane", "intensity": 4, "title": "Zidane",
+      "key": "cardio-zidane", "intensity": 5, "break_after_wod_minutes": 12, "title": "Zidane",
       "wod": {
         "format": "AMRAP 30 min",
         "source": "https://www.crossfit.com/benchmark/jack",

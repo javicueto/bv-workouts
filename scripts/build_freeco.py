@@ -331,7 +331,9 @@ def build_cardio(ex, no_weight, plan_sessions):
                  {"name": "Cooldown", "minutes": secs["C"] / 60, "estimated": False},
                  {"name": "Core", "minutes": secs["D"] / 60, "estimated": False, "optional": True}]
         # Four changes: shoulders → Stairmaster → WOD → (longer) cooldown → core.
-        breaks = common["break_minutes"] * 3 + common["break_after_wod_minutes"]
+        # A routine can set its own recovery after the WOD when real sessions run
+        # longer (Javier, 31 Oct 2026: Zidane's 30 min all-out AMRAP is "more like 80 min").
+        breaks = common["break_minutes"] * 3 + r.get("break_after_wod_minutes", common["break_after_wod_minutes"])
         parts.append({"name": "Breaks between parts", "minutes": breaks, "estimated": True})
         total = sum(p["minutes"] for p in parts)
         for p in parts:
