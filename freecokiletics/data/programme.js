@@ -5029,9 +5029,45 @@ window.PROGRAMME = {
     "changes": "5 sets instead of 4 (Javier, 18 Oct 2026)."
    },
    "estimate": {
-    "minutes": 55,
-    "core_minutes": 7,
-    "wod_timed": true
+    "minutes": 65,
+    "parts": [
+     {
+      "name": "Mobility",
+      "minutes": 5,
+      "estimated": true
+     },
+     {
+      "name": "Shoulders",
+      "minutes": 3,
+      "estimated": true
+     },
+     {
+      "name": "Stairmaster",
+      "minutes": 9,
+      "estimated": false
+     },
+     {
+      "name": "WOD",
+      "minutes": 28,
+      "estimated": false
+     },
+     {
+      "name": "Cooldown",
+      "minutes": 8,
+      "estimated": false
+     },
+     {
+      "name": "Core",
+      "minutes": 7,
+      "estimated": false,
+      "optional": true
+     },
+     {
+      "name": "Moving between parts",
+      "minutes": 4,
+      "estimated": true
+     }
+    ]
    },
    "warmup": {
     "text": "Back routine mobility\n1 round, 8/10 reps each exercise:\nT-spine rotation with reach\nSide lying rotation\nLeg twist \nFloor seated trunk twist\nCat cow\nActive straight leg raise\nIleopsoas dynamic stretch\nAdductor dynamic stretch\nGlute dynamic stretch",
@@ -5621,9 +5657,45 @@ window.PROGRAMME = {
     "changes": "Row instead of run, 4 rounds not for time, 20 + 20 reps, step down from the box — Zone 3, and easier on the Achilles after a strength day."
    },
    "estimate": {
-    "minutes": 45,
-    "core_minutes": 7,
-    "wod_timed": false
+    "minutes": 55,
+    "parts": [
+     {
+      "name": "Mobility",
+      "minutes": 5,
+      "estimated": true
+     },
+     {
+      "name": "Shoulders",
+      "minutes": 3,
+      "estimated": true
+     },
+     {
+      "name": "Stairmaster",
+      "minutes": 9,
+      "estimated": false
+     },
+     {
+      "name": "WOD",
+      "minutes": 20,
+      "estimated": true
+     },
+     {
+      "name": "Cooldown",
+      "minutes": 8,
+      "estimated": false
+     },
+     {
+      "name": "Core",
+      "minutes": 7,
+      "estimated": false,
+      "optional": true
+     },
+     {
+      "name": "Moving between parts",
+      "minutes": 4,
+      "estimated": true
+     }
+    ]
    },
    "warmup": {
     "text": "Back routine mobility\n1 round, 8/10 reps each exercise:\nT-spine rotation with reach\nSide lying rotation\nLeg twist \nFloor seated trunk twist\nCat cow\nActive straight leg raise\nIleopsoas dynamic stretch\nAdductor dynamic stretch\nGlute dynamic stretch",
@@ -6057,9 +6129,45 @@ window.PROGRAMME = {
     "changes": "Spread over a 30-minute EMOM: the same 150 wall balls on the odd minutes, lateral footwork on the even ones."
    },
    "estimate": {
-    "minutes": 55,
-    "core_minutes": 7,
-    "wod_timed": true
+    "minutes": 65,
+    "parts": [
+     {
+      "name": "Mobility",
+      "minutes": 5,
+      "estimated": true
+     },
+     {
+      "name": "Shoulders",
+      "minutes": 3,
+      "estimated": true
+     },
+     {
+      "name": "Stairmaster",
+      "minutes": 9,
+      "estimated": false
+     },
+     {
+      "name": "WOD",
+      "minutes": 30,
+      "estimated": false
+     },
+     {
+      "name": "Cooldown",
+      "minutes": 8,
+      "estimated": false
+     },
+     {
+      "name": "Core",
+      "minutes": 7,
+      "estimated": false,
+      "optional": true
+     },
+     {
+      "name": "Moving between parts",
+      "minutes": 4,
+      "estimated": true
+     }
+    ]
    },
    "warmup": {
     "text": "Back routine mobility\n1 round, 8/10 reps each exercise:\nT-spine rotation with reach\nSide lying rotation\nLeg twist \nFloor seated trunk twist\nCat cow\nActive straight leg raise\nIleopsoas dynamic stretch\nAdductor dynamic stretch\nGlute dynamic stretch",
@@ -6888,9 +6996,45 @@ window.PROGRAMME = {
     "changes": "5 rounds at a steady 70% instead of 3 for max reps; kettlebell swings instead of the barbell high pull; light barbell push press; step down from the box; 45 sec a station with 15 sec to switch instead of a full minute."
    },
    "estimate": {
-    "minutes": 55,
-    "core_minutes": 7,
-    "wod_timed": true
+    "minutes": 65,
+    "parts": [
+     {
+      "name": "Mobility",
+      "minutes": 5,
+      "estimated": true
+     },
+     {
+      "name": "Shoulders",
+      "minutes": 3,
+      "estimated": true
+     },
+     {
+      "name": "Stairmaster",
+      "minutes": 9,
+      "estimated": false
+     },
+     {
+      "name": "WOD",
+      "minutes": 28,
+      "estimated": false
+     },
+     {
+      "name": "Cooldown",
+      "minutes": 8,
+      "estimated": false
+     },
+     {
+      "name": "Core",
+      "minutes": 7,
+      "estimated": false,
+      "optional": true
+     },
+     {
+      "name": "Moving between parts",
+      "minutes": 4,
+      "estimated": true
+     }
+    ]
    },
    "warmup": {
     "text": "Back routine mobility\n1 round, 8/10 reps each exercise:\nT-spine rotation with reach\nSide lying rotation\nLeg twist \nFloor seated trunk twist\nCat cow\nActive straight leg raise\nIleopsoas dynamic stretch\nAdductor dynamic stretch\nGlute dynamic stretch",
@@ -7798,9 +7942,45 @@ window.PROGRAMME = {
     "changes": "30 minutes instead of 20, a lighter bar, step down from the box — keep moving at a steady pace, no rests."
    },
    "estimate": {
-    "minutes": 55,
-    "core_minutes": 7,
-    "wod_timed": true
+    "minutes": 65,
+    "parts": [
+     {
+      "name": "Mobility",
+      "minutes": 5,
+      "estimated": true
+     },
+     {
+      "name": "Shoulders",
+      "minutes": 3,
+      "estimated": true
+     },
+     {
+      "name": "Stairmaster",
+      "minutes": 9,
+      "estimated": false
+     },
+     {
+      "name": "WOD",
+      "minutes": 30,
+      "estimated": false
+     },
+     {
+      "name": "Cooldown",
+      "minutes": 8,
+      "estimated": false
+     },
+     {
+      "name": "Core",
+      "minutes": 7,
+      "estimated": false,
+      "optional": true
+     },
+     {
+      "name": "Moving between parts",
+      "minutes": 4,
+      "estimated": true
+     }
+    ]
    },
    "warmup": {
     "text": "Back routine mobility\n1 round, 8/10 reps each exercise:\nT-spine rotation with reach\nSide lying rotation\nLeg twist \nFloor seated trunk twist\nCat cow\nActive straight leg raise\nIleopsoas dynamic stretch\nAdductor dynamic stretch\nGlute dynamic stretch",
@@ -8261,9 +8441,45 @@ window.PROGRAMME = {
     "changes": "Row instead of run, 25 + 25 reps, not for time — the low-jump day, for after heavy legs."
    },
    "estimate": {
-    "minutes": 45,
-    "core_minutes": 7,
-    "wod_timed": false
+    "minutes": 55,
+    "parts": [
+     {
+      "name": "Mobility",
+      "minutes": 5,
+      "estimated": true
+     },
+     {
+      "name": "Shoulders",
+      "minutes": 3,
+      "estimated": true
+     },
+     {
+      "name": "Stairmaster",
+      "minutes": 9,
+      "estimated": false
+     },
+     {
+      "name": "WOD",
+      "minutes": 21,
+      "estimated": true
+     },
+     {
+      "name": "Cooldown",
+      "minutes": 8,
+      "estimated": false
+     },
+     {
+      "name": "Core",
+      "minutes": 7,
+      "estimated": false,
+      "optional": true
+     },
+     {
+      "name": "Moving between parts",
+      "minutes": 4,
+      "estimated": true
+     }
+    ]
    },
    "warmup": {
     "text": "Back routine mobility\n1 round, 8/10 reps each exercise:\nT-spine rotation with reach\nSide lying rotation\nLeg twist \nFloor seated trunk twist\nCat cow\nActive straight leg raise\nIleopsoas dynamic stretch\nAdductor dynamic stretch\nGlute dynamic stretch",

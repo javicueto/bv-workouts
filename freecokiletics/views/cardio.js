@@ -19,8 +19,9 @@
       '<div class="list">' + list.map(function (s) {
         var wod = s.blocks.find(function (b) { return b.wod; });
         return '<a class="card card--tap cardio-card" href="#/view/' + esc(s.key) + '">' +
-          '<div class="eyebrow">' + esc(s.wod.format) + " · " + esc(A.estimateShort(s)) + "</div>" +
+          '<div class="eyebrow">' + esc(s.wod.format) + "</div>" +
           "<h2>" + esc(s.title) + "</h2>" +
+          '<p class="dim cardio-card__time">' + esc(A.estimateShort(s)) + "</p>" +
           '<ul class="day-card__blocks">' + wod.exercises.map(function (e) {
             var reps = A.repsLabel(e);
             return '<li><span class="grow">' + A.cueHTML(e.name) + "</span>" +

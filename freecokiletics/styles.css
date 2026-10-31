@@ -1368,3 +1368,6 @@ body.is-resting .runner .iv-score .input { background: transparent; border-color
 .scheck__log { min-height: 120px; max-height: 40svh; overflow: auto; padding: var(--space-3); margin: 0;
   background: var(--bg-sunken); border: 1px solid var(--line); border-radius: var(--radius);
   font-size: 12px; line-height: 1.5; white-space: pre-wrap; overflow-wrap: anywhere; color: var(--text); }
+
+/* A cardio day's whole length on the list, under its name (views/cardio.js). */
+.cardio-card__time { margin: var(--space-1) 0 0; font-size: 14px; }

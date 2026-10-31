@@ -304,10 +304,12 @@ def build_cardio(ex, no_weight, plan_sessions):
         keys.add(r["key"])
         # "W" is the mobility warm-up (the session's own); the blocks are A–D.
         # `wod` marks the main part, which is where scores are kept.
-        # Estimated total (Javier, 27 Oct 2026): the timed parts are exact (their
-        # phases), a rounds block has no clock so it says minutes_per_round (OUR
-        # estimate, marked as such in the app), the mobility warm-up has no clock
-        # either (common.mobility_minutes / shoulders_minutes). The optional core is counted apart.
+        # The whole session's length (Javier, 31 Oct 2026: "calculate the times of
+        # the whole session … including optional core"): every part, in order.
+        # Timed parts are exact (their phases); parts with no clock — the mobility
+        # warm-up, the band shoulders, a rounds WOD — are OUR estimates
+        # (common.*_minutes, minutes_per_round) and say so; change_minutes is the
+        # walk between parts (to the Stairmaster, the WOD kit, the bike, the mat).
         wb = r["block"]
         if wb["kind"] == "rounds":
             check(wb.get("minutes_per_round"), where, "a rounds WOD needs minutes_per_round for the estimate")
@@ -320,9 +322,18 @@ def build_cardio(ex, no_weight, plan_sessions):
                   block(common["cooldown"], "C", where + " cooldown"),
                   block(common["core"], "D", where + " core")]
         secs = {b["letter"]: b.get("seconds") for b in blocks if b["kind"] == "intervals"}
-        main = common["mobility_minutes"] + common["shoulders_minutes"] + (secs["A"] + secs["C"]) / 60 + (wod_min if wod_min is not None else secs["B"] / 60)
-        estimate = {"minutes": int(round(main / 5.0) * 5), "core_minutes": int(round(secs["D"] / 60)),
-                    "wod_timed": wod_min is None}
+        parts = [{"name": "Mobility", "minutes": common["mobility_minutes"], "estimated": True},
+                 {"name": "Shoulders", "minutes": common["shoulders_minutes"], "estimated": True},
+                 {"name": "Stairmaster", "minutes": secs["A"] / 60, "estimated": False},
+                 {"name": "WOD", "minutes": wod_min if wod_min is not None else secs["B"] / 60, "estimated": wod_min is not None},
+                 {"name": "Cooldown", "minutes": secs["C"] / 60, "estimated": False},
+                 {"name": "Core", "minutes": secs["D"] / 60, "estimated": False, "optional": True}]
+        changes = common["change_minutes"] * 4            # shoulders → Stairmaster → WOD → cooldown → core
+        parts.append({"name": "Moving between parts", "minutes": changes, "estimated": True})
+        total = sum(p["minutes"] for p in parts)
+        for p in parts:
+            p["minutes"] = int(round(p["minutes"]))
+        estimate = {"minutes": int(round(total / 5.0) * 5), "parts": parts}
         sessions.append({"key": r["key"], "kind": "cardio", "block": None, "variant": None,
                          "title": r["title"], "wod": r["wod"], "estimate": estimate,
                          "warmup": mobility, "blocks": blocks})

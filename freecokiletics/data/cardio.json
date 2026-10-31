@@ -16,6 +16,7 @@
     "mobility_minutes": 5,
     "shoulders_from": "3.1:A",
     "shoulders_minutes": 3,
+    "change_minutes": 1,
     "stairmaster": { "kind": "timer", "name": "Stairmaster", "seconds": 540, "zone": "Zone 2", "autostart": false,
                   "note": "Easy, steady climb — you can still talk in full sentences.",
                   "exercises": [{ "id": "c-stairmaster" }] },

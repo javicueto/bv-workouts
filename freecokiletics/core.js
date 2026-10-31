@@ -218,15 +218,17 @@ window.App = (function () {
       (P.spin || []).find(function (s) { return s.key === k; });       // spin rides are cardio days too (views/spin.js)
   }
   function isCardio(s) { return !!s && s.kind === "cardio"; }
-  /* A cardio day's estimated length (build_freeco.py estimate): "~55 min" short,
-     or in full with the optional core. Rounded to 5 minutes; a rounds WOD has
-     no clock, so its part is our estimate, and the full line says so. */
-  function estimateShort(s) { return s && s.estimate ? "~" + s.estimate.minutes + " min" : ""; }
+  /* A cardio day's whole length, optional core included (build_freeco.py
+     estimate, rounded to 5 min): one line on the list, part by part on its own
+     screen. Kept apart from the WOD's format ("AMRAP 30 min") — side by side
+     they read as a range ("30 · ~55 min"). */
+  function estimateShort(s) { return s && s.estimate ? "About " + s.estimate.minutes + " min in all, core included" : ""; }
+  // Part by part: "Mobility ~5 min · … · WOD 30 min · …" — "~" marks a part with no clock.
   function estimateLong(s) {
     if (!s || !s.estimate) return "";
-    var e = s.estimate;
-    return "About " + e.minutes + " min, +" + e.core_minutes + " min with the optional core." +
-      (e.wod_timed ? "" : " The WOD has no clock, so its time is an estimate.");
+    return "About " + s.estimate.minutes + " min in all: " + s.estimate.parts.map(function (p) {
+      return p.name + " " + (p.estimated ? "~" : "") + p.minutes + " min" + (p.optional ? " (optional)" : "");
+    }).join(" · ") + ". “~” is our estimate: that part has no clock.";
   }
   // "Workout 1.1", "Puyol" — or the bare key for one no longer in the programme.
   function sessionTitle(k) { var s = sessionByKey(k); return s ? s.title : "Workout " + k; }
