@@ -18,7 +18,9 @@
     if (h === "#/social") return { key: "social", depth: 1 };
     if (h === "#/cardio") return { key: "cardio", depth: 1 };
     if (h === "#/soundcheck") return { key: "soundcheck", depth: 1 };
-    if (/^#\/ride\//.test(h)) return { key: "ride", depth: 2 };
+    if (/^#\/ride\//.test(h)) return { key: "ride", depth: 3 };
+    // A cardio day sits one level under the Cardio days list, so it slides like one.
+    if (/^#\/view\/(cardio|spin)-/.test(h)) return { key: "view", depth: 2 };
     if (/^#\/(view|h)\//.test(h)) return { key: "view", depth: 1 };
     return { key: h.split(/[/?]/)[1] || "", depth: 2 };          // #/plan/edit, #/log/…, #/run/…
   }

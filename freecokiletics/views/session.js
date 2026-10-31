@@ -431,7 +431,9 @@
     A.ticket();
     var s = A.sessionByKey(key);
     if (!s) { location.hash = "#/"; return; }
-    draw({ s: s, key: key, weekStart: weekStart, back: weekStart ? "#/week/" + weekStart : "#/", record: null });
+    // A cardio day is opened from the Cardio days list, so Back goes there, not Home.
+    var back = weekStart ? "#/week/" + weekStart : A.isCardio(s) ? "#/cardio" : "#/";
+    draw({ s: s, key: key, weekStart: weekStart, back: back, record: null });
   };
 
   /* One finished workout — from a done day card, one of its runs, or History. */
