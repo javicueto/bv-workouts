@@ -8924,6 +8924,8 @@ window.PROGRAMME = {
    "blocks": [],
    "ride": {
     "zone": 2,
+    "advice": "If you can’t talk in full sentences, drop the resistance by five.",
+    "summary": "seated and standing, flats and climbs",
     "seconds": 2700.0,
     "segments": [
      {
@@ -9156,6 +9158,350 @@ window.PROGRAMME = {
     "audio": {
      "file": "audio/spin-z2-45.mp3",
      "v": "fec1e48b",
+     "seconds": 2703.31
+    }
+   }
+  },
+  {
+   "key": "spin-fatburner-45",
+   "kind": "cardio",
+   "spin": true,
+   "block": null,
+   "variant": null,
+   "title": "Fat burner",
+   "intensity": 3,
+   "wod": {
+    "format": "Spin · 45 min · Zone 3"
+   },
+   "warmup": {
+    "text": "",
+    "exercises": []
+   },
+   "blocks": [],
+   "ride": {
+    "zone": 3,
+    "advice": "The one-minute surges go up to zone 4. If your heart rate goes above the zone shown for a part, drop the resistance by five.",
+    "summary": "steady pace and climbs, with one-minute surges",
+    "seconds": 2700.0,
+    "segments": [
+     {
+      "min": 3,
+      "position": "seated",
+      "terrain": "warm-up",
+      "resistance": 20,
+      "rpm": [
+       80,
+       90
+      ],
+      "zone": 1,
+      "say": "Easy, loosen up.",
+      "start": 0.0,
+      "seconds": 180
+     },
+     {
+      "min": 2,
+      "position": "seated",
+      "terrain": "flat",
+      "resistance": 28,
+      "rpm": [
+       85,
+       95
+      ],
+      "zone": 2,
+      "say": "Start to wake the legs up.",
+      "start": 180.0,
+      "seconds": 120
+     },
+     {
+      "min": 3,
+      "position": "seated",
+      "terrain": "flat",
+      "resistance": 38,
+      "rpm": [
+       90,
+       95
+      ],
+      "zone": 3,
+      "say": "Your working pace. Steady and strong.",
+      "start": 300.0,
+      "seconds": 180
+     },
+     {
+      "min": 2,
+      "position": "seated",
+      "terrain": "climb",
+      "resistance": 50,
+      "rpm": [
+       70,
+       80
+      ],
+      "zone": 3,
+      "start": 480.0,
+      "seconds": 120
+     },
+     {
+      "min": 1,
+      "position": "seated",
+      "terrain": "surge",
+      "resistance": 45,
+      "rpm": [
+       100,
+       110
+      ],
+      "zone": 4,
+      "say": "Fast legs, stay in the saddle.",
+      "start": 600.0,
+      "seconds": 60
+     },
+     {
+      "min": 1,
+      "position": "seated",
+      "terrain": "recovery",
+      "resistance": 25,
+      "rpm": [
+       85,
+       90
+      ],
+      "zone": 2,
+      "say": "Breathe.",
+      "start": 660.0,
+      "seconds": 60
+     },
+     {
+      "min": 3,
+      "position": "seated",
+      "terrain": "flat",
+      "resistance": 38,
+      "rpm": [
+       90,
+       95
+      ],
+      "zone": 3,
+      "start": 720.0,
+      "seconds": 180
+     },
+     {
+      "min": 2,
+      "position": "seated",
+      "terrain": "climb",
+      "resistance": 52,
+      "rpm": [
+       70,
+       80
+      ],
+      "zone": 3,
+      "start": 900.0,
+      "seconds": 120
+     },
+     {
+      "min": 1,
+      "position": "standing",
+      "terrain": "surge",
+      "resistance": 60,
+      "rpm": [
+       65,
+       75
+      ],
+      "zone": 4,
+      "say": "Push.",
+      "start": 1020.0,
+      "seconds": 60
+     },
+     {
+      "min": 1,
+      "position": "seated",
+      "terrain": "recovery",
+      "resistance": 25,
+      "rpm": [
+       85,
+       90
+      ],
+      "zone": 2,
+      "say": "Breathe.",
+      "start": 1080.0,
+      "seconds": 60
+     },
+     {
+      "min": 3,
+      "position": "seated",
+      "terrain": "flat",
+      "resistance": 40,
+      "rpm": [
+       90,
+       95
+      ],
+      "zone": 3,
+      "start": 1140.0,
+      "seconds": 180
+     },
+     {
+      "min": 2,
+      "position": "seated",
+      "terrain": "climb",
+      "resistance": 52,
+      "rpm": [
+       70,
+       80
+      ],
+      "zone": 3,
+      "start": 1320.0,
+      "seconds": 120
+     },
+     {
+      "min": 1,
+      "position": "seated",
+      "terrain": "surge",
+      "resistance": 48,
+      "rpm": [
+       100,
+       110
+      ],
+      "zone": 4,
+      "say": "Fast legs, stay in the saddle.",
+      "start": 1440.0,
+      "seconds": 60
+     },
+     {
+      "min": 1,
+      "position": "seated",
+      "terrain": "recovery",
+      "resistance": 25,
+      "rpm": [
+       85,
+       90
+      ],
+      "zone": 2,
+      "say": "Breathe.",
+      "start": 1500.0,
+      "seconds": 60
+     },
+     {
+      "min": 3,
+      "position": "seated",
+      "terrain": "flat",
+      "resistance": 40,
+      "rpm": [
+       90,
+       95
+      ],
+      "zone": 3,
+      "start": 1560.0,
+      "seconds": 180
+     },
+     {
+      "min": 2,
+      "position": "seated",
+      "terrain": "climb",
+      "resistance": 54,
+      "rpm": [
+       70,
+       80
+      ],
+      "zone": 3,
+      "start": 1740.0,
+      "seconds": 120
+     },
+     {
+      "min": 1,
+      "position": "standing",
+      "terrain": "surge",
+      "resistance": 62,
+      "rpm": [
+       65,
+       75
+      ],
+      "zone": 4,
+      "say": "Push.",
+      "start": 1860.0,
+      "seconds": 60
+     },
+     {
+      "min": 1,
+      "position": "seated",
+      "terrain": "recovery",
+      "resistance": 25,
+      "rpm": [
+       85,
+       90
+      ],
+      "zone": 2,
+      "say": "Breathe.",
+      "start": 1920.0,
+      "seconds": 60
+     },
+     {
+      "min": 3,
+      "position": "seated",
+      "terrain": "flat",
+      "resistance": 42,
+      "rpm": [
+       90,
+       95
+      ],
+      "zone": 3,
+      "say": "Last block. Hold your pace.",
+      "start": 1980.0,
+      "seconds": 180
+     },
+     {
+      "min": 2,
+      "position": "seated",
+      "terrain": "climb",
+      "resistance": 54,
+      "rpm": [
+       70,
+       80
+      ],
+      "zone": 3,
+      "start": 2160.0,
+      "seconds": 120
+     },
+     {
+      "min": 1,
+      "position": "standing",
+      "terrain": "surge",
+      "resistance": 65,
+      "rpm": [
+       65,
+       75
+      ],
+      "zone": 4,
+      "say": "Last one. Push.",
+      "start": 2280.0,
+      "seconds": 60
+     },
+     {
+      "min": 1,
+      "position": "seated",
+      "terrain": "recovery",
+      "resistance": 25,
+      "rpm": [
+       85,
+       90
+      ],
+      "zone": 2,
+      "say": "Breathe.",
+      "start": 2340.0,
+      "seconds": 60
+     },
+     {
+      "min": 5,
+      "position": "seated",
+      "terrain": "cool-down",
+      "resistance": 15,
+      "rpm": [
+       75,
+       85
+      ],
+      "zone": 1,
+      "say": "Easy now, bring it down.",
+      "start": 2400.0,
+      "seconds": 300
+     }
+    ],
+    "audio": {
+     "file": "audio/spin-fatburner-45.mp3",
+     "v": "5e5d3b30",
      "seconds": 2703.31
     }
    }

@@ -27,7 +27,7 @@
   var MEDIA = "freeco-media";                // same name in sw.js (kept across CACHE bumps)
   var SAVE = "freeco.ride", MODE = "freeco.rideMode";
   var TERRAIN = { "warm-up": "Warm-up", "flat": "Flat road", "climb": "Climb", "recovery": "Recovery",
-                  "fast flat": "Fast flat", "cool-down": "Cool-down" };
+                  "fast flat": "Fast flat", "surge": "Surge", "cool-down": "Cool-down" };
 
   // ------------------------------------------------------------ the track
   function trackUrl(s) { var a = s.ride.audio; return new URL(a.file + "?v=" + a.v, location.href).href; }
@@ -91,7 +91,7 @@
     return '<section class="vsec"><h2 class="vsec__h">The ride</h2>' +
       '<p class="dim">Schwinn IC8: resistance is the console’s level (1–100), cadence in RPM. Stay in zone ' + s.ride.zone +
         (bpm(s.ride.zone) ? " (" + bpm(s.ride.zone) + ")" : "") +
-        ' — if you can’t talk in full sentences, drop the resistance by five.</p>' +
+        '. ' + esc(s.ride.advice) + '</p>' +
       profileHTML(s) +
       '<ol class="ride-list">' + s.ride.segments.map(function (g) {
         return "<li><span class=\"ride-list__t\">" + mmss(g.start) + "</span>" +

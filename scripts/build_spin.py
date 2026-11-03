@@ -39,7 +39,7 @@ BEEPS = (3, 2, 1)      # seconds before a change: one short beep each
 VOICE_AFTER_BELL = 0.45
 
 TERRAIN = {"warm-up": "Warm-up", "flat": "Flat road", "climb": "Climb", "recovery": "Recovery",
-           "fast flat": "Fast flat", "cool-down": "Cool-down"}
+           "fast flat": "Fast flat", "surge": "Surge", "cool-down": "Cool-down"}
 
 
 def die(msg):

@@ -369,11 +369,13 @@ def build_spin():
         minutes = round(t / 60)
         if r.get("intensity") not in (1, 2, 3, 4, 5):
             sys.exit(f"spin: {r['key']}: intensity must be 1–5")
+        if not r.get("advice") or not r.get("summary"):
+            sys.exit(f"spin: {r['key']}: needs an advice line for its screen and a summary for the list")
         rides.append({"key": r["key"], "kind": "cardio", "spin": True, "block": None, "variant": None,
                       "title": r["title"], "intensity": r["intensity"],
                       "wod": {"format": f"Spin · {minutes} min · Zone {r['zone']}"},
                       "warmup": {"text": "", "exercises": []}, "blocks": [],
-                      "ride": {"zone": r["zone"], "seconds": t, "segments": segs,
+                      "ride": {"zone": r["zone"], "advice": r["advice"], "summary": r["summary"], "seconds": t, "segments": segs,
                                "audio": {"file": a["file"], "v": a["v"], "seconds": a["seconds"]}}})
     return rides
 

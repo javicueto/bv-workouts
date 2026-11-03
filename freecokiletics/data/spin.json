@@ -1,5 +1,5 @@
 {
-  "_about": "Spin rides (Javier, 25 Oct 2026) for his home Schwinn IC8: resistance is the console's 1–100 level, cadence is RPM. Hand-written here; scripts/build_spin.py turns each ride into ONE audio track (ElevenLabs voice + bells + beeps at every change) in freecokiletics/audio/, and scripts/build_freeco.py puts the rides into data/programme.js as PROGRAMME.spin. The track is the ride's clock: the screen follows it, so cues keep their timing in the background. Segment fields: min (length in minutes), position seated|standing, terrain, resistance (IC8 level), rpm [low, high], zone (heart-rate zone 1–5), say (optional extra words for the voice).",
+  "_about": "Spin rides (Javier, 25 Oct 2026) for his home Schwinn IC8: resistance is the console's 1–100 level, cadence is RPM. Hand-written here; scripts/build_spin.py turns each ride into ONE audio track (ElevenLabs voice + bells + beeps at every change) in freecokiletics/audio/, and scripts/build_freeco.py puts the rides into data/programme.js as PROGRAMME.spin. The track is the ride's clock: the screen follows it, so cues keep their timing in the background. Segment fields: min (length in minutes), position seated|standing, terrain, resistance (IC8 level), rpm [low, high], zone (heart-rate zone 1–5), say (optional extra words for the voice). Each ride also has an advice line, shown on its own screen.",
 
   "voice": { "id": "IKne3meq5aSn9XLyUdCD", "name": "Charlie", "model": "eleven_multilingual_v2" },
 
@@ -9,6 +9,8 @@
       "intensity": 1,
       "title": "Zone 2 ride",
       "zone": 2,
+      "summary": "seated and standing, flats and climbs",
+      "advice": "If you can’t talk in full sentences, drop the resistance by five.",
       "intro": "Zone 2 ride. Forty-five minutes. Keep it conversational: if you can't talk in full sentences, drop the resistance by five.",
       "outro": "Ride done. Great work.",
       "halfway": "Halfway. Nice and steady.",
@@ -30,6 +32,42 @@
         { "min": 3,   "position": "seated",   "terrain": "fast flat", "resistance": 25, "rpm": [95, 105], "zone": 2, "say": "Light and fast." },
         { "min": 2,   "position": "seated",   "terrain": "flat",      "resistance": 30, "rpm": [85, 95],  "zone": 2 },
         { "min": 5,   "position": "seated",   "terrain": "cool-down", "resistance": 15, "rpm": [75, 85],  "zone": 1, "say": "Easy now, bring it down." }
+      ]
+    },
+    {
+      "key": "spin-fatburner-45",
+      "intensity": 3,
+      "title": "Fat burner",
+      "zone": 3,
+      "summary": "steady pace and climbs, with one-minute surges",
+      "advice": "The one-minute surges go up to zone 4. If your heart rate goes above the zone shown for a part, drop the resistance by five.",
+      "intro": "Fat burner. Forty-five minutes. Five blocks: a steady pace, a climb, then a one minute surge. If your heart rate goes above the zone, drop the resistance by five.",
+      "outro": "Ride done. Great work.",
+      "halfway": "Halfway. Keep it steady.",
+      "segments": [
+        { "min": 3, "position": "seated", "terrain": "warm-up", "resistance": 20, "rpm": [80, 90], "zone": 1, "say": "Easy, loosen up." },
+        { "min": 2, "position": "seated", "terrain": "flat", "resistance": 28, "rpm": [85, 95], "zone": 2, "say": "Start to wake the legs up." },
+        { "min": 3, "position": "seated", "terrain": "flat", "resistance": 38, "rpm": [90, 95], "zone": 3, "say": "Your working pace. Steady and strong." },
+        { "min": 2, "position": "seated", "terrain": "climb", "resistance": 50, "rpm": [70, 80], "zone": 3 },
+        { "min": 1, "position": "seated", "terrain": "surge", "resistance": 45, "rpm": [100, 110], "zone": 4, "say": "Fast legs, stay in the saddle." },
+        { "min": 1, "position": "seated", "terrain": "recovery", "resistance": 25, "rpm": [85, 90], "zone": 2, "say": "Breathe." },
+        { "min": 3, "position": "seated", "terrain": "flat", "resistance": 38, "rpm": [90, 95], "zone": 3 },
+        { "min": 2, "position": "seated", "terrain": "climb", "resistance": 52, "rpm": [70, 80], "zone": 3 },
+        { "min": 1, "position": "standing", "terrain": "surge", "resistance": 60, "rpm": [65, 75], "zone": 4, "say": "Push." },
+        { "min": 1, "position": "seated", "terrain": "recovery", "resistance": 25, "rpm": [85, 90], "zone": 2, "say": "Breathe." },
+        { "min": 3, "position": "seated", "terrain": "flat", "resistance": 40, "rpm": [90, 95], "zone": 3 },
+        { "min": 2, "position": "seated", "terrain": "climb", "resistance": 52, "rpm": [70, 80], "zone": 3 },
+        { "min": 1, "position": "seated", "terrain": "surge", "resistance": 48, "rpm": [100, 110], "zone": 4, "say": "Fast legs, stay in the saddle." },
+        { "min": 1, "position": "seated", "terrain": "recovery", "resistance": 25, "rpm": [85, 90], "zone": 2, "say": "Breathe." },
+        { "min": 3, "position": "seated", "terrain": "flat", "resistance": 40, "rpm": [90, 95], "zone": 3 },
+        { "min": 2, "position": "seated", "terrain": "climb", "resistance": 54, "rpm": [70, 80], "zone": 3 },
+        { "min": 1, "position": "standing", "terrain": "surge", "resistance": 62, "rpm": [65, 75], "zone": 4, "say": "Push." },
+        { "min": 1, "position": "seated", "terrain": "recovery", "resistance": 25, "rpm": [85, 90], "zone": 2, "say": "Breathe." },
+        { "min": 3, "position": "seated", "terrain": "flat", "resistance": 42, "rpm": [90, 95], "zone": 3, "say": "Last block. Hold your pace." },
+        { "min": 2, "position": "seated", "terrain": "climb", "resistance": 54, "rpm": [70, 80], "zone": 3 },
+        { "min": 1, "position": "standing", "terrain": "surge", "resistance": 65, "rpm": [65, 75], "zone": 4, "say": "Last one. Push." },
+        { "min": 1, "position": "seated", "terrain": "recovery", "resistance": 25, "rpm": [85, 90], "zone": 2, "say": "Breathe." },
+        { "min": 5, "position": "seated", "terrain": "cool-down", "resistance": 15, "rpm": [75, 85], "zone": 1, "say": "Easy now, bring it down." }
       ]
     }
   ]

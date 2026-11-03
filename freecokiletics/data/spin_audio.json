@@ -4,5 +4,11 @@
   "v": "fec1e48b",
   "seconds": 2703.31,
   "ride_seconds": 2700.0
+ },
+ "spin-fatburner-45": {
+  "file": "audio/spin-fatburner-45.mp3",
+  "v": "5e5d3b30",
+  "seconds": 2703.31,
+  "ride_seconds": 2700.0
  }
 }
