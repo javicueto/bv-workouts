@@ -9180,8 +9180,8 @@ window.PROGRAMME = {
    "blocks": [],
    "ride": {
     "zone": 3,
-    "advice": "The one-minute surges go up to zone 4. If your heart rate goes above the zone shown for a part, drop the resistance by five.",
-    "summary": "steady pace and climbs, with one-minute surges",
+    "advice": "The two-minute surges go up to zone 4. If your heart rate goes above the zone shown for a part, drop the resistance by five.",
+    "summary": "steady pace and climbs, with two-minute surges",
     "seconds": 2700.0,
     "segments": [
      {
@@ -9202,7 +9202,7 @@ window.PROGRAMME = {
       "min": 2,
       "position": "seated",
       "terrain": "flat",
-      "resistance": 28,
+      "resistance": 32,
       "rpm": [
        85,
        95
@@ -9213,10 +9213,10 @@ window.PROGRAMME = {
       "seconds": 120
      },
      {
-      "min": 3,
+      "min": 2,
       "position": "seated",
       "terrain": "flat",
-      "resistance": 38,
+      "resistance": 50,
       "rpm": [
        90,
        95
@@ -9224,34 +9224,34 @@ window.PROGRAMME = {
       "zone": 3,
       "say": "Your working pace. Steady and strong.",
       "start": 300.0,
-      "seconds": 180
+      "seconds": 120
      },
      {
       "min": 2,
       "position": "seated",
       "terrain": "climb",
-      "resistance": 50,
+      "resistance": 62,
       "rpm": [
        70,
        80
       ],
       "zone": 3,
-      "start": 480.0,
+      "start": 420.0,
       "seconds": 120
      },
      {
-      "min": 1,
+      "min": 2,
       "position": "seated",
       "terrain": "surge",
-      "resistance": 45,
+      "resistance": 56,
       "rpm": [
        100,
        110
       ],
       "zone": 4,
       "say": "Fast legs, stay in the saddle.",
-      "start": 600.0,
-      "seconds": 60
+      "start": 540.0,
+      "seconds": 120
      },
      {
       "min": 1,
@@ -9268,44 +9268,44 @@ window.PROGRAMME = {
       "seconds": 60
      },
      {
-      "min": 3,
+      "min": 2,
       "position": "seated",
       "terrain": "flat",
-      "resistance": 38,
+      "resistance": 50,
       "rpm": [
        90,
        95
       ],
       "zone": 3,
       "start": 720.0,
-      "seconds": 180
+      "seconds": 120
      },
      {
       "min": 2,
       "position": "seated",
       "terrain": "climb",
-      "resistance": 52,
+      "resistance": 64,
       "rpm": [
        70,
        80
       ],
       "zone": 3,
-      "start": 900.0,
+      "start": 840.0,
       "seconds": 120
      },
      {
-      "min": 1,
+      "min": 2,
       "position": "standing",
       "terrain": "surge",
-      "resistance": 60,
+      "resistance": 72,
       "rpm": [
        65,
        75
       ],
       "zone": 4,
       "say": "Push.",
-      "start": 1020.0,
-      "seconds": 60
+      "start": 960.0,
+      "seconds": 120
      },
      {
       "min": 1,
@@ -9322,44 +9322,44 @@ window.PROGRAMME = {
       "seconds": 60
      },
      {
-      "min": 3,
+      "min": 2,
       "position": "seated",
       "terrain": "flat",
-      "resistance": 40,
+      "resistance": 52,
       "rpm": [
        90,
        95
       ],
       "zone": 3,
       "start": 1140.0,
-      "seconds": 180
+      "seconds": 120
      },
      {
       "min": 2,
       "position": "seated",
       "terrain": "climb",
-      "resistance": 52,
+      "resistance": 64,
       "rpm": [
        70,
        80
       ],
       "zone": 3,
-      "start": 1320.0,
+      "start": 1260.0,
       "seconds": 120
      },
      {
-      "min": 1,
+      "min": 2,
       "position": "seated",
       "terrain": "surge",
-      "resistance": 48,
+      "resistance": 58,
       "rpm": [
        100,
        110
       ],
       "zone": 4,
       "say": "Fast legs, stay in the saddle.",
-      "start": 1440.0,
-      "seconds": 60
+      "start": 1380.0,
+      "seconds": 120
      },
      {
       "min": 1,
@@ -9376,44 +9376,44 @@ window.PROGRAMME = {
       "seconds": 60
      },
      {
-      "min": 3,
+      "min": 2,
       "position": "seated",
       "terrain": "flat",
-      "resistance": 40,
+      "resistance": 52,
       "rpm": [
        90,
        95
       ],
       "zone": 3,
       "start": 1560.0,
-      "seconds": 180
+      "seconds": 120
      },
      {
       "min": 2,
       "position": "seated",
       "terrain": "climb",
-      "resistance": 54,
+      "resistance": 66,
       "rpm": [
        70,
        80
       ],
       "zone": 3,
-      "start": 1740.0,
+      "start": 1680.0,
       "seconds": 120
      },
      {
-      "min": 1,
+      "min": 2,
       "position": "standing",
       "terrain": "surge",
-      "resistance": 62,
+      "resistance": 74,
       "rpm": [
        65,
        75
       ],
       "zone": 4,
       "say": "Push.",
-      "start": 1860.0,
-      "seconds": 60
+      "start": 1800.0,
+      "seconds": 120
      },
      {
       "min": 1,
@@ -9430,10 +9430,10 @@ window.PROGRAMME = {
       "seconds": 60
      },
      {
-      "min": 3,
+      "min": 2,
       "position": "seated",
       "terrain": "flat",
-      "resistance": 42,
+      "resistance": 54,
       "rpm": [
        90,
        95
@@ -9441,34 +9441,34 @@ window.PROGRAMME = {
       "zone": 3,
       "say": "Last block. Hold your pace.",
       "start": 1980.0,
-      "seconds": 180
+      "seconds": 120
      },
      {
       "min": 2,
       "position": "seated",
       "terrain": "climb",
-      "resistance": 54,
+      "resistance": 66,
       "rpm": [
        70,
        80
       ],
       "zone": 3,
-      "start": 2160.0,
+      "start": 2100.0,
       "seconds": 120
      },
      {
-      "min": 1,
+      "min": 2,
       "position": "standing",
       "terrain": "surge",
-      "resistance": 65,
+      "resistance": 76,
       "rpm": [
        65,
        75
       ],
       "zone": 4,
       "say": "Last one. Push.",
-      "start": 2280.0,
-      "seconds": 60
+      "start": 2220.0,
+      "seconds": 120
      },
      {
       "min": 1,
@@ -9501,7 +9501,7 @@ window.PROGRAMME = {
     ],
     "audio": {
      "file": "audio/spin-fatburner-45.mp3",
-     "v": "5e5d3b30",
+     "v": "8e41bfb5",
      "seconds": 2703.31
     }
    }
