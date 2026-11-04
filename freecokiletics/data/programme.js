@@ -9180,18 +9180,18 @@ window.PROGRAMME = {
    "blocks": [],
    "ride": {
     "zone": 3,
-    "advice": "The two-minute surges go up to zone 4. If your heart rate goes above the zone shown for a part, drop the resistance by five.",
-    "summary": "steady pace and climbs, with two-minute surges",
+    "advice": "The one-minute surges go up to zone 4. Keep the load light: if your legs feel heavy, drop the resistance and keep the cadence.",
+    "summary": "steady pace and climbs, with one-minute surges",
     "seconds": 2700.0,
     "segments": [
      {
       "min": 3,
       "position": "seated",
       "terrain": "warm-up",
-      "resistance": 20,
+      "resistance": 8,
       "rpm": [
-       80,
-       90
+       75,
+       85
       ],
       "zone": 1,
       "say": "Easy, loosen up.",
@@ -9202,7 +9202,7 @@ window.PROGRAMME = {
       "min": 2,
       "position": "seated",
       "terrain": "flat",
-      "resistance": 32,
+      "resistance": 12,
       "rpm": [
        85,
        95
@@ -9213,54 +9213,54 @@ window.PROGRAMME = {
       "seconds": 120
      },
      {
-      "min": 2,
+      "min": 3,
       "position": "seated",
       "terrain": "flat",
-      "resistance": 50,
+      "resistance": 15,
       "rpm": [
        90,
        95
       ],
       "zone": 3,
-      "say": "Your working pace. Steady and strong.",
+      "say": "Your working pace. Light legs, quick feet.",
       "start": 300.0,
-      "seconds": 120
+      "seconds": 180
      },
      {
       "min": 2,
       "position": "seated",
       "terrain": "climb",
-      "resistance": 62,
+      "resistance": 26,
       "rpm": [
        70,
        80
       ],
       "zone": 3,
-      "start": 420.0,
+      "start": 480.0,
       "seconds": 120
      },
      {
-      "min": 2,
+      "min": 1,
       "position": "seated",
       "terrain": "surge",
-      "resistance": 56,
+      "resistance": 20,
       "rpm": [
        100,
        110
       ],
       "zone": 4,
       "say": "Fast legs, stay in the saddle.",
-      "start": 540.0,
-      "seconds": 120
+      "start": 600.0,
+      "seconds": 60
      },
      {
       "min": 1,
       "position": "seated",
       "terrain": "recovery",
-      "resistance": 25,
+      "resistance": 8,
       "rpm": [
-       85,
-       90
+       80,
+       85
       ],
       "zone": 2,
       "say": "Breathe.",
@@ -9268,53 +9268,53 @@ window.PROGRAMME = {
       "seconds": 60
      },
      {
-      "min": 2,
+      "min": 3,
       "position": "seated",
       "terrain": "flat",
-      "resistance": 50,
+      "resistance": 15,
       "rpm": [
        90,
        95
       ],
       "zone": 3,
       "start": 720.0,
-      "seconds": 120
+      "seconds": 180
      },
      {
       "min": 2,
       "position": "seated",
       "terrain": "climb",
-      "resistance": 64,
+      "resistance": 28,
       "rpm": [
        70,
        80
       ],
       "zone": 3,
-      "start": 840.0,
+      "start": 900.0,
       "seconds": 120
      },
      {
-      "min": 2,
+      "min": 1,
       "position": "standing",
       "terrain": "surge",
-      "resistance": 72,
+      "resistance": 34,
       "rpm": [
        65,
        75
       ],
       "zone": 4,
       "say": "Push.",
-      "start": 960.0,
-      "seconds": 120
+      "start": 1020.0,
+      "seconds": 60
      },
      {
       "min": 1,
       "position": "seated",
       "terrain": "recovery",
-      "resistance": 25,
+      "resistance": 8,
       "rpm": [
-       85,
-       90
+       80,
+       85
       ],
       "zone": 2,
       "say": "Breathe.",
@@ -9322,53 +9322,53 @@ window.PROGRAMME = {
       "seconds": 60
      },
      {
-      "min": 2,
+      "min": 3,
       "position": "seated",
       "terrain": "flat",
-      "resistance": 52,
+      "resistance": 16,
       "rpm": [
        90,
        95
       ],
       "zone": 3,
       "start": 1140.0,
-      "seconds": 120
+      "seconds": 180
      },
      {
       "min": 2,
       "position": "seated",
       "terrain": "climb",
-      "resistance": 64,
+      "resistance": 28,
       "rpm": [
        70,
        80
       ],
       "zone": 3,
-      "start": 1260.0,
+      "start": 1320.0,
       "seconds": 120
      },
      {
-      "min": 2,
+      "min": 1,
       "position": "seated",
       "terrain": "surge",
-      "resistance": 58,
+      "resistance": 22,
       "rpm": [
        100,
        110
       ],
       "zone": 4,
       "say": "Fast legs, stay in the saddle.",
-      "start": 1380.0,
-      "seconds": 120
+      "start": 1440.0,
+      "seconds": 60
      },
      {
       "min": 1,
       "position": "seated",
       "terrain": "recovery",
-      "resistance": 25,
+      "resistance": 8,
       "rpm": [
-       85,
-       90
+       80,
+       85
       ],
       "zone": 2,
       "say": "Breathe.",
@@ -9376,53 +9376,53 @@ window.PROGRAMME = {
       "seconds": 60
      },
      {
-      "min": 2,
+      "min": 3,
       "position": "seated",
       "terrain": "flat",
-      "resistance": 52,
+      "resistance": 16,
       "rpm": [
        90,
        95
       ],
       "zone": 3,
       "start": 1560.0,
-      "seconds": 120
+      "seconds": 180
      },
      {
       "min": 2,
       "position": "seated",
       "terrain": "climb",
-      "resistance": 66,
+      "resistance": 30,
       "rpm": [
        70,
        80
       ],
       "zone": 3,
-      "start": 1680.0,
+      "start": 1740.0,
       "seconds": 120
      },
      {
-      "min": 2,
+      "min": 1,
       "position": "standing",
       "terrain": "surge",
-      "resistance": 74,
+      "resistance": 36,
       "rpm": [
        65,
        75
       ],
       "zone": 4,
       "say": "Push.",
-      "start": 1800.0,
-      "seconds": 120
+      "start": 1860.0,
+      "seconds": 60
      },
      {
       "min": 1,
       "position": "seated",
       "terrain": "recovery",
-      "resistance": 25,
+      "resistance": 8,
       "rpm": [
-       85,
-       90
+       80,
+       85
       ],
       "zone": 2,
       "say": "Breathe.",
@@ -9430,10 +9430,10 @@ window.PROGRAMME = {
       "seconds": 60
      },
      {
-      "min": 2,
+      "min": 3,
       "position": "seated",
       "terrain": "flat",
-      "resistance": 54,
+      "resistance": 18,
       "rpm": [
        90,
        95
@@ -9441,43 +9441,43 @@ window.PROGRAMME = {
       "zone": 3,
       "say": "Last block. Hold your pace.",
       "start": 1980.0,
-      "seconds": 120
+      "seconds": 180
      },
      {
       "min": 2,
       "position": "seated",
       "terrain": "climb",
-      "resistance": 66,
+      "resistance": 30,
       "rpm": [
        70,
        80
       ],
       "zone": 3,
-      "start": 2100.0,
+      "start": 2160.0,
       "seconds": 120
      },
      {
-      "min": 2,
+      "min": 1,
       "position": "standing",
       "terrain": "surge",
-      "resistance": 76,
+      "resistance": 38,
       "rpm": [
        65,
        75
       ],
       "zone": 4,
       "say": "Last one. Push.",
-      "start": 2220.0,
-      "seconds": 120
+      "start": 2280.0,
+      "seconds": 60
      },
      {
       "min": 1,
       "position": "seated",
       "terrain": "recovery",
-      "resistance": 25,
+      "resistance": 8,
       "rpm": [
-       85,
-       90
+       80,
+       85
       ],
       "zone": 2,
       "say": "Breathe.",
@@ -9488,7 +9488,7 @@ window.PROGRAMME = {
       "min": 5,
       "position": "seated",
       "terrain": "cool-down",
-      "resistance": 15,
+      "resistance": 5,
       "rpm": [
        75,
        85
@@ -9501,7 +9501,7 @@ window.PROGRAMME = {
     ],
     "audio": {
      "file": "audio/spin-fatburner-45.mp3",
-     "v": "8e41bfb5",
+     "v": "b69f2d4c",
      "seconds": 2703.31
     }
    }
